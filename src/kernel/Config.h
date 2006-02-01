@@ -52,6 +52,10 @@ public:
 	// parses the config file
 	bool readConfigFile(const char* nFileName);
 
+	/*
+	*	returns the current log_mode
+	*/
+	LOG_MODE getLogMode();
 protected:
 	/*
 	* sets one of the kernels parameter.

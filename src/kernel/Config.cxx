@@ -100,3 +100,9 @@ Config::setConfig(const char* key, const char* value)
 	}
 	return false;
 }
+
+Config::LOG_MODE 
+Config::getLogMode()
+{
+	return logMode;
+}
