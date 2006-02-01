@@ -22,81 +22,37 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the StbKernel class.
+/** The header file for the Component_Thread_Base class.
 *
 * @author Denis Kalkofen
 *
-* $Id: Kernel.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: Component_Thread_Base.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "Kernel.h"
-#include <stdarg.h>
-#include <stdio.h>
+#ifndef _COMPONENTTHREADBASE_H_
+#define _COMPONENTTHREADBASE_H_
 
-#include "Config.h"
-using namespace STB;
+#include "Component_Base.h"
 
-Kernel*	Kernel::instance=NULL;
+namespace STB{
 
-Kernel::Kernel()
+class Component_Thread_Base : Component_Base
 {
-	config=new STB::Config();
-}
+public:
+	/**
+	*	The destructor.
+	*/
+	Component_Thread_Base();
 
-Kernel::~Kernel()
-{
-}
+	~Component_Thread_Base();
 
-//static
-Kernel* 
-Kernel::getInstance()
-{
-	if(instance == NULL)
-		instance = new Kernel();
+protected:
+};// class 
 
-    return instance;
-}
+} //namespace
 
+// C-style interface for initial instance creation
+//
 
-//static
-void 
-Kernel::start(int argc,char* argv[])
-{
-	config->readConfigFile("kernel.xml");
-}
-
-//static
-void 
-Kernel::stop()
-{
-}
-
-void
-Kernel::log(const char* nStr)
-{
-	printf("%s",nStr);
-}
-
-void 
-Kernel::logEx(const char* nStr ...)
-{
-	char tmpString[512];
-	va_list vaList;
-	va_start(vaList, nStr);
-	vsprintf(tmpString, nStr,vaList);
-	log(tmpString);
-}
-
-void 
-Kernel::logDebug(const char* nStr ...)
-{
-#ifdef _DEBUG
-	char tmpString[512];
-	va_list vaList;
-	va_start(vaList, nStr);
-	vsprintf(tmpString, nStr,vaList);
-	log(tmpString);
-#endif
-}
-
+#endif//_STBKERNEL_H_

@@ -34,20 +34,17 @@
 #ifndef __CONFIG_H_
 #define __CONFIG_H_
 
-namespace STB{
+class TiXmlElement;
 
+#include "parameter/Logging.h"
+
+namespace STB{
+//=====================================
 class Config{
 public:
 	Config();
 
 	~Config();
-
-	enum LOG_MODE {
-		OFF,
-		FILE,
-		CONSOLE,
-		CONSOLE_AND_FILE
-	};
 
 	// parses the config file
 	bool readConfigFile(const char* nFileName);
@@ -55,16 +52,12 @@ public:
 	/*
 	*	returns the current log_mode
 	*/
-	LOG_MODE getLogMode();
-protected:
-	/*
-	* sets one of the kernels parameter.
-	* returns true if key exists. 
-	*/
-	bool setConfig(const char* key, const char* value);
+	Logging* getLogging(){ return log; }
 
+protected:
+	bool parseParameter(TiXmlElement* element);
 	//parameter 
-	LOG_MODE logMode;
+	Logging* log;
 };
 
 }//namespace

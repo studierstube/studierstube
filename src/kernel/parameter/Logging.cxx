@@ -29,68 +29,45 @@
 /* ======================================================================= */
 
 
-#include "Config.h"
+#include "Logging.h"
 #include <tinyxml.h>
-#include "Kernel.h"
-
+#include "kernel/Kernel.h"
 using namespace STB;
 
-//================Config===========
-Config::Config()
+
+Logging::Logging()
 {
-	log=new Logging();
+	mode=OFF;
+	strcpy(filename,"");
+}
+Logging::~Logging()
+{
+	//nil
 }
 
-Config::~Config()
+void
+Logging::parseAttributes(TiXmlElement* element)
 {
-//nil
-}
-
-/// parse the xml file
-bool
-Config::readConfigFile(const char* filename)
-{   
-	Kernel::getInstance()->logDebug("using configuration in %s\n",filename);
-	TiXmlDocument* document = new TiXmlDocument();
-	
-	if(!document->LoadFile(filename))
+	TiXmlAttribute* attribute = element->FirstAttribute();
+	while(attribute)
 	{
-		Kernel::getInstance()->logEx("An error occured during parsing %s\n", filename);
-		Kernel::getInstance()->logEx(" Message: %s\n", document->ErrorDesc());
-		return false;
-	}
-
-	TiXmlElement* root = document->RootElement();
-	if(!stricmp(root->Value(),"studierstube"))
-	{
-		////parse studierstube parameter
-		TiXmlElement* element = root->FirstChildElement();
-		while(element)
+		///////////////// Logging.mode /////////////////
+		if(!stricmp(attribute->Name(),"mode"))
 		{
-			parseParameter(element);
-			element = element->NextSiblingElement();
+			if(!stricmp(attribute->Value(),"file"))
+				mode=FILE;		
+			else if(!stricmp(attribute->Value(),"console"))
+				mode = CONSOLE;
+			else if(!stricmp(attribute->Value(),"off"))
+				mode=OFF;
 		}
+		///////////////// Logging.filename /////////////////
+		else if(!stricmp(attribute->Name(),"filename"))
+			strcpy(filename,attribute->Value());
+		///////////////// Logging. /////////////////
+		//else if(!stricmp(attribute->Name(),"----"))
+		//{		
+		//}
+		attribute = attribute->Next();
 	}
-
-	/////////	parsing is done -> clean up 
-	document->Clear();
-	delete document;
-	return true;
 }
-
-bool
-Config::parseParameter(TiXmlElement* element)
-{
-	/////////////////// Logging /////////////////
-	if(!stricmp(element->Value(),"logging"))
-	{
-		log->parseAttributes(element);
-	}
-	///////////////// ________ /////////////////
-	//else if(!stricmp(element->Value(),"________"))
-	//{
-	//}
-
-	return true;
-}
-

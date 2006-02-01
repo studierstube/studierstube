@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoVideoBackgroundOV class.
+/** The header file for the Kernel class.
 *
 * @author Denis Kalkofen
 *
@@ -66,12 +66,17 @@ public:
 	*/
 	void stop();
 
+	/*
+	*	                                                                   
+	*/
 	void logEx(const char* nStr ...);
-
 	void logDebug(const char* nStr ...);
-
 	void log(const char* nStr);
 
+	/*
+	*	                                                                   
+	*/
+	
 protected:	
 	///////////////////// 
 	/**
@@ -84,13 +89,15 @@ protected:
 	*/
 	static Kernel *instance;
 
+	/*
+	*		                                                                   
+	*/
 	STB::Config* config;
 	
-};// class Kernel
+};// class 
 
-} //namespace SAM
+} //namespace
 
-// C-style interface for initial instance creation
-//
+
 
 #endif//_STBKERNEL_H_
