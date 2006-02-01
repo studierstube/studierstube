@@ -22,59 +22,58 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The source file for the studierstube bootloader.
+/** The impl. file for the KernelLoader_Win32 class.
 *
 * @author Denis Kalkofen
 *
-* $Id: main.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: KernelLoader_Win32.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+#include "KernelLoader_Win32.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <stdio.h>
+#include <string.h>
+using namespace STB;
 
- #include "KernelLoader.h"
-
-int 
-main(int argc,char* argv[])
+KernelLoader_Win32::KernelLoader_Win32()
 {
-	const char execFunc[]="executeStudierstube";
-	const char libName[]="stbkernel";
-	STB::KernelLoader loader;
-	loader.setExecFuncName(execFunc);
-	loader.setLibName(libName);
-	loader.runKernel(argc,argv);
-
-	return 1;
+	strcpy(execFuncName,"");
+	strcpy(libName,"");
 }
 
-//#else //LINUX
-// #include <ltdl.h>
-// #define KERNEL_DLL  "libstbkernel"
-// #define ERR_MSG "STB_ERROR: couldn't load libstbkernel\n"
-//#endif
-//	///// load library 
-//#else //LINUX
-//	// initialise libltdl
-//	if (lt_dlinit())
-//	{
-//		printf("STB_ERROR: Initialisation of ltdl failed!\n");
-//	}
-//	lt_dlhandle libHandle;
-//	libHandle = lt_dlopenext(KERNEL_DLL);
-//#endif
-//
-//	if(libHandle==NULL){
-//		printf(ERR_MSG);
-//		return 0;
-//	}
-//
-//	//get function pointer to startKernel
-//#ifdef WIN32
+KernelLoader_Win32::~KernelLoader_Win32()
+{
+}
+void 
+KernelLoader_Win32::setLibName(const char* aLibName)
+{
+	strcpy(libName,aLibName);
+#ifdef _DEBUG
+	strcat(libName,"d");
+#endif //_DEBUG
+	strcat(libName,".dll");
+}
 
-//#else  //LINUX
-//	startKernel=(void(*)(int, char**))lt_dlsym(libHandle, EXECFUNC);
-//
-//#endif
-//	if(startKernel==NULL){
-//		printf("STB_ERROR: can't find executeSAM(...) in %s \n",KERNEL_DLL);
-//		return 0;
-//	}
-//
+void 
+KernelLoader_Win32::setExecFuncName(const char* aFuncName)
+{
+	strcpy(execFuncName,aFuncName);
+}
+
+void 
+KernelLoader_Win32::runKernel(int argc, char* argv[])
+{
+	HINSTANCE libHandle;
+	libHandle = LoadLibrary(libName);
+	if(libHandle==NULL){
+		printf("ERROR: couldn't load %s\n",libName);
+		return ;
+	}
+	void (*startKernel)(int,char**);
+	startKernel=(void(*)(int, char**))GetProcAddress(libHandle,execFuncName);
+	//call startkernel
+	(*startKernel)(argc,argv);
+	//clean up 
+	FreeLibrary(libHandle);
+}

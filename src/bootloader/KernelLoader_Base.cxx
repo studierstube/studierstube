@@ -22,59 +22,21 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The source file for the studierstube bootloader.
+/* The impl. file for the KernelLoader_Base class.
 *
 * @author Denis Kalkofen
 *
-* $Id: main.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: KernelLoader_Base.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+#include "KernelLoader_Base.h"
 
- #include "KernelLoader.h"
+using namespace STB;
 
-int 
-main(int argc,char* argv[])
+KernelLoader_Base::KernelLoader_Base()
 {
-	const char execFunc[]="executeStudierstube";
-	const char libName[]="stbkernel";
-	STB::KernelLoader loader;
-	loader.setExecFuncName(execFunc);
-	loader.setLibName(libName);
-	loader.runKernel(argc,argv);
-
-	return 1;
 }
 
-//#else //LINUX
-// #include <ltdl.h>
-// #define KERNEL_DLL  "libstbkernel"
-// #define ERR_MSG "STB_ERROR: couldn't load libstbkernel\n"
-//#endif
-//	///// load library 
-//#else //LINUX
-//	// initialise libltdl
-//	if (lt_dlinit())
-//	{
-//		printf("STB_ERROR: Initialisation of ltdl failed!\n");
-//	}
-//	lt_dlhandle libHandle;
-//	libHandle = lt_dlopenext(KERNEL_DLL);
-//#endif
-//
-//	if(libHandle==NULL){
-//		printf(ERR_MSG);
-//		return 0;
-//	}
-//
-//	//get function pointer to startKernel
-//#ifdef WIN32
-
-//#else  //LINUX
-//	startKernel=(void(*)(int, char**))lt_dlsym(libHandle, EXECFUNC);
-//
-//#endif
-//	if(startKernel==NULL){
-//		printf("STB_ERROR: can't find executeSAM(...) in %s \n",KERNEL_DLL);
-//		return 0;
-//	}
-//
+KernelLoader_Base::~KernelLoader_Base()
+{
+}

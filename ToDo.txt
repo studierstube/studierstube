@@ -1,0 +1,4 @@
+- add commandline option to change kernel.xml
+- add logging to file or console 
+- use log_mode value 
+	

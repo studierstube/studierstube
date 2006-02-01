@@ -22,59 +22,56 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The source file for the studierstube bootloader.
+/** The header file for the KernelLoader_Win32 class.
 *
 * @author Denis Kalkofen
 *
-* $Id: main.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: KernelLoader_Win32.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
- #include "KernelLoader.h"
+#ifndef _KERNELLOADER_WIN32_H_
+#define _KERNELLOADER_WIN32_H_
 
-int 
-main(int argc,char* argv[])
+#include "KernelLoader_Base.h"
+
+namespace STB{	
+/**
+*	The KernelLoader Interface
+*/
+	class KernelLoader_Win32 : public STB::KernelLoader_Base
 {
-	const char execFunc[]="executeStudierstube";
-	const char libName[]="stbkernel";
-	STB::KernelLoader loader;
-	loader.setExecFuncName(execFunc);
-	loader.setLibName(libName);
-	loader.runKernel(argc,argv);
+public:
+	/**
+	*	The destructor.
+	*/
+	~KernelLoader_Win32();
 
-	return 1;
-}
+	/**
+	*	Constructor()
+	*/
+	KernelLoader_Win32();
 
-//#else //LINUX
-// #include <ltdl.h>
-// #define KERNEL_DLL  "libstbkernel"
-// #define ERR_MSG "STB_ERROR: couldn't load libstbkernel\n"
-//#endif
-//	///// load library 
-//#else //LINUX
-//	// initialise libltdl
-//	if (lt_dlinit())
-//	{
-//		printf("STB_ERROR: Initialisation of ltdl failed!\n");
-//	}
-//	lt_dlhandle libHandle;
-//	libHandle = lt_dlopenext(KERNEL_DLL);
-//#endif
-//
-//	if(libHandle==NULL){
-//		printf(ERR_MSG);
-//		return 0;
-//	}
-//
-//	//get function pointer to startKernel
-//#ifdef WIN32
+	/**
+	*	set the name of the library which is going to be loaded.
+	*/
+	virtual void setLibName(const char* aLibName);
 
-//#else  //LINUX
-//	startKernel=(void(*)(int, char**))lt_dlsym(libHandle, EXECFUNC);
-//
-//#endif
-//	if(startKernel==NULL){
-//		printf("STB_ERROR: can't find executeSAM(...) in %s \n",KERNEL_DLL);
-//		return 0;
-//	}
-//
+	/**
+	*	set the name of the function which is going to be called.
+	*/
+	virtual void setExecFuncName(const char* aFuncName);
+
+
+	/**
+	*	loads the lib and calls the function defined by 'execFuncName'.
+	*/
+	virtual void runKernel(int argc, char* argv[]);
+
+protected:	
+
+};//class
+
+} //namespace STB
+
+#endif//_KERNELLOADER_H_

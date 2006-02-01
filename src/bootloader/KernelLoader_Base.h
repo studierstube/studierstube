@@ -22,59 +22,45 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The source file for the studierstube bootloader.
+/** The header file for the KernelLoader_Base class.
 *
 * @author Denis Kalkofen
 *
-* $Id: main.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: KernelLoader_Base.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+#ifndef _KERNELLOADERBASE_H_
+#define _KERNELLOADERBASE_H_
 
- #include "KernelLoader.h"
-
-int 
-main(int argc,char* argv[])
+namespace STB{
+/**
+*	The KernelLoader Interface
+*/
+class KernelLoader_Base
 {
-	const char execFunc[]="executeStudierstube";
-	const char libName[]="stbkernel";
-	STB::KernelLoader loader;
-	loader.setExecFuncName(execFunc);
-	loader.setLibName(libName);
-	loader.runKernel(argc,argv);
+public:
+	/**
+	*	The destructor.
+	*/
+	~KernelLoader_Base();
 
-	return 1;
-}
+	virtual void setLibName(const char* aLibName)=0;
 
-//#else //LINUX
-// #include <ltdl.h>
-// #define KERNEL_DLL  "libstbkernel"
-// #define ERR_MSG "STB_ERROR: couldn't load libstbkernel\n"
-//#endif
-//	///// load library 
-//#else //LINUX
-//	// initialise libltdl
-//	if (lt_dlinit())
-//	{
-//		printf("STB_ERROR: Initialisation of ltdl failed!\n");
-//	}
-//	lt_dlhandle libHandle;
-//	libHandle = lt_dlopenext(KERNEL_DLL);
-//#endif
-//
-//	if(libHandle==NULL){
-//		printf(ERR_MSG);
-//		return 0;
-//	}
-//
-//	//get function pointer to startKernel
-//#ifdef WIN32
+	virtual void setExecFuncName(const char* aFuncName)=0;
 
-//#else  //LINUX
-//	startKernel=(void(*)(int, char**))lt_dlsym(libHandle, EXECFUNC);
-//
-//#endif
-//	if(startKernel==NULL){
-//		printf("STB_ERROR: can't find executeSAM(...) in %s \n",KERNEL_DLL);
-//		return 0;
-//	}
-//
+	virtual void runKernel(int argc, char* argv[])=0;
+
+protected:	
+	/**
+	*	Constructor()
+	*/
+	KernelLoader_Base();
+
+	char libName[1024];
+
+	char execFuncName[1024];
+};// class
+
+} //namespace STB
+
+#endif//_KERNELLOADERBASE_H_
