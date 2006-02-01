@@ -1,5 +1,0 @@
-aclocal
-libtoolize
-autoconf
-automake -a
-
