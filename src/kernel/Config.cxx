@@ -33,7 +33,7 @@
 #include <tinyxml.h>
 #include "Kernel.h"
 
-using namespace STB;
+using namespace stb;
 
 //================Config===========
 Config::Config()

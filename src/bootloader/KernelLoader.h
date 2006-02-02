@@ -35,8 +35,8 @@
 
 #ifdef WIN32
  #include "KernelLoader_Win32.h"
- namespace STB{
-	 typedef STB::KernelLoader_Win32 KernelLoader;
+ namespace stb{
+	 typedef stb::KernelLoader_Win32 KernelLoader;
  }
 #endif
 

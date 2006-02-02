@@ -38,7 +38,7 @@ class TiXmlElement;
 
 #include "parameter/Logging.h"
 
-namespace STB{
+namespace stb{
 //=====================================
 class Config{
 public:

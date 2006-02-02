@@ -34,7 +34,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <string.h>
-using namespace STB;
+using namespace stb;
 
 KernelLoader_Win32::KernelLoader_Win32()
 {

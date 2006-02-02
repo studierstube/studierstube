@@ -35,7 +35,7 @@
 #include <stdio.h>
 
 #include "Config.h"
-using namespace STB;
+using namespace stb;
 
 Kernel*	Kernel::instance=NULL;
 

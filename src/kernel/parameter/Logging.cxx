@@ -32,7 +32,7 @@
 #include "Logging.h"
 #include <tinyxml.h>
 #include "kernel/Kernel.h"
-using namespace STB;
+using namespace stb;
 
 
 Logging::Logging()

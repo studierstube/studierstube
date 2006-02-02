@@ -32,7 +32,7 @@
 #ifndef _KERNELLOADERBASE_H_
 #define _KERNELLOADERBASE_H_
 
-namespace STB{
+namespace stb{
 /**
 *	The KernelLoader Interface
 */

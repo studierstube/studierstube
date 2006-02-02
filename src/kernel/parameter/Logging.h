@@ -36,7 +36,7 @@
 
 class TiXmlElement;
 
-namespace STB{
+namespace stb{
 
 class Logging{
 public:

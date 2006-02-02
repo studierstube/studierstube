@@ -37,7 +37,7 @@
 
 ///////////////////////////////////////////////////
 
-namespace STB{
+namespace stb{
 	class Config;
 /**
 *	The StbKernel.
@@ -92,7 +92,7 @@ protected:
 	/*
 	*		                                                                   
 	*/
-	STB::Config* config;
+	stb::Config* config;
 	
 };// class 
 

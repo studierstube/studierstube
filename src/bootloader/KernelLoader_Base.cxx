@@ -31,7 +31,7 @@
 /* ======================================================================= */
 #include "KernelLoader_Base.h"
 
-using namespace STB;
+using namespace stb;
 
 KernelLoader_Base::KernelLoader_Base()
 {

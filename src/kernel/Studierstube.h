@@ -43,7 +43,7 @@
  #define STBKERNEL_API
 #endif
 
-namespace STB{
+namespace stb{
 	class Kernel;
 }
 // C-style interface for initial instance creation

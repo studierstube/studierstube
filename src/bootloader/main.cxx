@@ -37,7 +37,7 @@ main(int argc,char* argv[])
 {
 	const char execFunc[]="executeStudierstube";
 	const char libName[]="stbkernel";
-	STB::KernelLoader loader;
+	stb::KernelLoader loader;
 	loader.setExecFuncName(execFunc);
 	loader.setLibName(libName);
 	loader.runKernel(argc,argv);

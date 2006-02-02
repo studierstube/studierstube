@@ -35,11 +35,11 @@
 
 #include "KernelLoader_Base.h"
 
-namespace STB{	
+namespace stb{	
 /**
 *	The KernelLoader Interface
 */
-	class KernelLoader_Win32 : public STB::KernelLoader_Base
+	class KernelLoader_Win32 : public stb::KernelLoader_Base
 {
 public:
 	/**
