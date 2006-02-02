@@ -101,6 +101,14 @@ protected:
 	*/
 	ComponentManager* scm;
 	
+	enum LOG_MODE {
+		OFF=0,
+		FILE=1,
+		CONSOLE=2
+	};	
+
+	LOG_MODE logMode;
+	char logFile[1024];
 };// class 
 
 } //namespace

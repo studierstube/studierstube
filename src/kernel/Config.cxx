@@ -32,14 +32,12 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-#include "parameter/LoggingCP.h"
 #include "ComponentInfo.h"
 using namespace stb;
 
 //================Config===========
 Config::Config()
 {
-	log=new LoggingCP();
 }
 
 Config::~Config()
@@ -85,7 +83,7 @@ Config::parseXMLElement(TiXmlElement* element)
 	////////Element -> Logging /////////////////
 	if(!stricmp(element->Value(),"Kernel"))
 	{
-		parseXMLAttributes(element);
+		Kernel::getInstance()->parseXMLAttributes(element);
 	}
 	/////////////// ________ /////////////////
 	else if(!stricmp(element->Value(),"Component"))

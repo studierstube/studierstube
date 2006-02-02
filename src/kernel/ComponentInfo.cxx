@@ -46,7 +46,7 @@ ComponentInfo::~ComponentInfo()
 }
 
 bool 
-ComponentInfo::parseXMLElement(TiXmlElement* element)
+ComponentInfo::parseXMLAttributes(TiXmlElement* element)
 {
 
 	return false;

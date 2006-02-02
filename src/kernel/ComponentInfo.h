@@ -52,7 +52,7 @@ public:
 	*/
 	~ComponentInfo();
 
-	bool parseXMLElement(TiXmlElement* element);
+	bool parseXMLAttributes(TiXmlElement* element);
 
 protected:	
 

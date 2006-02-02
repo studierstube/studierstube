@@ -44,6 +44,8 @@ Kernel*	Kernel::instance=NULL;
 
 Kernel::Kernel()
 {
+	logMode=OFF;
+	strcpy(logFile,"");
 	config=new stb::Config();
 	scm=new ComponentManager();
 }
@@ -123,7 +125,7 @@ Kernel::parseXMLAttributes(TiXmlElement* element)
 		}
 		///////////////// Logging.filename /////////////////
 		else if(!stricmp(attribute->Name(),"logFile"))
-			strcpy(filename,attribute->Value());
+			strcpy(logFile,attribute->Value());
 		///////////////// Logging. /////////////////
 		//else if(!stricmp(attribute->Name(),"----"))
 		//{		
