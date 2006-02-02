@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the ComponentManager class.
+/** The cxx file for the ComponentManager class.
 *
 * @author Denis Kalkofen
 *
@@ -31,6 +31,7 @@
 /* ======================================================================= */
 
 #include "ComponentManager.h"
+#include "ComponentInfo.h"
 
 using namespace stb;
 
@@ -42,4 +43,18 @@ ComponentManager::ComponentManager()
 ComponentManager::~ComponentManager()
 {
    //nil
+}
+
+void 
+ComponentManager::addComponent(ComponentInfo* compInfo)
+{
+	//1. get component 
+	//2. init component
+	//3. add component
+}
+
+void 
+ComponentManager::update()
+{
+	
 }

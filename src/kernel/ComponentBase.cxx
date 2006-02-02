@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the ComponentBase class.
+/** The cxx file for the ComponentBase class.
 *
 * @author Denis Kalkofen
 *

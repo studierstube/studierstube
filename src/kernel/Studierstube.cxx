@@ -22,11 +22,11 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the StbKernel class.
+/** The cxx file for the Studierstueb
 *
 * @author Denis Kalkofen
 *
-* $Id: Kernel.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: Studierstube.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 

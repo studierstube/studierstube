@@ -22,45 +22,37 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentManager class.  
+/** The header file for the UpdateManager class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTMANAGER_H_
-#define _COMPONENTMANAGER_H_
+#ifndef _UPDATEMANAGER_H_
+#define _UPDATEMANAGER_H_
 
-#include <vector>
 
 namespace stb{
-	class ComponentInfo;
-	class Component;
+
 /**
 *	
 */
-class ComponentManager
+class UpdateManager
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentManager();
+	UpdateManager();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentManager();
+	~UpdateManager();
 
-	void addComponent(ComponentInfo* compInfo);
-
-	/// Checks if new apps should be downloaded and started or running apps should be stopped and destroyed.
-	void update();
-
-protected:
-	std::vector<stb::Component*> componentList;
+protected:	
 
 private:
 	
@@ -70,4 +62,4 @@ private:
 
 
 
-#endif//_COMPONENTMANAGER_H_
+#endif//_UPDATEMANAGER_H_

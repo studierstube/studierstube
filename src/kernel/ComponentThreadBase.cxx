@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the ComponentThreadBase class.
+/** The cxx file for the ComponentThreadBase class.
 *
 * @author Denis Kalkofen
 *

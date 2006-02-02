@@ -20,9 +20,9 @@
  * Graz University of Technology, Institut für Maschinelles Sehen und Darstellen,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
- * PROJECT: Studierstube Application Manager (StbAM, SAM)
+ * PROJECT: 
  * ======================================================================== */
-/** @author   Daniel Wagner
+/** @author   Denis Kalkofen
  *
  * $Id: Config.cpp 131 2005-11-03 20:53:09Z daniel $
  * @file                                                                   */
@@ -90,6 +90,7 @@ Config::parseXMLElement(TiXmlElement* element)
 	{
 		ComponentInfo compInfo;
 		compInfo.parseXMLAttributes(element);
+		Kernel::getInstance()->addComponent(&compInfo);
 	}
 	///////////////// ________ /////////////////
 	//else if(!stricmp(element->Value(),"________"))

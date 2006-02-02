@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the StbKernel class.
+/** The cxx file for the StbKernel class.
 *
 * @author Denis Kalkofen
 *
@@ -37,6 +37,7 @@
 
 #include "Config.h"
 #include "ComponentManager.h"
+#include "ComponentInfo.h"
 
 using namespace stb;
 
@@ -45,13 +46,20 @@ Kernel*	Kernel::instance=NULL;
 Kernel::Kernel()
 {
 	logMode=OFF;
-	strcpy(logFile,"");
+	//
+	logFile=new char(14);
+	strcpy(logFile,"kernelLog.txt");
+	//
 	config=new stb::Config();
-	scm=new ComponentManager();
+	//
+	compManager=new ComponentManager();
 }
 
 Kernel::~Kernel()
 {
+	delete logFile;
+	delete config;
+	delete compManager;
 }
 
 //static
@@ -124,12 +132,22 @@ Kernel::parseXMLAttributes(TiXmlElement* element)
 				logMode=OFF;
 		}
 		///////////////// Logging.filename /////////////////
-		else if(!stricmp(attribute->Name(),"logFile"))
-			strcpy(logFile,attribute->Value());
+		else if(!stricmp(attribute->Name(),"logFile")){
+			if(logFile)
+				delete logFile;
+			const char *tempName=attribute->Value();
+			logFile=new char((int)strlen(tempName)+1);
+			strcpy(logFile,tempName);
+		}
 		///////////////// Logging. /////////////////
 		//else if(!stricmp(attribute->Name(),"----"))
 		//{		
 		//}
 		attribute = attribute->Next();
 	}
+}
+void
+Kernel::addComponent(ComponentInfo* compInfo)
+{
+	compManager->addComponent(compInfo);
 }

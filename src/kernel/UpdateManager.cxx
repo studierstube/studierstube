@@ -22,72 +22,22 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The cxx file for the ComponentInfo class.
+/* @author Denis Kalkofen
 *
-* @author Denis Kalkofen
-*
-* $Id: ComponentInfo.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: UpdateManager.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentInfo.h"
-#include "Kernel.h"
-#include <tinyxml.h>
+#include "UpdateManager.h"
 
 using namespace stb;
 
-ComponentInfo::ComponentInfo()
-{
-   //nil
-	compName=NULL;
-	path=NULL;
-}
-
-ComponentInfo::~ComponentInfo()
+UpdateManager::UpdateManager()
 {
    //nil
 }
 
-bool 
-ComponentInfo::parseXMLAttributes(TiXmlElement* element)
+UpdateManager::~UpdateManager()
 {
-	TiXmlAttribute* attribute = element->FirstAttribute();
-	bool retValue=true;
-	while(attribute)
-	{
-		///////////////// Logging.mode /////////////////
-		if(!stricmp(attribute->Name(),"name"))
-		{
-			if(compName)
-				delete compName;
-			const char *tempName=attribute->Value();
-			compName=new char((int)strlen(tempName)+1);
-			strcpy(compName,tempName);
-		}
-		/////////////// Logging. /////////////////
-		else if(!stricmp(attribute->Name(),"path"))
-		{	
-			if(path)
-				delete path;
-			const char *tempName=attribute->Value();
-			path=new char((int)strlen(tempName)+1);
-			strcpy(path,tempName);
-		}
-		///////////////// Logging. /////////////////
-		//else if(!stricmp(attribute->Name(),"----"))
-		//{		
-		//}
-		attribute = attribute->Next();
-	}
-
-	if(!compName){
-		Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
-		retValue=false;
-	}
-	if(!path){
-		retValue=false;
-		Kernel::getInstance()->log("ERROR: missing attribute 'path' for Component\n");
-	}
-
-	return retValue;
+   //nil
 }

@@ -40,6 +40,7 @@ class TiXmlElement;
 namespace stb{
 	class Config;
 	class ComponentManager;
+	class ComponentInfo;
 /**
 *	The StbKernel.
 */
@@ -79,6 +80,8 @@ public:
 	*/
 	void parseXMLAttributes(TiXmlElement* element);
 
+	void addComponent(ComponentInfo* compInfo);
+
 protected:	
 	///////////////////// 
 	/**
@@ -99,7 +102,7 @@ protected:
 	/*
 	*		                                                                   
 	*/
-	ComponentManager* scm;
+	ComponentManager* compManager;
 	
 	enum LOG_MODE {
 		OFF=0,
@@ -108,7 +111,8 @@ protected:
 	};	
 
 	LOG_MODE logMode;
-	char logFile[1024];
+
+	char *logFile;
 };// class 
 
 } //namespace
