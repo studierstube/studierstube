@@ -41,7 +41,7 @@ Kernel*	Kernel::instance=NULL;
 
 Kernel::Kernel()
 {
-	config=new STB::Config();
+	config=new stb::Config();
 }
 
 Kernel::~Kernel()

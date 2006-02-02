@@ -36,6 +36,6 @@
 void
 executeStudierstube(int argc, char** argv)
 {
-	stb::Kernel* samKernel = STB::Kernel::getInstance();
+	stb::Kernel* samKernel = stb::Kernel::getInstance();
 	samKernel->start(argc,argv);
 }
