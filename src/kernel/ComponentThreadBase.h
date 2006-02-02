@@ -47,7 +47,7 @@ public:
 	ComponentThreadBase();
 
 	/**
-	*     The destructor.
+	*     The Destructor.
 	*/
 	~ComponentThreadBase();
 

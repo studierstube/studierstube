@@ -22,46 +22,42 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentBase class.  
+/** The header file for the ComponentRetriever class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentRetriever.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTBASE_H_
-#define _COMPONENTBASE_H_
+#ifndef _COMPONENTRETRIEVER_H_
+#define _COMPONENTRETRIEVER_H_
 
-
+#include "Component.h"
 namespace stb{
 	class ComponentInfo;
-	class Kernel;
 /**
 *	
 */
-class ComponentBase
+class ComponentRetriever
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentBase();
+	ComponentRetriever();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentBase();
+	~ComponentRetriever();
 
-	/// Called before the application is destructed.
-	virtual bool init() = 0;
-
-	/// Called before the application is destructed.
-	virtual void shutDown() = 0;
+	/**
+	*     The destructor.
+	*/
+	stb::Component* getComponent(ComponentInfo *compInfo);
 
 protected:	
-	stb::ComponentInfo	*compInfo_;
-	stb::Kernel			*kernel_;
 
 private:
 	
@@ -71,4 +67,4 @@ private:
 
 
 
-#endif//_COMPONENTBASE_H_
+#endif//_COMPONENTRETRIEVER_H_

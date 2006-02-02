@@ -34,9 +34,9 @@
 #define _COMPONENT_H_
 
 #ifdef WIN32
-	#include "Component_Base.h"
 	namespace stb{
-		typedef stb::Component_Base Component;
+		class ComponentBase;
+		typedef stb::ComponentBase Component;
 	}
 #endif
 

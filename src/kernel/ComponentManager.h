@@ -34,10 +34,11 @@
 #define _COMPONENTMANAGER_H_
 
 #include <vector>
+#include "Component.h"
 
 namespace stb{
 	class ComponentInfo;
-	class Component;
+	class ComponentRetriever;
 /**
 *	
 */
@@ -61,7 +62,7 @@ public:
 
 protected:
 	std::vector<stb::Component*> componentList;
-
+	stb::ComponentRetriever *compRetriever;
 private:
 	
 };// class 

@@ -31,12 +31,15 @@
 /* ======================================================================= */
 
 #include "ComponentBase.h"
+#include "ComponentInfo.h"
+#include "Kernel.h"
 
 using namespace stb;
 
-ComponentBase::ComponentBase()
+ComponentBase::ComponentBase():
+kernel_(stb::Kernel::getInstance()),
+compInfo_(NULL)
 {
-   //nil
 }
 
 ComponentBase::~ComponentBase()

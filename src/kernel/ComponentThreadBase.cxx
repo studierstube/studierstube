@@ -36,7 +36,7 @@ using namespace stb;
 
 ComponentThreadBase::ComponentThreadBase()
 {
-   //nil
+	
 }
 
 ComponentThreadBase::~ComponentThreadBase()
