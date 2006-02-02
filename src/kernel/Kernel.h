@@ -35,10 +35,11 @@
 
 #include <vector>
 
+class TiXmlElement;
 ///////////////////////////////////////////////////
-
 namespace stb{
 	class Config;
+	class ComponentManager;
 /**
 *	The StbKernel.
 */
@@ -76,7 +77,8 @@ public:
 	/*
 	*	                                                                   
 	*/
-	
+	void parseXMLAttributes(TiXmlElement* element);
+
 protected:	
 	///////////////////// 
 	/**
@@ -93,6 +95,11 @@ protected:
 	*		                                                                   
 	*/
 	stb::Config* config;
+	
+	/*
+	*		                                                                   
+	*/
+	ComponentManager* scm;
 	
 };// class 
 

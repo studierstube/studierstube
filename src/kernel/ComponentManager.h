@@ -22,34 +22,34 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentThreadBase class.  
+/** The header file for the ComponentManager class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentThreadBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentManager.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTTHREADBASE_H_
-#define _COMPONENTTHREADBASE_H_
+#ifndef _COMPONENTMANAGER_H_
+#define _COMPONENTMANAGER_H_
 
-#include "ComponentBase.h"
+
 namespace stb{
 /**
 *	
 */
-class ComponentThreadBase : public ComponentBase
+class ComponentManager
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentThreadBase();
+	ComponentManager();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentThreadBase();
+	~ComponentManager();
 
 protected:	
 
@@ -61,4 +61,4 @@ private:
 
 
 
-#endif//_COMPONENTTHREADBASE_H_
+#endif//_COMPONENTMANAGER_H_

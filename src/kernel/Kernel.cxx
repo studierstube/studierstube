@@ -33,8 +33,11 @@
 #include "Kernel.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include <tinyxml.h>
 
 #include "Config.h"
+#include "ComponentManager.h"
+
 using namespace stb;
 
 Kernel*	Kernel::instance=NULL;
@@ -42,6 +45,7 @@ Kernel*	Kernel::instance=NULL;
 Kernel::Kernel()
 {
 	config=new stb::Config();
+	scm=new ComponentManager();
 }
 
 Kernel::~Kernel()
@@ -64,6 +68,7 @@ void
 Kernel::start(int argc,char* argv[])
 {
 	config->readConfigFile("kernel.xml");
+
 }
 
 //static
@@ -100,3 +105,29 @@ Kernel::logDebug(const char* nStr ...)
 #endif
 }
 
+void
+Kernel::parseXMLAttributes(TiXmlElement* element)
+{
+	TiXmlAttribute* attribute = element->FirstAttribute();
+	while(attribute)
+	{
+		///////////////// Logging.mode /////////////////
+		if(!stricmp(attribute->Name(),"logMode"))
+		{
+			if(!stricmp(attribute->Value(),"file"))
+				logMode=FILE;		
+			else if(!stricmp(attribute->Value(),"console"))
+				logMode=CONSOLE;
+			else if(!stricmp(attribute->Value(),"off"))
+				logMode=OFF;
+		}
+		///////////////// Logging.filename /////////////////
+		else if(!stricmp(attribute->Name(),"logFile"))
+			strcpy(filename,attribute->Value());
+		///////////////// Logging. /////////////////
+		//else if(!stricmp(attribute->Name(),"----"))
+		//{		
+		//}
+		attribute = attribute->Next();
+	}
+}

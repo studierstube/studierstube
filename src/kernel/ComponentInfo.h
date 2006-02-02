@@ -22,34 +22,37 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentThreadBase class.  
+/** The header file for the ComponentInfo class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentThreadBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentInfo.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTTHREADBASE_H_
-#define _COMPONENTTHREADBASE_H_
+#ifndef _COMPONENTINFO_H_
+#define _COMPONENTINFO_H_
 
-#include "ComponentBase.h"
+class TiXmlElement;
+
 namespace stb{
 /**
 *	
 */
-class ComponentThreadBase : public ComponentBase
+class ComponentInfo
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentThreadBase();
+	ComponentInfo();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentThreadBase();
+	~ComponentInfo();
+
+	bool parseXMLElement(TiXmlElement* element);
 
 protected:	
 
@@ -61,4 +64,4 @@ private:
 
 
 
-#endif//_COMPONENTTHREADBASE_H_
+#endif//_COMPONENTINFO_H_

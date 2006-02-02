@@ -36,9 +36,8 @@
 
 class TiXmlElement;
 
-#include "parameter/Logging.h"
-
 namespace stb{
+	class LoggingCP;
 //=====================================
 class Config{
 public:
@@ -52,12 +51,18 @@ public:
 	/*
 	*	returns the current log_mode
 	*/
-	Logging* getLogging(){ return log; }
+	LoggingCP* getLogging(){ return log; }
 
 protected:
-	bool parseParameter(TiXmlElement* element);
-	//parameter 
-	Logging* log;
+	/*
+	*
+	*/
+	bool parseXMLElement(TiXmlElement* element);
+	
+	/*
+	*
+	*/
+	LoggingCP* log;
 };
 
 }//namespace

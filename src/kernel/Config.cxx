@@ -32,13 +32,14 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-
+#include "parameter/LoggingCP.h"
+#include "ComponentInfo.h"
 using namespace stb;
 
 //================Config===========
 Config::Config()
 {
-	log=new Logging();
+	log=new LoggingCP();
 }
 
 Config::~Config()
@@ -67,30 +68,41 @@ Config::readConfigFile(const char* filename)
 		TiXmlElement* element = root->FirstChildElement();
 		while(element)
 		{
-			parseParameter(element);
+			parseXMLElement(element);
 			element = element->NextSiblingElement();
 		}
 	}
-
 	/////////	parsing is done -> clean up 
 	document->Clear();
 	delete document;
 	return true;
 }
 
+
 bool
-Config::parseParameter(TiXmlElement* element)
+Config::parseXMLElement(TiXmlElement* element)
 {
-	/////////////////// Logging /////////////////
-	if(!stricmp(element->Value(),"logging"))
+	////////Element -> Logging /////////////////
+	if(!stricmp(element->Value(),"Kernel"))
 	{
-		log->parseAttributes(element);
+		parseXMLAttributes(element);
+	}
+	/////////////// ________ /////////////////
+	else if(!stricmp(element->Value(),"Component"))
+	{
+		ComponentInfo compInfo;
+		compInfo.parseXMLAttributes(element);
 	}
 	///////////////// ________ /////////////////
 	//else if(!stricmp(element->Value(),"________"))
 	//{
 	//}
-
+	TiXmlElement * childElement = element->FirstChildElement();
+	while(childElement)
+	{
+		parseXMLElement(childElement);
+		childElement = childElement->NextSiblingElement();
+	}
 	return true;
 }
 
