@@ -49,7 +49,7 @@ Config::~Config()
 bool
 Config::readConfigFile(const char* filename)
 {   
-	Kernel::getInstance()->logDebug("using configuration in %s\n",filename);
+	Kernel::getInstance()->logDebug("parsing %s ...\n",filename);
 	TiXmlDocument* document = new TiXmlDocument();
 	
 	if(!document->LoadFile(filename))

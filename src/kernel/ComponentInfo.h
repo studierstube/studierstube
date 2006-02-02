@@ -55,7 +55,8 @@ public:
 	bool parseXMLAttributes(TiXmlElement* element);
 
 protected:	
-
+	char* compName;
+	char* path;
 private:
 	
 };// class 

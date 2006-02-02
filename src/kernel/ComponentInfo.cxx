@@ -31,6 +31,7 @@
 /* ======================================================================= */
 
 #include "ComponentInfo.h"
+#include "Kernel.h"
 #include <tinyxml.h>
 
 using namespace stb;
@@ -38,6 +39,8 @@ using namespace stb;
 ComponentInfo::ComponentInfo()
 {
    //nil
+	compName=NULL;
+	path=NULL;
 }
 
 ComponentInfo::~ComponentInfo()
@@ -48,6 +51,36 @@ ComponentInfo::~ComponentInfo()
 bool 
 ComponentInfo::parseXMLAttributes(TiXmlElement* element)
 {
+	TiXmlAttribute* attribute = element->FirstAttribute();
+	bool retValue=true;
+	while(attribute)
+	{
+		///////////////// Logging.mode /////////////////
+		if(!stricmp(attribute->Name(),"name"))
+		{
+			const char *tempName=attribute->Value();
+			compName=new char(strlen(tempName));
+			strcpy(compName,tempName);
+		}
+		/////////////// Logging. /////////////////
+		else if(!stricmp(attribute->Name(),"----"))
+		{		
+		}
+		///////////////// Logging. /////////////////
+		//else if(!stricmp(attribute->Name(),"----"))
+		//{		
+		//}
+		attribute = attribute->Next();
+	}
 
-	return false;
+	if(!compName){
+		Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
+		retValue=false;
+	}
+	if(!path){
+		retValue=false;
+		Kernel::getInstance()->log("ERROR: missing attribute 'path' for Component\n");
+	}
+
+	return retValue;
 }
