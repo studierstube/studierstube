@@ -37,8 +37,8 @@
 using namespace stb;
 
 ComponentBase::ComponentBase():
-kernel_(stb::Kernel::getInstance()),
-compInfo_(NULL)
+	kernel_(stb::Kernel::getInstance()),
+	compInfo_(NULL)
 {
 }
 

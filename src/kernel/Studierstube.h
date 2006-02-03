@@ -34,13 +34,13 @@
 #define _STUDIERSTUBE_H_
 
 #ifdef WIN32
- #ifdef STBKERNEL_EXPORTS
-  #define STBKERNEL_API __declspec(dllexport)
+ #ifdef STB_EXPORTS
+  #define STB_API __declspec(dllexport)
  #else
-  #define STBKERNEL_API __declspec(dllimport)
+  #define STB_API __declspec(dllimport)
  #endif
 #else
- #define STBKERNEL_API
+ #define STB_API
 #endif
 
 namespace stb{
@@ -50,7 +50,7 @@ namespace stb{
 //
 extern "C" 
 {
-	STBKERNEL_API void
+	STB_API void
 	executeStudierstube(int argc, char** argv);
 }
 

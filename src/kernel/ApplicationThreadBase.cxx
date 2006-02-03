@@ -22,43 +22,22 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The cxx file for the ComponentManager class.
+/* @author Denis Kalkofen
 *
-* @author Denis Kalkofen
-*
-* $Id: ComponentManager.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ApplicationThreadBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentManager.h"
-#include "ComponentInfo.h"
-#include "ComponentRetriever.h"
-
+#include "ApplicationThreadBase.h"
 
 using namespace stb;
 
-ComponentManager::ComponentManager()
-{
-	compRetriever=new stb::ComponentRetriever();
-}
-
-ComponentManager::~ComponentManager()
+ApplicationThreadBase::ApplicationThreadBase()
 {
    //nil
 }
 
-void 
-ComponentManager::addComponent(ComponentInfo* compInfo)
+ApplicationThreadBase::~ApplicationThreadBase()
 {
-	//1. get component 
-//	Component *newComponent=compRetriever->getComponent(compInfo);
-	//2. init component
-	
-	//3. add component
-}
-
-void 
-ComponentManager::update()
-{
-	
+   //nil
 }

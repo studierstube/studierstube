@@ -22,61 +22,44 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentBase class.  
+/** The header file for the ApplicationBase class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ApplicationBase.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTBASE_H_
-#define _COMPONENTBASE_H_
-#include "kernel/Studierstube.h"
+#ifndef _APPLICATIONBASE_H_
+#define _APPLICATIONBASE_H_
+
+#include "kernel/Component.h"
 
 namespace stb{
-	class ComponentInfo;
-	class Kernel;
 /**
 *	
 */
-class STB_API ComponentBase
+class ApplicationBase : public stb::Component
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentBase();
+	ApplicationBase();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentBase();
-
-	/// Called before the application is destructed.
-	virtual bool init() = 0;
-
-	/// Called before the application is destructed.
-	virtual void shutDown() = 0;
+	~ApplicationBase();
 
 protected:	
-	stb::ComponentInfo	*compInfo_;
-	stb::Kernel			*kernel_;
 
 private:
 	
 };// class 
+
 } //namespace
 
 
-#define CREATE_COMPONENT_FUNC(CLASSNAME) \
-extern "C" {																						\
-\
-__declspec(dllexport) stb::CLASSNAME* createApplication()\
-{																									\
-	return new stb::CLASSNAME();																	\
-}																									\
-\
-}
 
-#endif//_COMPONENTBASE_H_
+#endif//_APPLICATIONBASE_H_

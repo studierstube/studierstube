@@ -22,24 +22,22 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The cxx file for the ComponentThreadBase class.
+/* @author Denis Kalkofen
 *
-* @author Denis Kalkofen
-*
-* $Id: ComponentThreadBase.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ApplicationBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentThreadBase.h"
+#include "ApplicationBase.h"
 
 using namespace stb;
 
-ComponentThreadBase::ComponentThreadBase()
+ApplicationBase::ApplicationBase()
 {
-	
+   //nil
 }
 
-ComponentThreadBase::~ComponentThreadBase()
+ApplicationBase::~ApplicationBase()
 {
    //nil
 }

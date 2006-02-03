@@ -81,27 +81,27 @@ bool
 Config::parseXMLElement(TiXmlElement* element)
 {
 	////////Element -> Logging /////////////////
-	if(!stricmp(element->Value(),"Kernel"))
-	{
-		Kernel::getInstance()->parseXMLAttributes(element);
-	}
-	/////////////// ________ /////////////////
-	else if(!stricmp(element->Value(),"Component"))
-	{
-		ComponentInfo compInfo;
-		compInfo.parseXMLAttributes(element);
-		Kernel::getInstance()->addComponent(&compInfo);
-	}
-	///////////////// ________ /////////////////
-	//else if(!stricmp(element->Value(),"________"))
+	//if(!stricmp(element->Value(),"Kernel"))
 	//{
+	//	Kernel::getInstance()->parseXMLAttributes(element);
 	//}
-	TiXmlElement * childElement = element->FirstChildElement();
-	while(childElement)
-	{
-		parseXMLElement(childElement);
-		childElement = childElement->NextSiblingElement();
-	}
+	///////////////// ________ /////////////////
+	//else if(!stricmp(element->Value(),"Component"))
+	//{
+	//	ComponentInfo compInfo;
+	//	compInfo.parseXMLAttributes(element);
+	//	Kernel::getInstance()->addComponent(&compInfo);
+	//}
+	/////////////////// ________ /////////////////
+	////else if(!stricmp(element->Value(),"________"))
+	////{
+	////}
+	//TiXmlElement * childElement = element->FirstChildElement();
+	//while(childElement)
+	//{
+	//	parseXMLElement(childElement);
+	//	childElement = childElement->NextSiblingElement();
+	//}
 	return true;
 }
 

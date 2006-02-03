@@ -22,43 +22,24 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentThreadBase class.  
+/** The header file for the Application class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentThreadBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: Application.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _COMPONENTTHREADBASE_H_
-#define _COMPONENTTHREADBASE_H_
+#ifndef _APPLICATION_H_
+#define _APPLICATION_H_
 
-#include "ComponentBase.h"
+
+#ifdef WIN32
+#include "kernel/ApplicationBase.h"
 namespace stb{
-/**
-*	
-*/
-class ComponentThreadBase : public ComponentBase
-{
-public:
-	/**
-	*     The Constructor	
-	*/
-	ComponentThreadBase();
-
-	/**
-	*     The Destructor.
-	*/
-	~ComponentThreadBase();
-
-protected:	
-
-private:
-	
-};// class 
-
-} //namespace
+	typedef stb::ApplicationBase Application;
+}
+#endif
 
 
-
-#endif//_COMPONENTTHREADBASE_H_
+#endif//_APPLICATION_H_

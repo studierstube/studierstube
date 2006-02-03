@@ -34,10 +34,12 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml.h>
+#include <ace/ACE.h>
+#include <Inventor/SoDB.h> 
 
-#include "Config.h"
-#include "ComponentManager.h"
-#include "ComponentInfo.h"
+//#include "Config.h"
+//#include "ComponentManager.h"
+//#include "ComponentInfo.h"
 
 using namespace stb;
 
@@ -45,21 +47,24 @@ Kernel*	Kernel::instance=NULL;
 
 Kernel::Kernel()
 {
-	logMode=OFF;
-	//
-	logFile=new char(14);
-	strcpy(logFile,"kernelLog.txt");
-	//
-	config=new stb::Config();
-	//
-	compManager=new ComponentManager();
+	ACE::init();
+	SoDB::init();
+
+	//logMode=OFF;
+	////
+	//logFile=new char(14);
+	//strcpy(logFile,"kernelLog.txt");
+	////
+	//config=new stb::Config();
+	////
+	//compManager=new ComponentManager();
 }
 
 Kernel::~Kernel()
 {
-	delete logFile;
-	delete config;
-	delete compManager;
+	//delete logFile;
+	//delete config;
+	//delete compManager;
 }
 
 //static
@@ -77,8 +82,16 @@ Kernel::getInstance()
 void 
 Kernel::start(int argc,char* argv[])
 {
-	config->readConfigFile("kernel.xml");
+	printf("read config \n");
+//	config->readConfigFile("kernel.xml");
+	
+//	for(;;)
+//	{
 
+	//	prepareFrame();
+	//	renderFrame();
+	//	blit();
+//	}
 }
 
 //static
@@ -146,8 +159,8 @@ Kernel::parseXMLAttributes(TiXmlElement* element)
 		attribute = attribute->Next();
 	}
 }
-void
-Kernel::addComponent(ComponentInfo* compInfo)
-{
-	compManager->addComponent(compInfo);
-}
+//void
+//Kernel::addComponent(ComponentInfo* compInfo)
+//{
+//	/*compManager->addComponent(compInfo);*/
+//}
