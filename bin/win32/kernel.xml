@@ -1,0 +1,10 @@
+<studierstube>
+	<logging 
+		mode="off" 
+		fileName="kernelLog.txt" 
+	/>
+	<Component
+		name="testComp"
+		path="."	
+	/>
+</studierstube>
