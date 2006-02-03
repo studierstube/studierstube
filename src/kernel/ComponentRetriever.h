@@ -55,7 +55,7 @@ public:
 	/**
 	*     The destructor.
 	*/
-	stb::Component* getComponent(ComponentInfo *compInfo);
+	stb::Component* get(ComponentInfo *compInfo);
 
 protected:	
 

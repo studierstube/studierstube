@@ -44,7 +44,7 @@ ComponentRetriever::~ComponentRetriever()
 }
 
 Component*
-ComponentRetriever::getComponent(ComponentInfo *compInfo)
+ComponentRetriever::get(ComponentInfo *compInfo)
 {
 	Component* newComponent;
 
