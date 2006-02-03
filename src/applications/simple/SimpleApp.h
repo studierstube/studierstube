@@ -22,36 +22,41 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ApplicationThreadBase class.  
+/** The header file for the SimpleApp class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ApplicationThreadBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: SimpleApp.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _APPLICATIONTHREADBASE_H_
-#define _APPLICATIONTHREADBASE_H_
+#ifndef _SIMPLEAPP_H_
+#define _SIMPLEAPP_H_
 
-#include "kernel/ApplicationBase.h"
+#include "kernel/Component.h"
 
 namespace stb{
 /**
 *	
 */
-class ApplicationThreadBase : public ApplicationBase
+	class SimpleApp : public stb::Component
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ApplicationThreadBase();
+	SimpleApp();
 
 	/**
 	*     The destructor.
 	*/
-	~ApplicationThreadBase();
+	~SimpleApp();
 
+	/// Called before the application is destructed.
+	virtual bool init(){return true;}
+
+	/// Called before the application is destructed.
+	virtual void shutDown(){}
 protected:	
 
 private:
@@ -62,4 +67,4 @@ private:
 
 
 
-#endif//_APPLICATIONTHREADBASE_H_
+#endif//_SIMPLEAPP_H_
