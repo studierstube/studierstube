@@ -1,10 +1,12 @@
 <studierstube>
-	<logging 
-		mode="off" 
-		fileName="kernelLog.txt" 
+	<kernel logMode="off" 
+			logFileName="kernelLog.txt" 
+			guibinding="sowin"
+			updateMode="timer"
+			updateRate="0.03333"
 	/>
 	<Component
 		name="testComp"
-		path="."	
+		lib="."	
 	/>
 </studierstube>

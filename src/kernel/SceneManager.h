@@ -54,7 +54,7 @@ public:
 
 	void registerApp(SoSeparator *appRoot);
 
-	void registerDisplay(SoSeparator *display);
+
 protected:	
 	SoSeparator *root;
 
