@@ -32,7 +32,7 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-#include "ComponentInfo.h"
+
 using namespace stb;
 
 //================Config===========
@@ -81,10 +81,10 @@ bool
 Config::parseXMLElement(TiXmlElement* element)
 {
 	////////Element -> Logging /////////////////
-	//if(!stricmp(element->Value(),"Kernel"))
-	//{
-	//	Kernel::getInstance()->parseXMLAttributes(element);
-	//}
+	if(!stricmp(element->Value(),"Kernel"))
+	{
+		Kernel::getInstance()->parseXMLConfig(element);
+	}
 	///////////////// ________ /////////////////
 	//else if(!stricmp(element->Value(),"Component"))
 	//{

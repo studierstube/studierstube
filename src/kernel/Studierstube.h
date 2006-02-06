@@ -43,6 +43,14 @@
  #define STB_API
 #endif
 
+#ifdef _DEBUG
+#define STUDIERSTUBE_VERSION_STRING "Studierstube 4 Debug"
+#else
+#define STUDIERSTUBE_VERSION_STRING "Studierstube 4"
+#endif
+
+#define STUDIERSTUBE_YEAR_STRING "2006"
+
 namespace stb{
 	class Kernel;
 }

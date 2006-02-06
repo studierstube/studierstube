@@ -31,15 +31,20 @@
 /* ======================================================================= */
 
 #include "Kernel.h"
+#include "Studierstube.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml.h>
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h> 
+#include <Inventor/sensors/SoSensor.h>
 //
 #include "Config.h"
-#include "ComponentManager.h"
-#include "ComponentInfo.h"
+#include "SoGui.h"
+#include "UpdateManager.h"
+#include "SceneManager.h"
+//#include "ComponentManager.h"
+//#include "ComponentInfo.h"
 
 using namespace stb;
 
@@ -49,25 +54,25 @@ Kernel::Kernel()
 {
 	ACE::init();
 	SoDB::init();
-
+	
 	logMode=OFF;
-	//
 	logFile=new char[14];
 	strcpy(logFile,"kernelLog.txt");
 	//
+	soGui =new stb::SoGui();
 	config=new stb::Config();
-	////
-	compManager=new ComponentManager();
+	updateManager= new stb::UpdateManager();
+	sceneManager= new stb::SceneManager();
+	//////
+	//compManager=new ComponentManager();
 }
 
 Kernel::~Kernel()
 {
 	delete [] logFile;
-	//delete config;
 	printf("destructor\n");
-	delete compManager;
 	ACE::fini();
-	SoDB::cleanup();
+	delete config;
 }
 
 //static
@@ -85,16 +90,17 @@ Kernel::getInstance()
 void 
 Kernel::start(int argc,char* argv[])
 {
-	printf("read config \n");
-	config->readConfigFile("kernel.xml");
-	
-//	for(;;)
-//	{
+	log("****************************************\n");
+	logEx("%s \n",STUDIERSTUBE_VERSION_STRING);
+	logEx("(C) %s Graz University of Technology\n",STUDIERSTUBE_YEAR_STRING);
+	log("****************************************\n\n");
 
-	//	prepareFrame();
-	//	renderFrame();
-	//	blit();
-//	}
+	config->readConfigFile("kernel.xml");
+	soGui->init();
+	//update Manager - schedule 
+	updateManager->schedule();
+
+	soGui->mainLoop();
 }
 
 //static
@@ -132,12 +138,14 @@ Kernel::logDebug(const char* nStr ...)
 }
 
 void
-Kernel::parseXMLAttributes(TiXmlElement* element)
+Kernel::parseXMLConfig(TiXmlElement* element)
 {
+	////////////<logging mode="xxxY filename="xxx"/> /////////
+
 	TiXmlAttribute* attribute = element->FirstAttribute();
-	while(attribute)
+	while(attribute) //////////// kernel's parameter
 	{
-		///////////////// Logging.mode /////////////////
+		///////////////// logMode /////////////////
 		if(!stricmp(attribute->Name(),"logMode"))
 		{
 			if(!stricmp(attribute->Value(),"file"))
@@ -147,7 +155,7 @@ Kernel::parseXMLAttributes(TiXmlElement* element)
 			else if(!stricmp(attribute->Value(),"off"))
 				logMode=OFF;
 		}
-		///////////////// Logging.filename /////////////////
+		///////////////// logFile /////////////////
 		else if(!stricmp(attribute->Name(),"logFile")){
 			if(logFile)
 				delete logFile;
@@ -155,11 +163,34 @@ Kernel::parseXMLAttributes(TiXmlElement* element)
 			logFile=new char((int)strlen(tempName)+1);
 			strcpy(logFile,tempName);
 		}
-		///////////////// Logging. /////////////////
+		else if(!stricmp(attribute->Name(),"guiBinding"))
+		{		
+			soGui->readXMLConfig(attribute);
+		}
+		else if(!stricmp(attribute->Name(),"updateMode"))
+		{		
+			updateManager->readXMLConfig(attribute);
+		}
+		else if(!stricmp(attribute->Name(),"updateRate"))
+		{		
+			updateManager->readXMLConfig(attribute);
+		}
+
+		///////////////// ------- /////////////////
 		//else if(!stricmp(attribute->Name(),"----"))
 		//{		
 		//}
 		attribute = attribute->Next();
 	}
+	
+	////////////</> /////////
+	//if(!stricmp(element->Value(),""))
+	//{
+	//}
 }
 
+void 
+Kernel::update( void * data, SoSensor * sensor)
+{
+	printf("Kernel::update()\n");
+}

@@ -22,54 +22,43 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the UpdateManager class.  
+/** The header file for the SoGuiBase class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: SoGuiBase.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _UPDATEMANAGER_H_
-#define _UPDATEMANAGER_H_
+#ifndef _SOGUIBASE_H_
+#define _SOGUIBASE_H_
 
-class SoSensor;
 class TiXmlAttribute;
 namespace stb{
-
 /**
 *	
 */
-class UpdateManager
+class SoGuiBase
 {
 public:
 	/**
-	*     The Constructor	
-	*/
-	UpdateManager();
-
-	/**
 	*     The destructor.
 	*/
-	~UpdateManager();
+	~SoGuiBase();
 
-	void readXMLConfig(TiXmlAttribute* attribute);
+	virtual void readXMLConfig(TiXmlAttribute* attribute)=0;
 
-	void schedule();
+	virtual void init()=0;
 
-	enum MODE {
-		IDLE=0,
-		TIMER=1
-	};	
-	MODE mode;
-	/*
-	*                                                                    
-	*/
-	float updateRate;
+	virtual void mainLoop()=0;
 protected:	
-	void scheduleIdleSensor();
-	void scheduleTimerSensor();
-	SoSensor *sensor;
+	/**
+	*     The Constructor	
+	*/
+	SoGuiBase();
+
+	virtual void setDefaultBinding()=0;	
+
 private:
 	
 };// class 
@@ -78,4 +67,4 @@ private:
 
 
 
-#endif//_UPDATEMANAGER_H_
+#endif//_SOGUIBASE_H_

@@ -33,10 +33,14 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
+#include "SoGui.h"
 class TiXmlElement;
+class SoSensor;
 ///////////////////////////////////////////////////
 namespace stb{
-	class ComponentManager;
+	//class ComponentManager;
+	class SceneManager;
+	class UpdateManager;
 	class Config;
 /**
 *	The StbKernel.
@@ -75,8 +79,9 @@ public:
 	/*
 	*	                                                                   
 	*/
-	void parseXMLAttributes(TiXmlElement* element);
+	void parseXMLConfig(TiXmlElement* root);
 
+	static void update( void * data, SoSensor * sensor);
 
 protected:	
 	///////////////////// 
@@ -95,20 +100,29 @@ protected:
 	*/
 	stb::Config* config;
 	
+	stb::UpdateManager *updateManager;
+
+	stb::SceneManager *sceneManager;
 	/*
-	*		                                                                   
+	*                                                                    
 	*/
-	ComponentManager* compManager;
-	
 	enum LOG_MODE {
 		OFF=0,
 		FILE=1,
 		CONSOLE=2
 	};	
-
 	LOG_MODE logMode;
 
+	/*
+	*                                                                    
+	*/
 	char *logFile;
+
+	/*
+	*                                                                    
+	*/
+	stb::SoGui *soGui;;
+
 };// class 
 
 } //namespace

@@ -22,60 +22,23 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the UpdateManager class.  
+/** The header file for the SoGui class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: SoGui.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _UPDATEMANAGER_H_
-#define _UPDATEMANAGER_H_
+#ifndef _SOGUI_H_
+#define _SOGUI_H_
 
-class SoSensor;
-class TiXmlAttribute;
+#ifdef WIN32
+#include "SoGuiWin32.h"
 namespace stb{
-
-/**
-*	
-*/
-class UpdateManager
-{
-public:
-	/**
-	*     The Constructor	
-	*/
-	UpdateManager();
-
-	/**
-	*     The destructor.
-	*/
-	~UpdateManager();
-
-	void readXMLConfig(TiXmlAttribute* attribute);
-
-	void schedule();
-
-	enum MODE {
-		IDLE=0,
-		TIMER=1
-	};	
-	MODE mode;
-	/*
-	*                                                                    
-	*/
-	float updateRate;
-protected:	
-	void scheduleIdleSensor();
-	void scheduleTimerSensor();
-	SoSensor *sensor;
-private:
-	
-};// class 
-
-} //namespace
+	typedef stb::SoGuiWin32 SoGui;
+}
+#endif
 
 
-
-#endif//_UPDATEMANAGER_H_
+#endif//_SOGUI_H_

@@ -22,54 +22,42 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the UpdateManager class.  
+/** The header file for the SceneManager class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: SceneManager.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _UPDATEMANAGER_H_
-#define _UPDATEMANAGER_H_
+#ifndef _SCENEMANAGER_H_
+#define _SCENEMANAGER_H_
 
-class SoSensor;
-class TiXmlAttribute;
+class SoSeparator;
+
 namespace stb{
-
 /**
 *	
 */
-class UpdateManager
+class SceneManager
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	UpdateManager();
+	SceneManager();
 
 	/**
 	*     The destructor.
 	*/
-	~UpdateManager();
+	~SceneManager();
 
-	void readXMLConfig(TiXmlAttribute* attribute);
+	void registerApp(SoSeparator *appRoot);
 
-	void schedule();
-
-	enum MODE {
-		IDLE=0,
-		TIMER=1
-	};	
-	MODE mode;
-	/*
-	*                                                                    
-	*/
-	float updateRate;
+	void registerDisplay(SoSeparator *display);
 protected:	
-	void scheduleIdleSensor();
-	void scheduleTimerSensor();
-	SoSensor *sensor;
+	SoSeparator *root;
+
 private:
 	
 };// class 
@@ -78,4 +66,4 @@ private:
 
 
 
-#endif//_UPDATEMANAGER_H_
+#endif//_SCENEMANAGER_H_

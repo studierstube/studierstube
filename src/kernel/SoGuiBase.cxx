@@ -24,74 +24,21 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: UpdateManager.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: SoGuiBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "UpdateManager.h"
-#include <tinyxml.h>
-#include <Inventor/sensors/SoIdleSensor.h>
-#include <Inventor/sensors/SoTimerSensor.h>
-#include "Kernel.h"
+#include "SoGuiBase.h"
 
 using namespace stb;
 
-UpdateManager::UpdateManager()
+SoGuiBase::SoGuiBase()
 {
-	mode=IDLE;
-	updateRate=0.0;
+  
 }
 
-UpdateManager::~UpdateManager()
+SoGuiBase::~SoGuiBase()
 {
    //nil
 }
-
-void 
-UpdateManager::schedule(){
-	switch(mode)
-	{
-	case IDLE:
-		scheduleIdleSensor();
-		break;
-	case TIMER:
-		scheduleTimerSensor();
-		break;
-	}
-}
-
-void 
-UpdateManager::readXMLConfig(TiXmlAttribute* attribute)
-{
-	if(!stricmp(attribute->Name(),"updateMode"))
-	{
-		if(!stricmp(attribute->Value(),"idle"))
-			mode=IDLE;		
-		else if(!stricmp(attribute->Value(),"timer"))
-			mode=TIMER;		
-	}
-	else if(!stricmp(attribute->Name(),"updateRate"))
-	{
-		updateRate=(float)atof(attribute->Value());
-	}
-}
-
-void
-UpdateManager::scheduleIdleSensor()
-{
-	//printf("scheduleIdleSensor()\n");
-	//sensor= new SoIdleSensor();
-	//sensor->setFunction(Kernel::update);
-	//sensor->schedule();
-}
-
-void
-UpdateManager::scheduleTimerSensor()
-{
-	Kernel::getInstance()->logDebug("Info: kernel->schedule SoTimerSensor \n");
-	SoTimerSensor *timer=new SoTimerSensor();
-	timer->setFunction(Kernel::update);
-	timer->setInterval(updateRate);
-	sensor = timer;
-	sensor->schedule();}
 

@@ -22,54 +22,62 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the UpdateManager class.  
+/** The header file for the SoGuiWin32 class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: SoGuiWin32.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _UPDATEMANAGER_H_
-#define _UPDATEMANAGER_H_
+#ifndef _SOGUIWIN32_H_
+#define _SOGUIWIN32_H_
 
-class SoSensor;
-class TiXmlAttribute;
+#include "SoGuiBase.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+
 namespace stb{
-
 /**
 *	
 */
-class UpdateManager
+class SoGuiWin32 : public SoGuiBase
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	UpdateManager();
+	SoGuiWin32();
 
 	/**
 	*     The destructor.
 	*/
-	~UpdateManager();
+	~SoGuiWin32();
 
-	void readXMLConfig(TiXmlAttribute* attribute);
+	virtual void readXMLConfig(TiXmlAttribute* attribute);
 
-	void schedule();
+	virtual void setDefaultBinding();
+	
+	virtual void init();
 
-	enum MODE {
-		IDLE=0,
-		TIMER=1
-	};	
-	MODE mode;
-	/*
-	*                                                                    
-	*/
-	float updateRate;
+	virtual void mainLoop();
+	
 protected:	
-	void scheduleIdleSensor();
-	void scheduleTimerSensor();
-	SoSensor *sensor;
+	virtual enum GUI_BINDING {
+		SOQT=0,
+		SOWIN=1
+	};
+
+	GUI_BINDING curGuiBinding;
+
+	HMODULE libHandle;
+	
+	
+	void loadSoQt();
+	void loadSoWin();
+	void mainLoopSoWin();
+	void mainLoopSoQt();
+
 private:
 	
 };// class 
@@ -78,4 +86,4 @@ private:
 
 
 
-#endif//_UPDATEMANAGER_H_
+#endif//_SOGUIWIN32_H_
