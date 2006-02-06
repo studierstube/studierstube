@@ -31,15 +31,15 @@
 /* ======================================================================= */
 
 #include "ComponentManager.h"
-#include "ComponentInfo.h"
-#include "ComponentRetriever.h"
+//#include "ComponentInfo.h"
+//#include "ComponentRetriever.h"
 
 
 using namespace stb;
 
 ComponentManager::ComponentManager()
 {
-	compRetriever=new stb::ComponentRetriever();
+	//compRetriever=new stb::ComponentRetriever();
 }
 
 ComponentManager::~ComponentManager()
@@ -47,18 +47,18 @@ ComponentManager::~ComponentManager()
    //nil
 }
 
-void 
-ComponentManager::addComponent(ComponentInfo* compInfo)
-{
-	//1. get component 
-//	Component *newComponent=compRetriever->getComponent(compInfo);
-	//2. init component
-	
-	//3. add component
-}
-
-void 
-ComponentManager::update()
-{
-	
-}
+//void 
+//ComponentManager::addComponent(ComponentInfo* compInfo)
+//{
+//	//1. get component 
+////	Component *newComponent=compRetriever->getComponent(compInfo);
+//	//2. init component
+//	
+//	//3. add component
+//}
+//
+//void 
+//ComponentManager::update()
+//{
+//	
+//}

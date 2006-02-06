@@ -33,14 +33,11 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
-#include <vector>
-
 class TiXmlElement;
 ///////////////////////////////////////////////////
 namespace stb{
-	//class Config;
-	//class ComponentManager;
-	//class ComponentInfo;
+	class ComponentManager;
+	class Config;
 /**
 *	The StbKernel.
 */
@@ -80,7 +77,6 @@ public:
 	*/
 	void parseXMLAttributes(TiXmlElement* element);
 
-	//void addComponent(ComponentInfo* compInfo);
 
 protected:	
 	///////////////////// 
@@ -97,12 +93,12 @@ protected:
 	/*
 	*		                                                                   
 	*/
-	//stb::Config* config;
+	stb::Config* config;
 	
 	/*
 	*		                                                                   
 	*/
-	//ComponentManager* compManager;
+	ComponentManager* compManager;
 	
 	enum LOG_MODE {
 		OFF=0,
