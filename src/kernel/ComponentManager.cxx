@@ -51,15 +51,17 @@ void
 ComponentManager::addApplication(ComponentInfo* compInfo)
 {
 	Application* newApp=(Application*)compRetriever->getComponent(compInfo);
+	if(!newApp)
+		return;
 	newApp->init();
 }
 
 void 
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
-	//1. get component
 	Component* newComp=(Component*)compRetriever->getComponent(compInfo);
-	//2. init component
+	if(!newComp)
+		return;
 	newComp->init();
 	//3. add component
 

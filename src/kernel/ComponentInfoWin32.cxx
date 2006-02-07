@@ -51,6 +51,7 @@ ComponentInfoWin32::setHINSTANCE(HINSTANCE aLibHandle)
 		FreeLibrary(libHandle);
 	libHandle=aLibHandle;
 }
+
 void
 ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
 {
@@ -72,8 +73,15 @@ ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
 			if(libName)
 				delete libName;
 			const char *tempName=attribute->Value();
-			libName=new char[(int)strlen(tempName)+1];
+		#ifdef DEBUG
+			libName=new char[(int)strlen(tempName)+6];
 			strcpy(libName,tempName);
+			strcat(libName,"d.dll");
+		#else
+			libName=new char[(int)strlen(tempName)+5];
+			strcpy(libName,tempName);
+			strcat(libName,".dll");
+		#endif
 		}
 		///////////////// Logging. /////////////////
 		//else if(!stricmp(attribute->Name(),"----"))
@@ -88,5 +96,4 @@ ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
 	if(!libName){
 		Kernel::getInstance()->log("ERROR: missing attribute 'path' for Component\n");
 	}
-
 }
