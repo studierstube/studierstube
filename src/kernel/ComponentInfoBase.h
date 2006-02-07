@@ -22,41 +22,52 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the SimpleApp class.  
+/** The header file for the ComponentInfoBase class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: SimpleApp.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentInfoBase.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SIMPLEAPP_H_
-#define _SIMPLEAPP_H_
+#ifndef _COMPONENTINFOBASE_H_
+#define _COMPONENTINFOBASE_H_
 
-#include "kernel/Component.h"
+class TiXmlElement;
 
 namespace stb{
 /**
 *	
 */
-	class SimpleApp : public stb::Component
+class ComponentInfoBase
 {
 public:
 	/**
-	*     The Constructor	
-	*/
-	SimpleApp();
-
-	/**
 	*     The destructor.
 	*/
-	~SimpleApp();
+	~ComponentInfoBase(){
+		if(name)
+			delete name;
+		if(libName)
+			delete libName;
+	}
 
-	/// Called before the application is destructed.
-	virtual bool init();
-	/// Called before the application is destructed.
-	virtual void shutDown();
+	virtual void parseXMLAttributes(TiXmlElement* element)=0;
+
+	char* getName(){return name;}
+	char* getLibName(){return libName;}
+
 protected:	
+	/**
+	*     The Constructor	
+	*/
+	ComponentInfoBase(){
+		name=0;
+		libName=0;
+	}
+
+	char* name;
+	char* libName;
 
 private:
 	
@@ -66,4 +77,4 @@ private:
 
 
 
-#endif//_SIMPLEAPP_H_
+#endif//_COMPONENTINFOBASE_H_

@@ -33,36 +33,12 @@
 #ifndef _COMPONENTINFO_H_
 #define _COMPONENTINFO_H_
 
-class TiXmlElement;
-
+#ifdef WIN32
+#include "kernel/ComponentInfoWin32.h"
 namespace stb{
-/**
-*	
-*/
-class ComponentInfo
-{
-public:
-	/**
-	*     The Constructor	
-	*/
-	ComponentInfo();
-
-	/**
-	*     The destructor.
-	*/
-	~ComponentInfo();
-
-	bool parseXMLAttributes(TiXmlElement* element);
-
-protected:	
-	char* compName;
-	char* path;
-private:
-	
-};// class 
-
-} //namespace
-
+	typedef stb::ComponentInfoWin32 ComponentInfo;
+}
+#endif
 
 
 #endif//_COMPONENTINFO_H_

@@ -52,6 +52,7 @@ public:
 	*/
 	~ApplicationBase();
 
+	virtual void update();
 protected:	
 
 private:

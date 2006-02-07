@@ -24,21 +24,69 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: ComponentRetriever.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentInfoWin32.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentRetriever.h"
-
+#include "ComponentInfoWin32.h"
+#include "Kernel.h"
+#include <tinyxml.h>
 
 using namespace stb;
 
-ComponentRetriever::ComponentRetriever()
+ComponentInfoWin32::ComponentInfoWin32()
 {
-   //nil
+	libHandle=NULL;
 }
 
-ComponentRetriever::~ComponentRetriever()
+ComponentInfoWin32::~ComponentInfoWin32()
 {
-   //nil
+	if(libHandle)
+		FreeLibrary(libHandle);
+}
+void 
+ComponentInfoWin32::setHINSTANCE(HINSTANCE aLibHandle)
+{
+	if(libHandle)
+		FreeLibrary(libHandle);
+	libHandle=aLibHandle;
+}
+void
+ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
+{
+	TiXmlAttribute* attribute = element->FirstAttribute();
+	while(attribute)
+	{
+		///////////////// Logging.mode /////////////////
+		if(!stricmp(attribute->Name(),"name"))
+		{
+			if(name)
+				delete name;
+			const char *tempName=attribute->Value();
+			name=new char[(int)strlen(tempName)+1];
+			strcpy(name,tempName);
+		}
+		///////////////// Logging. /////////////////
+		else if(!stricmp(attribute->Name(),"lib"))
+		{	
+			if(libName)
+				delete libName;
+			const char *tempName=attribute->Value();
+			libName=new char[(int)strlen(tempName)+1];
+			strcpy(libName,tempName);
+		}
+		///////////////// Logging. /////////////////
+		//else if(!stricmp(attribute->Name(),"----"))
+		//{		
+		//}
+		attribute = attribute->Next();
+	}
+
+	if(!name){
+		Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
+	}
+	if(!libName){
+		Kernel::getInstance()->log("ERROR: missing attribute 'path' for Component\n");
+	}
+
 }

@@ -24,21 +24,10 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: ComponentRetriever.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentRetrieverBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentRetriever.h"
+#include "ComponentRetrieverBase.h"
 
 
-using namespace stb;
-
-ComponentRetriever::ComponentRetriever()
-{
-   //nil
-}
-
-ComponentRetriever::~ComponentRetriever()
-{
-   //nil
-}

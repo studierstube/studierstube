@@ -44,5 +44,6 @@ ComponentBase::ComponentBase():
 
 ComponentBase::~ComponentBase()
 {
-   //nil
+	if(compInfo_)
+		delete compInfo_;
 }

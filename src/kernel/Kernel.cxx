@@ -43,8 +43,8 @@
 #include "SoGui.h"
 #include "UpdateManager.h"
 #include "SceneManager.h"
-//#include "ComponentManager.h"
-//#include "ComponentInfo.h"
+#include "ComponentManager.h"
+#include "ComponentInfo.h"
 
 using namespace stb;
 
@@ -63,8 +63,8 @@ Kernel::Kernel()
 	config=new stb::Config();
 	updateManager= new stb::UpdateManager();
 	sceneManager= new stb::SceneManager();
+	componentManager= new stb::ComponentManager();
 	//////
-	//compManager=new ComponentManager();
 }
 
 Kernel::~Kernel()
@@ -73,6 +73,11 @@ Kernel::~Kernel()
 	printf("destructor\n");
 	ACE::fini();
 	delete config;
+	delete soGui;
+	delete updateManager;
+	delete sceneManager;
+	delete componentManager;
+
 }
 
 //static
@@ -97,7 +102,7 @@ Kernel::start(int argc,char* argv[])
 
 	config->readConfigFile("kernel.xml");
 	soGui->init();
-	//update Manager - schedule 
+	
 	updateManager->schedule();
 
 	soGui->mainLoop();
@@ -193,4 +198,16 @@ void
 Kernel::update( void * data, SoSensor * sensor)
 {
 	printf("Kernel::update()\n");
+}
+
+void 
+Kernel::addApplication(ComponentInfo* compInfo)
+{
+	componentManager->addApplication(compInfo);
+}
+
+void 
+Kernel::addComponent(ComponentInfo* compInfo)
+{
+	componentManager->addComponent(compInfo);
 }

@@ -22,40 +22,41 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the SimpleApp class.  
+/** The header file for the ComponentRetrieverWin32 class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: SimpleApp.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentRetrieverWin32.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SIMPLEAPP_H_
-#define _SIMPLEAPP_H_
+#ifndef _COMPONENTRETRIEVERWIN32_H_
+#define _COMPONENTRETRIEVERWIN32_H_
 
-#include "kernel/Component.h"
+#include "ComponentRetrieverBase.h"
 
 namespace stb{
 /**
 *	
 */
-	class SimpleApp : public stb::Component
+class ComponentRetrieverWin32 : public ComponentRetrieverBase
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	SimpleApp();
+	ComponentRetrieverWin32();
 
 	/**
 	*     The destructor.
 	*/
-	~SimpleApp();
+	~ComponentRetrieverWin32();
 
-	/// Called before the application is destructed.
-	virtual bool init();
-	/// Called before the application is destructed.
-	virtual void shutDown();
+	/**
+	*  
+	*/
+	virtual Component* getComponent(ComponentInfo *compInfo);
+
 protected:	
 
 private:
@@ -66,4 +67,4 @@ private:
 
 
 
-#endif//_SIMPLEAPP_H_
+#endif//_COMPONENTRETRIEVERWIN32_H_

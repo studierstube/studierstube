@@ -29,6 +29,7 @@
 /* ======================================================================= */
 
 #include "SimpleApp.h"
+#include <stdio.h>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
 
@@ -42,4 +43,19 @@ SimpleApp::SimpleApp()
 SimpleApp::~SimpleApp()
 {
    //nil
+}
+
+/// Called before the application is destructed.
+bool 
+SimpleApp::init()
+{
+	printf("init SimpleApp\n");
+	return true;
+}
+
+/// Called before the application is destructed.
+void 
+SimpleApp::shutDown()
+{
+
 }

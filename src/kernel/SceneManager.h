@@ -34,7 +34,8 @@
 #define _SCENEMANAGER_H_
 
 class SoSeparator;
-
+class SbName;
+class SoNode;
 namespace stb{
 /**
 *	
@@ -53,11 +54,27 @@ public:
 	~SceneManager();
 
 	void registerApp(SoSeparator *appRoot);
+	
+	void update();
 
+	enum TOUCHROOT{
+		ROOT=0,
+		APP=1,
+		DISPLAY=2
+	};
+
+	void setTouchRoot(TOUCHROOT touchNode);
+
+	SoSeparator* getDisplayRoot();
+
+	SoSeparator* getAppRoot();
 
 protected:	
-	SoSeparator *root;
-
+	SoSeparator* root;
+	SoNode* touchRoot;
+	SoSeparator* trackRoot;
+	SoSeparator* appRoot;
+	SoSeparator* displayRoot;
 private:
 	
 };// class 

@@ -32,7 +32,7 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-
+#include "ComponentInfo.h"
 using namespace stb;
 
 //================Config===========
@@ -86,12 +86,18 @@ Config::parseXMLElement(TiXmlElement* element)
 		Kernel::getInstance()->parseXMLConfig(element);
 	}
 	///////////////// ________ /////////////////
-	//else if(!stricmp(element->Value(),"Component"))
-	//{
-	//	ComponentInfo compInfo;
-	//	compInfo.parseXMLAttributes(element);
-	//	Kernel::getInstance()->addComponent(&compInfo);
-	//}
+	else if(!stricmp(element->Value(),"Component"))
+	{
+		ComponentInfo *compInfo=new ComponentInfo();
+		compInfo->parseXMLAttributes(element);
+		Kernel::getInstance()->addComponent(compInfo);
+	}
+	else if(!stricmp(element->Value(),"Application"))
+	{
+		ComponentInfo *compInfo=new ComponentInfo();
+		compInfo->parseXMLAttributes(element);
+		Kernel::getInstance()->addApplication(compInfo);
+	}
 	/////////////////// ________ /////////////////
 	////else if(!stricmp(element->Value(),"________"))
 	////{

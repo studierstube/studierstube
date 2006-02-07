@@ -31,34 +31,42 @@
 /* ======================================================================= */
 
 #include "ComponentManager.h"
-//#include "ComponentInfo.h"
-//#include "ComponentRetriever.h"
+#include "ComponentInfo.h"
+#include "ComponentRetriever.h"
 
 
 using namespace stb;
 
 ComponentManager::ComponentManager()
 {
-	//compRetriever=new stb::ComponentRetriever();
+	compRetriever=new stb::ComponentRetriever();
 }
 
 ComponentManager::~ComponentManager()
 {
-   //nil
+   delete compRetriever;
 }
 
-//void 
-//ComponentManager::addComponent(ComponentInfo* compInfo)
-//{
-//	//1. get component 
-////	Component *newComponent=compRetriever->getComponent(compInfo);
-//	//2. init component
-//	
-//	//3. add component
-//}
-//
-//void 
-//ComponentManager::update()
-//{
-//	
-//}
+void 
+ComponentManager::addApplication(ComponentInfo* compInfo)
+{
+	Application* newApp=(Application*)compRetriever->getComponent(compInfo);
+	newApp->init();
+}
+
+void 
+ComponentManager::addComponent(ComponentInfo* compInfo)
+{
+	//1. get component
+	Component* newComp=(Component*)compRetriever->getComponent(compInfo);
+	//2. init component
+	newComp->init();
+	//3. add component
+
+}
+
+void 
+ComponentManager::update()
+{
+	
+}

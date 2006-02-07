@@ -33,38 +33,12 @@
 #ifndef _COMPONENTRETRIEVER_H_
 #define _COMPONENTRETRIEVER_H_
 
-#include "Component.h"
+#ifdef WIN32
+#include "kernel/ComponentRetrieverWin32.h"
 namespace stb{
-	class ComponentInfo;
-/**
-*	
-*/
-class ComponentRetriever
-{
-public:
-	/**
-	*     The Constructor	
-	*/
-	ComponentRetriever();
-
-	/**
-	*     The destructor.
-	*/
-	~ComponentRetriever();
-
-	/**
-	*     The destructor.
-	*/
-	stb::Component* get(ComponentInfo *compInfo);
-
-protected:	
-
-private:
-	
-};// class 
-
-} //namespace
-
+	typedef stb::ComponentRetrieverWin32 ComponentRetriever;
+}
+#endif
 
 
 #endif//_COMPONENTRETRIEVER_H_

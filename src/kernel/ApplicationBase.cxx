@@ -32,12 +32,12 @@
 
 using namespace stb;
 
-ApplicationBase::ApplicationBase()
-{
-   //nil
-}
+ApplicationBase::ApplicationBase(){}
 
-ApplicationBase::~ApplicationBase()
+ApplicationBase::~ApplicationBase(){}
+
+void 
+ApplicationBase::update()
 {
-   //nil
+
 }

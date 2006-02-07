@@ -36,9 +36,10 @@
 #include "SoGui.h"
 class TiXmlElement;
 class SoSensor;
+#include "ComponentInfo.h"
 ///////////////////////////////////////////////////
 namespace stb{
-	//class ComponentManager;
+	class ComponentManager;
 	class SceneManager;
 	class UpdateManager;
 	class Config;
@@ -83,6 +84,9 @@ public:
 
 	static void update( void * data, SoSensor * sensor);
 
+	void addComponent(ComponentInfo* compInfo);
+
+	void addApplication(ComponentInfo* compInfo);
 protected:	
 	///////////////////// 
 	/**
@@ -100,6 +104,7 @@ protected:
 	*/
 	stb::Config* config;
 	
+	stb::ComponentManager *componentManager;
 	stb::UpdateManager *updateManager;
 
 	stb::SceneManager *sceneManager;

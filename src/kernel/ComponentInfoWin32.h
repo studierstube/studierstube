@@ -22,42 +22,43 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the SimpleApp class.  
+/** The header file for the ComponentInfoWin32 class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: SimpleApp.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentInfoWin32.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SIMPLEAPP_H_
-#define _SIMPLEAPP_H_
+#ifndef _COMPONENTINFOWIN32_H_
+#define _COMPONENTINFOWIN32_H_
 
-#include "kernel/Component.h"
+#include "ComponentInfoBase.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
 
 namespace stb{
 /**
 *	
 */
-	class SimpleApp : public stb::Component
+class ComponentInfoWin32 : public stb::ComponentInfoBase
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	SimpleApp();
+	ComponentInfoWin32();
 
 	/**
 	*     The destructor.
 	*/
-	~SimpleApp();
+	~ComponentInfoWin32();
 
-	/// Called before the application is destructed.
-	virtual bool init();
-	/// Called before the application is destructed.
-	virtual void shutDown();
+	virtual void parseXMLAttributes(TiXmlElement* element);
+
+	void setHINSTANCE(HINSTANCE aLibHandle);
 protected:	
-
+	HINSTANCE libHandle;
 private:
 	
 };// class 
@@ -66,4 +67,4 @@ private:
 
 
 
-#endif//_SIMPLEAPP_H_
+#endif//_COMPONENTINFOWIN32_H_

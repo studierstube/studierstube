@@ -33,9 +33,9 @@
 #ifndef _COMPONENTBASE_H_
 #define _COMPONENTBASE_H_
 #include "kernel/Studierstube.h"
+#include "ComponentInfo.h"
 
 namespace stb{
-	class ComponentInfo;
 	class Kernel;
 /**
 *	
@@ -60,6 +60,8 @@ public:
 	virtual void shutDown() = 0;
 
 protected:	
+
+
 	stb::ComponentInfo	*compInfo_;
 	stb::Kernel			*kernel_;
 
@@ -72,7 +74,7 @@ private:
 #define CREATE_COMPONENT_FUNC(CLASSNAME) \
 extern "C" {																						\
 \
-__declspec(dllexport) stb::CLASSNAME* createApplication()\
+__declspec(dllexport) stb::CLASSNAME* createComponent()\
 {																									\
 	return new stb::CLASSNAME();																	\
 }																									\

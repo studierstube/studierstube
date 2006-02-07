@@ -30,12 +30,25 @@
 
 #include "SceneManager.h"
 #include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/SbName.h>
+#include <Inventor/nodes/SoNode.h>
 
 using namespace stb;
 
 SceneManager::SceneManager()
 {
    root=new SoSeparator();
+
+   appRoot=new SoSeparator();
+   trackRoot=new SoSeparator();
+   displayRoot=new SoSeparator();
+
+   root->ref();
+   root->addChild(appRoot);
+   appRoot->addChild(trackRoot);
+   root->addChild(displayRoot);
+
+   touchRoot=root;
 }
 
 SceneManager::~SceneManager()
@@ -43,8 +56,44 @@ SceneManager::~SceneManager()
    //nil
 }
 
+void
+SceneManager::update()
+{
+	touchRoot->touch();
+}
+
 void 
 SceneManager::registerApp(SoSeparator *appRoot)
 {
+	
+}
+SoSeparator* 
+SceneManager::getDisplayRoot()
+{
+	return displayRoot;
+}
 
+SoSeparator* 
+SceneManager::getAppRoot()
+{
+	return appRoot;
+}
+
+
+void
+SceneManager::setTouchRoot(TOUCHROOT touchNode)
+{
+	switch(touchNode)
+	{
+	case ROOT:
+		touchRoot=root;
+		break;
+	case APP:
+		touchRoot=appRoot;
+		break;
+	case DISPLAY:
+		touchRoot=displayRoot;
+		break;
+
+	}
 }

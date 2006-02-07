@@ -33,12 +33,13 @@
 #ifndef _COMPONENTMANAGER_H_
 #define _COMPONENTMANAGER_H_
 
-//#include <vector>
-//#include "Component.h"
+#include <vector>
+#include "Component.h"
+#include "Application.h"
+#include "ComponentRetriever.h"
+#include "ComponentInfo.h"
 
 namespace stb{
-//	class ComponentInfo;
-//	class ComponentRetriever;
 /**
 *	
 */
@@ -55,14 +56,17 @@ public:
 	*/
 	~ComponentManager();
 
-	//void addComponent(ComponentInfo* compInfo);
+	void addComponent(ComponentInfo* compInfo);
+
+	void addApplication(ComponentInfo* compInfo);
 
 	///// Checks if new apps should be downloaded and started or running apps should be stopped and destroyed.
-	//void update();
+	void update();
 
 protected:
-	//std::vector<stb::Component*> componentList;
-	//stb::ComponentRetriever *compRetriever;
+	std::vector<stb::Component*> componentList;
+	std::vector<stb::Application*> appList;
+	stb::ComponentRetriever *compRetriever;
 private:
 	
 };// class 

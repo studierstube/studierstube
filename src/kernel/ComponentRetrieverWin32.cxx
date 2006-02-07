@@ -24,21 +24,43 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: ComponentRetriever.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentRetrieverWin32.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentRetriever.h"
-
-
+#include "ComponentRetrieverWin32.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include "Kernel.h"
 using namespace stb;
 
-ComponentRetriever::ComponentRetriever()
+ComponentRetrieverWin32::ComponentRetrieverWin32()
 {
    //nil
 }
 
-ComponentRetriever::~ComponentRetriever()
+ComponentRetrieverWin32::~ComponentRetrieverWin32()
 {
    //nil
+}
+
+Component* 
+ComponentRetrieverWin32::getComponent(ComponentInfo *compInfo)
+{
+	////load dll
+	char* libName=compInfo->getLibName();
+	if(!libName)
+		return NULL;
+
+	HINSTANCE libHandle;
+	libHandle = LoadLibrary(libName);
+	if(!libHandle){
+		Kernel::getInstance()->logEx("ERROR: couldn't load %s\n",libName);
+		return NULL;
+	}
+	compInfo->setHINSTANCE(libHandle);
+	Component* (*createComponent)()=(Component*(*)())GetProcAddress(libHandle,"createComponent");
+	Component* newComponent=(*createComponent)();
+	
+	return newComponent;
 }
