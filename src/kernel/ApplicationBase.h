@@ -39,7 +39,7 @@ namespace stb{
 /**
 *	
 */
-class ApplicationBase : public stb::Component
+class STB_API ApplicationBase : public stb::Component
 {
 public:
 	/**

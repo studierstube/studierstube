@@ -59,3 +59,10 @@ SimpleApp::shutDown()
 {
 
 }
+
+
+void 
+SimpleApp::update()
+{
+
+}

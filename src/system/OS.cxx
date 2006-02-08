@@ -45,8 +45,7 @@ os_LoadLibrary(const char* fileName)
 	{
 	    printf("STB_ERROR: Initialisation of ltdl failed!\n");
 	}
-
-       	return lt_dlopenext(fileName);
+	return lt_dlopenext(fileName);
 #endif
 }
 

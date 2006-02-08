@@ -5,8 +5,12 @@
 			updateMode="timer"
 			updateRate="0.03333"
 	/>
-	<Component
-		name="testComp"
-		lib="."	
+	<Component name="Viewer"
+		availability="demand"	
+		lib="stbviewer"	
+	/>
+	<Application name="SimpleApp"
+		availablity="load"
+		lib="simple"	
 	/>
 </studierstube>

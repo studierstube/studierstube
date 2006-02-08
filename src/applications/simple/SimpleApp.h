@@ -33,13 +33,13 @@
 #ifndef _SIMPLEAPP_H_
 #define _SIMPLEAPP_H_
 
-#include "kernel/Component.h"
+#include "kernel/Application.h"
 
 namespace stb{
 /**
 *	
 */
-	class SimpleApp : public stb::Component
+class SimpleApp : public stb::Application
 {
 public:
 	/**
@@ -56,6 +56,8 @@ public:
 	virtual bool init();
 	/// Called before the application is destructed.
 	virtual void shutDown();
+
+	virtual void update();
 protected:	
 
 private:

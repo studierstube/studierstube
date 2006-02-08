@@ -39,7 +39,7 @@ namespace stb{
 /**
 *	
 */
-class ApplicationThreadBase : public ApplicationBase
+class STB_API ApplicationThreadBase : public ApplicationBase
 {
 public:
 	/**
