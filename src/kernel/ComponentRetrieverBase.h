@@ -43,18 +43,19 @@ class ComponentRetrieverBase
 {
 public:
 	/**
-	*     The destructor.
-	*/
-	~ComponentRetrieverBase(){}
-
-
-	virtual Component* getComponent(ComponentInfo *compInfo)=0;
-
-protected:	
-	/**
 	*     The Constructor	
 	*/
-	ComponentRetrieverBase(){}
+	ComponentRetrieverBase();
+
+	/**
+	*     The destructor.
+	*/
+	~ComponentRetrieverBase();
+
+	virtual Component* getComponent(ComponentInfo *compInfo);
+
+protected:	
+
 
 private:
 	

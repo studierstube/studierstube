@@ -36,7 +36,7 @@
 #ifdef WIN32
 #include "kernel/ComponentRetrieverWin32.h"
 namespace stb{
-	typedef stb::ComponentRetrieverWin32 ComponentRetriever;
+	typedef stb::ComponentRetrieverBase ComponentRetriever;
 }
 #endif
 

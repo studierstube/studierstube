@@ -43,24 +43,3 @@ ComponentRetrieverWin32::~ComponentRetrieverWin32()
 {
    //nil
 }
-
-Component* 
-ComponentRetrieverWin32::getComponent(ComponentInfo *compInfo)
-{
-	////load dll
-	char* libName=compInfo->getLibName();
-	if(!libName)
-		return NULL;
-
-	HINSTANCE libHandle;
-	libHandle = LoadLibrary(libName);
-	if(!libHandle){
-		Kernel::getInstance()->logEx("ERROR: couldn't load %s\n",libName);
-		return NULL;
-	}
-	compInfo->setHINSTANCE(libHandle);
-	Component* (*createComponent)()=(Component*(*)())GetProcAddress(libHandle,"createComponent");
-	Component* newComponent=(*createComponent)();
-	
-	return newComponent;
-}

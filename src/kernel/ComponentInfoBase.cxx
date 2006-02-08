@@ -29,5 +29,60 @@
 /* ======================================================================= */
 
 #include "ComponentInfoBase.h"
+#include "Kernel.h"
+#include <tinyxml.h>
 
 using namespace stb;
+
+ComponentInfoBase::ComponentInfoBase(){
+	name=0;
+	libName=0;
+	libHandle=NULL;
+}
+
+ComponentInfoBase::~ComponentInfoBase(){
+	if(name)
+		delete name;
+	if(libName)
+		delete libName;
+	if(libHandle)
+		os_FreeLibrary(libHandle);
+}
+
+void 
+ComponentInfoBase::setHModule(hModule aLibHandle)
+{
+	if(libHandle)
+		FreeLibrary(libHandle);
+	libHandle=aLibHandle;
+}
+
+void 
+ComponentInfoBase::parseXMLAttributes(TiXmlElement* element)
+{
+	TiXmlAttribute* attribute = element->FirstAttribute();
+	while(attribute)
+	{
+		///////////////// Logging.mode /////////////////
+		if(!stricmp(attribute->Name(),"name"))
+		{
+			if(name)
+				delete name;
+			const char *tempName=attribute->Value();
+			name=new char[(int)strlen(tempName)+1];
+			strcpy(name,tempName);
+		}
+		///////////////// Logging. /////////////////
+		//else if(!stricmp(attribute->Name(),"----"))
+		//{		
+		//}
+		attribute = attribute->Next();
+	}
+
+	if(!name){
+		Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
+	}
+	if(!libName){
+		Kernel::getInstance()->log("ERROR: missing attribute 'lib' for Component\n");
+	}
+}

@@ -32,6 +32,7 @@
 
 #ifndef _COMPONENTINFOBASE_H_
 #define _COMPONENTINFOBASE_H_
+#include "system/OS.h"
 
 class TiXmlElement;
 
@@ -45,30 +46,25 @@ public:
 	/**
 	*     The destructor.
 	*/
-	~ComponentInfoBase(){
-		if(name)
-			delete name;
-		if(libName)
-			delete libName;
-	}
+	~ComponentInfoBase();
 
-	virtual void parseXMLAttributes(TiXmlElement* element)=0;
+	virtual void parseXMLAttributes(TiXmlElement* element);
 
-	char* getName(){return name;}
-	char* getLibName(){return libName;}
+	virtual char* getName(){return name;}
+
+	virtual char* getLibName(){return libName;}
+
+	virtual void setHModule(hModule aLibHandle);
 
 protected:	
 	/**
 	*     The Constructor	
 	*/
-	ComponentInfoBase(){
-		name=0;
-		libName=0;
-	}
+	ComponentInfoBase();
 
 	char* name;
 	char* libName;
-
+	hModule libHandle;
 private:
 	
 };// class 

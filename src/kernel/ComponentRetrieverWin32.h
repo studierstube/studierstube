@@ -52,11 +52,6 @@ public:
 	*/
 	~ComponentRetrieverWin32();
 
-	/**
-	*  
-	*/
-	virtual Component* getComponent(ComponentInfo *compInfo);
-
 protected:	
 
 private:

@@ -56,9 +56,9 @@ public:
 
 	virtual void parseXMLAttributes(TiXmlElement* element);
 
-	void setHINSTANCE(HINSTANCE aLibHandle);
+	
 protected:	
-	HINSTANCE libHandle;
+
 private:
 	
 };// class 

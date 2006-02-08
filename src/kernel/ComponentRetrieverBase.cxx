@@ -29,5 +29,43 @@
 /* ======================================================================= */
 
 #include "ComponentRetrieverBase.h"
+#include "Kernel.h"
+using namespace stb;
 
+
+/**
+*     The Constructor	
+*/
+ComponentRetrieverBase::ComponentRetrieverBase()
+{
+
+}
+
+/**
+*     The destructor.
+*/
+ComponentRetrieverBase::~ComponentRetrieverBase()
+{}
+
+
+Component* 
+ComponentRetrieverBase::getComponent(ComponentInfo *compInfo)
+{
+	////load dll
+	char* libName=compInfo->getLibName();
+	if(!libName)
+		return NULL;
+
+	hModule libHandle;
+	libHandle = os_LoadLibrary(libName);
+	if(!libHandle){
+		stb::Kernel::getInstance()->logEx("ERROR: couldn't load %s\n",libName);
+		return NULL;
+	}
+	compInfo->setHModule(libHandle);
+	Component* (*createComponent)()=(Component*(*)())os_GetProcAddress(libHandle,"createComponent");
+	Component* newComponent=(*createComponent)();
+
+	return newComponent;
+}
 

@@ -36,20 +36,12 @@ using namespace stb;
 
 ComponentInfoWin32::ComponentInfoWin32()
 {
-	libHandle=NULL;
+	
 }
 
 ComponentInfoWin32::~ComponentInfoWin32()
 {
-	if(libHandle)
-		FreeLibrary(libHandle);
-}
-void 
-ComponentInfoWin32::setHINSTANCE(HINSTANCE aLibHandle)
-{
-	if(libHandle)
-		FreeLibrary(libHandle);
-	libHandle=aLibHandle;
+
 }
 
 void
@@ -58,30 +50,20 @@ ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
 	TiXmlAttribute* attribute = element->FirstAttribute();
 	while(attribute)
 	{
-		///////////////// Logging.mode /////////////////
-		if(!stricmp(attribute->Name(),"name"))
-		{
-			if(name)
-				delete name;
-			const char *tempName=attribute->Value();
-			name=new char[(int)strlen(tempName)+1];
-			strcpy(name,tempName);
-		}
-		///////////////// Logging. /////////////////
-		else if(!stricmp(attribute->Name(),"lib"))
+		if(!stricmp(attribute->Name(),"lib"))
 		{	
 			if(libName)
 				delete libName;
 			const char *tempName=attribute->Value();
-		#ifdef DEBUG
+#ifdef DEBUG
 			libName=new char[(int)strlen(tempName)+6];
 			strcpy(libName,tempName);
 			strcat(libName,"d.dll");
-		#else
+#else
 			libName=new char[(int)strlen(tempName)+5];
 			strcpy(libName,tempName);
 			strcat(libName,".dll");
-		#endif
+#endif
 		}
 		///////////////// Logging. /////////////////
 		//else if(!stricmp(attribute->Name(),"----"))
@@ -90,10 +72,5 @@ ComponentInfoWin32::parseXMLAttributes(TiXmlElement* element)
 		attribute = attribute->Next();
 	}
 
-	if(!name){
-		Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
-	}
-	if(!libName){
-		Kernel::getInstance()->log("ERROR: missing attribute 'path' for Component\n");
-	}
+	ComponentInfoBase::parseXMLAttributes(element);
 }

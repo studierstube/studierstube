@@ -64,9 +64,10 @@ public:
 	void update();
 
 protected:
-	std::vector<stb::Component*> componentList;
+	std::vector<stb::Component*> compList;
 	std::vector<stb::Application*> appList;
 	stb::ComponentRetriever *compRetriever;
+	int appListSize;
 private:
 	
 };// class 

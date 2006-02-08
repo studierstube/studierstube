@@ -40,6 +40,7 @@ using namespace stb;
 ComponentManager::ComponentManager()
 {
 	compRetriever=new stb::ComponentRetriever();
+	appListSize=0;
 }
 
 ComponentManager::~ComponentManager()
@@ -54,6 +55,8 @@ ComponentManager::addApplication(ComponentInfo* compInfo)
 	if(!newApp)
 		return;
 	newApp->init();
+	appList.push_back(newApp);
+	appListSize++;
 }
 
 void 
@@ -63,12 +66,14 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
 	if(!newComp)
 		return;
 	newComp->init();
-	//3. add component
-
+	compList.push_back(newComp);
 }
 
 void 
 ComponentManager::update()
 {
-	
+	for(int i=0;i<appListSize;i++)
+	{
+		appList[i]->update();
+	}
 }
