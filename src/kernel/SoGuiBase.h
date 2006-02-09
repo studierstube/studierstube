@@ -51,13 +51,12 @@ public:
 	virtual void init()=0;
 
 	virtual void mainLoop()=0;
+
 protected:	
 	/**
 	*     The Constructor	
 	*/
 	SoGuiBase();
-
-	virtual void setDefaultBinding() {};
 
 private:
 	
