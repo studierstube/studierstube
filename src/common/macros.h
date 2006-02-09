@@ -22,25 +22,32 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the SoGui class.  
-*  
-* @author Denis Kalkofen  
-*  
-* $Id: SoGui.h 25 2005-11-28 16:11:59Z denis $  
-* @file                                                                   */  
-/* ======================================================================= */  
 
-#ifndef _SOGUI_H_
-#define _SOGUI_H_
+/*
+** macros.h
+** 
+** Made by Bernhard Reitinger
+** Login   <breiting@localhost.localdomain>
+** 
+** Started on  Wed Feb  8 20:01:01 2006 Bernhard Reitinger
+** Last update Wed Feb  8 20:01:01 2006 Bernhard Reitinger
+*/
 
-#ifdef WIN32
-#include "SoGuiWin32.h"
-namespace stb{
-	typedef stb::SoGuiWin32 SoGui;
-}
-#else
+/*!
+ *
+ * \file macros macros.h
+ * \brief Specify global macros which should be used
+ *
+ */
+
+#ifndef   	_STB_MACROS_
+#define   	_STB_MACROS_
+
+#define BEGIN_NAMESPACE_STB namespace stb {
+#define END_NAMESPACE_STB }; // namespace
+
+//! Define all functions in the gtl namespace
+namespace stb {}
+
 
 #endif
-
-
-#endif//_SOGUI_H_

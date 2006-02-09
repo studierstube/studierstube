@@ -57,7 +57,7 @@ protected:
 	*/
 	SoGuiBase();
 
-	virtual void setDefaultBinding()=0;	
+	virtual void setDefaultBinding() {};
 
 private:
 	

@@ -40,7 +40,7 @@
   #define STB_API __declspec(dllimport)
  #endif
 #else
- #define STB_API
+ #define STB_API 
 #endif
 
 

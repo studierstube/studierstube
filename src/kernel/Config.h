@@ -37,8 +37,9 @@
 class TiXmlElement;
 
 namespace stb{
-	class LoggingCP;
-//=====================================
+   
+   class LoggingCP;
+   //=====================================
 class Config{
 public:
 	Config();

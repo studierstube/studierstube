@@ -33,12 +33,62 @@
 #ifndef _COMPONENTINFO_H_
 #define _COMPONENTINFO_H_
 
-#ifdef WIN32
-#include "kernel/ComponentInfoWin32.h"
-namespace stb{
-	typedef stb::ComponentInfoWin32 ComponentInfo;
-}
-#endif
+#include "system/OS.h"
+#include "common/string.h"
+
+class TiXmlElement;
+
+BEGIN_NAMESPACE_STB
+
+/**
+*	
+*/
+class ComponentInfo
+{
+public:
+   /**
+    *     The Constructor	
+    */
+   ComponentInfo();
+   
+   /**
+    *     The destructor.
+    */
+   ~ComponentInfo();
+   
+   void parseXMLAttributes(TiXmlElement* element);
+   
+   stb::string getName(){return name;}
+   
+   stb::string getLibName(){return libName;}
+   
+   void setHModule(hModule aLibHandle);
+   
+protected:	
+   
+   
+   stb::string name;
+   stb::string libName;
+   hModule libHandle;
+private:
+	
+};// class 
+
+END_NAMESPACE_STB
+
 
 
 #endif//_COMPONENTINFO_H_
+
+//========================================================================
+// End of file
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

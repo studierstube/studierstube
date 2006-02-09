@@ -31,21 +31,29 @@
 /* ======================================================================= */
 
 #include "OS.h"
-#include <stdio.h>
+#include <cstdio>
+#include <sstream>
+#include <iostream>
+
 //---------------------------------------
 /**
 */
 hModule 
 os_LoadLibrary(const char* fileName)
 {
+    using namespace std;
+    ostringstream name;
+
 #ifdef WIN32
+    // compose here the lib name, Denis !
 	return LoadLibrary(fileName);
 #else
-	if (lt_dlinit())
-	{
-	    printf("STB_ERROR: Initialisation of ltdl failed!\n");
+	if (lt_dlinit()) {
+            cerr << "STB_ERROR: Initialisation of ltdl failed" << endl;
 	}
-	return lt_dlopenext(fileName);
+
+        name  << "lib" << fileName << ".so" << endl;
+	return lt_dlopenext(name.str().c_str());
 #endif
 }
 
@@ -71,7 +79,8 @@ os_FreeLibrary(hModule libHandle)
     else 
 	return false;
 #else
-    
+    lt_dlclose(libHandle);
+    return true;
 #endif
 }
 

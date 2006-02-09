@@ -34,12 +34,14 @@
 #define _APPLICATIONBASE_H_
 
 #include "kernel/Component.h"
+#include "common/macros.h"
 
-namespace stb{
+BEGIN_NAMESPACE_STB
+
 /**
 *	
 */
-class STB_API ApplicationBase : public stb::Component
+class STB_API ApplicationBase : public Component
 {
 public:
 	/**
@@ -59,8 +61,7 @@ private:
 	
 };// class 
 
-} //namespace
-
+END_NAMESPACE_STB
 
 
 #endif//_APPLICATIONBASE_H_

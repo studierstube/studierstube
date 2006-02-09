@@ -33,13 +33,16 @@
 #ifndef _COMPONENTBASE_H_
 #define _COMPONENTBASE_H_
 #include "kernel/Studierstube.h"
-#include "ComponentInfo.h"
+#include "kernel/ComponentInfo.h"
 
-namespace stb{
-	class Kernel;
+BEGIN_NAMESPACE_STB
+
+// class Kernel;
+
 /**
 *	
 */
+
 class STB_API ComponentBase
 {
 public:
@@ -68,7 +71,8 @@ protected:
 private:
 	
 };// class 
-} //namespace
+
+END_NAMESPACE_STB
 
 
 #define CREATE_COMPONENT_FUNC(CLASSNAME) \

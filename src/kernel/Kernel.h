@@ -34,10 +34,14 @@
 #define _KERNEL_H_
 
 #include "SoGui.h"
+
 class TiXmlElement;
 class SoSensor;
+
 #include "ComponentInfo.h"
-///////////////////////////////////////////////////
+
+BEGIN_NAMESPACE_STB
+
 namespace stb{
 	class ComponentManager;
 	class SceneManager;
@@ -130,8 +134,6 @@ protected:
 
 };// class 
 
-} //namespace
+END_NAMESPACE_STB
 
-
-
-#endif//_STBKERNEL_H_
+#endif //_STBKERNEL_H_

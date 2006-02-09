@@ -22,12 +22,79 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The cxx file for the ComponentInfo class.
+/* @author Denis Kalkofen
 *
-* @author Denis Kalkofen
-*
-* $Id: ComponentInfo.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentInfoBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
 #include "ComponentInfo.h"
+#include "Kernel.h"
+#include <tinyxml.h>
+
+BEGIN_NAMESPACE_STB
+
+ComponentInfo::ComponentInfo(){
+    libHandle=NULL;
+}
+
+ComponentInfo::~ComponentInfo(){
+    if(libHandle)
+        os_FreeLibrary(libHandle);
+}
+
+void 
+ComponentInfo::setHModule(hModule aLibHandle)
+{
+    if(libHandle)
+        os_FreeLibrary(libHandle);
+    libHandle = aLibHandle;
+}
+
+void 
+ComponentInfo::parseXMLAttributes(TiXmlElement* element)
+{
+    TiXmlAttribute* attribute = element->FirstAttribute();
+    while(attribute)
+    {
+        ///////////////// Library name /////////////////
+        if(!strcmp(attribute->Name(),"lib"))
+        {
+            libName = attribute->Value();
+        }
+        
+        
+        ///////////////// Logging.mode /////////////////
+        if(!strcmp(attribute->Name(),"name"))
+        {
+            name = attribute->Value();
+        }
+        ///////////////// Logging. /////////////////
+        //else if(!stricmp(attribute->Name(),"----"))
+        //{		
+        //}
+        attribute = attribute->Next();
+    }
+    
+    if(!name){
+        Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
+    }
+    if(!libName){
+        Kernel::getInstance()->log("ERROR: missing attribute 'lib' for Component\n");
+    }
+}
+
+END_NAMESPACE_STB
+
+//========================================================================
+// End of file
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================
