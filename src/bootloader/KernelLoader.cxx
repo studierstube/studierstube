@@ -22,7 +22,8 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the KernelLoader class.
+
+/** The impl file for the KernelLoader class.
 *
 * @author Bernhard Reitinger
 *
@@ -30,56 +31,55 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _KERNELLOADER_H_
-#define _KERNELLOADER_H_
-
-#include "../common/string.h"
+#include "KernelLoader.h"
 #include "../system/OS.h"
-#include "../common/macros.h"
+#include <iostream>
 
 BEGIN_NAMESPACE_STB
 
-class KernelLoader {
+KernelLoader::KernelLoader() {    
+}
 
-public:
-    /**
-     *	Constructor()
-     */
-    KernelLoader();
+KernelLoader::~KernelLoader() {    
+}
 
-    /**
-     *	The destructor.
-     */
-    ~KernelLoader();
-   
-    /**
-     *	set the name of the library which is going to be loaded.
-     */
-    void setLibName(stb::string aLibName);
-   
-    /**
-     *	set the name of the function which is going to be called.
-     */
-    void setExecFuncName(stb::string aFuncName);
-   
-    /**
-     *	loads the lib and calls the function defined by 'execFuncName'.
-     */
-    bool runKernel(int argc, char* argv[]);
-   
-protected:	
-   
-    stb::string libName;
-    stb::string execFuncName;
-   
-};
+void KernelLoader::setLibName(stb::string aLibName) {
+    libName = aLibName;
+}
+
+void KernelLoader::setExecFuncName(stb::string aFuncName) {
+    execFuncName = aFuncName;
+}
+
+bool KernelLoader::runKernel(int argc, char* argv[]) {
+    using namespace std;
+
+    hModule libHandle;
+
+    libHandle = os_LoadLibrary(libName.c_str());
+    
+    if (!libHandle) {
+        cerr << "ERROR: couldn't load library " << libName << endl;
+        return false;
+    }
+
+    // get function pointer
+    void (*startKernel)(int, char**);
+    startKernel = (void(*)(int, char**))os_GetProcAddress(libHandle, execFuncName.c_str());
+    
+    //call startkernel
+    (*startKernel)(argc,argv);
+    
+    //clean up 
+    os_FreeLibrary(libHandle);
+
+    return true;
+}
 
 END_NAMESPACE_STB
 
-#endif//_KERNELLOADER_H_
-
 //========================================================================
-// End of KernelLoader.h
+// End of KernelLoader.cxx
 //========================================================================
 // Local Variables:
 // mode: c++
