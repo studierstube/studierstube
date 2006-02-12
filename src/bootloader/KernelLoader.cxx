@@ -43,22 +43,24 @@ KernelLoader::KernelLoader() {
 KernelLoader::~KernelLoader() {    
 }
 
-void KernelLoader::setLibName(stb::string aLibName) {
+void KernelLoader::setLibName(stb::string aLibName) 
+{
     libName = aLibName;
 }
 
-void KernelLoader::setExecFuncName(stb::string aFuncName) {
+void KernelLoader::setExecFuncName(stb::string aFuncName) 
+{
     execFuncName = aFuncName;
 }
 
-bool KernelLoader::runKernel(int argc, char* argv[]) {
+bool KernelLoader::runKernel(int argc, char* argv[]) 
+{
     using namespace std;
-
     hModule libHandle;
-
     libHandle = os_LoadLibrary(libName.c_str());
     
-    if (!libHandle) {
+    if (!libHandle) 
+    {
         cerr << "ERROR: couldn't load library " << libName << endl;
         return false;
     }

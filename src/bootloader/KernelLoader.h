@@ -33,9 +33,9 @@
 #ifndef _KERNELLOADER_H_
 #define _KERNELLOADER_H_
 
-#include "../common/string.h"
-#include "../system/OS.h"
-#include "../common/macros.h"
+#include "common/string.h"
+#include "system/OS.h"
+#include "common/macros.h"
 
 BEGIN_NAMESPACE_STB
 
