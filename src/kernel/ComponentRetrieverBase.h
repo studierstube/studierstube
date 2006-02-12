@@ -22,15 +22,15 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ComponentRetrieverBase class.  
+/** The header file for the ComponentRetriever class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ComponentRetrieverBase.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: ComponentRetriever.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
-#ifndef _COMPONENTRETRIEVERBASE_H_
-#define _COMPONENTRETRIEVERBASE_H_
+#ifndef _COMPONENTRETRIEVER_H_
+#define _COMPONENTRETRIEVER_H_
 
 #include "Component.h"
 #include "ComponentInfo.h"
@@ -39,20 +39,20 @@ namespace stb{
 /**
 *	
 */
-class ComponentRetrieverBase
+class ComponentRetriever
 {
 public:
 	/**
 	*     The Constructor	
 	*/
-	ComponentRetrieverBase();
+	ComponentRetriever();
 
 	/**
 	*     The destructor.
 	*/
-	~ComponentRetrieverBase();
+	~ComponentRetriever();
 
-	virtual Component* getComponent(ComponentInfo *compInfo);
+	Component* getComponent(ComponentInfo *compInfo);
 
 protected:	
 

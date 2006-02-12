@@ -32,12 +32,13 @@
 
 #ifndef _SOGUIWIN32_H_
 #define _SOGUIWIN32_H_
-
+#include "common/macros.h"
 #include "SoGuiBase.h"
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-namespace stb{
+BEGIN_NAMESPACE_STB
 /**
 *	
 */
@@ -54,7 +55,7 @@ public:
 	*/
 	~SoGuiWin32();
 
-	virtual void readXMLConfig(TiXmlAttribute* attribute);
+	virtual void parseConfiguration(TiXmlAttribute* attribute);
 
 	virtual void setDefaultBinding();
 	
@@ -82,7 +83,7 @@ private:
 	
 };// class 
 
-} //namespace
+END_NAMESPACE_STB
 
 
 

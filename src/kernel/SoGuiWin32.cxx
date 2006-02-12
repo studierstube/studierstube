@@ -33,7 +33,7 @@
 #include <tinyxml.h>
 #include <string>
 
-using namespace stb;
+BEGIN_NAMESPACE_STB
 
 SoGuiWin32::SoGuiWin32()
 {
@@ -53,7 +53,7 @@ SoGuiWin32::setDefaultBinding()
 }
 
 void
-SoGuiWin32::readXMLConfig(TiXmlAttribute* attribute)
+SoGuiWin32::parseConfiguration(TiXmlAttribute* attribute)
 {
 	if(!stricmp(attribute->Value(),"SoWin"))
 		curGuiBinding=SoGuiWin32::SOWIN;		
@@ -138,3 +138,5 @@ SoGuiWin32::mainLoop()
 			break;
 	}
 }
+
+END_NAMESPACE_STB

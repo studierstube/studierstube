@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 #include "Kernel.h"
-#include "Studierstube.h"
+#include "studierstube.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml.h>
@@ -40,13 +40,12 @@
 #include <Inventor/sensors/SoSensor.h>
 //
 #include "Config.h"
-#include "SoGui.h"
 #include "UpdateManager.h"
-#include "SceneManager.h"
-#include "ComponentManager.h"
-#include "ComponentInfo.h"
-
-using namespace stb;
+//#include "SceneManager.h"
+//#include "ComponentManager.h"
+//#include "ComponentInfo.h"
+//
+BEGIN_NAMESPACE_STB
 
 Kernel*	Kernel::instance=NULL;
 
@@ -54,30 +53,27 @@ Kernel::Kernel()
 {
 	ACE::init();
 	SoDB::init();
-	
+	// 
 	logMode=OFF;
-	logFile=new char[14];
-	strcpy(logFile,"kernelLog.txt");
+	logFile="kernelLog.txt";
 	//
+    config=new stb::Config();
 	soGui =new stb::SoGui();
-	config=new stb::Config();
-	updateManager= new stb::UpdateManager();
-	sceneManager= new stb::SceneManager();
-	componentManager= new stb::ComponentManager();
+    updateManager= new stb::UpdateManager();
+	//sceneManager= new stb::SceneManager();
+	//componentManager= new stb::ComponentManager();
 	//////
 }
 
 Kernel::~Kernel()
 {
-	delete [] logFile;
-	printf("destructor\n");
-	ACE::fini();
+	//printf("destructor\n");
+	//ACE::fini();
 	delete config;
 	delete soGui;
 	delete updateManager;
-	delete sceneManager;
-	delete componentManager;
-
+	//delete sceneManager;
+	//delete componentManager;
 }
 
 //static
@@ -100,7 +96,7 @@ Kernel::start(int argc,char* argv[])
 	logEx("(C) %s Graz University of Technology\n",STUDIERSTUBE_YEAR_STRING);
 	log("****************************************\n\n");
 
-	config->readConfigFile("kernel.xml");
+	config->parseXML("kernel.xml");
 	soGui->init();
 	
 	updateManager->schedule();
@@ -143,7 +139,7 @@ Kernel::logDebug(const char* nStr ...)
 }
 
 void
-Kernel::parseXMLConfig(TiXmlElement* element)
+Kernel::parseConfiguration(TiXmlElement* element)
 {
 	////////////<logging mode="xxxY filename="xxx"/> /////////
 
@@ -161,37 +157,29 @@ Kernel::parseXMLConfig(TiXmlElement* element)
 				logMode=OFF;
 		}
 		///////////////// logFile /////////////////
-		else if(!stricmp(attribute->Name(),"logFile")){
-			if(logFile)
-				delete logFile;
-			const char *tempName=attribute->Value();
-			logFile=new char((int)strlen(tempName)+1);
-			strcpy(logFile,tempName);
+		else if(!stricmp(attribute->Name(),"logFile"))
+        {
+            logFile=attribute->Value();
 		}
 		else if(!stricmp(attribute->Name(),"guiBinding"))
 		{		
-			soGui->readXMLConfig(attribute);
+			soGui->parseConfiguration(attribute);
 		}
 		else if(!stricmp(attribute->Name(),"updateMode"))
 		{		
-			updateManager->readXMLConfig(attribute);
+			updateManager->parseConfiguration(attribute);
 		}
 		else if(!stricmp(attribute->Name(),"updateRate"))
 		{		
-			updateManager->readXMLConfig(attribute);
+            updateManager->parseConfiguration(attribute);
 		}
 
-		///////////////// ------- /////////////////
-		//else if(!stricmp(attribute->Name(),"----"))
-		//{		
-		//}
+	//	///////////////// ------- /////////////////
+	//	//else if(!stricmp(attribute->Name(),"----"))
+	//	//{		
+	//	//}
 		attribute = attribute->Next();
 	}
-	
-	////////////</> /////////
-	//if(!stricmp(element->Value(),""))
-	//{
-	//}
 }
 
 void 
@@ -200,14 +188,16 @@ Kernel::update( void * data, SoSensor * sensor)
 	printf("Kernel::update()\n");
 }
 
-void 
-Kernel::addApplication(ComponentInfo* compInfo)
-{
-	componentManager->addApplication(compInfo);
-}
+//void 
+//Kernel::addApplication(ComponentInfo* compInfo)
+//{
+//	/*componentManager->addApplication(compInfo);*/
+//}
+//
+//void 
+//Kernel::addComponent(ComponentInfo* compInfo)
+//{
+//	/*componentManager->addComponent(compInfo);*/
+//}
 
-void 
-Kernel::addComponent(ComponentInfo* compInfo)
-{
-	componentManager->addComponent(compInfo);
-}
+END_NAMESPACE_STB

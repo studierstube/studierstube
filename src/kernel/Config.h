@@ -29,44 +29,33 @@
 * $Id: Config.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-
-
-#ifndef __CONFIG_H_
-#define __CONFIG_H_
+#ifndef _CONFIG_H_
+#define _CONFIG_H_
 
 class TiXmlElement;
 
-namespace stb{
-   
-   class LoggingCP;
-   //=====================================
+#include "common/macros.h"
+
+BEGIN_NAMESPACE_STB
+
 class Config{
 public:
-	Config();
+    Config();
 
-	~Config();
+    ~Config();
 
-	// parses the config file
-	bool readConfigFile(const char* nFileName);
-
-	/*
-	*	returns the current log_mode
-	*/
-	LoggingCP* getLogging(){ return log; }
+    // parses the config file
+    bool parseXML(const char* nFileName);
 
 protected:
-	/*
-	*
-	*/
-	bool parseXMLElement(TiXmlElement* element);
-	
-	/*
-	*
-	*/
-	LoggingCP* log;
+    /*
+    *
+    */
+    bool parseXMLElement(TiXmlElement* element);
+
 };
 
-}//namespace
 
 
+END_NAMESPACE_STB
 #endif //

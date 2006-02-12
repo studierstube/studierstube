@@ -36,10 +36,11 @@
 #include <vector>
 #include "Component.h"
 #include "Application.h"
-#include "ComponentRetriever.h"
-#include "ComponentInfo.h"
+#include "common/macros.h"
 
-namespace stb{
+BEGIN_NAMESPACE_STB
+class ComponentRetriever;
+class ComponentInfo;
 /**
 *	
 */
@@ -72,7 +73,7 @@ private:
 	
 };// class 
 
-} //namespace
+END_NAMESPACE_STB
 
 
 

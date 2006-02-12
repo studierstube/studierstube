@@ -24,7 +24,7 @@
  * ======================================================================== */
 /** @author   Denis Kalkofen
  *
- * $Id: Config.cpp 131 2005-11-03 20:53:09Z daniel $
+ * $Id: Config.cpp 131 2005-11-03 20:53:09Z denis $
  * @file                                                                   */
 /* ======================================================================= */
 
@@ -32,8 +32,8 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-#include "ComponentInfo.h"
-using namespace stb;
+
+BEGIN_NAMESPACE_STB
 
 //================Config===========
 Config::Config()
@@ -47,7 +47,7 @@ Config::~Config()
 
 /// parse the xml file
 bool
-Config::readConfigFile(const char* filename)
+Config::parseXML(const char* filename)
 {   
 	Kernel::getInstance()->logDebug("parsing %s ...\n",filename);
 	TiXmlDocument* document = new TiXmlDocument();
@@ -83,20 +83,20 @@ Config::parseXMLElement(TiXmlElement* element)
 	////////Element -> Logging /////////////////
 	if(!stricmp(element->Value(),"Kernel"))
 	{
-		Kernel::getInstance()->parseXMLConfig(element);
+		Kernel::getInstance()->parseConfiguration(element);
 	}
 	///////////////// ________ /////////////////
 	else if(!stricmp(element->Value(),"Component"))
 	{
-		ComponentInfo *compInfo=new ComponentInfo();
-		compInfo->parseXMLAttributes(element);
-		Kernel::getInstance()->addComponent(compInfo);
+		//ComponentInfo *compInfo=new ComponentInfo();
+		//compInfo->parseConfiguration(element);
+		//Kernel::getInstance()->addComponent(compInfo);
 	}
 	else if(!stricmp(element->Value(),"Application"))
 	{
-		ComponentInfo *compInfo=new ComponentInfo();
-		compInfo->parseXMLAttributes(element);
-		Kernel::getInstance()->addApplication(compInfo);
+		//ComponentInfo *compInfo=new ComponentInfo();
+		//compInfo->parseConfiguration(element);
+		//Kernel::getInstance()->addApplication(compInfo);
 	}
 	/////////////////// ________ /////////////////
 	////else if(!stricmp(element->Value(),"________"))
@@ -113,3 +113,4 @@ Config::parseXMLElement(TiXmlElement* element)
 	return true;
 }
 
+END_NAMESPACE_STB

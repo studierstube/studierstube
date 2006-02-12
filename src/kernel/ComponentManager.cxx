@@ -34,8 +34,7 @@
 #include "ComponentInfo.h"
 #include "ComponentRetriever.h"
 
-
-using namespace stb;
+BEGIN_NAMESPACE_STB
 
 ComponentManager::ComponentManager()
 {
@@ -77,3 +76,5 @@ ComponentManager::update()
 		appList[i]->update();
 	}
 }
+
+END_NAMESPACE_STB

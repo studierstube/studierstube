@@ -34,34 +34,59 @@
 #include <Inventor/sensors/SoTimerSensor.h>
 #include "Kernel.h"
 
-using namespace stb;
+BEGIN_NAMESPACE_STB
 
 UpdateManager::UpdateManager()
 {
 	mode=IDLE;
 	updateRate=0.0;
+    scheduled=false;
 }
 
 UpdateManager::~UpdateManager()
 {
-   //nil
+   unschedule();
 }
 
 void 
-UpdateManager::schedule(){
-	switch(mode)
-	{
-	case IDLE:
-		scheduleIdleSensor();
-		break;
-	case TIMER:
-		scheduleTimerSensor();
-		break;
-	}
+UpdateManager::unschedule()
+{
+    if(!scheduled)
+        return ;
+
+    switch(mode)
+    {
+    case IDLE:
+        timer->unschedule();
+        delete timer;
+	    break;
+    case TIMER:
+	    
+	    break;
+    }
+    scheduled=false;
 }
 
 void 
-UpdateManager::readXMLConfig(TiXmlAttribute* attribute)
+UpdateManager::schedule()
+{
+    if(scheduled)
+        return ;
+
+    switch(mode)
+    {
+    case IDLE:
+	    scheduleIdleSensor();
+	    break;
+    case TIMER:
+	    scheduleTimerSensor();
+	    break;
+    }
+    scheduled=true;
+}
+
+void 
+UpdateManager::parseConfiguration(TiXmlAttribute* attribute)
 {
 	if(!stricmp(attribute->Name(),"updateMode"))
 	{
@@ -89,9 +114,12 @@ void
 UpdateManager::scheduleTimerSensor()
 {
 	Kernel::getInstance()->logDebug("Info: kernel->schedule SoTimerSensor \n");
-	SoTimerSensor *timer=new SoTimerSensor();
+	timer=new SoTimerSensor();
 	timer->setFunction(Kernel::update);
 	timer->setInterval(updateRate);
 	sensor = timer;
-	sensor->schedule();}
+	sensor->schedule();
+}
+
+END_NAMESPACE_STB
 

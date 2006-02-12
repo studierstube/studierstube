@@ -30,7 +30,7 @@
 
 #include "SoGuiBase.h"
 
-using namespace stb;
+BEGIN_NAMESPACE_STB
 
 SoGuiBase::SoGuiBase()
 {
@@ -42,3 +42,4 @@ SoGuiBase::~SoGuiBase()
    //nil
 }
 
+END_NAMESPACE_STB

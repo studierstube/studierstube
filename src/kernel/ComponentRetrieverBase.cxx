@@ -24,11 +24,11 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: ComponentRetrieverBase.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentRetriever.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentRetrieverBase.h"
+#include "ComponentRetriever.h"
 #include "Kernel.h"
 using namespace stb;
 
@@ -36,7 +36,7 @@ using namespace stb;
 /**
 *     The Constructor	
 */
-ComponentRetrieverBase::ComponentRetrieverBase()
+ComponentRetriever::ComponentRetriever()
 {
 
 }
@@ -44,12 +44,12 @@ ComponentRetrieverBase::ComponentRetrieverBase()
 /**
 *     The destructor.
 */
-ComponentRetrieverBase::~ComponentRetrieverBase()
+ComponentRetriever::~ComponentRetriever()
 {}
 
 
 Component* 
-ComponentRetrieverBase::getComponent(ComponentInfo *compInfo)
+ComponentRetriever::getComponent(ComponentInfo *compInfo)
 {
 	////load dll
 	char* libName=compInfo->getLibName();

@@ -32,12 +32,13 @@
 
 #ifndef _SOGUI_H_
 #define _SOGUI_H_
+#include "common/macros.h"
 
 #ifdef WIN32
 #include "SoGuiWin32.h"
-namespace stb{
+BEGIN_NAMESPACE_STB
 	typedef stb::SoGuiWin32 SoGui;
-}
+END_NAMESPACE_STB
 #else
 
 #endif

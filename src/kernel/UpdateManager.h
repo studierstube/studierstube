@@ -32,14 +32,13 @@
 
 #ifndef _UPDATEMANAGER_H_
 #define _UPDATEMANAGER_H_
+#include "common/macros.h"
 
 class SoSensor;
+class SoTimerSensor;
 class TiXmlAttribute;
-namespace stb{
 
-/**
-*	
-*/
+BEGIN_NAMESPACE_STB
 class UpdateManager
 {
 public:
@@ -53,10 +52,10 @@ public:
 	*/
 	~UpdateManager();
 
-	void readXMLConfig(TiXmlAttribute* attribute);
+	void parseConfiguration(TiXmlAttribute* attribute);
 
 	void schedule();
-
+    void unschedule();
 	enum MODE {
 		IDLE=0,
 		TIMER=1
@@ -70,11 +69,12 @@ protected:
 	void scheduleIdleSensor();
 	void scheduleTimerSensor();
 	SoSensor *sensor;
+    SoTimerSensor *timer;
+    bool scheduled;
 private:
 	
 };// class 
-
-} //namespace
+END_NAMESPACE_STB
 
 
 

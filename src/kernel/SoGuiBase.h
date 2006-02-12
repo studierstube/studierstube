@@ -32,9 +32,9 @@
 
 #ifndef _SOGUIBASE_H_
 #define _SOGUIBASE_H_
-
+#include "common/macros.h"
 class TiXmlAttribute;
-namespace stb{
+BEGIN_NAMESPACE_STB
 /**
 *	
 */
@@ -46,7 +46,7 @@ public:
 	*/
 	~SoGuiBase();
 
-	virtual void readXMLConfig(TiXmlAttribute* attribute)=0;
+	virtual void parseConfiguration(TiXmlAttribute* attribute)=0;
 
 	virtual void init()=0;
 
@@ -62,7 +62,7 @@ private:
 	
 };// class 
 
-} //namespace
+END_NAMESPACE_STB
 
 
 

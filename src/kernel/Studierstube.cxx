@@ -36,7 +36,7 @@
 void
 executeStudierstube(int argc, char** argv)
 {
-	stb::Kernel* samKernel = stb::Kernel::getInstance();
-	samKernel->start(argc,argv);
-	delete samKernel;
+	stb::Kernel* kernel = stb::Kernel::getInstance();
+	kernel->start(argc,argv);
+	delete kernel;
 }

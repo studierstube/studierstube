@@ -33,104 +33,103 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
-#include "SoGui.h"
+#include "common/macros.h"
+#include "common/string.h"
 
 class TiXmlElement;
 class SoSensor;
 
-#include "ComponentInfo.h"
+#include "SoGui.h"
+//#include "ComponentInfo.h"
 
-BEGIN_NAMESPACE_STB
-
-namespace stb{
-	class ComponentManager;
-	class SceneManager;
-	class UpdateManager;
-	class Config;
 /**
-*	The StbKernel.
+*
 */
+BEGIN_NAMESPACE_STB
+class Config;
+class UpdateManager;
+class ComponentManager;
+//class SceneManager;
 class Kernel
 {
 public:
-	/**
-	*	Returns the Kernel. it creates a new kernel, if no one exists.
-	*/
-	static Kernel* getInstance();
+    /**
+    *	Returns the Kernel. it creates a new kernel, if no one exists.
+    */
+    static Kernel* getInstance();
 
-	/**
-	*	The destructor.
-	*/
-	~Kernel();
+    /**
+    *	The destructor.
+    */
+    ~Kernel();
 
-	/**
-	*	Creates and starts a new kernel. 
-	*	The function also initializes ACE and Inventor.
-	*/
-	void start(int argc,char* argv[]);
-	
-	/**
-	*	Stop the kernel. --> Notice: stopKernel will not delete the Kernel!
-	*/
-	void stop();
+    /**
+    *	Creates and starts a new kernel. 
+    *	The function also initializes ACE and Inventor.
+    */
+    void start(int argc,char* argv[]);
 
-	/*
-	*	                                                                   
-	*/
-	void logEx(const char* nStr ...);
-	void logDebug(const char* nStr ...);
-	void log(const char* nStr);
+    /**
+    *	Stop the kernel. --> Notice: stopKernel will not delete the Kernel!
+    */
+    void stop();
 
-	/*
-	*	                                                                   
-	*/
-	void parseXMLConfig(TiXmlElement* root);
+    /*
+    *	                                                                   
+    */
+    void logEx(const char* nStr ...);
+    void logDebug(const char* nStr ...);
+    void log(const char* nStr);
 
-	static void update( void * data, SoSensor * sensor);
+    /*
+    *	                                                                   
+    */
+    void parseConfiguration(TiXmlElement* root);
 
-	void addComponent(ComponentInfo* compInfo);
+    static void update( void * data, SoSensor * sensor);
 
-	void addApplication(ComponentInfo* compInfo);
+    //void addComponent(ComponentInfo* compInfo);
+
+    //void addApplication(ComponentInfo* compInfo);
 protected:	
-	///////////////////// 
-	/**
-	*	The constructor.
-	*/
-	Kernel();
+    ///////////////////// 
+    /**
+    *	The constructor.
+    */
+    Kernel();
 
-	/**
-	*	THE KERNEL
-	*/
-	static Kernel *instance;
+    /**
+    *	THE KERNEL
+    */
+    static Kernel *instance;
 
-	/*
-	*		                                                                   
-	*/
-	stb::Config* config;
-	
-	stb::ComponentManager *componentManager;
-	stb::UpdateManager *updateManager;
+    /*
+    *		                                                                   
+    */
+    stb::Config* config;	
+    stb::UpdateManager *updateManager;
+    //stb::ComponentManager *componentManager;
+    //stb::SceneManager *sceneManager;
+    /*
+    *                                                                    
+    */
+    enum LOG_MODE {
+	    OFF=0,
+	    FILE=1,
+	    CONSOLE=2
+    };	
+    LOG_MODE logMode;
 
-	stb::SceneManager *sceneManager;
-	/*
-	*                                                                    
-	*/
-	enum LOG_MODE {
-		OFF=0,
-		FILE=1,
-		CONSOLE=2
-	};	
-	LOG_MODE logMode;
+    /*
+    *                                                                    
+    */
+    stb::string logFile;
 
-	/*
-	*                                                                    
-	*/
-	char *logFile;
 
-	/*
-	*                                                                    
-	*/
-	stb::SoGui *soGui;;
+    /*
+    *                                                                    
+    */
+    stb::SoGui *soGui;
 
 };// class 
 
