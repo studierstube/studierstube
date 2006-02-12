@@ -41,13 +41,18 @@
 hModule 
 os_LoadLibrary(const char* fileName)
 {
+#ifdef WIN32
     using namespace std;
     ostringstream name;
-
-#ifdef WIN32
-    // compose here the lib name, Denis !
-	return LoadLibrary(fileName);
-#else
+    name  << fileName;
+    #ifdef _DEBUG
+        name << "d";
+    #endif
+        name <<".dll";
+    return LoadLibrary(name.str().c_str());
+#else //LINUX
+    using namespace std;
+    ostringstream name;
 	if (lt_dlinit()) {
             cerr << "STB_ERROR: Initialisation of ltdl failed" << endl;
 	}
