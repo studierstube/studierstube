@@ -2,9 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="bootLoader"
-	ProjectGUID="{BEE9B92D-CCC2-4C97-92EE-6EE09B8CF3AF}"
-	RootNamespace="bootLoader"
+	Name="simpleApp"
+	ProjectGUID="{95C6CB53-B671-49FB-8F14-B543C9C63098}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -13,18 +12,18 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug_bootloader"
-			IntermediateDirectory="Debug_bootloader"
-			ConfigurationType="1"
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(STB4ROOT)/src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -33,13 +32,14 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(STB4ROOT)/bin/win32/studierstubed.exe"
+				AdditionalDependencies="stbkerneld.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/applications/simpled.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
-				DelayLoadDLLs=""
+				AdditionalLibraryDirectories="&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Debug_bootloader/stbBootLoaderd.pdb"
-				SubSystem="1"
+				ProgramDatabaseFile="Debug/simpled.pdb"
+				SubSystem="2"
+				ImportLibrary="$(STB4ROOT)/lib/win32/applications/simpled.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -64,31 +64,33 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release_bootloader"
-			IntermediateDirectory="Release_bootloader"
-			ConfigurationType="1"
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=""
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STBKERNEL_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(STB4ROOT)/bin/win32/stbBootLoader.exe"
+				AdditionalDependencies="coin2.lib ace.lib opengl32.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/stbkernel.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Release_bootloader/stbBootLoader.pdb"
-				SubSystem="1"
+				ProgramDatabaseFile="Release/$(ProjectName).pdb"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				ImportLibrary="$(STB4ROOT)/lib/win32/stbKernel.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -119,47 +121,22 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
-			<File
-				RelativePath="..\..\src\bootloader\KernelLoader.cxx">
-			</File>
-			<File
-				RelativePath="..\..\src\bootloader\KernelLoader.h">
-			</File>
-			<File
-				RelativePath="..\..\src\bootloader\main.cxx">
-			</File>
-			<Filter
-				Name="system"
-				Filter="">
-				<File
-					RelativePath="..\..\src\system\OS.cxx">
-				</File>
-				<File
-					RelativePath="..\..\src\system\OS.h">
-				</File>
-			</Filter>
-			<Filter
-				Name="common"
-				Filter="">
-				<File
-					RelativePath="..\..\src\common\macros.h">
-				</File>
-				<File
-					RelativePath="..\..\src\common\string.h">
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath="..\..\src\applications\simple\SimpleApp.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\applications\simple\SimpleApp.h">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="stbKernel.rc"/>
 	</Globals>
 </VisualStudioProject>

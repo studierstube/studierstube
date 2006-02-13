@@ -173,13 +173,13 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="UpdateManager"
+				Name="Scheduler"
 				Filter="">
 				<File
-					RelativePath="..\..\src\kernel\UpdateManager.cxx">
+					RelativePath="..\..\src\kernel\Scheduler.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\UpdateManager.h">
+					RelativePath="..\..\src\kernel\Scheduler.h">
 				</File>
 			</Filter>
 			<Filter

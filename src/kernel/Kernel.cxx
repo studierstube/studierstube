@@ -40,7 +40,7 @@
 #include <Inventor/sensors/SoSensor.h>
 //
 #include "Config.h"
-#include "UpdateManager.h"
+#include "Scheduler.h"
 #include "SceneManager.h"
 #include "ComponentManager.h"
 #include "ComponentInfo.h"
@@ -59,7 +59,7 @@ Kernel::Kernel()
 	//
     config=new stb::Config();
 	soGui =new stb::SoGui();
-    updateManager= new stb::UpdateManager();
+    scheduler= new stb::Scheduler();
 	sceneManager= new stb::SceneManager();
 	componentManager= new stb::ComponentManager();
 	//////
@@ -71,7 +71,7 @@ Kernel::~Kernel()
 	ACE::fini();
 	delete config;
 	delete soGui;
-	delete updateManager;
+	delete scheduler;
 	delete sceneManager;
 	delete componentManager;
 }
@@ -99,7 +99,7 @@ Kernel::start(int argc,char* argv[])
 	config->parseXML("kernel.xml");
 	soGui->init();
 	
-	updateManager->schedule();
+	scheduler->schedule();
 
 	soGui->mainLoop();
 }
@@ -154,11 +154,11 @@ Kernel::parseConfiguration(TiXmlElement* element)
 		}
 		else if(!stricmp(attribute->Name(),"updateMode"))
 		{		
-			updateManager->parseConfiguration(attribute);
+			scheduler->parseConfiguration(attribute);
 		}
 		else if(!stricmp(attribute->Name(),"updateRate"))
 		{		
-            updateManager->parseConfiguration(attribute);
+            scheduler->parseConfiguration(attribute);
 		}
 
 	//	///////////////// ------- /////////////////

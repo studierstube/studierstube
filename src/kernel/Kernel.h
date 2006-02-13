@@ -47,7 +47,7 @@ class SoSensor;
 */
 BEGIN_NAMESPACE_STB
 class Config;
-class UpdateManager;
+class Scheduler;
 class ComponentManager;
 class SceneManager;
 class ComponentInfo;
@@ -108,7 +108,7 @@ protected:
     *		                                                                   
     */
     stb::Config* config;	
-    stb::UpdateManager *updateManager;
+    stb::Scheduler *scheduler;
     stb::ComponentManager *componentManager;
     stb::SceneManager *sceneManager;
     /*

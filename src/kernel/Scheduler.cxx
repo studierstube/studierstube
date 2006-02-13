@@ -22,71 +22,74 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/* @author Denis Kalkofen
+/** The header file for the Scheduler class.
 *
-* $Id: UpdateManager.cxx 25 2005-11-28 16:11:59Z denis $
+* @author Denis Kalkofen
+*
+* $Id: Scheduler.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "UpdateManager.h"
+#include "Scheduler.h"
 #include <tinyxml.h>
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 #include "Kernel.h"
-
 BEGIN_NAMESPACE_STB
 
-UpdateManager::UpdateManager()
+
+Scheduler::Scheduler()
 {
 	mode=IDLE;
 	updateRate=0.0;
-    scheduled=false;
+	scheduled=false;
+
 }
 
-UpdateManager::~UpdateManager()
+Scheduler::~Scheduler()
 {
-   unschedule();
+	unschedule();
 }
 
 void 
-UpdateManager::unschedule()
+Scheduler::unschedule()
 {
-    if(!scheduled)
-        return ;
+	if(!scheduled)
+		return ;
 
-    switch(mode)
-    {
-    case IDLE:
-        timer->unschedule();
-        delete timer;
-	    break;
-    case TIMER:
-	    
-	    break;
-    }
-    scheduled=false;
+	switch(mode)
+	{
+	case IDLE:
+		timer->unschedule();
+		delete timer;
+		break;
+	case TIMER:
+
+		break;
+	}
+	scheduled=false;
 }
 
 void 
-UpdateManager::schedule()
+Scheduler::schedule()
 {
-    if(scheduled)
-        return ;
+	if(scheduled)
+		return ;
 
-    switch(mode)
-    {
-    case IDLE:
-	    scheduleIdleSensor();
-	    break;
-    case TIMER:
-	    scheduleTimerSensor();
-	    break;
-    }
-    scheduled=true;
+	switch(mode)
+	{
+	case IDLE:
+		scheduleIdleSensor();
+		break;
+	case TIMER:
+		scheduleTimerSensor();
+		break;
+	}
+	scheduled=true;
 }
 
 void 
-UpdateManager::parseConfiguration(TiXmlAttribute* attribute)
+Scheduler::parseConfiguration(TiXmlAttribute* attribute)
 {
 	if(!stricmp(attribute->Name(),"updateMode"))
 	{
@@ -102,7 +105,7 @@ UpdateManager::parseConfiguration(TiXmlAttribute* attribute)
 }
 
 void
-UpdateManager::scheduleIdleSensor()
+Scheduler::scheduleIdleSensor()
 {
 	//printf("scheduleIdleSensor()\n");
 	//sensor= new SoIdleSensor();
@@ -111,7 +114,7 @@ UpdateManager::scheduleIdleSensor()
 }
 
 void
-UpdateManager::scheduleTimerSensor()
+Scheduler::scheduleTimerSensor()
 {
 	Kernel::getInstance()->logDebug("Info: kernel->schedule SoTimerSensor \n");
 	timer=new SoTimerSensor();
@@ -120,6 +123,16 @@ UpdateManager::scheduleTimerSensor()
 	sensor = timer;
 	sensor->schedule();
 }
-
 END_NAMESPACE_STB
-
+//========================================================================
+// End of Scheduler.cxx
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

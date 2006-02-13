@@ -22,16 +22,16 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the UpdateManager class.  
+/** The header file for the Scheduler class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: UpdateManager.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: Scheduler.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _UPDATEMANAGER_H_
-#define _UPDATEMANAGER_H_
+#ifndef _SCHEDULER_H_
+#define _SCHEDULER_H_
 #include "common/macros.h"
 
 class SoSensor;
@@ -39,23 +39,26 @@ class SoTimerSensor;
 class TiXmlAttribute;
 
 BEGIN_NAMESPACE_STB
-class UpdateManager
+/**
+*	
+*/
+class Scheduler
 {
 public:
-	/**
-	*     The Constructor	
-	*/
-	UpdateManager();
+    /**
+    *     The Constructor	
+    */
+    Scheduler();
 
-	/**
-	*     The destructor.
-	*/
-	~UpdateManager();
+    /**
+    *     The destructor.
+    */
+    ~Scheduler();
 
 	void parseConfiguration(TiXmlAttribute* attribute);
 
 	void schedule();
-    void unschedule();
+	void unschedule();
 	enum MODE {
 		IDLE=0,
 		TIMER=1
@@ -69,13 +72,22 @@ protected:
 	void scheduleIdleSensor();
 	void scheduleTimerSensor();
 	SoSensor *sensor;
-    SoTimerSensor *timer;
-    bool scheduled;
+	SoTimerSensor *timer;
+	bool scheduled;
 private:
 	
 };// class 
 END_NAMESPACE_STB
-
-
-
-#endif//_UPDATEMANAGER_H_
+#endif//_SCHEDULER_H_
+//========================================================================
+// End of Scheduler.h 
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

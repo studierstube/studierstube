@@ -64,5 +64,5 @@ SimpleApp::shutDown()
 void 
 SimpleApp::update()
 {
-
+	printf("update simple app\n");
 }
