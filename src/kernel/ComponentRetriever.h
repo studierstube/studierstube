@@ -31,11 +31,12 @@
 /* ======================================================================= */  
 #ifndef _COMPONENTRETRIEVER_H_
 #define _COMPONENTRETRIEVER_H_
-
+#include "common/macros.h"
 #include "Component.h"
-#include "ComponentInfo.h"
 
-namespace stb{
+BEGIN_NAMESPACE_STB
+
+class ComponentInfo;
 /**
 *	
 */
@@ -61,7 +62,7 @@ private:
 	
 };// class 
 
-} //namespace
+END_NAMESPACE_STB
 
 
 

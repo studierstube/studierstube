@@ -34,9 +34,9 @@
 #define _COMPONENTMANAGER_H_
 
 #include <vector>
-#include "Component.h"
-#include "Application.h"
 #include "common/macros.h"
+//#include "Component.h"
+//#include "Application.h"
 
 BEGIN_NAMESPACE_STB
 class ComponentRetriever;
@@ -65,8 +65,8 @@ public:
 	void update();
 
 protected:
-	std::vector<stb::Component*> compList;
-	std::vector<stb::Application*> appList;
+	//std::vector<stb::Component*> compList;
+	//std::vector<stb::Application*> appList;
 	stb::ComponentRetriever *compRetriever;
 	int appListSize;
 private:

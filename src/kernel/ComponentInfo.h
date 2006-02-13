@@ -35,6 +35,7 @@
 
 #include "system/OS.h"
 #include "common/string.h"
+#include "common/macros.h"
 
 class TiXmlElement;
 
@@ -65,8 +66,6 @@ public:
    void setHModule(hModule aLibHandle);
    
 protected:	
-   
-   
    stb::string name;
    stb::string libName;
    hModule libHandle;

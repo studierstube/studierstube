@@ -29,9 +29,10 @@
 /* ======================================================================= */
 
 #include "ComponentRetriever.h"
+#include "ComponentInfo.h"
 #include "Kernel.h"
-using namespace stb;
 
+BEGIN_NAMESPACE_STB
 
 /**
 *     The Constructor	
@@ -45,15 +46,16 @@ ComponentRetriever::ComponentRetriever()
 *     The destructor.
 */
 ComponentRetriever::~ComponentRetriever()
-{}
+{
+}
 
 
 Component* 
 ComponentRetriever::getComponent(ComponentInfo *compInfo)
 {
-	////load dll
-	char* libName=compInfo->getLibName();
-	if(!libName)
+	////load lib
+    stb::string libName=compInfo->getLibName();
+	if(libName=="")
 		return NULL;
 
 	hModule libHandle;
@@ -69,3 +71,4 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	return newComponent;
 }
 
+END_NAMESPACE_STB

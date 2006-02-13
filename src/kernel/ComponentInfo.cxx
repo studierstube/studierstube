@@ -76,10 +76,10 @@ ComponentInfo::parseXMLAttributes(TiXmlElement* element)
         attribute = attribute->Next();
     }
     
-    if(!name){
+    if(name==""){
         Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
     }
-    if(!libName){
+    if(libName==""){
         Kernel::getInstance()->log("ERROR: missing attribute 'lib' for Component\n");
     }
 }
