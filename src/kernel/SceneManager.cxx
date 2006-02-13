@@ -43,11 +43,21 @@ SceneManager::SceneManager()
    trackRoot=new SoSeparator();
    displayRoot=new SoSeparator();
 
+   //set up the scene graph
+   //
+   //              root
+   //               |
+   //       |--------------------------------|
+   //    appRoot                        displayRoot	
+   //       |                                |
+   //  |-----------|-----|                 SoDisplay
+   // trackRoot   
+   //
    root->ref();
    root->addChild(appRoot);
    appRoot->addChild(trackRoot);
    root->addChild(displayRoot);
-
+   displayRoot->addChild(new SoSeparator); 
    touchRoot=root;
 }
 
@@ -79,6 +89,12 @@ SceneManager::getAppRoot()
 	return appRoot;
 }
 
+void 
+SceneManager::setDisplay(SoNode *display)
+{
+    displayRoot->replaceChild(0,display);
+    setTouchRoot(DISPLAY);
+}
 
 void
 SceneManager::setTouchRoot(TOUCHROOT touchNode)

@@ -66,8 +66,10 @@ public:
 	void setTouchRoot(TOUCHROOT touchNode);
 
 	SoSeparator* getDisplayRoot();
-
-	SoSeparator* getAppRoot();
+    
+    void setDisplay(SoNode *display);
+	
+    SoSeparator* getAppRoot();
 
 protected:	
 	SoSeparator* root;
