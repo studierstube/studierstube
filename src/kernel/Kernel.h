@@ -40,7 +40,7 @@ class TiXmlElement;
 class SoSensor;
 
 #include "SoGui.h"
-//#include "ComponentInfo.h"
+
 
 /**
 *
@@ -49,7 +49,9 @@ BEGIN_NAMESPACE_STB
 class Config;
 class UpdateManager;
 class ComponentManager;
-//class SceneManager;
+class SceneManager;
+class ComponentInfo;
+
 class Kernel
 {
 public:
@@ -88,9 +90,9 @@ public:
 
     static void update( void * data, SoSensor * sensor);
 
-    //void addComponent(ComponentInfo* compInfo);
+    void addComponent(ComponentInfo* compInfo);
 
-    //void addApplication(ComponentInfo* compInfo);
+    void addApplication(ComponentInfo* compInfo);
 protected:	
     ///////////////////// 
     /**
@@ -108,8 +110,8 @@ protected:
     */
     stb::Config* config;	
     stb::UpdateManager *updateManager;
-    //stb::ComponentManager *componentManager;
-    //stb::SceneManager *sceneManager;
+    stb::ComponentManager *componentManager;
+    stb::SceneManager *sceneManager;
     /*
     *                                                                    
     */

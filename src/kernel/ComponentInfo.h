@@ -57,7 +57,7 @@ public:
     */
    ~ComponentInfo();
    
-   void parseXMLAttributes(TiXmlElement* element);
+   void parseConfiguration(TiXmlElement* element);
    
    stb::string getName(){return name;}
    

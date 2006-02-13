@@ -32,14 +32,14 @@
 
 #ifndef _SCENEMANAGER_H_
 #define _SCENEMANAGER_H_
+#include "common/macros.h"
 
 class SoSeparator;
 class SbName;
 class SoNode;
-namespace stb{
-/**
-*	
-*/
+#include "common/macros.h"
+
+BEGIN_NAMESPACE_STB
 class SceneManager
 {
 public:
@@ -78,8 +78,7 @@ protected:
 private:
 	
 };// class 
-
-} //namespace
+END_NAMESPACE_STB
 
 
 

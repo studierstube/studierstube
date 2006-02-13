@@ -41,9 +41,9 @@
 //
 #include "Config.h"
 #include "UpdateManager.h"
-//#include "SceneManager.h"
-//#include "ComponentManager.h"
-//#include "ComponentInfo.h"
+#include "SceneManager.h"
+#include "ComponentManager.h"
+#include "ComponentInfo.h"
 //
 BEGIN_NAMESPACE_STB
 
@@ -60,20 +60,20 @@ Kernel::Kernel()
     config=new stb::Config();
 	soGui =new stb::SoGui();
     updateManager= new stb::UpdateManager();
-	//sceneManager= new stb::SceneManager();
-	//componentManager= new stb::ComponentManager();
+	sceneManager= new stb::SceneManager();
+	componentManager= new stb::ComponentManager();
 	//////
 }
 
 Kernel::~Kernel()
 {
-	//printf("destructor\n");
-	//ACE::fini();
+	printf("destructor\n");
+	ACE::fini();
 	delete config;
 	delete soGui;
 	delete updateManager;
-	//delete sceneManager;
-	//delete componentManager;
+	delete sceneManager;
+	delete componentManager;
 }
 
 //static
@@ -188,16 +188,16 @@ Kernel::update( void * data, SoSensor * sensor)
 	printf("Kernel::update()\n");
 }
 
-//void 
-//Kernel::addApplication(ComponentInfo* compInfo)
-//{
-//	/*componentManager->addApplication(compInfo);*/
-//}
-//
-//void 
-//Kernel::addComponent(ComponentInfo* compInfo)
-//{
-//	/*componentManager->addComponent(compInfo);*/
-//}
+void 
+Kernel::addApplication(ComponentInfo* compInfo)
+{
+	componentManager->addApplication(compInfo);
+}
+
+void 
+Kernel::addComponent(ComponentInfo* compInfo)
+{
+	componentManager->addComponent(compInfo);
+}
 
 END_NAMESPACE_STB

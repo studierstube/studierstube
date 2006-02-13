@@ -52,7 +52,7 @@ ComponentInfo::setHModule(hModule aLibHandle)
 }
 
 void 
-ComponentInfo::parseXMLAttributes(TiXmlElement* element)
+ComponentInfo::parseConfiguration(TiXmlElement* element)
 {
     TiXmlAttribute* attribute = element->FirstAttribute();
     while(attribute)
@@ -62,8 +62,6 @@ ComponentInfo::parseXMLAttributes(TiXmlElement* element)
         {
             libName = attribute->Value();
         }
-        
-        
         ///////////////// Logging.mode /////////////////
         if(!strcmp(attribute->Name(),"name"))
         {

@@ -32,7 +32,7 @@
 #include "Config.h"
 #include <tinyxml.h>
 #include "Kernel.h"
-
+#include "ComponentInfo.h"
 BEGIN_NAMESPACE_STB
 
 //================Config===========
@@ -88,15 +88,15 @@ Config::parseXMLElement(TiXmlElement* element)
 	///////////////// ________ /////////////////
 	else if(!stricmp(element->Value(),"Component"))
 	{
-		//ComponentInfo *compInfo=new ComponentInfo();
-		//compInfo->parseConfiguration(element);
-		//Kernel::getInstance()->addComponent(compInfo);
+		ComponentInfo *compInfo=new ComponentInfo();
+		compInfo->parseConfiguration(element);
+		Kernel::getInstance()->addComponent(compInfo);
 	}
 	else if(!stricmp(element->Value(),"Application"))
 	{
-		//ComponentInfo *compInfo=new ComponentInfo();
-		//compInfo->parseConfiguration(element);
-		//Kernel::getInstance()->addApplication(compInfo);
+		ComponentInfo *compInfo=new ComponentInfo();
+		compInfo->parseConfiguration(element);
+		Kernel::getInstance()->addApplication(compInfo);
 	}
 	/////////////////// ________ /////////////////
 	////else if(!stricmp(element->Value(),"________"))

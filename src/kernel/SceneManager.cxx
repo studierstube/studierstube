@@ -33,7 +33,7 @@
 #include <Inventor/SbName.h>
 #include <Inventor/nodes/SoNode.h>
 
-using namespace stb;
+BEGIN_NAMESPACE_STB
 
 SceneManager::SceneManager()
 {
@@ -97,3 +97,5 @@ SceneManager::setTouchRoot(TOUCHROOT touchNode)
 
 	}
 }
+
+END_NAMESPACE_STB
