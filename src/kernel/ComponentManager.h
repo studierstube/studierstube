@@ -35,12 +35,13 @@
 
 #include <vector>
 #include "common/macros.h"
-//#include "Component.h"
-//#include "Application.h"
+
 
 BEGIN_NAMESPACE_STB
 class ComponentRetriever;
 class ComponentInfo;
+class Component;
+class Application;
 /**
 *	
 */
@@ -65,9 +66,9 @@ public:
 	void update();
 
 protected:
-	//std::vector<stb::Component*> compList;
-	//std::vector<stb::Application*> appList;
-	stb::ComponentRetriever *compRetriever;
+	std::vector<stb::Component*> compList;
+	std::vector<stb::Application*> appList;
+	ComponentRetriever *compRetriever;
 	int appListSize;
 private:
 	

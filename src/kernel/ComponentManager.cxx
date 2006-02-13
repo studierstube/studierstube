@@ -31,6 +31,8 @@
 /* ======================================================================= */
 
 #include "ComponentManager.h"
+#include "Component.h"
+#include "Application.h"
 #include "ComponentInfo.h"
 #include "ComponentRetriever.h"
 
@@ -50,32 +52,32 @@ ComponentManager::~ComponentManager()
 void 
 ComponentManager::addApplication(ComponentInfo* compInfo)
 {
-	//Application* newApp=(Application*)compRetriever->getComponent(compInfo);
-	//if(!newApp)
-	//	return;
-	//newApp->init();
-	//appList.push_back(newApp);
-	//appListSize++;
+	Application* newApp=(Application*)compRetriever->getComponent(compInfo);
+	if(!newApp)
+		return;
+	newApp->init();
+	appList.push_back(newApp);
+	appListSize++;
 }
 
 void 
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
-	//Component* newComp=(Component*)compRetriever->getComponent(compInfo);
-	//if(!newComp)
-	//	return;
-	//newComp->init();
-	//compList.push_back(newComp);
+	Component* newComp=(Component*)compRetriever->getComponent(compInfo);
+	if(!newComp)
+		return;
+	newComp->init();
+	compList.push_back(newComp);
 }
 
 void 
 ComponentManager::update()
 {
     printf("ComponentManager::update()\n");
-	//for(int i=0;i<appListSize;i++)
-	//{
-	//	appList[i]->update();
-	//}
+	for(int i=0;i<appListSize;i++)
+	{
+		appList[i]->update();
+	}
 }
 
 END_NAMESPACE_STB

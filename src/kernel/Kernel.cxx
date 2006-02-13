@@ -92,8 +92,8 @@ void
 Kernel::start(int argc,char* argv[])
 {
 	log("****************************************\n");
-	logEx("%s \n",STUDIERSTUBE_VERSION_STRING);
-	logEx("(C) %s Graz University of Technology\n",STUDIERSTUBE_YEAR_STRING);
+	log(STUDIERSTUBE_VERSION_STRING);log("\n");
+	log("(C) ");log(STUDIERSTUBE_YEAR_STRING);log(" Graz University of Technology\n");
 	log("****************************************\n\n");
 
 	config->parseXML("kernel.xml");
@@ -111,30 +111,17 @@ Kernel::stop()
 }
 
 void
-Kernel::log(const char* nStr)
+Kernel::log(stb::string nStr)
 {
-	printf("%s",nStr);
+	printf("%s",nStr.c_str());
 }
 
-void 
-Kernel::logEx(const char* nStr ...)
-{
-	char tmpString[512];
-	va_list vaList;
-	va_start(vaList, nStr);
-	vsprintf(tmpString, nStr,vaList);
-	log(tmpString);
-}
 
 void 
-Kernel::logDebug(const char* nStr ...)
+Kernel::logDebug(stb::string nStr)
 {
 #ifdef _DEBUG
-	char tmpString[512];
-	va_list vaList;
-	va_start(vaList, nStr);
-	vsprintf(tmpString, nStr,vaList);
-	log(tmpString);
+	log(nStr);
 #endif
 }
 

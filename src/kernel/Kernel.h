@@ -79,9 +79,8 @@ public:
     /*
     *	                                                                   
     */
-    void logEx(const char* nStr ...);
-    void logDebug(const char* nStr ...);
-    void log(const char* nStr);
+    void logDebug(stb::string  nStr);
+    void log(stb::string nStr);
 
     /*
     *	                                                                   

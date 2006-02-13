@@ -57,18 +57,17 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
     stb::string libName=compInfo->getLibName();
 	if(libName=="")
 		return NULL;
-
 	hModule libHandle;
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
-		stb::Kernel::getInstance()->logEx("ERROR: couldn't load %s\n",libName);
-		return NULL;
+		Kernel::getInstance()->log("ERROR: couldn't load" + libName + "\n");
+        return NULL;
 	}
 	compInfo->setHModule(libHandle);
 	Component* (*createComponent)()=(Component*(*)())os_GetProcAddress(libHandle,"createComponent");
 	Component* newComponent=(*createComponent)();
 
 	return newComponent;
-}
+ }
 
 END_NAMESPACE_STB

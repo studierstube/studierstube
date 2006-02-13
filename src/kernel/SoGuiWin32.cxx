@@ -78,9 +78,9 @@ SoGuiWin32::loadSoWin()
 	std::string libFileName="SoWin1.dll";
 #endif	
 
-	libHandle = LoadLibrary(libFileName.c_str());
+    libHandle = LoadLibrary(libFileName.c_str());
 	if (!libHandle){
-		Kernel::getInstance()->logEx("ERROR: could not load %s",libFileName.c_str());
+		Kernel::getInstance()->log("ERROR: could not load " + libFileName);
 		return;
 	}
 

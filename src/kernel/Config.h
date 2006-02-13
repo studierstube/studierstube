@@ -35,6 +35,7 @@
 class TiXmlElement;
 
 #include "common/macros.h"
+#include "common/string.h"
 
 BEGIN_NAMESPACE_STB
 
@@ -45,7 +46,7 @@ public:
     ~Config();
 
     // parses the config file
-    bool parseXML(const char* nFileName);
+    bool parseXML(stb::string nFileName);
 
 protected:
     /*

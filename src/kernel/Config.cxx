@@ -47,15 +47,17 @@ Config::~Config()
 
 /// parse the xml file
 bool
-Config::parseXML(const char* filename)
+Config::parseXML(stb::string filename)
 {   
-	Kernel::getInstance()->logDebug("parsing %s ...\n",filename);
+	Kernel::getInstance()->logDebug("parsing " + filename + " ...\n");
 	TiXmlDocument* document = new TiXmlDocument();
 	
-	if(!document->LoadFile(filename))
+	if(!document->LoadFile(filename.c_str()))
 	{
-		Kernel::getInstance()->logEx("An error occured during parsing %s\n", filename);
-		Kernel::getInstance()->logEx(" Message: %s\n", document->ErrorDesc());
+		Kernel::getInstance()->log("An error occured during parsing " + filename + "\n");
+		Kernel::getInstance()->log(" Message: ");
+        Kernel::getInstance()->log(document->ErrorDesc());
+        Kernel::getInstance()->log("\n");
 		return false;
 	}
 
