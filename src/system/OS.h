@@ -32,7 +32,7 @@
 
 #ifndef OS_H
 #define OS_H
-
+#include "common/string.h"
 #ifdef WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#include "windows.h"
@@ -49,7 +49,7 @@
 
 //-------------------------------
 //functions
-hModule os_LoadLibrary(const char* fileName);
+hModule os_LoadLibrary(stb::string fileName);
 
 int*    os_GetProcAddress(hModule moduleHandle,const char*   procName);
 

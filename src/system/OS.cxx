@@ -39,7 +39,7 @@
 /**
 */
 hModule 
-os_LoadLibrary(const char* fileName)
+os_LoadLibrary(stb::string fileName)
 {
 #ifdef WIN32
     using namespace std;

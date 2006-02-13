@@ -12,8 +12,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="Debug_bootloader"
+			IntermediateDirectory="Debug_bootloader"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -37,7 +37,7 @@
 				AdditionalLibraryDirectories=""
 				DelayLoadDLLs=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Debug/stbBootLoaderd.pdb"
+				ProgramDatabaseFile="Debug_bootloader/stbBootLoaderd.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -63,8 +63,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="Release_bootloader"
+			IntermediateDirectory="Release_bootloader"
 			ConfigurationType="1"
 			CharacterSet="2">
 			<Tool
@@ -84,7 +84,7 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Release/stbBootLoader.pdb"
+				ProgramDatabaseFile="Release_bootloader/stbBootLoader.pdb"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
