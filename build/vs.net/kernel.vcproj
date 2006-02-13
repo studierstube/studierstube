@@ -193,7 +193,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Components"
+				Name="Component"
 				Filter="">
 				<File
 					RelativePath="..\..\src\kernel\Application.cxx">
