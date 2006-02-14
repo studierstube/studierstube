@@ -68,7 +68,7 @@ bool KernelLoader::runKernel(int argc, char* argv[])
     // get function pointer
     void (*startKernel)(int, char**);
     startKernel = (void(*)(int, char**))os_GetProcAddress(libHandle, execFuncName.c_str());
-    
+
     //call startkernel
     (*startKernel)(argc,argv);
     
