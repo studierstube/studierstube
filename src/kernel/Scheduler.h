@@ -38,6 +38,11 @@
     namespace stb{
         typedef stb::SchedulerWin32 Scheduler;
     }
+#else
+    #include "SchedulerLinux.h"
+    namespace stb{
+        typedef stb::SchedulerLinux Scheduler;
+    }
 #endif
 
 

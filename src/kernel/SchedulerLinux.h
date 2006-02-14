@@ -22,38 +22,35 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the SchedulerWin32 class.  
+/** The header file for the SchedulerLinux class.  
 *  
-* @author Denis Kalkofen  
+* @author Bernhard Reitinger  
 *  
-* $Id: SchedulerWin32.h 25 2005-11-28 16:11:59Z denis $  
+* $Id$  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SCHEDULERWIN32_H_
-#define _SCHEDULERWIN32_H_
+#ifndef _SCHEDULERLINUX_H_
+#define _SCHEDULERLINUX_H_
 #include "common/macros.h"
 #include "SchedulerBase.h"
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
 
 BEGIN_NAMESPACE_STB
 /**
 *	
 */
-class SchedulerWin32 : public SchedulerBase
+class SchedulerLinux : public SchedulerBase
 {
 public:
     /**
     *     The Constructor	
     */
-    SchedulerWin32();
+    SchedulerLinux();
 
     /**
     *     The destructor.
     */
-    ~SchedulerWin32();
+    ~SchedulerLinux();
 
     virtual void parseConfiguration(TiXmlAttribute* attribute);
 
@@ -62,25 +59,18 @@ public:
     virtual void mainLoop();
 
 protected:	
-    virtual enum GUI_BINDING {
-        SOQT=0,
-        SOWIN=1
-    };
-
-    GUI_BINDING curGuiBinding;
 
     void loadSoQt();
-    void loadSoWin();
-    void mainLoopSoWin();
     void mainLoopSoQt();
 
 private:
 	
 };// class 
 END_NAMESPACE_STB
-#endif//_SCHEDULERWIN32_H_
+#endif
+
 //========================================================================
-// End of SchedulerWin32.h 
+// End of SchedulerLinux.h 
 //========================================================================
 // Local Variables:
 // mode: c++

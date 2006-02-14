@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 #include "Kernel.h"
-#include "studierstube.h"
+#include "Studierstube.h"
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml.h>
@@ -88,7 +88,7 @@ Kernel::getInstance()
 
 //static
 void 
-Kernel::start(int argc,char* argv[])
+Kernel::start(int argc, char* argv[])
 {
 	log("****************************************\n");
 	log(STUDIERSTUBE_VERSION_STRING);log("\n");
@@ -132,17 +132,17 @@ Kernel::parseConfiguration(TiXmlElement* element)
 	while(attribute) //////////// kernel's parameter
 	{
 		///////////////// logMode /////////////////
-		if(!stricmp(attribute->Name(),"logMode"))
+		if(!strcasecmp(attribute->Name(),"logMode"))
 		{
-			if(!stricmp(attribute->Value(),"file"))
+			if(!strcasecmp(attribute->Value(),"file"))
 				logMode=FILE;		
-			else if(!stricmp(attribute->Value(),"console"))
+			else if(!strcasecmp(attribute->Value(),"console"))
 				logMode=CONSOLE;
-			else if(!stricmp(attribute->Value(),"off"))
+			else if(!strcasecmp(attribute->Value(),"off"))
 				logMode=OFF;
 		}
 		///////////////// logFile /////////////////
-		else if(!stricmp(attribute->Name(),"logFile"))
+		else if(!strcasecmp(attribute->Name(),"logFile"))
         {
             logFile=attribute->Value();
 		}

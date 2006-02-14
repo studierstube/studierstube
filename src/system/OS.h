@@ -37,14 +37,14 @@
 	#define WIN32_LEAN_AND_MEAN
 	#include "windows.h"
 #else
-	#include <ltdl.h>
+	#include <dlfcn.h>
 #endif
 
 //Module handle
 #ifdef WIN32
 	typedef HMODULE hModule;
 #else
-	typedef lt_dlhandle hModule; 
+	typedef void* hModule; 
 #endif
 
 //-------------------------------

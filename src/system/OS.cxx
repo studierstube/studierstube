@@ -53,12 +53,19 @@ os_LoadLibrary(stb::string fileName)
 #else //LINUX
     using namespace std;
     ostringstream name;
-	if (lt_dlinit()) {
-            cerr << "STB_ERROR: Initialisation of ltdl failed" << endl;
-	}
 
-        name  << "lib" << fileName << ".so" << endl;
-	return lt_dlopenext(name.str().c_str());
+    name  << "lib" << fileName << ".so";
+
+    cerr << "Dynamically loading >" << name.str() << "< ...";
+    
+    // load the library
+    hModule p = dlopen(name.str().c_str(), RTLD_LAZY);
+    if (!p) {
+        cerr << " failed: cannot load library: " << dlerror() << '\n';
+        return 0;
+    }
+    cerr << " done." << endl;
+    return p;
 #endif
 }
 
@@ -69,9 +76,9 @@ int*
 os_GetProcAddress(hModule moduleHandle,const char*   procName)
 {
 #ifdef WIN32
-    return (int*)GetProcAddress(moduleHandle,procName);
+    return (int*)GetProcAddress(moduleHandle, procName);
 #else
-    return (int*)lt_dlsym(moduleHandle,procName);
+    return (int*)dlsym(moduleHandle, procName);
 #endif
 }
 
@@ -84,7 +91,7 @@ os_FreeLibrary(hModule libHandle)
     else 
 	return false;
 #else
-    lt_dlclose(libHandle);
+    dlclose(libHandle);
     return true;
 #endif
 }

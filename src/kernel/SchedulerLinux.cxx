@@ -22,109 +22,96 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SchedulerBase class.
+/** The header file for the SchedulerLinux class.
 *
-* @author Denis Kalkofen
+* @author Bernhard Reitinger
 *
-* $Id: SchedulerBase.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id$
 * @file                                                                   */
 /* ======================================================================= */
-#include "SchedulerBase.h"
+
+#include "SchedulerLinux.h"
 #include <tinyxml.h>
-#include <Inventor/sensors/SoIdleSensor.h>
-#include <Inventor/sensors/SoTimerSensor.h>
 #include "Kernel.h"
+
+#include <iostream>
+
 BEGIN_NAMESPACE_STB
 
-
-SchedulerBase::SchedulerBase()
+SchedulerLinux::SchedulerLinux()
 {
-	mode=IDLE;
-	updateRate=0.0;
-	scheduled=false;
-
+    libHandle=NULL;
 }
 
-SchedulerBase::~SchedulerBase()
+SchedulerLinux::~SchedulerLinux()
 {
-	unschedule();
-}
-
-void 
-SchedulerBase::unschedule()
-{
-	if(!scheduled)
-		return ;
-
-	switch(mode)
-	{
-	case IDLE:
-		timer->unschedule();
-		delete timer;
-		break;
-	case TIMER:
-
-		break;
-	}
-	scheduled=false;
-}
-
-void 
-SchedulerBase::schedule()
-{
-	if(scheduled)
-		return ;
-
-	switch(mode)
-	{
-	case IDLE:
-		scheduleIdleSensor();
-		break;
-	case TIMER:
-		scheduleTimerSensor();
-		break;
-	}
-	scheduled=true;
-}
-
-void 
-SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
-{
-	if(!strcasecmp(attribute->Name(),"updateMode"))
-	{
-		if(!strcasecmp(attribute->Value(),"idle"))
-			mode=IDLE;		
-		else if(!strcasecmp(attribute->Value(),"timer"))
-			mode=TIMER;		
-	}
-	else if(!strcasecmp(attribute->Name(),"updateRate"))
-	{
-		updateRate=(float)atof(attribute->Value());
-	}
+   //nil
 }
 
 void
-SchedulerBase::scheduleIdleSensor()
+SchedulerLinux::parseConfiguration(TiXmlAttribute* attribute)
 {
-	//printf("scheduleIdleSensor()\n");
-	//sensor= new SoIdleSensor();
-	//sensor->setFunction(Kernel::update);
-	//sensor->schedule();
+    using namespace std;
+
+    if (!strcasecmp(attribute->Name(),"guiBinding"))
+    {
+        if (!strcasecmp(attribute->Value(),"SoQt")) {
+            // do nothing
+        } else {
+            cerr << "ERROR: unknown guiBinding " << attribute->Value() << ", using default (SoQt)" << endl;
+        }
+    }
+    SchedulerBase::parseConfiguration(attribute);
 }
 
 void
-SchedulerBase::scheduleTimerSensor()
+SchedulerLinux::loadSoQt()
 {
-	Kernel::getInstance()->logDebug("Info: kernel->schedule SoTimerSensor \n");
-	timer=new SoTimerSensor();
-	timer->setFunction(Kernel::update);
-	timer->setInterval(updateRate);
-	sensor = timer;
-	sensor->schedule();
+    printf("SoQt is not supported yet! \n");
 }
+
+void 
+SchedulerLinux::init()
+{
+
+    Kernel::getInstance()->logDebug("INFO: load SoQt\n");
+
+    stb::string libFileName = "SoQt";
+    libHandle = os_LoadLibrary(libFileName.c_str());
+
+    if (!libHandle){
+        Kernel::getInstance()->log("ERROR: could not load " + libFileName);
+        return;
+    }
+
+    //get pointer 
+    void (*soGuiInitFunc)(const char *, const char*)=NULL;
+    soGuiInitFunc = (void (*)(const char *, const char*)) 
+        os_GetProcAddress(libHandle,"_ZZN4SoQt4initEP7QWidgetE9dummyargv");
+    if(soGuiInitFunc == NULL)
+        printf("STB_ERROR: could not find init() in %s",libFileName.c_str());
+    
+    //call SoGui::init 
+    (*soGuiInitFunc)("Studierstube","SoQt"); 
+}
+
+void 
+SchedulerLinux::mainLoop()
+{
+    if(!libHandle){
+        Kernel::getInstance()->logDebug("Error: call soGui.init() before soGui.mainLoop. \n");
+        return;
+    }
+    void (*mainLoopFunc)();
+    mainLoopFunc = (void (*)()) os_GetProcAddress(libHandle,"_ZN4SoQt8mainLoopEv");
+    (*mainLoopFunc)();
+    
+}
+
 END_NAMESPACE_STB
+
 //========================================================================
-// End of SchedulerBase.cxx
+// End of SchedulerLinux.cxx
 //========================================================================
 // Local Variables:
 // mode: c++

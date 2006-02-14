@@ -56,7 +56,7 @@ public:
 	/**
 	*     The destructor.
 	*/
-	~Component();
+	virtual ~Component();
 
 	/// Called before the application is destructed.
 	virtual bool init() = 0;
@@ -67,8 +67,8 @@ public:
 protected:	
 
 
+	Kernel		*kernel_;
 	ComponentInfo	*compInfo_;
-	Kernel			*kernel_;
 
 private:
 	

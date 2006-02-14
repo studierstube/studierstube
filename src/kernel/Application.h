@@ -52,7 +52,7 @@ public:
 	/**
 	*     The destructor.
 	*/
-	~Application();
+	virtual ~Application();
 
 	virtual void update();
 protected:	
