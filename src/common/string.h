@@ -24,15 +24,21 @@
 BEGIN_NAMESPACE_STB
 
 // String
-
+///////////////// std::string
 #ifdef WIN32
 typedef std::string string;
 #else
 typedef std::string string;
 #endif
 
+///////////////// std::strcasecmp
+
+int stricasecmp(const stb::string str1, const stb::string str2);
+
 
 END_NAMESPACE_STB
+
+
 
 #endif 	    /* !_STB_STRING_H_ */
 

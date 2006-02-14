@@ -150,36 +150,33 @@
 					RelativePath="..\..\src\common\macros.h">
 				</File>
 				<File
+					RelativePath="..\..\src\common\string.cxx">
+				</File>
+				<File
 					RelativePath="..\..\src\common\string.h">
 				</File>
 			</Filter>
 			<Filter
-				Name="SoGui"
+				Name="backup"
 				Filter="">
-				<File
-					RelativePath="..\..\src\kernel\SoGui.h">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SoGuiBase.cxx">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SoGuiBase.h">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SoGuiWin32.cxx">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SoGuiWin32.h">
-				</File>
 			</Filter>
 			<Filter
 				Name="Scheduler"
 				Filter="">
 				<File
-					RelativePath="..\..\src\kernel\Scheduler.cxx">
+					RelativePath="..\..\src\kernel\Scheduler.h">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\Scheduler.h">
+					RelativePath="..\..\src\kernel\SchedulerBase.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\kernel\SchedulerBase.h">
+				</File>
+				<File
+					RelativePath="..\..\src\kernel\SchedulerWin32.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\kernel\SchedulerWin32.h">
 				</File>
 			</Filter>
 			<Filter
@@ -256,6 +253,10 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		</Filter>
+		<Filter
+			Name="NewFolder1"
+			Filter="">
 		</Filter>
 	</Files>
 	<Globals>

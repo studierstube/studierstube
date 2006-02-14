@@ -90,14 +90,14 @@ SchedulerBase::schedule()
 void 
 SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
 {
-	if(!strcasecmp(attribute->Name(),"updateMode"))
+	if(!stb::stricasecmp(attribute->Name(),"updateMode"))
 	{
-		if(!strcasecmp(attribute->Value(),"idle"))
+		if(!stb::stricasecmp(attribute->Value(),"idle"))
 			mode=IDLE;		
-		else if(!strcasecmp(attribute->Value(),"timer"))
+		else if(!stb::stricasecmp(attribute->Value(),"timer"))
 			mode=TIMER;		
 	}
-	else if(!strcasecmp(attribute->Name(),"updateRate"))
+	else if(!stb::stricasecmp(attribute->Name(),"updateRate"))
 	{
 		updateRate=(float)atof(attribute->Value());
 	}

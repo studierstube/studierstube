@@ -45,16 +45,15 @@ class STB_API ApplicationThread : public Application
 {
 public:
 	/**
-	*     The Constructor	
-	*/
-	ApplicationThread();
-
-	/**
 	*     The destructor.
 	*/
 	~ApplicationThread();
 
 protected:	
+    /**
+    *     The Constructor	
+    */
+    ApplicationThread();
 
 private:
 	

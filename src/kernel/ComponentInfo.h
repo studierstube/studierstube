@@ -36,6 +36,7 @@
 #include "system/OS.h"
 #include "common/string.h"
 #include "common/macros.h"
+#include <map>
 
 class TiXmlElement;
 
@@ -69,6 +70,7 @@ protected:
    stb::string name;
    stb::string libName;
    hModule libHandle;
+   std::map<stb::string,stb::string> parameter;
 private:
 	
 };// class 

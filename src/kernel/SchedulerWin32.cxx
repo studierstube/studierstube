@@ -50,11 +50,11 @@ SchedulerWin32::~SchedulerWin32()
 void
 SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
 {
-    if(!strcasecmp(attribute->Name(),"guiBinding"))
+    if(!stb::stricasecmp(attribute->Name(),"guiBinding"))
     {
-        if(!strcasecmp(attribute->Value(),"SoWin"))
+        if(!stb::stricasecmp(attribute->Value(),"SoWin"))
             curGuiBinding=SchedulerWin32::SOWIN;		
-        else if(!strcasecmp(attribute->Value(),"SoQt"))
+        else if(!stb::stricasecmp(attribute->Value(),"SoQt"))
             curGuiBinding=SchedulerWin32::SOQT;	
     }
     //else if()

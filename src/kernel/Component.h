@@ -34,7 +34,7 @@
 #define _COMPONENT_H_
 #include "Studierstube.h"
 #include "common/macros.h"
-
+#include "common/string.h"
 
 BEGIN_NAMESPACE_STB
 
@@ -49,11 +49,6 @@ class STB_API Component
 {
 public:
 	/**
-	*     The Constructor	
-	*/
-	Component();
-
-	/**
 	*     The destructor.
 	*/
 	virtual ~Component();
@@ -64,8 +59,12 @@ public:
 	/// Called before the application is destructed.
 	virtual void shutDown() = 0;
 
+    virtual void setParameter(stb::string key, std::string value);
 protected:	
-
+    /**
+    *     The Constructor	
+    */
+    Component();
 
 	Kernel		*kernel_;
 	ComponentInfo	*compInfo_;
@@ -82,7 +81,7 @@ extern "C" {																						\
 \
 __declspec(dllexport) stb::CLASSNAME* createComponent()\
 {																									\
-	return new stb::CLASSNAME();																	\
+    return new stb::CLASSNAME;																	\
 }																									\
 \
 }

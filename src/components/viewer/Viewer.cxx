@@ -29,13 +29,29 @@
 * $Id: Viewer.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-
 #include "Viewer.h"
 #include "stdio.h"
 BEGIN_NAMESPACE_STB
 
+Viewer* Viewer::instance=NULL;
 
-CREATE_COMPONENT_FUNC(Viewer)
+extern "C" 
+{																						
+    __declspec(dllexport) Viewer* createComponent()
+    {							
+        return Viewer::getInstance();															
+    }																									
+}
+
+Viewer* 
+Viewer::getInstance()
+{
+    if(instance)
+        return instance;
+    instance=new Viewer();
+    
+    return instance;
+}
 
 Viewer::Viewer()
 {
@@ -53,6 +69,12 @@ Viewer::init()
 {
 	printf("init Viewer\n");
 	return true;
+}
+
+void 
+Viewer::setParameter(stb::string key, std::string value)
+{
+    printf(key.c_str());
 }
 
 /// Called before the application is destructed.

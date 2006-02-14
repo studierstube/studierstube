@@ -5,9 +5,9 @@
 			updateMode="timer"
 			updateRate="0.03333"
 	/>
-	<Application name="Viewer"
+	<Component name="Viewer"
 		availability="demand"	
-		lib="stbviewer"	
+		lib="stbviewer"
 	/>
 	<Application name="SimpleApp"
 		availablity="load"

@@ -48,4 +48,10 @@ Component::~Component()
 		delete compInfo_;
 }
 
+void 
+Component::setParameter(stb::string key, std::string value)
+{
+
+}
+
 END_NAMESPACE_STB

@@ -62,7 +62,7 @@ Config::parseXML(stb::string filename)
 	}
 
 	TiXmlElement* root = document->RootElement();
-	if(!strcasecmp(root->Value(),"studierstube"))
+	if(!stb::stricasecmp(root->Value(),"studierstube"))
 	{
 		////parse studierstube parameter
 		TiXmlElement* element = root->FirstChildElement();
@@ -83,18 +83,18 @@ bool
 Config::parseXMLElement(TiXmlElement* element)
 {
 	////////Element -> Logging /////////////////
-	if(!strcasecmp(element->Value(),"Kernel"))
+	if(!stb::stricasecmp(element->Value(),"Kernel"))
 	{
 		Kernel::getInstance()->parseConfiguration(element);
 	}
 	///////////////// ________ /////////////////
-	else if(!strcasecmp(element->Value(),"Component"))
+	else if(!stb::stricasecmp(element->Value(),"Component"))
 	{
 		ComponentInfo *compInfo=new ComponentInfo();
 		compInfo->parseConfiguration(element);
 		Kernel::getInstance()->addComponent(compInfo);
 	}
-	else if(!strcasecmp(element->Value(),"Application"))
+	else if(!stb::stricasecmp(element->Value(),"Application"))
 	{
 		ComponentInfo *compInfo=new ComponentInfo();
 		compInfo->parseConfiguration(element);

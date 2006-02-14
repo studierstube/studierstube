@@ -45,17 +45,16 @@ class STB_API Application : public Component
 {
 public:
 	/**
-	*     The Constructor	
-	*/
-	Application();
-
-	/**
 	*     The destructor.
 	*/
 	virtual ~Application();
 
 	virtual void update();
 protected:	
+    /**
+    *     The Constructor	
+    */
+    Application();
 
 private:
 	

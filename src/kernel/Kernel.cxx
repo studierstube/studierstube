@@ -132,17 +132,17 @@ Kernel::parseConfiguration(TiXmlElement* element)
 	while(attribute) //////////// kernel's parameter
 	{
 		///////////////// logMode /////////////////
-		if(!strcasecmp(attribute->Name(),"logMode"))
+		if(!stb::stricasecmp(attribute->Name(),"logMode"))
 		{
-			if(!strcasecmp(attribute->Value(),"file"))
+			if(!stb::stricasecmp(attribute->Value(),"file"))
 				logMode=FILE;		
-			else if(!strcasecmp(attribute->Value(),"console"))
+			else if(!stb::stricasecmp(attribute->Value(),"console"))
 				logMode=CONSOLE;
-			else if(!strcasecmp(attribute->Value(),"off"))
+			else if(!stb::stricasecmp(attribute->Value(),"off"))
 				logMode=OFF;
 		}
 		///////////////// logFile /////////////////
-		else if(!strcasecmp(attribute->Name(),"logFile"))
+		else if(!stb::stricasecmp(attribute->Name(),"logFile"))
         {
             logFile=attribute->Value();
 		}
