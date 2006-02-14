@@ -60,6 +60,10 @@ public:
 	virtual void shutDown() = 0;
 
     virtual void setParameter(stb::string key, std::string value);
+
+    virtual void setComponentInfo(ComponentInfo* info);
+
+    virtual void retrieveParameter();
 protected:	
     /**
     *     The Constructor	

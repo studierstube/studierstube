@@ -35,7 +35,7 @@
 
 #include "common/macros.h"
 #include "common/string.h"
-
+#include "Studierstube.h"
 class TiXmlElement;
 class SoSensor;
 
@@ -51,7 +51,7 @@ class ComponentManager;
 class SceneManager;
 class ComponentInfo;
 
-class Kernel
+class STB_API Kernel
 {
 public:
     /**

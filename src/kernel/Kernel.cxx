@@ -161,7 +161,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
 void 
 Kernel::update( void * data, SoSensor * sensor)
 {
-	printf("Kernel::update()\n");
+	printf(".");
 }
 
 void 

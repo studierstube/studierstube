@@ -81,10 +81,11 @@ ComponentInfo::parseConfiguration(TiXmlElement* element)
     TiXmlElement* child = element->FirstChildElement();
     while(child)
     {
-        if(!stb::stricasecmp(element->Value(),"Param"))
+        if(!stb::stricasecmp(child->Value(),"Param"))
         {
             stb::string key="";
             stb::string value="";
+            attribute = child->FirstAttribute();
             while(attribute)
             {
                 /////////////// Library name /////////////////

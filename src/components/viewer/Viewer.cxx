@@ -30,7 +30,14 @@
 * @file                                                                   */
 /* ======================================================================= */
 #include "Viewer.h"
-#include "stdio.h"
+#include "kernel/Kernel.h"
+#include <iostream>
+#include <Inventor/SoInput.h> 
+#include <Inventor/nodes/SoSeparator.h>
+
+#include "SoDisplay.h"
+
+
 BEGIN_NAMESPACE_STB
 
 Viewer* Viewer::instance=NULL;
@@ -55,7 +62,7 @@ Viewer::getInstance()
 
 Viewer::Viewer()
 {
-   //nil
+   configFile="";
 }
 
 Viewer::~Viewer()
@@ -67,14 +74,43 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
-	printf("init Viewer\n");
+    // init coin stuff
+    SoDisplay::initClass();
+
+    //get viewer's parameter
+    retrieveParameter();
+    //load .iv file 
+    std::cout<<"init Viewer\n";
+    SoInput myinput;
+    SoInput::addDirectoryFirst("./");
+    if (!myinput.openFile(configFile.c_str())) 
+    {
+        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + configFile + "\n");
+        SoInput::removeDirectory("./");
+        return false;
+    }
+    SoSeparator *fileRoot=SoDB::readAll(&myinput);
+    myinput.closeFile();
+    SoInput::removeDirectory("./");
+    if (fileRoot==NULL) 
+    {
+        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + configFile + "\n");
+        return false;
+    }
+ 
 	return true;
 }
 
 void 
 Viewer::setParameter(stb::string key, std::string value)
 {
-    printf(key.c_str());
+    if(key=="configFile")
+    {
+        configFile=value;
+    }
+    //else if()
+    //{
+    //}
 }
 
 /// Called before the application is destructed.

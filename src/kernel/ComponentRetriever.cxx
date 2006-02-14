@@ -66,8 +66,8 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	compInfo->setHModule(libHandle);
 	Component* (*createComponent)()=(Component*(*)())os_GetProcAddress(libHandle,"createComponent");
 	Component* newComponent=(*createComponent)();
-
+    newComponent->setComponentInfo(compInfo);
 	return newComponent;
- }
+}
 
 END_NAMESPACE_STB

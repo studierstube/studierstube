@@ -52,6 +52,7 @@ public:
 	virtual bool init();
 	/// Called before the application is destructed.
 	virtual void shutDown();
+    //
     virtual void setParameter(stb::string key, std::string value);
 
 protected:	
@@ -61,6 +62,7 @@ protected:
     Viewer();
 
     static Viewer* instance;
+    stb::string configFile; 
 private:
 	
 };// class 

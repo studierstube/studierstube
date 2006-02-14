@@ -29,7 +29,6 @@
 * $Id: ComponentInfo.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
-
 #ifndef _COMPONENTINFO_H_
 #define _COMPONENTINFO_H_
 
@@ -39,6 +38,7 @@
 #include <map>
 
 class TiXmlElement;
+#include "Component.h"
 
 BEGIN_NAMESPACE_STB
 
@@ -48,6 +48,7 @@ BEGIN_NAMESPACE_STB
 class ComponentInfo
 {
 public:
+   friend Component;
    /**
     *     The Constructor	
     */
