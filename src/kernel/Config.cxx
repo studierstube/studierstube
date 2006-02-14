@@ -104,7 +104,6 @@ Config::parseXMLElement(TiXmlElement* element)
 	////else if(!stricmp(element->Value(),"________"))
 	////{
 	////}
-
 	/////////// Config does not allow children /////
 	//TiXmlElement * childElement = element->FirstChildElement();
 	//while(childElement)

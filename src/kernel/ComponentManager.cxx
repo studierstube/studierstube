@@ -55,7 +55,10 @@ ComponentManager::addApplication(ComponentInfo* compInfo)
 	Application* newApp=(Application*)compRetriever->getComponent(compInfo);
 	if(!newApp)
 		return;
+
+    //add parameter
 	newApp->init();
+
 	appList.push_back(newApp);
 	appListSize++;
 }
@@ -66,7 +69,10 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
 	Component* newComp=(Component*)compRetriever->getComponent(compInfo);
 	if(!newComp)
 		return;
+
+    //add parameter
 	newComp->init();
+    
 	compList.push_back(newComp);
 }
 

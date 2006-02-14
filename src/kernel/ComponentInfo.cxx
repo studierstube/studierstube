@@ -74,35 +74,36 @@ ComponentInfo::parseConfiguration(TiXmlElement* element)
         //}
         attribute = attribute->Next();
     }
-    //TiXmlElement* child = element->FirstChildElement();
-    //while(child)
-    //{
-    //    if(!stb::stricasecmp(element->Value(),"Param"))
-    //    {
-    //        stb::string key="";
-    //        stb::string value="";
-    //        while(attribute)
-    //        {
-    //            ///////////////// Library name /////////////////
-    //            if(!stb::stricasecmp(attribute->Name(),"key"))
-    //            {
-    //                key = attribute->Value();
-    //            }
-    //            ///////////////// Logging.mode /////////////////
-    //            else if(!stb::stricasecmp(attribute->Name(),"value"))
-    //            {
-    //                value = attribute->Value();
-    //            }
-    //            attribute = attribute->Next();
-    //        }
-    //        if(key!="" && value!="")
-    //            parameter[key]=value;
-    //    }
-    //    child = child->NextSiblingElement();
-    //}
-    //<Param key   =configFile 
-    //    value =viewer.iv />	
 
+    //  <Param key   ="configFile" 
+    //       value ="viewer.iv" 
+    //  />	
+    TiXmlElement* child = element->FirstChildElement();
+    while(child)
+    {
+        if(!stb::stricasecmp(element->Value(),"Param"))
+        {
+            stb::string key="";
+            stb::string value="";
+            while(attribute)
+            {
+                /////////////// Library name /////////////////
+                if(!stb::stricasecmp(attribute->Name(),"key"))
+                {
+                    key = attribute->Value();
+                }
+                /////////////// Logging.mode /////////////////
+                else if(!stb::stricasecmp(attribute->Name(),"value"))
+                {
+                    value = attribute->Value();
+                }
+                attribute = attribute->Next();
+            }
+            if(key!="" && value!="")
+                parameter[key]=value;
+        }
+        child = child->NextSiblingElement();
+    }
 
     if(name==""){
         Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");

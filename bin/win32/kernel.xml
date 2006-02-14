@@ -8,7 +8,11 @@
 	<Component name="Viewer"
 		availability="demand"	
 		lib="stbviewer"
-	/>
+	>
+		<Param key   ="configFile" 
+		       value ="viewer.iv" 
+		/>	
+	</Component>
 	<Application name="SimpleApp"
 		availablity="load"
 		lib="simple"	
