@@ -58,7 +58,7 @@ Kernel::Kernel()
 	logFile="kernelLog.txt";
 	//
     config=new stb::Config();
-	soGui =new stb::SoGui();
+	
     scheduler= new stb::Scheduler();
 	sceneManager= new stb::SceneManager();
 	componentManager= new stb::ComponentManager();
@@ -70,7 +70,6 @@ Kernel::~Kernel()
 	printf("destructor\n");
 	ACE::fini();
 	delete config;
-	delete soGui;
 	delete scheduler;
 	delete sceneManager;
 	delete componentManager;
@@ -97,11 +96,10 @@ Kernel::start(int argc,char* argv[])
 	log("****************************************\n\n");
 
 	config->parseXML("kernel.xml");
-	soGui->init();
-	
-	scheduler->schedule();
 
-	soGui->mainLoop();
+	scheduler->init();
+	scheduler->schedule();
+	scheduler->mainLoop();
 }
 
 //static
@@ -148,19 +146,10 @@ Kernel::parseConfiguration(TiXmlElement* element)
         {
             logFile=attribute->Value();
 		}
-		else if(!stricmp(attribute->Name(),"guiBinding"))
-		{		
-			soGui->parseConfiguration(attribute);
-		}
-		else if(!stricmp(attribute->Name(),"updateMode"))
-		{		
+        else 
+		{
 			scheduler->parseConfiguration(attribute);
 		}
-		else if(!stricmp(attribute->Name(),"updateRate"))
-		{		
-            scheduler->parseConfiguration(attribute);
-		}
-
 	//	///////////////// ------- /////////////////
 	//	//else if(!stricmp(attribute->Name(),"----"))
 	//	//{		

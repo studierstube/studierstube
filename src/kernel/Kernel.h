@@ -39,7 +39,7 @@
 class TiXmlElement;
 class SoSensor;
 
-#include "SoGui.h"
+#include "Scheduler.h"
 
 
 /**
@@ -47,7 +47,6 @@ class SoSensor;
 */
 BEGIN_NAMESPACE_STB
 class Config;
-class Scheduler;
 class ComponentManager;
 class SceneManager;
 class ComponentInfo;
@@ -130,7 +129,6 @@ protected:
     /*
     *                                                                    
     */
-    stb::SoGui *soGui;
 
 };// class 
 
