@@ -251,15 +251,13 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 void 
 SoStudierstubeViewer::redraw ()
 {
-
     if(!isVideoInitialized)
     {
-		isVideoInitialized=true;
-		this->glLockNormal(); // this makes the GL context "current"
-		//if(OpenVideoContext::getInstance()->startOpenVideo())
-		//	setClearBeforeRender(FALSE);
-		this->glUnlockNormal();// this releases the GL contex	
+	    isVideoInitialized=true;
+	    this->glLockNormal(); // this makes the GL context "current"
+	    //if(OpenVideoContext::getInstance()->startOpenVideo())
+	    //	setClearBeforeRender(FALSE);
+	    this->glUnlockNormal();// this releases the GL contex	
     }
-    
     SoGuiExaminerViewer::redraw();
 }

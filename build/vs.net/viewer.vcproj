@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(STB4ROOT)/src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)/src&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL;USE_SOWIN"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -32,10 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib sowin1d.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbviewerd.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(STB4ROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Debug/stbviewerd.pdb"
 				SubSystem="2"
@@ -122,6 +122,21 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\src\components\viewer\guiDefines.h">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoDisplay.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoDisplay.h">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoStudierstubeViewer.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoStudierstubeViewer.h">
+			</File>
+			<File
 				RelativePath="..\..\src\components\viewer\Viewer.cxx">
 			</File>
 			<File
@@ -133,6 +148,9 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 		</Filter>
+		<File
+			RelativePath="..\..\bin\win32\viewer.iv">
+		</File>
 	</Files>
 	<Globals>
 		<Global

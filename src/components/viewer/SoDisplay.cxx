@@ -42,7 +42,7 @@
 #include SOGUI_CURSOR_H
 
 #include <Inventor/actions/SoSearchAction.h>
-#include <Inventor/nodes/SoSphere.h>
+
 
 SO_NODE_SOURCE(SoDisplay);
 
@@ -128,7 +128,6 @@ SoDisplay::createViewer()
 	examCam= new SoPerspectiveCamera();
 	displayRoot->addChild(examCam);
 
-    displayRoot->addChild(new SoSphere());
 	////////////////////////////////////////
 	// create StudierstubeViewer
 	////////////////////////////////////////

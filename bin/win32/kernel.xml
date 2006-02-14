@@ -1,11 +1,13 @@
 <studierstube>
-	<kernel logMode="off" 
-			logFileName="kernelLog.txt" 
-			guibinding="sowin"
-			updateMode="timer"
-			updateRate="0.03333"
+	<kernel 
+	    logMode="off" 
+		logFileName="kernelLog.txt" 
+		guibinding="sowin"
+		updateMode="timer"
+		updateRate="0.03333"
 	/>
-	<Component name="Viewer"
+	<Component 
+	    name="Viewer"
 		availability="demand"	
 		lib="stbviewer"
 	>
@@ -13,7 +15,8 @@
 		       value ="viewer.iv" 
 		/>	
 	</Component>
-	<Application name="SimpleApp"
+	<Application 
+	    name="SimpleApp"
 		availablity="load"
 		lib="simple"	
 	/>

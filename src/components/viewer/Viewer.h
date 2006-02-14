@@ -42,7 +42,10 @@ BEGIN_NAMESPACE_STB
 class Viewer : public stb::Component
 {
 public:
-    static Viewer* getInstance();
+    /**
+    *     The Constructor	
+    */
+    Viewer();
     /**
     *     The destructor.
     */
@@ -56,12 +59,6 @@ public:
     virtual void setParameter(stb::string key, std::string value);
 
 protected:	
-    /**
-    *     The Constructor	
-    */
-    Viewer();
-
-    static Viewer* instance;
     stb::string configFile; 
 private:
 	

@@ -37,28 +37,9 @@
 
 #include "SoDisplay.h"
 
+CREATE_COMPONENT_FUNC(Viewer)
 
 BEGIN_NAMESPACE_STB
-
-Viewer* Viewer::instance=NULL;
-
-extern "C" 
-{																						
-    __declspec(dllexport) Viewer* createComponent()
-    {							
-        return Viewer::getInstance();															
-    }																									
-}
-
-Viewer* 
-Viewer::getInstance()
-{
-    if(instance)
-        return instance;
-    instance=new Viewer();
-    
-    return instance;
-}
 
 Viewer::Viewer()
 {
