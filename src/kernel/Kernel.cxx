@@ -95,9 +95,10 @@ Kernel::start(int argc, char* argv[])
 	log("(C) ");log(STUDIERSTUBE_YEAR_STRING);log(" Graz University of Technology\n");
 	log("****************************************\n\n");
 
+    scheduler->init();
 	config->parseXML("kernel.xml");
 
-	scheduler->init();
+	
 	scheduler->schedule();
 	scheduler->mainLoop();
 }
@@ -161,6 +162,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
 void 
 Kernel::update( void * data, SoSensor * sensor)
 {
+    instance->sceneManager->update();
 	printf(".");
 }
 
@@ -174,6 +176,12 @@ void
 Kernel::addComponent(ComponentInfo* compInfo)
 {
 	componentManager->addComponent(compInfo);
+}
+
+stb::SceneManager* 
+Kernel::getSceneManager()
+{
+    return sceneManager;
 }
 
 END_NAMESPACE_STB

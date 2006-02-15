@@ -29,6 +29,9 @@
 /* ======================================================================= */
 
 #include "SimpleApp.h"
+#include "kernel/Kernel.h"
+#include "kernel/SceneManager.h"
+#include "Inventor/nodes/SoCube.h"
 #include <stdio.h>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
@@ -50,6 +53,10 @@ bool
 SimpleApp::init()
 {
 	printf("init SimpleApp\n");
+    root = new SoSeparator();
+    root->ref();
+    root->addChild(new SoCube());
+
 	return true;
 }
 
@@ -57,7 +64,7 @@ SimpleApp::init()
 void 
 SimpleApp::shutDown()
 {
-
+    root->unref();
 }
 
 
@@ -65,4 +72,10 @@ void
 SimpleApp::update()
 {
 	printf("update simple app\n");
+}
+
+void 
+SimpleApp::registerScene()
+{
+    stb::Kernel::getInstance()->getSceneManager()->registerApp(root);
 }

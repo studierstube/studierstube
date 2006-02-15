@@ -58,6 +58,7 @@ ComponentManager::addApplication(ComponentInfo* compInfo)
 
     //add parameter
 	newApp->init();
+    newApp->registerScene();
 
 	appList.push_back(newApp);
 	appListSize++;

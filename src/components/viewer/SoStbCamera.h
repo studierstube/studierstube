@@ -39,6 +39,7 @@
 
 
 class SoStudierstubeViewer;
+class SoDisplay;
 
 class SoStbCamera : public SoBaseKit
 {
@@ -104,7 +105,7 @@ public:
 	SoDisplay* getSoDisplay();
 
 protected:
-	SoDisplay *soDisplay;
+	SoDisplay* soDisplay;
 
 	SoPerspectiveCamera* referenceCamera;
 	

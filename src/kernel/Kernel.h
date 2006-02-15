@@ -91,6 +91,8 @@ public:
     void addComponent(ComponentInfo* compInfo);
 
     void addApplication(ComponentInfo* compInfo);
+
+    stb::SceneManager* getSceneManager();
 protected:	
     ///////////////////// 
     /**

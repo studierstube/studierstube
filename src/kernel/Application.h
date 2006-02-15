@@ -35,6 +35,7 @@
 
 #include "kernel/Component.h"
 #include "common/macros.h"
+#include "Inventor/nodes/SoSeparator.h"
 
 BEGIN_NAMESPACE_STB
 
@@ -50,6 +51,9 @@ public:
 	virtual ~Application();
 
 	virtual void update();
+
+    virtual void registerScene();
+
 protected:	
     /**
     *     The Constructor	

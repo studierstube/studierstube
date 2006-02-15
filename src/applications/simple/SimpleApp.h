@@ -58,8 +58,11 @@ public:
 	virtual void shutDown();
 
 	virtual void update();
-protected:	
 
+    virtual void registerScene();
+
+protected:	
+    SoSeparator* root;
 private:
 	
 };// class 

@@ -32,7 +32,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib sowin1d.lib"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib sowin1d.lib opengl32.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbviewerd.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
@@ -129,6 +129,18 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\viewer\SoDisplay.h">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoOffAxisCamera.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoOffAxisCamera.h">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoStbCamera.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoStbCamera.h">
 			</File>
 			<File
 				RelativePath="..\..\src\components\viewer\SoStudierstubeViewer.cxx">

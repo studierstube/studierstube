@@ -61,20 +61,15 @@ SoDisplay
   # This setting is important if you use SoStencilBuffer nodes in your applications
   stencilBuffer FALSE
   
-  #content 
+  #content SoSphere{}
 
   stbCameraList 
   [
-  ]#stbCameraList 
- 
-}#SoDisplay
-
-
-    #SoStbCamera
-	#{
-	  ######## The Content  ###########
-	  #content USE Content2  
-	  ######## Camera Configuration ###########
+    SoStbCamera
+    { 
+	  ######################################
+	  ######## Camera ######################
+	  ######################################
 	  #camera 
 	  #SoPerspectiveCamera
 	  #{
@@ -103,8 +98,26 @@ SoDisplay
 	  #}
 	  #camera  
 
-	
-	  ######## StbCamera Control ###########
+	  ######################################
+	  ######## Viewport ####################
+	  ###################################### 
+	  #viewport SoViewport{
+	  #  origin 0 240 
+	  #  size 320 240
+	  #}
+	  
+	  ######################################
+	  ######## DisplayMode #################
+	  ######################################	  
+	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
+	  
+
+	  
+	  ######################################
+	  ######## ControlMode #################
+	  ######################################
 	  #controlMode SoDesktopControlMode{}
 	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
@@ -115,19 +128,26 @@ SoDisplay
 	  #  stbSinkNameViewpoint "testTracker2"
 	  #}
 	  
+	  ######################################
+	  ######## Video #######################
+	  ######################################
 	  #videoBackground SoVideoBackgroundOV{
 	  # ovStbSink "stbSink1"
 	  #}
 
-	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
-	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  #viewport SoViewport{
-	  #  origin 0 240 
-	  #  size 320 240
-	  #}
+	  ######################################
+	  ######## Content #####################
+	  ######################################
+	  #content USE Content2  
+	  
+    }#SoStbCamera 1
+  ]#stbCameraList 
+ 
+}#SoDisplay
 
-	#}#SoStbCamera 1
+
+
+
 	
 	
     #SoStbCamera
@@ -247,3 +267,7 @@ SoDisplay
 	  #  size 320 240
 	  #}
 	#}#SoStbCamera 1
+	
+	
+	
+	

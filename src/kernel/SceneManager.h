@@ -33,14 +33,15 @@
 #ifndef _SCENEMANAGER_H_
 #define _SCENEMANAGER_H_
 #include "common/macros.h"
+#include "Studierstube.h"
 
 class SoSeparator;
 class SbName;
 class SoNode;
-#include "common/macros.h"
+
 
 BEGIN_NAMESPACE_STB
-class SceneManager
+class STB_API SceneManager
 {
 public:
 	/**
@@ -59,7 +60,7 @@ public:
 
 	enum TOUCHROOT{
 		ROOT=0,
-		APP=1,
+		SCENE=1,
 		DISPLAY=2
 	};
 
@@ -69,13 +70,13 @@ public:
     
     void setDisplay(SoNode *display);
 	
-    SoSeparator* getAppRoot();
+    SoSeparator* getSceneRoot();
 
 protected:	
 	SoSeparator* root;
 	SoNode* touchRoot;
 	SoSeparator* trackRoot;
-	SoSeparator* appRoot;
+	SoSeparator* sceneRoot;
 	SoSeparator* displayRoot;
 private:
 	

@@ -35,8 +35,8 @@
 #include "guiDefines.h"
 #include "SoStudierstubeViewer.h"
 
-//#include "SoStbCamera.h"
-//#include "SoOffAxisCamera.h"
+#include "SoStbCamera.h"
+#include "SoOffAxisCamera.h"
 
 #include SOGUI_H
 #include SOGUI_CURSOR_H
@@ -51,7 +51,7 @@ SO_NODE_SOURCE(SoDisplay);
 void
 SoDisplay::initClass()
 {	
-	SO_NODE_INIT_CLASS(SoDisplay, SoNode, "SoNode");
+	SO_NODE_INIT_CLASS(SoDisplay, SoNode, "SoGroup");
 }
 
 //----------------------------------------------------------------------------
@@ -125,6 +125,7 @@ SoDisplay::createViewer()
 	//
 	//
 	displayRoot=new SoSeparator();
+    this->addChild(displayRoot);
 	examCam= new SoPerspectiveCamera();
 	displayRoot->addChild(examCam);
 
@@ -135,56 +136,49 @@ SoDisplay::createViewer()
 
 	///////////////////////////////////////////////////
 	// add all the stbCameras to the viewer's root node
-	//for (int i=0;i<stbCameraList.getNum();i++)
-	//{
-	//	if(stbCameraList[i]!=NULL && stbCameraList[i]->isOfType(SoStbCamera::getClassTypeId()))
-	//	{
-	//		SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
+    for (int i=0;i<stbCameraList.getNum();i++)
+    {
+        if(stbCameraList[i]!=NULL 
+        && stbCameraList[i]->isOfType(SoStbCamera::getClassTypeId()))
+        {
+	        SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
+	        //Set reference camera's parameter to match with the OffAxisCamera of the first StbCamera 
+	        if(	i==0 
+		        && stbCamera->getCamera()
+		        && stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId())
+		        )
+	        {
+		        SoPerspectiveCamera *refCam = (SoPerspectiveCamera*)examCam;
+		        SoOffAxisCamera *cam=(SoOffAxisCamera*)stbCamera->getCamera();
 
-	//		///////////////////////////////////////////////////////////////////
-	//		///////////// Set reference camera's parameter to match with the OffAxisCamera
-	//		///////////// of the first StbCamera ///////////////////
-	//		if(	i==0 
-	//			&& stbCamera->getCamera()
-	//			&& stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId())
-	//		  )
-	//		{
-	//			SoPerspectiveCamera *refCam = (SoPerspectiveCamera*)examCam;
-	//			SoOffAxisCamera *cam=(SoOffAxisCamera*)stbCamera->getCamera();
+		        refCam->aspectRatio		=	cam->size.getValue()[0]/cam->size.getValue()[1];
+		        refCam->focalDistance	=	cam->focalDistance;
+		        refCam->nearDistance	=	cam->nearDistance;
+		        refCam->farDistance		=	cam->farDistance;
+		        refCam->viewportMapping =	cam->viewportMapping;
+		        refCam->orientation		=	cam->orientation;
+	        }
 
-	//			refCam->aspectRatio		=	cam->size.getValue()[0]/cam->size.getValue()[1];
-	//			refCam->focalDistance	=	cam->focalDistance;
-	//			refCam->nearDistance	=	cam->nearDistance;
-	//			refCam->farDistance		=	cam->farDistance;
-	//			refCam->viewportMapping =	cam->viewportMapping;
-	//			refCam->orientation		=	cam->orientation;
-	//		}
+	        ///////////////////////////////////////////////////////////////////////////////////////
+	        ///////////// Tell the StbCamera about SoDisplay's reference camera  ///////////////////
+	        stbCamera->setSoDisplay(this);
+	        stbCamera->setReferenceCamera(examCam);
 
-	//		///////////////////////////////////////////////////////////////////////////////////////
-	//		///////////// Tell the StbCamera about SoDisplay's reference camera  ///////////////////
-	//		stbCamera->setSoDisplay(this);
-	//		stbCamera->setReferenceCamera(examCam);
-
-	//		///////////////////////////////////////////////
-	//		///////////// Set Content  ///////////////////
-	//		//set the displays content only if no content has been defined for the StbCamera
-	//		if(!stbCamera->hasContent())
-	//		{
-	//			stbCamera->setContent(content.getValue());
-	//		}
-	//		
-	//		
-	//		//stbCamera->setDisplay(this);
-	//		stbCamera->activateControlMode();
-	//		stbCamera->activateDisplayMode(viewer);
-	//		///////////////////////////////////////////////////////////
-	//		//////////// Add StbCamera to StudierstubeViewer's root ////
-	//		displayRoot->addChild(stbCamera);	
-	//	}
-	//}
-
- //  
-	//
+	        ///////////////////////////////////////////////
+	        ///////////// Set Content  ///////////////////
+	        //set the displays content only if no content has been defined for the StbCamera
+	        if(!stbCamera->hasContent())
+	        {
+		        stbCamera->setContent(content.getValue());
+	        }
+            stbCamera->activateControlMode();
+            stbCamera->activateDisplayMode(viewer);
+	        ///////////////////////////////////////////////////////////
+	        //////////// Add StbCamera to StudierstubeViewer's root ////
+	        displayRoot->addChild(stbCamera);	
+        }
+    }
+  
 	//////////////////////////////////////////
 	////  Configure  StudierstubeViewer 
 	//////////////////////////////////////////
@@ -227,7 +221,6 @@ SoDisplay::createViewer()
 	{
 		viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
 	}
-
 	//////////////////////////////////////////
 	//// start StudierstubeViewer
 	//// set viewer's root node and show the studierstubeViewer
@@ -256,9 +249,27 @@ SoDisplay::getViewer()
 	return this->viewer;
 }
 
-
-
-
+void 
+SoDisplay::setContent(SoNode* _content)
+{
+    content.setValue(_content);
+    // tell cameras about the new content
+    for (int i=0;i<stbCameraList.getNum();i++)
+    {
+        if(stbCameraList[i]!=NULL 
+            && stbCameraList[i]->isOfType(SoStbCamera::getClassTypeId()))
+        {
+            SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
+            ///////////////////////////////////////////////
+            ///////////// Set Content  ///////////////////
+            //set the displays content only if no content has been defined for the StbCamera
+            if(!stbCamera->hasContent())
+            {
+                stbCamera->setContent(content.getValue());
+            }
+          }
+    }
+}
 
 
 

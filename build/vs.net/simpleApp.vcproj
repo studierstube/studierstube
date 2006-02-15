@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(STB4ROOT)/src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/src&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -32,10 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/applications/simpled.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(STB4ROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Debug/simpled.pdb"
 				SubSystem="2"

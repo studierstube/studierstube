@@ -39,7 +39,7 @@ SceneManager::SceneManager()
 {
    root=new SoSeparator();
 
-   appRoot=new SoSeparator();
+   sceneRoot=new SoSeparator();
    trackRoot=new SoSeparator();
    displayRoot=new SoSeparator();
 
@@ -48,14 +48,14 @@ SceneManager::SceneManager()
    //              root
    //               |
    //       |--------------------------------|
-   //    appRoot                        displayRoot	
+   //    sceneRoot                        displayRoot	
    //       |                                |
    //  |-----------|-----|                 SoDisplay
    // trackRoot   
    //
    root->ref();
-   root->addChild(appRoot);
-   appRoot->addChild(trackRoot);
+   root->addChild(sceneRoot);
+   sceneRoot->addChild(trackRoot);
    root->addChild(displayRoot);
    displayRoot->addChild(new SoSeparator); 
    touchRoot=root;
@@ -69,14 +69,16 @@ SceneManager::~SceneManager()
 void
 SceneManager::update()
 {
+    printf("-");
 	touchRoot->touch();
 }
 
 void 
 SceneManager::registerApp(SoSeparator *appRoot)
 {
-	
+    sceneRoot->addChild(appRoot);
 }
+
 SoSeparator* 
 SceneManager::getDisplayRoot()
 {
@@ -84,15 +86,15 @@ SceneManager::getDisplayRoot()
 }
 
 SoSeparator* 
-SceneManager::getAppRoot()
+SceneManager::getSceneRoot()
 {
-	return appRoot;
+	return sceneRoot;
 }
 
 void 
 SceneManager::setDisplay(SoNode *display)
 {
-    displayRoot->replaceChild(0,display);
+    displayRoot->addChild(display);
     setTouchRoot(DISPLAY);
 }
 
@@ -101,16 +103,15 @@ SceneManager::setTouchRoot(TOUCHROOT touchNode)
 {
 	switch(touchNode)
 	{
-	case ROOT:
-		touchRoot=root;
-		break;
-	case APP:
-		touchRoot=appRoot;
-		break;
-	case DISPLAY:
-		touchRoot=displayRoot;
-		break;
-
+	    case ROOT:
+		    touchRoot=root;
+		    break;
+	    case SCENE:
+		    touchRoot=sceneRoot;
+		    break;
+	    case DISPLAY:
+		    touchRoot=displayRoot;
+		    break;
 	}
 }
 

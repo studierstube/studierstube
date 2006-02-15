@@ -157,10 +157,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="backup"
-				Filter="">
-			</Filter>
-			<Filter
 				Name="Scheduler"
 				Filter="">
 				<File
@@ -178,6 +174,10 @@
 				<File
 					RelativePath="..\..\src\kernel\SchedulerWin32.h">
 				</File>
+				<Filter
+					Name="backup"
+					Filter="">
+				</Filter>
 			</Filter>
 			<Filter
 				Name="SceneManager"
@@ -253,10 +253,6 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
-		</Filter>
-		<Filter
-			Name="NewFolder1"
-			Filter="">
 		</Filter>
 	</Files>
 	<Globals>

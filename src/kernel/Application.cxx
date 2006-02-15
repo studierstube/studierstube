@@ -41,3 +41,8 @@ Application::update()
 {
 
 }
+
+void 
+Application::registerScene()
+{
+}

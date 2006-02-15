@@ -33,7 +33,7 @@
 #ifndef _SoDisplay_H_
 #define _SoDisplay_H_
 
-#include <Inventor/nodes/SoSubNode.h>
+#include <Inventor/nodes/SoGroup.h>
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/actions/SoGLRenderAction.h> 
@@ -54,7 +54,7 @@
 //			* stbCameraList (list of stbCameras used in the associated viewer) 
 
 class SoStudierstubeViewer;
-class SoDisplay : public SoNode
+class SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);
 
@@ -169,6 +169,7 @@ public:
     
 	SoStudierstubeViewer* getViewer();
 
+    void setContent(SoNode* _content);
  protected:
     SoStudierstubeViewer* viewer;
     

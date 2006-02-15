@@ -31,11 +31,15 @@
 /* ======================================================================= */
 #include "Viewer.h"
 #include "kernel/Kernel.h"
+#include "kernel/SceneManager.h"
 #include <iostream>
 #include <Inventor/SoInput.h> 
 #include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/actions/SoSearchAction.h>
 
 #include "SoDisplay.h"
+#include "SoStbCamera.h"
+#include "SoOffAxisCamera.h"
 
 CREATE_COMPONENT_FUNC(Viewer)
 
@@ -57,6 +61,8 @@ Viewer::init()
 {
     // init coin stuff
     SoDisplay::initClass();
+    SoOffAxisCamera::initClass();
+    SoStbCamera::initClass();
 
     //get viewer's parameter
     retrieveParameter();
@@ -78,7 +84,27 @@ Viewer::init()
         stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + configFile + "\n");
         return false;
     }
- 
+    fileRoot->ref();
+    // search for SoDisplay nodes
+    SoSearchAction sAction;
+    sAction.setType(SoDisplay::getClassTypeId());
+    sAction.setSearchingAll(TRUE);
+    sAction.setInterest(SoSearchAction::ALL);
+    sAction.apply(fileRoot);
+    SoPathList paths = sAction.getPaths();
+    for (int i=0;i<paths.getLength();i++)
+    {
+        if (paths[i]->getTail()->isOfType(SoDisplay::getClassTypeId()))
+        {
+            SoDisplay *display =(SoDisplay *)paths[i]->getTail();
+            // add content to display
+            display->setContent(stb::Kernel::getInstance()->getSceneManager()->getSceneRoot());
+            stb::Kernel::getInstance()->getSceneManager()->setDisplay(display);
+            // add display to kernel's scenemanager 
+        }
+    }
+   fileRoot->unref();  
+
 	return true;
 }
 
