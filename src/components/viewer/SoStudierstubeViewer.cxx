@@ -67,7 +67,7 @@ SoStudierstubeViewer::~SoStudierstubeViewer()
 void
 SoStudierstubeViewer::setHeadlight(SbBool on)
 {
- /*   SoStereoCameraKit *camKit = getStereoCameraKit();
+ /* SoStereoCameraKit *camKit = getStereoCameraKit();
     assert(camKit);
 
     SoGuiExaminerViewer::setHeadlight(on);

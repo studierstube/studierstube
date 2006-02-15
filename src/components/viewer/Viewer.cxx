@@ -40,6 +40,12 @@
 #include "SoDisplay.h"
 #include "SoStbCamera.h"
 #include "SoOffAxisCamera.h"
+#include "displaymode/SoGLPolygonStippleElement.h"
+#include "displaymode/SoGLColorBufferElement.h"
+#include "displaymode/SoDisplayMode.h"
+#include "displaymode/SoAnaglyphDisplayMode.h"
+#include "displaymode/SoLineSequentialDisplayMode.h"
+#include "displaymode/SoFieldSequentialDisplayMode.h"
 
 CREATE_COMPONENT_FUNC(Viewer)
 
@@ -63,6 +69,13 @@ Viewer::init()
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
     SoStbCamera::initClass();
+
+    SoGLPolygonStippleElement::initClass();
+    SoGLColorBufferElement::initClass();
+    SoDisplayMode::initClass();
+    SoAnaglyphDisplayMode::initClass();
+    SoLineSequentialDisplayMode::initClass();
+    SoFieldSequentialDisplayMode::initClass();
 
     //get viewer's parameter
     retrieveParameter();

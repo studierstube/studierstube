@@ -154,6 +154,46 @@
 			<File
 				RelativePath="..\..\src\components\viewer\Viewer.h">
 			</File>
+			<Filter
+				Name="DisplayMode"
+				Filter="">
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoAnaglyphDisplayMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoAnaglyphDisplayMode.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoDisplayMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoDisplayMode.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoFieldSequentialDisplayMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoFieldSequentialDisplayMode.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoLineSequentialDisplayMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\displaymode\SoLineSequentialDisplayMode.h">
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"

@@ -37,13 +37,15 @@
 
 #include "SoStudierstubeViewer.h"
 #include "SoDisplay.h"
-//#include "StbViewer/SoOffAxisCamera.h"
+
+#include "SoStudierstubeViewer.h"
+#include "displaymode/SoDisplayMode.h"
 //#include "StbViewer/StbCameraControlMode/SoStbCameraControlMode.h"
 //#include "StbViewer/StbCameraControlMode/SoTrackedDisplayControlMode.h"
 //
-//#include "StbViewer/DisplayMode/SoDisplayMode.h"
+
 //#include "StbViewer/Video/SoVideoBackgroundOV.h"
-//#include "StbViewer/SoStudierstubeViewer.h"
+
 //#include "StbViewer/SoViewport.h"
 
 
@@ -82,9 +84,9 @@ SoStbCamera::SoStbCamera()
 	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,SoNode,SoSeparator,TRUE, this,"", TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE, this,content, FALSE);	
 	
-	//SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);
-	//SO_KIT_ADD_CATALOG_ENTRY(displayMode,SoDisplayMode,TRUE, xfSep,camera, TRUE);
-	//SO_KIT_ADD_CATALOG_ENTRY(videoBackground,SoVideoBackgroundOV,TRUE, xfSep,displayMode, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(displayMode,SoDisplayMode,TRUE, xfSep,camera, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(videoBackground,SoVideoBackgroundOV,TRUE, xfSep,displayMode, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(viewport,SoViewport,TRUE, xfSep,videoBackground, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,viewport, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE , xfSep,controlMode, TRUE);
@@ -167,10 +169,10 @@ SoStbCamera::activateControlMode()
 bool
 SoStbCamera::activateDisplayMode(SoStudierstubeViewer* aViewer)
 {
-	//if(displayMode.getValue()){
-	//	((SoDisplayMode*)(displayMode.getValue()))->setViewer(aViewer);
-	//	return true;
-	//}
+	if(displayMode.getValue()){
+		((SoDisplayMode*)(displayMode.getValue()))->setViewer(aViewer);
+		return true;
+	}
 	return false;
 }
 

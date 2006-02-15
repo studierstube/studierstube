@@ -77,15 +77,15 @@ SoDisplay
 	  #  orientation 0 0 1 0
 	  #SoOffAxisCamera
 	  #{
-	  #  viewportMapping LEAVE_ALONE
-	  #  position -0.037045 0.168842 0.236637
-	  #  orientation 0.999133 -0.00585241 0.0412087  2.99499
-	  #  aspectRatio 1.33333
-	  #  nearDistance 0.16
-	  #  farDistance 1000
-	  #  focalDistance 2
-	  #  size 0.1 0.075
-	  #  eyepointPosition -0.0305979 0.147538 0.0151514
+	    #  viewportMapping LEAVE_ALONE
+	    #  position -0.037045 0.168842 0.236637
+	    #  orientation 0.999133 -0.00585241 0.0412087  2.99499
+	    #  aspectRatio 1.33333
+	    #  nearDistance 0.16
+	    #  farDistance 1000
+	    #  focalDistance 2
+	    #  size 0.1 0.075
+	    #  eyepointPosition -0.0305979 0.147538 0.0151514
 	    #	  viewportMapping LEAVE_ALONE
 	    #	  eyepointPosition 0.0 0. 1.0
 	    #	  position 0.0 0.0 0.0
@@ -95,8 +95,7 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  #}
-	  #camera  
+	  #}#camera  
 
 	  ######################################
 	  ######## Viewport ####################
@@ -109,8 +108,8 @@ SoDisplay
 	  ######################################
 	  ######## DisplayMode #################
 	  ######################################	  
-	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	   displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
 	  
 
