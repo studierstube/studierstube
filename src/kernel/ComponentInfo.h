@@ -48,7 +48,7 @@ BEGIN_NAMESPACE_STB
 class ComponentInfo
 {
 public:
-   friend Component;
+   friend class Component;
    /**
     *     The Constructor	
     */

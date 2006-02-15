@@ -1,0 +1,23 @@
+<studierstube>
+	<kernel 
+	    logMode="off" 
+		logFileName="kernelLog.txt" 
+		guibinding="soqt"
+		updateMode="timer"
+		updateRate="0.03333"
+	/>
+	<Component 
+	    name="Viewer"
+		availability="demand"	
+		lib="stbviewer"
+	>
+		<Param key   ="configFile" 
+		       value ="viewer.iv" 
+		/>	
+	</Component>
+	<Application 
+	    name="SimpleApp"
+		availablity="load"
+		lib="simple"	
+	/>
+</studierstube>

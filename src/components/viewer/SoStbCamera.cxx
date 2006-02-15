@@ -86,7 +86,7 @@ SoStbCamera::SoStbCamera()
 	
 	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(displayMode,SoDisplayMode,TRUE, xfSep,camera, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(videoBackground,SoVideoBackgroundOV,TRUE, xfSep,displayMode, TRUE);
+// 	SO_KIT_ADD_CATALOG_ENTRY(videoBackground,SoVideoBackgroundOV,TRUE, xfSep,displayMode, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(viewport,SoViewport,TRUE, xfSep,videoBackground, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,viewport, TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE , xfSep,controlMode, TRUE);

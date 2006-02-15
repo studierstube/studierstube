@@ -39,6 +39,8 @@
 #include <iostream>
 #include <GL/gl.h>
 
+#include <errno.h>
+
 
 //----------------------------------------------------------------------------
 // The constructor of the viewer.

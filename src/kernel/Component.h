@@ -79,7 +79,8 @@ private:
 
 END_NAMESPACE_STB
 
-
+// this should be somewhere else, not here ! breiting, 15/02/2006
+#ifdef WIN32
 #define CREATE_COMPONENT_FUNC(CLASSNAME) \
 extern "C" {																						\
 \
@@ -89,5 +90,14 @@ __declspec(dllexport) stb::CLASSNAME* createComponent()\
 }																									\
 \
 }
+#else  // Linux
+#define CREATE_COMPONENT_FUNC(CLASSNAME) \
+extern "C" { \
+stb::CLASSNAME* createComponent() \
+{ \
+    return new stb::CLASSNAME; \
+} \
+}
+#endif
 
 #endif//_COMPONENT_H_
