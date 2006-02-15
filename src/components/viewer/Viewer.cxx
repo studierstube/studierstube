@@ -40,6 +40,12 @@
 #include "SoDisplay.h"
 #include "SoStbCamera.h"
 #include "SoOffAxisCamera.h"
+#include "SoVideoBackground.h"
+
+#include "controlmode/SoDesktopControlMode.h"
+#include "controlmode/SoStbCameraControlMode.h"
+#include "controlmode/MultRotRot.h"
+
 #include "displaymode/SoGLPolygonStippleElement.h"
 #include "displaymode/SoGLColorBufferElement.h"
 #include "displaymode/SoDisplayMode.h"
@@ -67,8 +73,10 @@ Viewer::init()
 {
     // init coin stuff
     SoDisplay::initClass();
+
     SoOffAxisCamera::initClass();
     SoStbCamera::initClass();
+    SoVideoBackground::initClass();
 
     SoGLPolygonStippleElement::initClass();
     SoGLColorBufferElement::initClass();
@@ -76,11 +84,24 @@ Viewer::init()
     SoAnaglyphDisplayMode::initClass();
     SoLineSequentialDisplayMode::initClass();
     SoFieldSequentialDisplayMode::initClass();
+    SoDesktopControlMode::initClass();
+    SoStbCameraControlMode::initClass();
+    MultRotRot::initClass();
+    SoStbCameraControlMode::initClass();
+    SoDesktopControlMode::initClass();
 
     //get viewer's parameter
     retrieveParameter();
     //load .iv file 
     std::cout<<"init Viewer\n";
+
+    SoFieldSequentialDisplayMode::initClass();
+
+    //get viewer's parameter
+    retrieveParameter();
+    //load .iv file 
+    std::cout<<"init Viewer\n";
+
     SoInput myinput;
     SoInput::addDirectoryFirst("./");
     if (!myinput.openFile(configFile.c_str())) 
