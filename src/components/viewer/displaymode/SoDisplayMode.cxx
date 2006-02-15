@@ -50,14 +50,14 @@ SoDisplayMode::initClass()
 SoDisplayMode::SoDisplayMode()
 {
 	viewer=NULL;
-    // NIL
+    // nil
 }
 
 //----------------------------------------------------------------------------
 void 
 SoDisplayMode::GLRender(SoGLRenderAction *action)
 {
-	//nil
+    //nil
 }
 
 void 

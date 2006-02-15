@@ -83,12 +83,13 @@ Viewer::init()
     SoTrackedViewpointControlMode::initClass();
     SoTrackedViewpointMobileDisplayControlMode::initClass();*/
 
+    SoDisplayMode::initClass();
     SoGLColorBufferElement::initClass();
     SoGLPolygonStippleElement::initClass();
-    SoDisplayMode::initClass();
     SoLineSequentialDisplayMode::initClass();
     SoFieldSequentialDisplayMode::initClass();
     SoAnaglyphDisplayMode::initClass();
+
     SoViewport::initClass();
     SoVideoBackground::initClass();
 

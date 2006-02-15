@@ -44,6 +44,7 @@ class SoDisplay;
 class SoStbCamera : public SoBaseKit
 {
     SO_KIT_HEADER(SoStbCamera);
+    SO_KIT_CATALOG_ENTRY_HEADER(root);
 	SO_KIT_CATALOG_ENTRY_HEADER(content);
 	SO_KIT_CATALOG_ENTRY_HEADER(xfSep);
 	SO_KIT_CATALOG_ENTRY_HEADER(camera);

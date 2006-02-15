@@ -76,9 +76,10 @@ SoStbCamera::SoStbCamera()
 	//		|--------------|-----------|-------------|------------|-------------|
 	// cameraTransform  controlMode  viewport  videoBackground dispMode  camera(SoOffAxis)
 	//----------------------------------------------------------------------------
-	
-	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,SoNode,SoSeparator,TRUE, this,"", TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE, this,content, FALSE);	
+    SO_KIT_ADD_CATALOG_ENTRY(root,SoSeparator,FALSE, this,"", FALSE);
+    
+	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,SoNode,SoSeparator,TRUE, root,"", TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE, root,content, FALSE);	
 	
 	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(displayMode,SoDisplayMode,TRUE, xfSep,camera, TRUE);
@@ -150,14 +151,8 @@ SoStbCamera::activateControlMode()
 			return false;
 		}
 
-		//((SoStbCameraControlMode*)controlMode.getValue())->setStbCamera(this);
-		//((SoStbCameraControlMode*)controlMode.getValue())->activate();
-		
-		// activate update
-		//if((controlMode.getValue())->isOfType(SoTrackedDisplayControlMode::getClassTypeId()))
-		//{
-		//	//soDisplay->startUpdate(30);
-		//}
+		((SoStbCameraControlMode*)controlMode.getValue())->setStbCamera(this);
+		((SoStbCameraControlMode*)controlMode.getValue())->activate();
 
 		return true;
 	}

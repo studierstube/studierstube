@@ -21,7 +21,7 @@ SoDisplay
   #                                }, ...]
   
   # Specify the background color
-  backgroundColor 0 0 0
+  backgroundColor 1 1 1
   
   #  Specify transparency type that shall be used by theD:\Denis\Work\stb4 viewer
   #  note: see documentation of SoGLRenderAction for description
@@ -109,7 +109,7 @@ SoDisplay
 	  ######## DisplayMode #################
 	  ######################################	  
 	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	   displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
 	  
 
@@ -117,7 +117,7 @@ SoDisplay
 	  ######################################
 	  ######## ControlMode #################
 	  ######################################
-	  #controlMode SoDesktopControlMode{}
+	  # controlMode SoDesktopControlMode{}
 	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
@@ -251,13 +251,14 @@ SoDisplay
 	  #}
 
 	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	   displayMode SoAnaglyphDisplayMode{lensColor 0 0 1}
+	  # displayMode SoAnaglyphDisplayMode{lensColor 0 0 1}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
 	   
 	  viewport SoViewport{
 	    origin 0 0 
 	    size 320 240
 	  }
+	  
 	}#SoStbCamera 3
 	
   ]#stbCameraList 

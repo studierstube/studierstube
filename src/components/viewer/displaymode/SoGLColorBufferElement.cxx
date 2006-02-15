@@ -35,7 +35,7 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <GL/gl.h>
-
+#include <iostream>
 
 #include <Inventor/actions/SoGLRenderAction.h>
 
@@ -91,14 +91,14 @@ SoGLColorBufferElement::matches(const SoElement * element) const
 SoElement * 
 SoGLColorBufferElement::copyMatchInfo(void) const
 {
-    SoGLColorBufferElement * elem = (SoGLColorBufferElement*)
-    this->getTypeId().createInstance();
+    SoGLColorBufferElement * elem = (SoGLColorBufferElement*)this->getTypeId().createInstance();
   
     return elem;
 }
 
 void SoGLColorBufferElement::updategl( ) const
 {
+ 
 	GLboolean  r,g,b,a;
 	r=g=b=a=GL_TRUE;
 	if(mask[0]<1.0){
@@ -119,9 +119,7 @@ void SoGLColorBufferElement::updategl( ) const
 void 
 SoGLColorBufferElement::setMask(SoState * state, SbVec4f newMask)
 {
-	
 	SoGLColorBufferElement * elem = (SoGLColorBufferElement*)SoElement::getElement(state, classStackIndex);//push if non exists
-    
     if(elem && (newMask != elem->mask) )
     {
         elem->mask = newMask;

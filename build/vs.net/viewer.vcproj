@@ -188,23 +188,27 @@
 					RelativePath="..\..\src\components\viewer\displaymode\SoFieldSequentialDisplayMode.h">
 				</File>
 				<File
-					RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.cxx">
-				</File>
-				<File
-					RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.h">
-				</File>
-				<File
-					RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.cxx">
-				</File>
-				<File
-					RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.h">
-				</File>
-				<File
 					RelativePath="..\..\src\components\viewer\displaymode\SoLineSequentialDisplayMode.cxx">
 				</File>
 				<File
 					RelativePath="..\..\src\components\viewer\displaymode\SoLineSequentialDisplayMode.h">
 				</File>
+				<Filter
+					Name="elements"
+					Filter="">
+					<File
+						RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.cxx">
+					</File>
+					<File
+						RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.h">
+					</File>
+					<File
+						RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.cxx">
+					</File>
+					<File
+						RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.h">
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="controlmode"
