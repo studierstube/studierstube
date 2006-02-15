@@ -42,7 +42,7 @@
 #include "displaymode/SoDisplayMode.h"
 #include "SoVideoBackground.h"
 #include "controlmode/SoStbCameraControlMode.h"
-//#include "SoViewport.h"
+#include "SoViewport.h"
 
 
 SO_KIT_SOURCE(SoStbCamera);

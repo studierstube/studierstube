@@ -149,13 +149,25 @@
 				RelativePath="..\..\src\components\viewer\SoStudierstubeViewer.h">
 			</File>
 			<File
+				RelativePath="..\..\src\components\viewer\SoVideoBackground.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoVideoBackground.h">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoViewport.cxx">
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoViewport.h">
+			</File>
+			<File
 				RelativePath="..\..\src\components\viewer\Viewer.cxx">
 			</File>
 			<File
 				RelativePath="..\..\src\components\viewer\Viewer.h">
 			</File>
 			<Filter
-				Name="DisplayMode"
+				Name="displaymode"
 				Filter="">
 				<File
 					RelativePath="..\..\src\components\viewer\displaymode\SoAnaglyphDisplayMode.cxx">
@@ -192,6 +204,31 @@
 				</File>
 				<File
 					RelativePath="..\..\src\components\viewer\displaymode\SoLineSequentialDisplayMode.h">
+				</File>
+			</Filter>
+			<Filter
+				Name="controlmode"
+				Filter="">
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\math2.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\MultRotRot.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\MultRotRot.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoDesktopControlMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoDesktopControlMode.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoStbCameraControlMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoStbCameraControlMode.h">
 				</File>
 			</Filter>
 		</Filter>

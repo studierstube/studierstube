@@ -100,10 +100,10 @@ SoDisplay
 	  ######################################
 	  ######## Viewport ####################
 	  ###################################### 
-	  #viewport SoViewport{
-	  #  origin 0 240 
-	  #  size 320 240
-	  #}
+	  viewport SoViewport{
+	    origin 0 240 
+	    size 320 240
+	  }
 	  
 	  ######################################
 	  ######## DisplayMode #################
@@ -140,17 +140,9 @@ SoDisplay
 	  #content USE Content2  
 	  
     }#SoStbCamera 1
-  ]#stbCameraList 
- 
-}#SoDisplay
-
-
-
-
-	
-	
-    #SoStbCamera
-	#{
+    
+    SoStbCamera
+	{
 	  ######## The Content  ###########
 	  #content USE Content2
 	  
@@ -198,18 +190,19 @@ SoDisplay
 	  #  ovStbSink "stbSink1"
 	  #}
 
-	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	   displayMode SoAnaglyphDisplayMode{lensColor 0 1 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  #viewport SoViewport{
-	  #  origin 320 240 
-	  #  size 320 240
-	  #}
+	  
+	  viewport SoViewport{
+	    origin 320 240 
+	    size 320 240
+	  }
 
-	#}#SoStbCamera 1
+	}#SoStbCamera 2
        
-	#SoStbCamera
-	#{
+	SoStbCamera
+	{
 	  ######## The Content  ###########
 	  #content USE Content2
 	  
@@ -242,7 +235,6 @@ SoDisplay
 	  #}
 	  #camera  
 
-	
 	  ######## StbCamera Control ###########
 	  #controlMode SoDesktopControlMode{}
 	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
@@ -259,13 +251,25 @@ SoDisplay
 	  #}
 
 	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
-	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  #viewport SoViewport{
-	  #  origin 0 0 
-	  #  size 320 240
-	  #}
-	#}#SoStbCamera 1
+	   displayMode SoAnaglyphDisplayMode{lensColor 0 0 1}
+	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
+	   
+	  viewport SoViewport{
+	    origin 0 0 
+	    size 320 240
+	  }
+	}#SoStbCamera 3
+	
+  ]#stbCameraList 
+ 
+}#SoDisplay
+
+
+
+
+	
+	
+
 	
 	
 	

@@ -37,9 +37,7 @@
 #include <Inventor/SbLinear.h>
 #include <Inventor/fields/SoSFVec2s.h> 
 
-#include "StbViewer/StbViewer.h"
-
-class STBVIEWER_API SoViewport : public SoNode
+class SoViewport : public SoNode
 {
 SO_NODE_HEADER(SoViewport);
 

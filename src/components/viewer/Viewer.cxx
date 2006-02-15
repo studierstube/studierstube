@@ -41,6 +41,7 @@
 #include "SoStbCamera.h"
 #include "SoOffAxisCamera.h"
 #include "SoVideoBackground.h"
+#include "SoViewport.h"
 
 #include "controlmode/SoDesktopControlMode.h"
 #include "controlmode/SoStbCameraControlMode.h"
@@ -73,29 +74,23 @@ Viewer::init()
 {
     // init coin stuff
     SoDisplay::initClass();
-
     SoOffAxisCamera::initClass();
     SoStbCamera::initClass();
-    SoVideoBackground::initClass();
-
-    SoGLPolygonStippleElement::initClass();
-    SoGLColorBufferElement::initClass();
-    SoDisplayMode::initClass();
-    SoAnaglyphDisplayMode::initClass();
-    SoLineSequentialDisplayMode::initClass();
-    SoFieldSequentialDisplayMode::initClass();
-    SoDesktopControlMode::initClass();
     SoStbCameraControlMode::initClass();
     MultRotRot::initClass();
-    SoStbCameraControlMode::initClass();
     SoDesktopControlMode::initClass();
+ /*   SoTrackedDisplayControlMode::initClass();
+    SoTrackedViewpointControlMode::initClass();
+    SoTrackedViewpointMobileDisplayControlMode::initClass();*/
 
-    //get viewer's parameter
-    retrieveParameter();
-    //load .iv file 
-    std::cout<<"init Viewer\n";
-
+    SoGLColorBufferElement::initClass();
+    SoGLPolygonStippleElement::initClass();
+    SoDisplayMode::initClass();
+    SoLineSequentialDisplayMode::initClass();
     SoFieldSequentialDisplayMode::initClass();
+    SoAnaglyphDisplayMode::initClass();
+    SoViewport::initClass();
+    SoVideoBackground::initClass();
 
     //get viewer's parameter
     retrieveParameter();
