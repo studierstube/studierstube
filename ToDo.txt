@@ -1,5 +1,9 @@
+- event system (linux)
 - add commandline option to change kernel.xml
 - add logging to file or console 
 - use log_mode value 
 - kernel : updateMode=IDLE
-	
+- muddleware client
+- linux daemon + windows service
+- mainloop ?
+- videobackground
