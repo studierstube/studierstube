@@ -30,8 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "Studierstube.h"
-#include "Kernel.h"
+#include <stb/kernel/Studierstube.h>
+#include <stb/kernel/Kernel.h>
 
 void
 executeStudierstube(int argc, char** argv)

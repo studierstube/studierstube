@@ -30,16 +30,16 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoFieldSequentialDisplayMode.h"
+#include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 
 #ifdef WIN32
 #include <windows.h>
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-#include "SoFieldSequentialDisplayMode.h"
-#include "../SoDisplay.h"
-#include "../SoStudierstubeViewer.h"
+#include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
 
 bool SoFieldSequentialDisplayMode::isInit=false;
 

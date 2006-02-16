@@ -30,19 +30,19 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoStbCamera.h"
+#include <stb/components/viewer/SoStbCamera.h>
 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoTransformSeparator.h>
 
-#include "SoStudierstubeViewer.h"
-#include "SoDisplay.h"
+#include <stb/components/viewer/SoStudierstubeViewer.h>
+#include <stb/components/viewer/SoDisplay.h>
 
-#include "SoStudierstubeViewer.h"
-#include "displaymode/SoDisplayMode.h"
-#include "SoVideoBackground.h"
-#include "controlmode/SoStbCameraControlMode.h"
-#include "SoViewport.h"
+#include <stb/components/viewer/SoStudierstubeViewer.h>
+#include <stb/components/viewer/displaymode/SoDisplayMode.h>
+#include <stb/components/viewer/SoVideoBackground.h>
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/components/viewer/SoViewport.h>
 
 
 SO_KIT_SOURCE(SoStbCamera);

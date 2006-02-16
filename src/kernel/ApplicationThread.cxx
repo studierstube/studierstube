@@ -28,7 +28,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ApplicationThread.h"
+#include <stb/kernel/ApplicationThread.h>
 
 BEGIN_NAMESPACE_STB
 

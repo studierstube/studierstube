@@ -36,7 +36,7 @@
 #endif
 
 #include <Inventor/actions/SoGLRenderAction.h>
-#include "SoGLPolygonStippleElement.h"
+#include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 
 SO_ELEMENT_SOURCE(SoGLPolygonStippleElement);
 

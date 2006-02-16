@@ -29,14 +29,14 @@
 * $Id: SoDisplay.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-#include "SoDisplay.h"
+#include <stb/components/viewer/SoDisplay.h>
 
-#include "kernel/Studierstube.h"
-#include "guiDefines.h"
-#include "SoStudierstubeViewer.h"
+#include <stb/kernel/Studierstube.h>
+#include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
 
-#include "SoStbCamera.h"
-#include "SoOffAxisCamera.h"
+#include <stb/components/viewer/SoStbCamera.h>
+#include <stb/components/viewer/SoOffAxisCamera.h>
 
 #include SOGUI_H
 #include SOGUI_CURSOR_H

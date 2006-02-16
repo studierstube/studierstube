@@ -29,10 +29,11 @@
 /* ======================================================================= */
 
 
-#include "Config.h"
+#include <stb/kernel/Config.h>
+
 #include <tinyxml.h>
-#include "Kernel.h"
-#include "ComponentInfo.h"
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentInfo.h>
 BEGIN_NAMESPACE_STB
 
 //================Config===========

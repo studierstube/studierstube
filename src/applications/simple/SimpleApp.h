@@ -33,7 +33,7 @@
 #ifndef _SIMPLEAPP_H_
 #define _SIMPLEAPP_H_
 
-#include "kernel/Application.h"
+#include <stb/kernel/Application.h>
 
 namespace stb{
 /**

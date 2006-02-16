@@ -32,9 +32,9 @@
 
 #ifndef _COMPONENT_H_
 #define _COMPONENT_H_
-#include "Studierstube.h"
-#include "common/macros.h"
-#include "common/string.h"
+#include <stb/kernel/Studierstube.h>
+#include <stb/base/macros.h>
+#include <stb/base/string.h>
 
 BEGIN_NAMESPACE_STB
 

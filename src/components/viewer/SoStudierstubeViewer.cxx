@@ -30,7 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoStudierstubeViewer.h"
+#include <stb/components/viewer/SoStudierstubeViewer.h>
+
 #include SOGUI_H
 #include SOGUI_CURSOR_H
 #ifdef USE_SOQT

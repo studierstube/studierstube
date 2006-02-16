@@ -28,8 +28,9 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentInfo.h"
-#include "Kernel.h"
+#include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/Kernel.h>
+
 #include <tinyxml.h>
 
 

@@ -19,7 +19,7 @@
 
 
 #include <string>
-#include "macros.h"
+#include <stb/base/macros.h>
 
 BEGIN_NAMESPACE_STB
 

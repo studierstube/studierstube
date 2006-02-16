@@ -29,30 +29,30 @@
 * $Id: Viewer.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-#include "Viewer.h"
-#include "kernel/Kernel.h"
-#include "kernel/SceneManager.h"
+#include <stb/components/viewer/Viewer.h>
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/SceneManager.h>
 #include <iostream>
 #include <Inventor/SoInput.h> 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
 
-#include "SoDisplay.h"
-#include "SoStbCamera.h"
-#include "SoOffAxisCamera.h"
-#include "SoVideoBackground.h"
-#include "SoViewport.h"
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/components/viewer/SoStbCamera.h>
+#include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoVideoBackground.h>
+#include <stb/components/viewer/SoViewport.h>
 
-#include "controlmode/SoDesktopControlMode.h"
-#include "controlmode/SoStbCameraControlMode.h"
-#include "controlmode/MultRotRot.h"
+#include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/components/viewer/MultRotRot.h>
 
-#include "displaymode/SoGLPolygonStippleElement.h"
-#include "displaymode/SoGLColorBufferElement.h"
-#include "displaymode/SoDisplayMode.h"
-#include "displaymode/SoAnaglyphDisplayMode.h"
-#include "displaymode/SoLineSequentialDisplayMode.h"
-#include "displaymode/SoFieldSequentialDisplayMode.h"
+#include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
+#include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
+#include <stb/components/viewer/displaymode/SoDisplayMode.h>
+#include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
+#include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
+#include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 
 CREATE_COMPONENT_FUNC(Viewer)
 

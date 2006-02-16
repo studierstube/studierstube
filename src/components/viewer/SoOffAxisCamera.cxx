@@ -50,7 +50,7 @@
 #include <SoWinLeaveScope.h>
 #endif
 
-#include "SoOffAxisCamera.h"
+#include <stb/components/viewer/SoOffAxisCamera.h>
 
 
 

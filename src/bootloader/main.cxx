@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
- #include "KernelLoader.h"
+ #include <stb/bootloader/KernelLoader.h>
 
 int 
 main(int argc,char* argv[])

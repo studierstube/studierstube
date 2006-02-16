@@ -28,7 +28,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SceneManager.h"
+#include <stb/kernel/SceneManager.h>
+
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/SbName.h>
 #include <Inventor/nodes/SoNode.h>

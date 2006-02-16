@@ -39,9 +39,7 @@
 
 #include <Inventor/actions/SoGLRenderAction.h>
 
-
-
-#include "SoGLColorBufferElement.h"
+#include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
 
 SO_ELEMENT_SOURCE(SoGLColorBufferElement);
 

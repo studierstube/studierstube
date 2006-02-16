@@ -33,9 +33,9 @@
 #ifndef _APPLICATION_H_
 #define _APPLICATION_H_
 
-#include "kernel/Component.h"
-#include "common/macros.h"
-#include "Inventor/nodes/SoSeparator.h"
+#include <stb/kernel/Component.h>
+#include <stb/base/macros.h>
+#include <Inventor/nodes/SoSeparator.h>
 
 BEGIN_NAMESPACE_STB
 

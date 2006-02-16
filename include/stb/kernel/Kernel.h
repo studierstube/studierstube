@@ -33,13 +33,14 @@
 #ifndef _KERNEL_H_
 #define _KERNEL_H_
 
-#include "common/macros.h"
-#include "common/string.h"
-#include "Studierstube.h"
+#include <stb/base/macros.h>
+#include <stb/base/string.h>
+#include <stb/kernel/Studierstube.h>
+
 class TiXmlElement;
 class SoSensor;
 
-#include "Scheduler.h"
+#include <stb/kernel/Scheduler.h>
 
 
 /**

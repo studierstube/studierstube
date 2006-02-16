@@ -12,7 +12,8 @@
    \brief This file encapsulates basic data structures like string,
    list, and so on. For the PDA-based setup, STL cannot be used.
 */
-#include "string.h"
+#include <stb/base/string.h>
+
 BEGIN_NAMESPACE_STB
 
 int stricasecmp(const stb::string str1, const stb::string str2)

@@ -28,7 +28,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "Application.h"
+#include <stb/kernel/Application.h>
 
 using namespace stb;
 

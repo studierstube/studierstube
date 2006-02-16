@@ -36,8 +36,8 @@
 #endif
 #include <GL/gl.h>
 
-#include "SoAnaglyphDisplayMode.h"
-#include "SoGLColorBufferElement.h"
+#include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
+#include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
 
 SO_NODE_SOURCE(SoAnaglyphDisplayMode);
 

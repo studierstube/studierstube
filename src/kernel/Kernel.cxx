@@ -30,8 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "Kernel.h"
-#include "Studierstube.h"
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/Studierstube.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml.h>
@@ -39,11 +39,11 @@
 #include <Inventor/SoDB.h> 
 #include <Inventor/sensors/SoSensor.h>
 //
-#include "Config.h"
-#include "Scheduler.h"
-#include "SceneManager.h"
-#include "ComponentManager.h"
-#include "ComponentInfo.h"
+#include <stb/kernel/Config.h>
+#include <stb/kernel/Scheduler.h>
+#include <stb/kernel/SceneManager.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/kernel/ComponentInfo.h>
 //
 BEGIN_NAMESPACE_STB
 

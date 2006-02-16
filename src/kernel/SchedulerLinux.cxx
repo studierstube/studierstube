@@ -30,10 +30,10 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SchedulerLinux.h"
-#include <tinyxml.h>
-#include "Kernel.h"
+#include <stb/kernel/SchedulerLinux.h>
+#include <stb/kernel/Kernel.h>
 
+#include <tinyxml.h>
 #include <iostream>
 
 BEGIN_NAMESPACE_STB

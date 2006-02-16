@@ -31,8 +31,9 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "KernelLoader.h"
-#include "../system/OS.h"
+#include <stb/bootloader/KernelLoader.h>
+#include <stb/base/OS.h>
+
 #include <iostream>
 
 BEGIN_NAMESPACE_STB

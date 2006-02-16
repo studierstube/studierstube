@@ -36,7 +36,7 @@
 #include <Inventor/nodes/SoSubNode.h>
 
 
-#include "../SoStbCamera.h"
+#include <stb/components/viewer/SoStbCamera.h>
 
 class SoStbCameraControlMode : public SoNode
 {

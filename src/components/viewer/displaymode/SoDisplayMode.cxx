@@ -30,8 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoDisplayMode.h"
-#include "../SoStudierstubeViewer.h"
+#include <stb/components/viewer/displaymode/SoDisplayMode.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
 
 SO_NODE_SOURCE(SoDisplayMode);
 

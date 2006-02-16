@@ -32,8 +32,8 @@
 
 #ifndef _VIEWER_H_
 #define _VIEWER_H_
-#include "common/macros.h"
-#include "kernel/Component.h"
+#include <stb/base/macros.h>
+#include <stb/kernel/Component.h>
 
 BEGIN_NAMESPACE_STB
 /**

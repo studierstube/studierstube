@@ -30,11 +30,11 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentManager.h"
-#include "Component.h"
-#include "Application.h"
-#include "ComponentInfo.h"
-#include "ComponentRetriever.h"
+#include <stb/kernel/ComponentManager.h>
+#include <stb/kernel/Component.h>
+#include <stb/kernel/Application.h>
+#include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/ComponentRetriever.h>
 
 BEGIN_NAMESPACE_STB
 

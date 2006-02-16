@@ -30,9 +30,11 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef OS_H
-#define OS_H
-#include "common/string.h"
+#ifndef _STB_OS_H
+#define _STB_OS_H
+
+#include <stb/base/string.h>
+
 #ifdef WIN32
 	#define WIN32_LEAN_AND_MEAN
 	#include "windows.h"

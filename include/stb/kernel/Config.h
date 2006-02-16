@@ -34,8 +34,8 @@
 
 class TiXmlElement;
 
-#include "common/macros.h"
-#include "common/string.h"
+#include <stb/base/macros.h>
+#include <stb/base/string.h>
 
 BEGIN_NAMESPACE_STB
 

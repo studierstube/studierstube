@@ -32,13 +32,13 @@
 #ifndef _COMPONENTINFO_H_
 #define _COMPONENTINFO_H_
 
-#include "system/OS.h"
-#include "common/string.h"
-#include "common/macros.h"
+#include <stb/base/OS.h>
+#include <stb/base/string.h>
+#include <stb/base/macros.h>
 #include <map>
 
 class TiXmlElement;
-#include "Component.h"
+#include <stb/kernel/Component.h>
 
 BEGIN_NAMESPACE_STB
 

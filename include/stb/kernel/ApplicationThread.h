@@ -33,8 +33,8 @@
 #ifndef _APPLICATIONTHREAD_H_
 #define _APPLICATIONTHREAD_H_
 
-#include "kernel/Application.h"
-#include "common/macros.h"
+#include <stb/kernel/Application.h>
+#include <stb/base/macros.h>
 
 BEGIN_NAMESPACE_STB
 

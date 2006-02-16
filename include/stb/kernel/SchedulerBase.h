@@ -33,8 +33,8 @@
 #ifndef _SCHEDULERBASE_H_
 #define _SCHEDULERBASE_H_
 
-#include "common/macros.h"
-#include "system/OS.h"
+#include <stb/base/macros.h>
+#include <stb/base/OS.h>
 
 class SoSensor;
 class SoTimerSensor;

@@ -31,8 +31,9 @@
 /* ======================================================================= */  
 #ifndef _COMPONENTRETRIEVER_H_
 #define _COMPONENTRETRIEVER_H_
-#include "common/macros.h"
-#include "Component.h"
+
+#include <stb/base/macros.h>
+#include <stb/kernel/Component.h>
 
 BEGIN_NAMESPACE_STB
 

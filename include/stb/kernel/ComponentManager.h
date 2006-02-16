@@ -34,7 +34,8 @@
 #define _COMPONENTMANAGER_H_
 
 #include <vector>
-#include "common/macros.h"
+
+#include <stb/base/macros.h>
 
 
 BEGIN_NAMESPACE_STB

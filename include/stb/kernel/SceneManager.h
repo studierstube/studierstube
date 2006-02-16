@@ -32,8 +32,8 @@
 
 #ifndef _SCENEMANAGER_H_
 #define _SCENEMANAGER_H_
-#include "common/macros.h"
-#include "Studierstube.h"
+#include <stb/base/macros.h>
+#include <stb/kernel/Studierstube.h>
 
 class SoSeparator;
 class SbName;

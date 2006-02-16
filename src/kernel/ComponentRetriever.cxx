@@ -28,9 +28,9 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "ComponentRetriever.h"
-#include "ComponentInfo.h"
-#include "Kernel.h"
+#include <stb/kernel/ComponentRetriever.h>
+#include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/Kernel.h>
 
 BEGIN_NAMESPACE_STB
 

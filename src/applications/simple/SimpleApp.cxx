@@ -29,10 +29,11 @@
 /* ======================================================================= */
 
 #include "SimpleApp.h"
-#include "kernel/Kernel.h"
-#include "kernel/SceneManager.h"
-#include "Inventor/nodes/SoCube.h"
-#include <stdio.h>
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/SceneManager.h>
+#include <Inventor/nodes/SoCube.h>
+
+#include <cstdio>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
 

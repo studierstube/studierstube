@@ -30,14 +30,14 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoLineSequentialDisplayMode.h"
+#include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 
 #ifdef WIN32
 #include <windows.h>
 #define WIN32_LEAN_AND_MEAN
 #endif
 
-#include "SoGLPolygonStippleElement.h"
+#include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 
 SO_NODE_SOURCE(SoLineSequentialDisplayMode);
 

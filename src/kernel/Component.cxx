@@ -30,9 +30,9 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "Component.h"
-#include "ComponentInfo.h"
-#include "Kernel.h"
+#include <stb/kernel/Component.h>
+#include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/Kernel.h>
 
 BEGIN_NAMESPACE_STB
 

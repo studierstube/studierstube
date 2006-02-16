@@ -29,11 +29,13 @@
 * $Id: SchedulerBase.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-#include "SchedulerBase.h"
+#include <stb/kernel/SchedulerBase.h>
+
 #include <tinyxml.h>
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
-#include "Kernel.h"
+#include <stb/kernel/Kernel.h>
+
 BEGIN_NAMESPACE_STB
 
 
