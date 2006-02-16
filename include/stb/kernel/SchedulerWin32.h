@@ -32,8 +32,9 @@
 
 #ifndef _SCHEDULERWIN32_H_
 #define _SCHEDULERWIN32_H_
-#include "common/macros.h"
-#include "SchedulerBase.h"
+
+#include <stb/base/macros.h>
+#include <stb/kernel/SchedulerBase.h>
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>

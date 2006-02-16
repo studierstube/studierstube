@@ -35,7 +35,7 @@
 
 #include <Inventor/fields/SoSFColor.h>
 
-#include "SoDisplayMode.h"
+#include <stb/components/viewer/displaymode/SoDisplayMode.h>
 
 class  SoAnaglyphDisplayMode : public SoDisplayMode
 {

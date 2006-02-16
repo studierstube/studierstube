@@ -34,12 +34,12 @@
 #define _SCHEDULER_H_
 
 #ifdef WIN32
-    #include "SchedulerWin32.h"
+    #include <stb/kernel/SchedulerWin32.h>
     namespace stb{
         typedef stb::SchedulerWin32 Scheduler;
     }
 #else
-    #include "SchedulerLinux.h"
+    #include <stb/kernel/SchedulerLinux.h>
     namespace stb{
         typedef stb::SchedulerLinux Scheduler;
     }

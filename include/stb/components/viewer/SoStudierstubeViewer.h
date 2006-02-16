@@ -33,7 +33,8 @@
 #ifndef _SOSTUDIERSTUBEVIEWER_H_
 #define _SOSTUDIERSTUBEVIEWER_H_
 
-#include "guiDefines.h"
+#include <stb/components/viewer/guiDefines.h>
+
 #include SOGUI_EXAMINERVIEWER_H
 #ifdef USE_SOQT
     #include GuiWidget_H

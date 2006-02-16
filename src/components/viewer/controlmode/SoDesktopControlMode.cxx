@@ -30,10 +30,10 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoDesktopControlMode.h"
+#include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h> 
-#include "../SoOffAxisCamera.h"
-#include "MultRotRot.h"
+#include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/controlmode/MultRotRot.h>
 //----------------------------------------------------------------------------
 
 SO_NODE_SOURCE(SoDesktopControlMode);

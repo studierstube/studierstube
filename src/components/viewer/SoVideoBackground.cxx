@@ -30,7 +30,7 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#include "SoVideoBackground.h"
+#include <stb/components/viewer/SoVideoBackground.h>
 
 #ifdef WIN32
 	#include <windows.h>

@@ -39,7 +39,7 @@
 #include <Inventor/fields/SoSFVec3f.h> 
 #include <Inventor/fields/SoSFRotation.h> 
 
-#include "SoStbCameraControlMode.h"
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 
 
 class SoDesktopControlMode : public SoStbCameraControlMode

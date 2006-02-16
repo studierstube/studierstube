@@ -31,8 +31,8 @@
  /* ======================================================================= */
 
 #include <Inventor/SbLinear.h>
-#include "math2.h"
-#include "MultRotRot.h"
+#include <stb/components/viewer/controlmode/math2.h>
+#include <stb/components/viewer/controlmode/MultRotRot.h>
 
 SO_ENGINE_SOURCE(MultRotRot);
 

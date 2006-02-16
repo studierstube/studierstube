@@ -58,11 +58,6 @@ public:
 
     virtual void mainLoop();
 
-protected:	
-
-    void loadSoQt();
-    void mainLoopSoQt();
-
 private:
 	
 };// class 

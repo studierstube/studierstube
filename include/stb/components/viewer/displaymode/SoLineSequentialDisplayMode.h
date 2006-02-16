@@ -33,7 +33,7 @@
 #ifndef _SoLINESEQUENTIALDISPLAYMODE_H_
 #define _SoLINESEQUENTIALDISPLAYMODE_H_
 
-#include "SoDisplayMode.h"
+#include <stb/components/viewer/displaymode/SoDisplayMode.h>
 
 #ifdef WIN32
 #include <windows.h>

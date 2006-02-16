@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoStbCameraControlMode.h"
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 
 //----------------------------------------------------------------------------
 

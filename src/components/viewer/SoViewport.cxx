@@ -30,12 +30,13 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoViewport.h"
+#include <stb/components/viewer/SoViewport.h>
+
 #include <Inventor/SbViewportRegion.h> 
 #include <Inventor/elements/SoGLViewportRegionElement.h>
 
 #ifdef WIN32
-#include "windows.h"
+#include <windows.h>
 #define WIN32_LEAN_AND_MEAN
 #endif
 

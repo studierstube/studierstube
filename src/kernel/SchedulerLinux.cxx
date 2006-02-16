@@ -64,12 +64,6 @@ SchedulerLinux::parseConfiguration(TiXmlAttribute* attribute)
     SchedulerBase::parseConfiguration(attribute);
 }
 
-void
-SchedulerLinux::loadSoQt()
-{
-    printf("SoQt is not supported yet! \n");
-}
-
 void 
 SchedulerLinux::init()
 {
