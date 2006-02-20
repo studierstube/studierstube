@@ -34,7 +34,8 @@
 #include <Inventor/SbVec2f.h>
 #include <Inventor/SbViewportRegion.h>
 #include <Inventor/events/SoMouseButtonEvent.h>
-#include "EventMouseSource.h"
+#include <stb/components/event/EventMouseSource.h>
+
 
 EventMouseSource::EventMouseSource( Mode mode_, int window_ ) :
     ot::Node(),

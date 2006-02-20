@@ -35,8 +35,9 @@
 
 #include <string>
 #include <Inventor/sensors/SoFieldSensor.h>
-#include <OpenTracker/OpenTracker.h>
-#include "event.h"
+#include <OpenTracker.h>
+#include <stb/components/event/event.h>
+
 
 /**
  * This class implements a node that receives data from various OpenInventor fields

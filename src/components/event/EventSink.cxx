@@ -31,8 +31,9 @@
  /* ======================================================================= */
 
 // #include "../tool/disable4786.h"
-#include "EventSink.h"
-#include "EventModule.h"
+#include <stb/components/event/EventSink.h>
+#include <stb/components/event/EventModule.h>
+
 
 #ifdef WIN32
 #pragma warning(disable:4786)

@@ -73,9 +73,10 @@ private:
 
 inline bool SoGLColorBufferElement::operator==( const SoGLColorBufferElement & arg ) const
 {
-    return ( 
-        this->mask   == arg.mask 
-    );
+    if(this->mask   == arg.mask)
+        return true;
+    else
+        return false;
 }
 
 inline bool SoGLColorBufferElement::operator!=( const SoGLColorBufferElement & arg ) const

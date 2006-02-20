@@ -29,8 +29,8 @@
   * $Id$
   * @file                                                                   */
  /* ======================================================================= */
+#include <stb/components/event/SoEventNode.h>
 
-#include "SoEventNode.h"
 
 SO_NODE_SOURCE(SoEventNode);
 

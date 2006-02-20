@@ -33,9 +33,11 @@
 #include <map>
 #include <boost/any.hpp>
 
-#include "SoInputEvent.h"
-#include "EventBus.h"
-#include "tools.h"
+#include <stb/components/event/SoInputEvent.h>
+
+#include <stb/components/event/EventBus.h>
+#include <stb/components/event/tools.h>
+
 
 // #include "EventContext.h"
 

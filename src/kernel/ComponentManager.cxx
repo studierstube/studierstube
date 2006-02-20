@@ -67,13 +67,13 @@ ComponentManager::addApplication(ComponentInfo* compInfo)
 void 
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
-	Component* newComp=(Component*)compRetriever->getComponent(compInfo);
-	if(!newComp)
+	Component* newComp=NULL;
+    newComp=(Component*)compRetriever->getComponent(compInfo);
+    if(!newComp){
 		return;
-
+    }
     //add parameter
 	newComp->init();
-    
 	compList.push_back(newComp);
 }
 

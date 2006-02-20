@@ -1,4 +1,4 @@
-#include "EventContext.h"
+#include <stb/components/event/EventContext.h>
 
 SbString EventContext::emptyString = "";
 

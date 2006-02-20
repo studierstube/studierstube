@@ -33,8 +33,9 @@
 #ifndef __EVENTKEYBOARDSOURCE_H__
 #define __EVENTKEYBOARDSOURCE_H__
 
-#include <OpenTracker/OpenTracker.h>
-#include "event.h"
+#include <OpenTracker.h>
+#include <stb/components/event/event.h>
+
 
 /**
  * This class implements a simple node that generates tracking events

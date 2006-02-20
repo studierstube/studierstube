@@ -45,7 +45,7 @@
 
 #include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
-#include <stb/components/viewer/MultRotRot.h>
+#include <stb/components/viewer/controlmode/MultRotRot.h>
 
 #include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>

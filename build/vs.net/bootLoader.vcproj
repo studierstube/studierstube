@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(STB4ROOT)/src"
+				AdditionalIncludeDirectories="$(STB4ROOT)/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -123,29 +123,28 @@
 				RelativePath="..\..\src\bootloader\KernelLoader.cxx">
 			</File>
 			<File
-				RelativePath="..\..\src\bootloader\KernelLoader.h">
+				RelativePath="..\..\include\stb\bootloader\KernelLoader.h">
 			</File>
 			<File
 				RelativePath="..\..\src\bootloader\main.cxx">
 			</File>
 			<Filter
-				Name="system"
+				Name="base"
 				Filter="">
 				<File
-					RelativePath="..\..\src\system\OS.cxx">
+					RelativePath="..\..\include\stb\base\macros.h">
 				</File>
 				<File
-					RelativePath="..\..\src\system\OS.h">
-				</File>
-			</Filter>
-			<Filter
-				Name="common"
-				Filter="">
-				<File
-					RelativePath="..\..\src\common\macros.h">
+					RelativePath="..\..\src\base\OS.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\common\string.h">
+					RelativePath="..\..\include\stb\base\OS.h">
+				</File>
+				<File
+					RelativePath="..\..\src\base\string.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\base\string.h">
 				</File>
 			</Filter>
 		</Filter>

@@ -30,7 +30,7 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#include "SoEventKit.h"
+#include <stb/components/event/SoEventKit.h>
 
 SO_KIT_SOURCE(SoEventKit);
 

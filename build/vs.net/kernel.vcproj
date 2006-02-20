@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/src&quot;;&quot;$(ACEROOT)&quot;"
+				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;STB_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -125,59 +125,51 @@
 				RelativePath="..\..\src\kernel\Kernel.cxx">
 			</File>
 			<File
-				RelativePath="..\..\src\kernel\Kernel.h">
+				RelativePath="..\..\include\stb\kernel\Kernel.h">
 			</File>
 			<File
 				RelativePath="..\..\src\kernel\Studierstube.cxx">
 			</File>
 			<File
-				RelativePath="..\..\src\kernel\Studierstube.h">
+				RelativePath="..\..\include\stb\kernel\Studierstube.h">
 			</File>
 			<Filter
-				Name="system"
+				Name="base"
 				Filter="">
 				<File
-					RelativePath="..\..\src\system\OS.cxx">
+					RelativePath="..\..\include\stb\base\macros.h">
 				</File>
 				<File
-					RelativePath="..\..\src\system\OS.h">
-				</File>
-			</Filter>
-			<Filter
-				Name="common"
-				Filter="">
-				<File
-					RelativePath="..\..\src\common\macros.h">
+					RelativePath="..\..\src\base\OS.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\common\string.cxx">
+					RelativePath="..\..\include\stb\base\OS.h">
 				</File>
 				<File
-					RelativePath="..\..\src\common\string.h">
+					RelativePath="..\..\src\base\string.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\base\string.h">
 				</File>
 			</Filter>
 			<Filter
 				Name="Scheduler"
 				Filter="">
 				<File
-					RelativePath="..\..\src\kernel\Scheduler.h">
-				</File>
-				<File
 					RelativePath="..\..\src\kernel\SchedulerBase.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\SchedulerBase.h">
+					RelativePath="..\..\include\stb\kernel\SchedulerBase.h">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\kernel\SchedulerLinux.h">
 				</File>
 				<File
 					RelativePath="..\..\src\kernel\SchedulerWin32.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\SchedulerWin32.h">
+					RelativePath="..\..\include\stb\kernel\SchedulerWin32.h">
 				</File>
-				<Filter
-					Name="backup"
-					Filter="">
-				</Filter>
 			</Filter>
 			<Filter
 				Name="SceneManager"
@@ -186,7 +178,7 @@
 					RelativePath="..\..\src\kernel\SceneManager.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\SceneManager.h">
+					RelativePath="..\..\include\stb\kernel\SceneManager.h">
 				</File>
 			</Filter>
 			<Filter
@@ -196,19 +188,19 @@
 					RelativePath="..\..\src\kernel\Application.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\Application.h">
+					RelativePath="..\..\include\stb\kernel\Application.h">
 				</File>
 				<File
 					RelativePath="..\..\src\kernel\ApplicationThread.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ApplicationThread.h">
+					RelativePath="..\..\include\stb\kernel\ApplicationThread.h">
 				</File>
 				<File
 					RelativePath="..\..\src\kernel\Component.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\Component.h">
+					RelativePath="..\..\include\stb\kernel\Component.h">
 				</File>
 			</Filter>
 			<Filter
@@ -218,19 +210,19 @@
 					RelativePath="..\..\src\kernel\ComponentInfo.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ComponentInfo.h">
+					RelativePath="..\..\include\stb\kernel\ComponentInfo.h">
 				</File>
 				<File
 					RelativePath="..\..\src\kernel\ComponentManager.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ComponentManager.h">
+					RelativePath="..\..\include\stb\kernel\ComponentManager.h">
 				</File>
 				<File
 					RelativePath="..\..\src\kernel\ComponentRetriever.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ComponentRetriever.h">
+					RelativePath="..\..\include\stb\kernel\ComponentRetriever.h">
 				</File>
 			</Filter>
 			<Filter
@@ -240,7 +232,7 @@
 					RelativePath="..\..\src\kernel\Config.cxx">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\Config.h">
+					RelativePath="..\..\include\stb\kernel\Config.h">
 				</File>
 			</Filter>
 		</Filter>
@@ -254,6 +246,9 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 		</Filter>
+		<File
+			RelativePath="..\..\bin\win32\kernel.xml">
+		</File>
 	</Files>
 	<Globals>
 		<Global

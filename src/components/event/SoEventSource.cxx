@@ -30,8 +30,8 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#include "SoEventSource.h"
-#include "SoInputEvent.h"
+#include <stb/components/event/SoEventSource.h>
+#include <stb/components/event/SoInputEvent.h>
 
 SO_NODE_ABSTRACT_SOURCE(SoEventSource);
 

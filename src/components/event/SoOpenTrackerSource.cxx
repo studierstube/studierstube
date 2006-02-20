@@ -35,11 +35,12 @@
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 
-#include <OpenTracker/OpenTracker.h>
+#include <OpenTracker.h>
 
-#include "SoOpenTrackerSource.h"
-#include "EventModule.h"
-#include "EventSchema.h"
+#include <stb/components/event/SoOpenTrackerSource.h>
+#include <stb/components/event/EventModule.h>
+#include <stb/components/event/EventSchema.h>
+
 
 SO_NODE_SOURCE(SoOpenTrackerSource);
 

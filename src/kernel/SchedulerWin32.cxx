@@ -30,9 +30,10 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SchedulerWin32.h"
+#include <stb/kernel/SchedulerWin32.h>
 #include <tinyxml.h>
-#include "Kernel.h"
+#include <stb/kernel/Kernel.h>
+
 
 BEGIN_NAMESPACE_STB
 

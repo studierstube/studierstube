@@ -34,8 +34,8 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoTransform.h>
 
-#include "SoTrakEngine.h"
-#include "SoTrackedArtifactKit.h"
+#include <stb/components/event/SoTrakEngine.h>
+#include <stb/components/event/SoTrackedArtifactKit.h>
 
 SO_KIT_SOURCE(SoTrackedArtifactKit);
 

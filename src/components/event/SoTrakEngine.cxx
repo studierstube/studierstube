@@ -32,8 +32,9 @@
 
 #include <Inventor/engines/SoSubEngine.h>
 
-#include "SoTrakEngine.h"
-#include "EventContextFilter.h"
+#include <stb/components/event/SoTrakEngine.h>
+#include <stb/components/event/EventContextFilter.h>
+
 
 SO_ENGINE_SOURCE(SoTrakEngine);
 

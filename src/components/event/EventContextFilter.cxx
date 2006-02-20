@@ -33,8 +33,8 @@
 // #include "../tool/disable4786.h"
 #include <algorithm>
 
-#include "EventContextFilter.h"
-#include "SoInputEvent.h"
+#include <stb/components/event/EventContextFilter.h>
+#include <stb/components/event/SoInputEvent.h>
 
 #include <Inventor/SbName.h>
 

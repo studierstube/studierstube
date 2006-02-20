@@ -30,7 +30,7 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#include "SoEventSeparator.h"
+#include <stb/components/event/SoEventSeparator.h>
 
 SO_NODE_SOURCE(SoEventSeparator);
 

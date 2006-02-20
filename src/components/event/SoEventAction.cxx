@@ -38,13 +38,14 @@
 
 #include "Inventor/SbString.h"
 
-#include "utils/SoContextElement.h"
+#include <stb/components/starlight/SoContextElement.h>
 
-#include "SoEventAction.h"
-#include "SoEventNode.h"
-#include "SoEventGroup.h"
-#include "SoEventSeparator.h"
-#include "SoEventKit.h"
+
+#include <stb/components/event/SoEventAction.h>
+#include <stb/components/event/SoEventNode.h>
+#include <stb/components/event//SoEventGroup.h>
+#include <stb/components/event/SoEventSeparator.h>
+#include <stb/components/event/SoEventKit.h>
 
 SO_ACTION_SOURCE(SoEventAction);
 

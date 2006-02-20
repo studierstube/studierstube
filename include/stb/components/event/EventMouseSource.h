@@ -33,8 +33,9 @@
 #ifndef __EVENTMOUSESOURCE_H__
 #define __EVENTMOUSESOURCE_H__
 
-#include <OpenTracker/OpenTracker.h>
-#include "event.h"
+#include <OpenTracker.h>
+#include <stb/components/event/event.h>
+
 
 class SoEvent;
 class SbViewportRegion;

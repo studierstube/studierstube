@@ -37,7 +37,7 @@
 #include <Inventor/sensors/SoFieldSensor.h>
 #include <Inventor/nodes/SoNode.h>
 #include <Inventor/SoLists.h>
-#include "EventSource.h"
+#include <stb/components/event/EventSource.h>
 
 using namespace std;
 

@@ -37,12 +37,13 @@
 #include <Inventor/actions/SoHandleEventAction.h>
 #include <Inventor/events/SoKeyboardEvent.h>
 
-#include "EventModule.h"
-#include "EventSink.h"
-#include "EventSource.h"
-#include "EventKeyboardSource.h"
-#include "EventMouseSource.h"
-#include "SoOpenTrackerSource.h"
+#include <stb/components/event/EventModule.h>
+#include <stb/components/event/EventSink.h>
+#include <stb/components/event/EventSource.h>
+#include <stb/components/event/EventKeyboardSource.h>
+#include <stb/components/event/EventMouseSource.h>
+#include <stb/components/event/SoOpenTrackerSource.h>
+
 
 using namespace std;
 using namespace ot;

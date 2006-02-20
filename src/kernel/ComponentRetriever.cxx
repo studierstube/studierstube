@@ -55,6 +55,7 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 {
 	////load lib
     stb::string libName=compInfo->getLibName();
+    Component* newComponent=NULL;
 	if(libName=="")
 		return NULL;
 	hModule libHandle;
@@ -65,7 +66,12 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	}
 	compInfo->setHModule(libHandle);
 	Component* (*createComponent)()=(Component*(*)())os_GetProcAddress(libHandle,"createComponent");
-	Component* newComponent=(*createComponent)();
+    if(!createComponent)
+    {
+        Kernel::getInstance()->log("ERROR: can't find createComponent() in " + libName + "\n");
+        return NULL;
+    }
+	newComponent=(*createComponent)();
     newComponent->setComponentInfo(compInfo);
 	return newComponent;
 }

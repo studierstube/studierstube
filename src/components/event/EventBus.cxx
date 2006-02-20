@@ -34,7 +34,8 @@
 // #include "../tool/disable4786.h"
 #include <algorithm>
 
-#include "EventBus.h"
+#include <stb/components/event/EventBus.h>
+
 
 EventBus *EventBus::singleton = 0;
 

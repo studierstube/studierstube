@@ -32,13 +32,12 @@
 
 #include <algorithm>
 
-#include "utils/SoContext.h"
-
-#include "SoEventRoot.h"
-#include "SoEventAction.h"
-#include "EventBus.h"
+#include <stb/components/starlight/SoContext.h>
+#include <stb/components/event/SoEventRoot.h>
+#include <stb/components/event/SoEventAction.h>
+#include <stb/components/event/EventBus.h>
+#include <stb/components/event/EventContextFilter.h>
 // #include "EventContext.h"
-#include "EventContextFilter.h"
 
 #include <Inventor/nodes/SoGroup.h>
 

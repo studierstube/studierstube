@@ -35,6 +35,7 @@
 
 #include <exception>
 #include <vector>
+#include <typeinfo>
 
 #include <Inventor/Sb.h>
 #include <Inventor/events/SoEvent.h>

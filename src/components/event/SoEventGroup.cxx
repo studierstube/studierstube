@@ -30,7 +30,7 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#include "SoEventGroup.h"
+#include <stb/components/event/SoEventGroup.h>
 
 SO_NODE_SOURCE(SoEventGroup);
 
