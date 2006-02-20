@@ -38,11 +38,13 @@ BEGIN_NAMESPACE_STB
 
 ComponentInfo::ComponentInfo(){
     libHandle=NULL;
+    availability=ON_LOAD;
+    typeID="";
 }
 
 ComponentInfo::~ComponentInfo(){
-    if(libHandle)
-        os_FreeLibrary(libHandle);
+ /*   if(libHandle)
+        os_FreeLibrary(libHandle);*/
 }
 
 void 
@@ -54,31 +56,48 @@ ComponentInfo::setHModule(hModule aLibHandle)
 }
 
 void 
+ComponentInfo::setTypeID(stb::string type)
+{
+    typeID=type;
+}
+
+ComponentInfo::AVAILABILITY 
+ComponentInfo::getAvailability()
+{
+    return this->availability;
+}
+
+void 
+ComponentInfo::setAvailability(AVAILABILITY avl)
+{
+    availability=avl;
+}
+
+void 
 ComponentInfo::parseConfiguration(TiXmlElement* element)
 {
-    TiXmlAttribute* attribute = element->FirstAttribute();
-    while(attribute)
+    //loadLevel
+    const char  *_lib  = element->Attribute("lib"),
+                *_name = element->Attribute("name"),
+                *_availability=element->Attribute("availability");
+
+
+    if(_lib)
+        libName=_lib;
+    if(_name)
+        name=_name;
+    if(_availability)
     {
-        ///////////////// Library name /////////////////
-        if(!stb::stricasecmp(attribute->Name(),"lib"))
-        {
-            libName = attribute->Value();
-        }
-        ///////////////// Logging.mode /////////////////
-        else if(!stb::stricasecmp(attribute->Name(),"name"))
-        {
-            name = attribute->Value();
-        }
-        ///////////////// Logging. /////////////////
-        //else if(!stricmp(attribute->Name(),"----"))
-        //{		
-        //}
-        attribute = attribute->Next();
+        stb::string avl=_availability;
+        if(avl=="onload")
+            availability=ON_LOAD;
+        else if(avl=="ondemand")
+            availability=ON_DEMAND;
     }
 
-    //  <Param key   ="configFile" 
-    //       value ="viewer.iv" 
-    //  />	
+    //<Param key   ="" 
+    //       value ="" 
+    ///>	
     TiXmlElement* child = element->FirstChildElement();
     while(child)
     {
@@ -86,7 +105,7 @@ ComponentInfo::parseConfiguration(TiXmlElement* element)
         {
             stb::string key="";
             stb::string value="";
-            attribute = child->FirstAttribute();
+            TiXmlAttribute *attribute = child->FirstAttribute();
             while(attribute)
             {
                 /////////////// Library name /////////////////

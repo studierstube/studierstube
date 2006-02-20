@@ -36,7 +36,7 @@
 #include <vector>
 
 #include <stb/base/macros.h>
-
+#include <stb/kernel/Studierstube.h>
 
 BEGIN_NAMESPACE_STB
 class ComponentRetriever;
@@ -46,7 +46,7 @@ class Application;
 /**
 *	
 */
-class ComponentManager
+class STB_API ComponentManager
 {
 public:
 	/**
@@ -61,16 +61,21 @@ public:
 
 	void addComponent(ComponentInfo* compInfo);
 
-	void addApplication(ComponentInfo* compInfo);
+    bool load(std::string compName);
 
 	///// Checks if new apps should be downloaded and started or running apps should be stopped and destroyed.
-	void update();
-
+	void update(); 
+    
 protected:
 	std::vector<stb::Component*> compList;
 	std::vector<stb::Application*> appList;
+    std::vector<stb::ComponentInfo*> demandList;
+    std::vector<stb::Component*> initList;
 	ComponentRetriever *compRetriever;
 	int appListSize;
+    int initListSize;
+    void initComponent(Component *comp);
+    bool isLoaded(std::string compName);
 private:
 	
 };// class 

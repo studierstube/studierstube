@@ -64,6 +64,10 @@ public:
     virtual void setComponentInfo(ComponentInfo* info);
 
     virtual void retrieveParameter();
+
+    virtual ComponentInfo* getInfo(){return compInfo_;}
+
+    static const char* getBaseTypeID();
 protected:	
     /**
     *     The Constructor	
@@ -72,7 +76,7 @@ protected:
 
 	Kernel		*kernel_;
 	ComponentInfo	*compInfo_;
-
+    bool isInit;
 private:
 	
 };// class 

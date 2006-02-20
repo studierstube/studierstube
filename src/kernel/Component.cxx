@@ -38,16 +38,23 @@ BEGIN_NAMESPACE_STB
 
 Component::Component():
 	kernel_(stb::Kernel::getInstance()),
-	compInfo_(NULL)
+	compInfo_(NULL),
+    isInit(false)
 {
 }
 
 Component::~Component()
 {
-	if(compInfo_)
+    if(compInfo_){
 		delete compInfo_;
+    }
 }
 
+const char*
+Component::getBaseTypeID()
+{
+    return "Component";
+}
 void 
 Component::setParameter(stb::string key, std::string value)
 {

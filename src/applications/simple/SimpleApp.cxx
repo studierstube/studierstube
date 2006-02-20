@@ -30,6 +30,7 @@
 
 #include "SimpleApp.h"
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
 #include <Inventor/nodes/SoCube.h>
 
@@ -46,19 +47,29 @@ SimpleApp::SimpleApp()
 
 SimpleApp::~SimpleApp()
 {
-   //nil
+      printf("delete SimpleApp\n");
 }
 
 /// Called before the application is destructed.
 bool 
 SimpleApp::init()
 {
-	printf("init SimpleApp\n");
+    printf("init SimpleApp\n");
+    if(isInit)
+        return true;
+    //need tracking --> check if componentmanager has loaded the event component.
+    if(!Kernel::getInstance()->getComponentManager()->load("Viewer"))
+        return false;
+
+
     root = new SoSeparator();
-    root->ref();
+    
+    registerScene();
+
     root->addChild(new SoCube());
 
-	return true;
+    isInit=true;
+	return isInit;
 }
 
 /// Called before the application is destructed.

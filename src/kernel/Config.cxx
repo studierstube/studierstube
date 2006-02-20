@@ -43,7 +43,6 @@ Config::Config()
 
 Config::~Config()
 {
-//nil
 }
 
 /// parse the xml file
@@ -89,17 +88,13 @@ Config::parseXMLElement(TiXmlElement* element)
 		Kernel::getInstance()->parseConfiguration(element);
 	}
 	///////////////// ________ /////////////////
-	else if(!stb::stricasecmp(element->Value(),"Component"))
+	else if(!stb::stricasecmp(element->Value(),"Component")
+         || !stb::stricasecmp(element->Value(),"Application")
+           )
 	{
 		ComponentInfo *compInfo=new ComponentInfo();
 		compInfo->parseConfiguration(element);
 		Kernel::getInstance()->addComponent(compInfo);
-	}
-	else if(!stb::stricasecmp(element->Value(),"Application"))
-	{
-		ComponentInfo *compInfo=new ComponentInfo();
-		compInfo->parseConfiguration(element);
-		Kernel::getInstance()->addApplication(compInfo);
 	}
 	/////////////////// ________ /////////////////
 	////else if(!stricmp(element->Value(),"________"))

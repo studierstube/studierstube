@@ -163,14 +163,10 @@ void
 Kernel::update( void * data, SoSensor * sensor)
 {
     instance->sceneManager->update();
+    instance->componentManager->update();
 	printf(".");
 }
 
-void 
-Kernel::addApplication(ComponentInfo* compInfo)
-{
-	componentManager->addApplication(compInfo);
-}
 
 void 
 Kernel::addComponent(ComponentInfo* compInfo)

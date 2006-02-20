@@ -54,6 +54,7 @@ public:
 
     virtual void registerScene();
 
+    static const char* getBaseTypeID();
 protected:	
     /**
     *     The Constructor	

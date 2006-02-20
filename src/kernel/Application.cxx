@@ -46,3 +46,9 @@ void
 Application::registerScene()
 {
 }
+
+const char*
+Application::getBaseTypeID()
+{
+    return "Application";
+}

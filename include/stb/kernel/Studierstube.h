@@ -34,6 +34,7 @@
 #define _STUDIERSTUBE_H_
 
 #ifdef WIN32
+ #pragma warning(disable:4251)
  #ifdef STB_EXPORTS
   #define STB_API __declspec(dllexport)
  #else

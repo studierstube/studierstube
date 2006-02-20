@@ -42,4 +42,9 @@ ApplicationThread::~ApplicationThread()
    //nil
 }
 
+const char*
+ApplicationThread::getBaseTypeID()
+{
+    return "ApplicationThread";
+}
 END_NAMESPACE_STB

@@ -67,10 +67,21 @@ public:
    
    void setHModule(hModule aLibHandle);
    
+   enum AVAILABILITY{
+       ON_LOAD=0,
+       ON_DEMAND=1
+   };
+   ComponentInfo::AVAILABILITY getAvailability();
+
+   void setAvailability(AVAILABILITY avl);
+
+   void setTypeID(stb::string type);
 protected:	
+   stb::string typeID;
    stb::string name;
    stb::string libName;
    hModule libHandle;
+   AVAILABILITY availability;
    std::map<stb::string,stb::string> parameter;
 private:
 	

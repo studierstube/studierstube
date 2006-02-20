@@ -72,6 +72,8 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
+    if(isInit)
+        return true;
     // init coin stuff
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
@@ -136,7 +138,8 @@ Viewer::init()
     }
    fileRoot->unref();  
 
-	return true;
+   isInit=true;
+   return isInit;
 }
 
 void 

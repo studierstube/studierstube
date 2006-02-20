@@ -49,6 +49,7 @@ public:
 	*/
 	~ApplicationThread();
 
+    static const char* getBaseTypeID();
 protected:	
     /**
     *     The Constructor	

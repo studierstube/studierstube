@@ -29,12 +29,12 @@
 * $Id: ComponentManager.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/Component.h>
 #include <stb/kernel/Application.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/ComponentRetriever.h>
+#include <stb/kernel/Kernel.h>
 
 BEGIN_NAMESPACE_STB
 
@@ -42,6 +42,7 @@ ComponentManager::ComponentManager()
 {
 	compRetriever=new stb::ComponentRetriever();
 	appListSize=0;
+    initListSize=0;
 }
 
 ComponentManager::~ComponentManager()
@@ -49,38 +50,112 @@ ComponentManager::~ComponentManager()
    delete compRetriever;
 }
 
-void 
-ComponentManager::addApplication(ComponentInfo* compInfo)
-{
-	Application* newApp=(Application*)compRetriever->getComponent(compInfo);
-	if(!newApp)
-		return;
-
-    //add parameter
-    //get viewer's parameter
-	newApp->init();
-    newApp->registerScene();
-
-	appList.push_back(newApp);
-	appListSize++;
-}
 
 void 
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
-	Component* newComp=NULL;
-    newComp=(Component*)compRetriever->getComponent(compInfo);
-    if(!newComp){
-		return;
+    if(compInfo->getAvailability()==ComponentInfo::AVAILABILITY::ON_DEMAND)
+    {
+        demandList.push_back(compInfo);
+        return;
+    } 
+    else if(compInfo->getAvailability()==ComponentInfo::AVAILABILITY::ON_LOAD)
+    {
+	    Component* newComp=NULL;
+        newComp=(Component*)compRetriever->getComponent(compInfo);
+        if(!newComp){
+		    return;
+        }
+        initList.push_back(newComp);
+        initListSize++;
+
+        return;
     }
-    //add parameter
-	newComp->init();
-	compList.push_back(newComp);
 }
 
+bool 
+ComponentManager::isLoaded(std::string compName)
+{
+    for(int i=0;i<(int)compList.size();i++)
+    {
+        if(compList[i]->getInfo()->getName()==compName)
+            return true;
+    }
+    for(int i=0;i<(int)appList.size();i++)
+    {
+        if(appList[i]->getInfo()->getName()==compName)
+            return true;
+    }
+
+
+    return false;
+
+}
+
+bool 
+ComponentManager::load(std::string compName)
+{
+    if(isLoaded(compName))
+        return true;
+    //search demandList
+    for(int i=0;i<(int)demandList.size();i++)
+    {
+        if(demandList[i]->getName()==compName)
+        {
+            Component* newComp=NULL;
+            newComp=(Component*)compRetriever->getComponent(demandList[i]);
+            if(!newComp){
+                return false;
+            }
+            initComponent(newComp);
+            return true;
+        }
+    }
+    //search initList 
+    for(int i=0;i<(int)initList.size();i++)
+    {
+        if(initList[i]->getInfo()->getName()==compName)
+        {
+            initComponent(initList[i]);
+            return true;
+        }
+    }
+
+    stb::Kernel::getInstance()->log("Error: unable to find " + compName + "\n");
+    return false;
+}
+
+void
+ComponentManager::initComponent(Component *comp)
+{
+    if(comp->init())
+    {
+        stb::string id=comp->getBaseTypeID();
+        if(id==Application::getBaseTypeID())
+        {
+            appList.push_back((Application*)comp);
+            appListSize++;
+        }
+        else if(id==Component::getBaseTypeID())
+            compList.push_back(comp);
+
+    }
+    else
+        delete comp;
+}
 void 
 ComponentManager::update()
 {
+    if(initListSize>0)
+    {
+        for(int i=initListSize-1;i>=0;i--)
+        {
+            initComponent(initList[i]);
+            
+        }
+        initList.clear();
+        initListSize=0;
+    }
     printf("ComponentManager::update()\n");
 	for(int i=0;i<appListSize;i++)
 	{

@@ -64,6 +64,8 @@ Event::~Event()
 bool 
 Event::init()
 {    
+    if(isInit)
+        return isInit;
     std::cout<<"init Event\n";
     //get viewer's parameter
     retrieveParameter();
@@ -90,7 +92,8 @@ Event::init()
 
     stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);
 
-    return true;
+    isInit=true;
+    return isInit;
 }
 
 void 
