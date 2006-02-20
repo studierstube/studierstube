@@ -57,6 +57,7 @@ ComponentManager::addApplication(ComponentInfo* compInfo)
 		return;
 
     //add parameter
+    //get viewer's parameter
 	newApp->init();
     newApp->registerScene();
 

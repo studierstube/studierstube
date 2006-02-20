@@ -103,6 +103,7 @@ SoOpenTrackerSource::~SoOpenTrackerSource()
 
 void SoOpenTrackerSource::configChanged( void * data, SoSensor * sensor)
 {
+    printf("configChanged\ n");
     assert(data);
     SoOpenTrackerSource * self = (SoOpenTrackerSource *)data;
 
@@ -116,6 +117,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * sensor)
         self->shouldStop.setValue(FALSE);
     }
     SbString configFile = self->configuration.getValue();
+    printf("configFile= %s \ n",configFile.getString());
     if(configFile.getLength() > 0)
     {
         self->context = new ot::Context(1);
@@ -123,6 +125,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * sensor)
         self->context->addModule( "EventConfig", *self->eventHandler );
         self->context->addFactory( *self->eventHandler );
         self->context->parseConfiguration( configFile.getString() );
+
         self->context->start();
         self->active.setValue(TRUE);
     }

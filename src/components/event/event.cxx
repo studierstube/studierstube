@@ -29,7 +29,7 @@
   * $Id: event.cpp 44 2005-07-18 15:03:44Z bara $
   * @file                                                                   */
  /* ======================================================================= */
-
+#include <iostream>
 #include <stb/components/event/event.h>
 #include <stb/components/event/SoEventAction.h>
 #include <stb/components/event/SoEventGroup.h>
@@ -43,6 +43,8 @@
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <stb/components/event/SoTrakEngine.h>
 
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/SceneManager.h>
 
 CREATE_COMPONENT_FUNC(Event)
 
@@ -62,6 +64,9 @@ Event::~Event()
 bool 
 Event::init()
 {    
+    std::cout<<"init Event\n";
+    //get viewer's parameter
+    retrieveParameter();
     SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
     SoOpenTrackerSource::initClass();
@@ -75,15 +80,27 @@ Event::init()
     SoEventAction::initClass();
 
 
+
+    SoOpenTrackerSource *otSource=new SoOpenTrackerSource;
+    otSource->ref();
+    otSource->configuration.setValue(configFile.c_str());
+    otSource->processing=SoOpenTrackerSource::TIME;
+    //otSource->processing=SoOpenTrackerSource::POLL;
+    otSource->interval=SbTime(0.01f);
+
+    stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);
+
     return true;
 }
 
 void 
 Event::setParameter(stb::string key, std::string value)
 {
+    printf("Event::setParameter(stb::string key, std::string value)\n");
     if(key=="configFile")
     {
         configFile=value;
+        printf("configFile=value=%s",value.c_str());
     }
     //else if()
     //{

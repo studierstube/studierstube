@@ -4,8 +4,7 @@
 		logFileName="kernelLog.txt" 
 		guibinding="sowin"
 		updateMode="timer"
-		updateRate="0.03333"
-	/>
+		updateRate="0.03333"/>
 	
 	<Component  name="Event"
 		        availability="demand"	

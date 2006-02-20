@@ -93,6 +93,13 @@ SceneManager::getSceneRoot()
 }
 
 void 
+SceneManager::setTrackerSource(SoNode *otSource)
+{
+    sceneRoot->replaceChild(0,otSource);
+}
+
+
+void 
 SceneManager::setDisplay(SoNode *display)
 {
     displayRoot->addChild(display);

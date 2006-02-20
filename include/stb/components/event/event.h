@@ -44,24 +44,21 @@
 #include <stb/kernel/Component.h>
 
 #ifdef WIN32
-#pragma warning(disable:4251)
-//#pragma warning(disable:4275)
-//#pragma warning(disable:4305)
-#pragma warning(disable:4786)
-#ifdef EVENT_STATIC
-#define EVENT_API
-#define EVENT_EXTERN extern
-#else
-#ifdef EVENT_EXPORTS
-#define EVENT_API __declspec(dllexport)
-#define EVENT_EXTERN
-#else
-#define EVENT_API __declspec(dllimport)
-#define EVENT_EXTERN extern
+    #pragma warning(disable:4251)
+    //#pragma warning(disable:4275)
+    //#pragma warning(disable:4305)
+    #pragma warning(disable:4786)
+    #ifdef EVENT_EXPORTS
+        #define EVENT_API __declspec(dllexport)
+        #define EVENT_EXTERN
+    #else
+        #define EVENT_API __declspec(dllimport)
+        #define EVENT_EXTERN extern
+    #endif
 #endif
-#endif
-#else
-#define EVENT_API
+
+#ifdef LINUX
+    #define EVENT_API
 #endif
 
 

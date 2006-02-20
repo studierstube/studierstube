@@ -79,7 +79,8 @@ Viewer::init()
     SoStbCameraControlMode::initClass();
     MultRotRot::initClass();
     SoDesktopControlMode::initClass();
- /*   SoTrackedDisplayControlMode::initClass();
+
+ /* SoTrackedDisplayControlMode::initClass();
     SoTrackedViewpointControlMode::initClass();
     SoTrackedViewpointMobileDisplayControlMode::initClass();*/
 

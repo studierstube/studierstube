@@ -69,7 +69,9 @@ public:
 	SoSeparator* getDisplayRoot();
     
     void setDisplay(SoNode *display);
-	
+
+    void setTrackerSource(SoNode *otSource);
+
     SoSeparator* getSceneRoot();
 
 protected:	
