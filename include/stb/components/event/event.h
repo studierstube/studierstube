@@ -22,9 +22,9 @@
  * ========================================================================
  * PROJECT: Studierstube
  * ======================================================================== */
-/** header file for the Stb4 event library
+/** 
   *
-  * @author Gerhard Reitmayr
+  * @author Denis Kalkofen
   *
   * $Id: event.h 44 2005-07-18 15:03:44Z bara $
   * @file                                                                   */
@@ -37,23 +37,73 @@
 // EVENT_DLL_API functions as being imported from a DLL, wheras this DLL sees symbols
 // defined with this macro as being exported.
 
+
+#ifndef _EVENT_H_
+#define _EVENT_H_
+#include <stb/base/macros.h>
+#include <stb/kernel/Component.h>
+
 #ifdef WIN32
 #pragma warning(disable:4251)
 //#pragma warning(disable:4275)
 //#pragma warning(disable:4305)
 #pragma warning(disable:4786)
-    #ifdef EVENT_STATIC
-        #define EVENT_API
-        #define EVENT_EXTERN extern
-    #else
-        #ifdef EVENT_EXPORTS
-            #define EVENT_API __declspec(dllexport)
-            #define EVENT_EXTERN
-        #else
-            #define EVENT_API __declspec(dllimport)
-            #define EVENT_EXTERN extern
-        #endif
-    #endif
+#ifdef EVENT_STATIC
+#define EVENT_API
+#define EVENT_EXTERN extern
 #else
-    #define EVENT_API
+#ifdef EVENT_EXPORTS
+#define EVENT_API __declspec(dllexport)
+#define EVENT_EXTERN
+#else
+#define EVENT_API __declspec(dllimport)
+#define EVENT_EXTERN extern
 #endif
+#endif
+#else
+#define EVENT_API
+#endif
+
+
+BEGIN_NAMESPACE_STB
+/**
+*	
+*/
+class Event : public stb::Component
+{
+public:
+    /**
+    *     The Constructor	
+    */
+    Event();
+    /**
+    *     The destructor.
+    */
+    ~Event();
+
+    /// Called before the application is destructed.
+    virtual bool init();
+    /// Called before the application is destructed.
+    virtual void shutDown();
+    //
+    virtual void setParameter(stb::string key, std::string value);
+
+protected:	
+    stb::string configFile; 
+private:
+
+};// class 
+END_NAMESPACE_STB
+#endif//_EVENT_H_
+//========================================================================
+// End of Event.h 
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

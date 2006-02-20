@@ -22,34 +22,91 @@
  * ========================================================================
  * PROJECT: Studierstube
  * ======================================================================== */
-/** Defines the entry point for the Stb4 event system DLL.
+/** 
   * 
-  * @author Gerhard Reitmayr
+  * @author Denis Kalkofen
   *
   * $Id: event.cpp 44 2005-07-18 15:03:44Z bara $
   * @file                                                                   */
  /* ======================================================================= */
 
-#ifdef WIN32
-#include <windows.h>
+#include <stb/components/event/event.h>
+#include <stb/components/event/SoEventAction.h>
+#include <stb/components/event/SoEventGroup.h>
+#include <stb/components/event/SoEventKit.h>
+#include <stb/components/event/SoEventNode.h>
+#include <stb/components/event/SoEventRoot.h>
+#include <stb/components/event/SoEventSeparator.h>
+#include <stb/components/event/SoEventSource.h>
+#include <stb/components/event/SoInputEvent.h>
+#include <stb/components/event/SoOpenTrackerSource.h>
+#include <stb/components/event/SoTrackedArtifactKit.h>
+#include <stb/components/event/SoTrakEngine.h>
 
-BOOL APIENTRY DllMain( HANDLE hModule, 
-                       DWORD  ul_reason_for_call, 
-                       LPVOID lpReserved
-                       )
+
+CREATE_COMPONENT_FUNC(Event)
+
+BEGIN_NAMESPACE_STB
+
+Event::Event()
 {
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-        break;
-    case DLL_THREAD_ATTACH:
-        break;
-    case DLL_THREAD_DETACH:
-        break;
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
+    configFile="";
 }
 
-#endif
+Event::~Event()
+{
+    //nil
+}
+
+/// Called before the application is destructed.
+bool 
+Event::init()
+{    
+    SoTrackedArtifactKit::initClass();
+    SoTrakEngine::initClass();
+    SoOpenTrackerSource::initClass();
+    SoEventGroup::initClass();
+    SoEventKit::initClass();
+    SoEventNode::initClass();
+    SoEventSeparator::initClass();
+    SoEventSource::initClass();
+    SoInputEvent::initClass();
+    SoEventRoot::initClass();
+    SoEventAction::initClass();
+
+
+    return true;
+}
+
+void 
+Event::setParameter(stb::string key, std::string value)
+{
+    if(key=="configFile")
+    {
+        configFile=value;
+    }
+    //else if()
+    //{
+    //}
+}
+
+/// Called before the application is destructed.
+void 
+Event::shutDown()
+{
+
+}
+
+END_NAMESPACE_STB
+//========================================================================
+// End of Event.cxx
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================
