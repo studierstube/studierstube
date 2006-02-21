@@ -49,7 +49,6 @@ ComponentRetriever::~ComponentRetriever()
 {
 }
 
-
 Component* 
 ComponentRetriever::getComponent(ComponentInfo *compInfo)
 {

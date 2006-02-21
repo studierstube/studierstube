@@ -6,11 +6,14 @@
 		updateMode="timer"
 		updateRate="0.03333"/>
 	
-		<Application 
-	        name="SimpleApp"
-		    availablity="onload"
-		    lib="simple"	
-	    />
+    <Component  name="Event"
+		        availability="onload"	
+        	    lib="stbevent">
+	<Param key   ="configFile" 
+		   value ="opentracker.xml" />	
+	</Component>
+
+
 	<Component  name="Viewer"
 	        availability="ondemand"	
         	lib="stbviewer">
@@ -18,14 +21,12 @@
 		       value ="viewer.iv" />	
 	</Component>
 	
-	<Component  name="Event"
-		        availability="ondemand"	
-        	    lib="stbevent">
-	<Param key   ="configFile" 
-		   value ="opentracker.xml" />	
-	</Component>
 
-
+	<Application 
+	    name="SimpleApp"
+		availablity="onload"
+		lib="simple"	
+	/>
 	
 
 </studierstube>

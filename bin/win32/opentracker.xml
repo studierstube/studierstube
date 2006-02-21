@@ -2,7 +2,7 @@
 <!DOCTYPE OpenTracker SYSTEM "opentracker.dtd">
 <OpenTracker>
   <configuration>
-    <ConsoleConfig headerline="Stb4 test tracker" interval="1" display="on"/>
+    <ConsoleConfig headerline="Stb4 test tracker" interval="1" display="off"/>
     <EventConfig keyevents="on" mouseevents="on"/>
   </configuration>
 

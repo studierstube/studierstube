@@ -65,7 +65,8 @@ SimpleApp::init()
 
     if(!Kernel::getInstance()->getComponentManager()->load("Event"))
         return false;
-
+   
+    printf("\n------------- SimpleApp loaded deps ----------\n");
 
     root = new SoSeparator();
     
@@ -109,7 +110,6 @@ SimpleApp::shutDown()
 {
     root->unref();
 }
-
 
 void 
 SimpleApp::update()
