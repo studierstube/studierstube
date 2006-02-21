@@ -36,7 +36,7 @@
 
 #include <map>
 
-#include "event.h"
+#include <stb/components/event/event.h>
 
 class SoInputEvent;
 class EventContext;

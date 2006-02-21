@@ -35,7 +35,7 @@
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 
-#include <OpenTracker.h>
+#include <OpenTracker/OpenTracker.h>
 
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/EventModule.h>

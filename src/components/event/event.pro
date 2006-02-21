@@ -1,56 +1,39 @@
 TEMPLATE	= lib
-CONFIG		= debug
+CONFIG		= warn_on debug
 
 QMAKE_CLEAN = $$(STB4)/lib/*stbevent*
 
 DESTDIR  = $$(STB4)/lib
 
-HEADERS		= EventBus.h \
-		  EventContext.h \
-		  EventContextFilter.h \
-		  EventKeyboardSource.h \
-		  EventModule.h \
-		  EventMouseSource.h \
-		  EventSchema.h \
-		  EventSink.h \
-		  EventSource.h \
-		  SoEventAction.h \
-		  SoEventKit.h \
-		  SoEventNode.h \
-		  SoEventGroup.h \
-		  SoEventSeparator.h \
-		  SoEventRoot.h \
-		  SoEventSource.h \
-		  SoInputEvent.h \
-		  SoOpenTrackerSource.h \
-		  SoTrackedArtifactKit.h \
-		  SoTrakEngine.h \
-		  event.h \
-		  tools.h
-SOURCES		= EventBus.cpp \
-		  EventContext.cpp \
-		  EventContextFilter.cpp \
-		  EventModule.cpp \
-		  EventMouseSource.cpp \
-		  EventSink.cpp \
-		  EventSource.cpp \
-		  SoEventAction.cpp \
-		  SoEventKit.cpp \
-		  SoEventNode.cpp \
-		  SoEventGroup.cpp \
-		  SoEventSeparator.cpp \
-		  SoEventRoot.cpp \
-		  SoEventSource.cpp \
-		  SoInputEvent.cpp \
-		  SoOpenTrackerSource.cpp \
-		  SoTrackedArtifactKit.cpp \
-		  SoTrakEngine.cpp \
-		  event.cpp
+DEFINES += LINUX
+
+HEADERS		= 
+
+SOURCES         = EventBus.cxx \
+                  EventContext.cxx \
+                  EventContextFilter.cxx \
+                  EventModule.cxx \
+                  EventMouseSource.cxx \
+                  EventSink.cxx \
+                  EventSource.cxx \
+                  SoEventAction.cxx \
+                  SoEventGroup.cxx \
+                  SoEventKit.cxx \
+                  SoEventNode.cxx \
+                  SoEventRoot.cxx \
+                  SoEventSeparator.cxx \
+                  SoEventSource.cxx \
+                  SoInputEvent.cxx \
+                  SoOpenTrackerSource.cxx \
+                  SoTrackedArtifactKit.cxx \
+                  SoTrakEngine.cxx \
+                  event.cxx
+
 INTERFACES	= 
 
 TARGET = stbevent
 
-INCLUDEPATH += /data/home/breiting/devel/stb4/src
+INCLUDEPATH += $$(STB4)/include
 
-LIBS += -lCoin -L$$(STB4)/lib -lstbutils
+LIBS += -lCoin -L$$(STB4)/lib -lstbkernel -lstarlight -lOpenTracker
 

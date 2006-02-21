@@ -40,4 +40,4 @@ public:
     }
 };
 
-#endif _EVENTCONTEXT_H_
+#endif //_EVENTCONTEXT_H_
