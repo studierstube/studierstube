@@ -21,7 +21,7 @@ SoDisplay
   #                                }, ...]
   
   # Specify the background color
-  backgroundColor 1 1 1
+  backgroundColor 0 0 0
   
   #  Specify transparency type that shall be used by theD:\Denis\Work\stb4 viewer
   #  note: see documentation of SoGLRenderAction for description

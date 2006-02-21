@@ -32,8 +32,10 @@
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
+#include <Inventor/nodes/SoCone.h>
 #include <Inventor/nodes/SoCube.h>
-
+#include <stb/components/event/SoTrakEngine.h>
+#include <stb/components/event/SoTrackedArtifactKit.h>
 #include <cstdio>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
@@ -61,12 +63,41 @@ SimpleApp::init()
     if(!Kernel::getInstance()->getComponentManager()->load("Viewer"))
         return false;
 
+    if(!Kernel::getInstance()->getComponentManager()->load("Event"))
+        return false;
+
 
     root = new SoSeparator();
     
-    registerScene();
+    SoTrakEngine *tre=new SoTrakEngine;
 
-    root->addChild(new SoCube());
+    tre->key.set1Value(0,"bla");
+    tre->value.set1Value(0,"hello");
+
+    SoTransform *tran=new SoTransform;
+    tran->translation.connectFrom(&tre->translation);
+    tran->rotation.connectFrom(&tre->rotation);
+
+    SoSeparator *treRoot=new SoSeparator;
+
+    treRoot->addChild(tran);
+    treRoot->addChild(new SoCube);
+    root->addChild(treRoot);
+
+    // test SoTrackedArtifactKit
+    SoTrackedArtifactKit *trak=new SoTrackedArtifactKit;
+
+    trak->key.set1Value(0,"blabla");
+    trak->value.set1Value(0,"hi");
+
+    trak->setGeometry(new SoCone);
+
+    SoSeparator *trakRoot=new SoSeparator;
+
+    trakRoot->addChild(trak);
+    root->addChild(trakRoot);
+
+    registerScene();
 
     isInit=true;
 	return isInit;
