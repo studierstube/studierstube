@@ -50,26 +50,66 @@ ComponentManager::~ComponentManager()
    delete compRetriever;
 }
 
+void 
+ComponentManager::update()
+{
+    printf("ComponentManager::update()\n");
+    // init all new components
+    if(initListSize>0)
+    {
+        for(int i=0;i<initListSize;i++)
+        {
+            initComponent(initList[i]);
+        }
+        initList.clear();
+        initListSize=0;
+    }
+
+    // update application list
+    for(int i=0;i<appListSize;i++)
+    {
+        appList[i]->update();
+    }
+}
+
+
+void
+ComponentManager::initComponent(Component *comp)
+{
+    if(comp->init())
+    {
+        // add to applist or comp.list
+        stb::string id=comp->getBaseTypeID();
+        if(id==Application::getBaseTypeID())
+        {
+            appList.push_back((Application*)comp);
+            appListSize++;
+        }
+        else if(id==Component::getBaseTypeID())
+            compList.push_back(comp);
+
+    }
+    else
+        delete comp;
+}
 
 void 
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
-    if(compInfo->getAvailability()==ComponentInfo::AVAILABILITY::ON_DEMAND)
+    switch(compInfo->getAvailability())
     {
+    case ComponentInfo::ON_DEMAND:
         demandList.push_back(compInfo);
-        return;
-    } 
-    else if(compInfo->getAvailability()==ComponentInfo::AVAILABILITY::ON_LOAD)
-    {
-	    Component* newComp=NULL;
+        break;
+    case ComponentInfo::ON_LOAD:
+        Component* newComp=NULL;
         newComp=(Component*)compRetriever->getComponent(compInfo);
         if(!newComp){
-		    return;
+            return;
         }
         initList.push_back(newComp);
         initListSize++;
-
-        return;
+        break;
     }
 }
 
@@ -125,42 +165,7 @@ ComponentManager::load(std::string compName)
     return false;
 }
 
-void
-ComponentManager::initComponent(Component *comp)
-{
-    if(comp->init())
-    {
-        stb::string id=comp->getBaseTypeID();
-        if(id==Application::getBaseTypeID())
-        {
-            appList.push_back((Application*)comp);
-            appListSize++;
-        }
-        else if(id==Component::getBaseTypeID())
-            compList.push_back(comp);
 
-    }
-    else
-        delete comp;
-}
-void 
-ComponentManager::update()
-{
-    if(initListSize>0)
-    {
-        for(int i=initListSize-1;i>=0;i--)
-        {
-            initComponent(initList[i]);
-            
-        }
-        initList.clear();
-        initListSize=0;
-    }
-    printf("ComponentManager::update()\n");
-	for(int i=0;i<appListSize;i++)
-	{
-		appList[i]->update();
-	}
-}
+
 
 END_NAMESPACE_STB

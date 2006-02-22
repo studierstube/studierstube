@@ -74,6 +74,7 @@ Viewer::init()
 {
     if(isInit)
         return true;
+    isInit=true;
     // init coin stuff
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
@@ -138,7 +139,7 @@ Viewer::init()
     }
    fileRoot->unref();  
 
-   isInit=true;
+   
    return isInit;
 }
 

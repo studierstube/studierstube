@@ -33,7 +33,7 @@
 #ifndef __EVENTKEYBOARDSOURCE_H__
 #define __EVENTKEYBOARDSOURCE_H__
 
-#include <OpenTracker/OpenTracker.h>
+#include <OpenTracker.h>
 #include <stb/components/event/event.h>
 
 

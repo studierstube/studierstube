@@ -59,12 +59,19 @@ SimpleApp::init()
     printf("init SimpleApp\n");
     if(isInit)
         return true;
+     isInit=true;
     //need tracking --> check if componentmanager has loaded the event component.
     if(!Kernel::getInstance()->getComponentManager()->load("Viewer"))
+    {
+        isInit=false;
         return false;
+    }
 
     if(!Kernel::getInstance()->getComponentManager()->load("Event"))
+    {
+        isInit=true;
         return false;
+    }
    
     printf("\n------------- SimpleApp loaded deps ----------\n");
 

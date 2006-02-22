@@ -7,7 +7,7 @@
 		updateRate="0.03333"/>
 	
     <Component  name="Event"
-		        availability="onload"	
+		        availability="ondemand"	
         	    lib="stbevent">
 	<Param key   ="configFile" 
 		   value ="opentracker.xml" />	
@@ -21,12 +21,10 @@
 		       value ="viewer.iv" />	
 	</Component>
 	
-
 	<Application 
 	    name="SimpleApp"
 		availablity="onload"
 		lib="simple"	
 	/>
-	
 
 </studierstube>

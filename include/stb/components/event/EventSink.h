@@ -33,7 +33,7 @@
 #ifndef __EVENTSINK_H__
 #define __EVENTSINK_H__
 
-#include <OpenTracker/OpenTracker.h>
+#include <OpenTracker.h>
 
 #include <stb/components/event/SoInputEvent.h>
 #include <stb/components/event/event.h>
