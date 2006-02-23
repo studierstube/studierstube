@@ -113,30 +113,29 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
     }
 }
 
-bool 
+stb::Component* 
 ComponentManager::isLoaded(std::string compName)
 {
     for(int i=0;i<(int)compList.size();i++)
     {
         if(compList[i]->getInfo()->getName()==compName)
-            return true;
+            return compList[i];
     }
     for(int i=0;i<(int)appList.size();i++)
     {
         if(appList[i]->getInfo()->getName()==compName)
-            return true;
+            return appList[i];
     }
 
-
-    return false;
-
+    return NULL;
 }
 
-bool 
+stb::Component* 
 ComponentManager::load(std::string compName)
 {
-    if(isLoaded(compName))
-        return true;
+    stb::Component* retComp=isLoaded(compName);
+    if(retComp)
+        return retComp;
     //search demandList
     for(int i=0;i<(int)demandList.size();i++)
     {
@@ -145,10 +144,10 @@ ComponentManager::load(std::string compName)
             Component* newComp=NULL;
             newComp=(Component*)compRetriever->getComponent(demandList[i]);
             if(!newComp){
-                return false;
+                return NULL;
             }
             initComponent(newComp);
-            return true;
+            return newComp;
         }
     }
     //search initList 
@@ -156,13 +155,14 @@ ComponentManager::load(std::string compName)
     {
         if(initList[i]->getInfo()->getName()==compName)
         {
-            initComponent(initList[i]);
-            return true;
+            Component* newComp=initList[i];
+            initComponent(newComp);
+            return newComp;
         }
     }
 
     stb::Kernel::getInstance()->log("Error: unable to find " + compName + "\n");
-    return false;
+    return NULL;
 }
 
 

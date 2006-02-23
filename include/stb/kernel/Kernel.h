@@ -51,6 +51,7 @@ class Config;
 class ComponentManager;
 class SceneManager;
 class ComponentInfo;
+class SoTrakEngineInterface;
 
 class STB_API Kernel
 {
@@ -94,6 +95,8 @@ public:
     stb::SceneManager* getSceneManager();
 
     stb::ComponentManager* getComponentManager(){return componentManager;}
+
+    stb::SoTrakEngineInterface* createSoTrakEngine();
 
 protected:	
     ///////////////////// 

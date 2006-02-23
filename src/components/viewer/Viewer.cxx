@@ -45,7 +45,9 @@
 
 #include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/components/viewer/controlmode/SoTrackedDisplayControlMode.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
+
 
 #include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
@@ -83,9 +85,9 @@ Viewer::init()
     MultRotRot::initClass();
     SoDesktopControlMode::initClass();
 
- /* SoTrackedDisplayControlMode::initClass();
-    SoTrackedViewpointControlMode::initClass();
-    SoTrackedViewpointMobileDisplayControlMode::initClass();*/
+    SoTrackedDisplayControlMode::initClass();
+    //SoTrackedViewpointControlMode::initClass();
+    //SoTrackedViewpointMobileDisplayControlMode::initClass();
 
     SoDisplayMode::initClass();
     SoGLColorBufferElement::initClass();

@@ -34,6 +34,7 @@
 #include <stb/kernel/SceneManager.h>
 #include <Inventor/nodes/SoCone.h>
 #include <Inventor/nodes/SoCube.h>
+#include <Inventor/nodes/SoSphere.h>
 #include <stb/components/event/SoTrakEngine.h>
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <cstdio>
@@ -76,34 +77,35 @@ SimpleApp::init()
     printf("\n------------- SimpleApp loaded deps ----------\n");
 
     root = new SoSeparator();
-    
-    SoTrakEngine *tre=new SoTrakEngine;
-
-    tre->key.set1Value(0,"bla");
-    tre->value.set1Value(0,"hello");
-
     SoTransform *tran=new SoTransform;
-    tran->translation.connectFrom(&tre->translation);
-    tran->rotation.connectFrom(&tre->rotation);
+    tran->translation.setValue(0.0,0.0,-6.0);
+    root->addChild(tran);
+    root->addChild(new SoSphere);
+    //SoTrakEngineInterface* tre= stb::Kernel::getInstance()->createSoTrakEngine();
+    //if(!tre)
+    //{
+    //    isInit=false;
+    //    return false;
+    //}
+    ////SoTrakEngine *tre=new SoTrakEngine;
+    //tre->key.set1Value(0,"blabla");
+    //tre->value.set1Value(0,"hi");
+    //SoTransform *trans=new SoTransform;
+    //trans->translation.connectFrom(&tre->translation);
+    //trans->rotation.connectFrom(&tre->rotation);
+    //SoSeparator *treRoot=new SoSeparator;
+    //treRoot->addChild(trans);
+    //treRoot->addChild(new SoCube);
+    //root->addChild(treRoot);
+    //// test SoTrackedArtifactKit
+    //SoTrackedArtifactKit *trak=new SoTrackedArtifactKit;
+    //trak->key.set1Value(0,"blabla");
+    //trak->value.set1Value(0,"hi");
 
-    SoSeparator *treRoot=new SoSeparator;
-
-    treRoot->addChild(tran);
-    treRoot->addChild(new SoCube);
-    root->addChild(treRoot);
-
-    // test SoTrackedArtifactKit
-    SoTrackedArtifactKit *trak=new SoTrackedArtifactKit;
-
-    trak->key.set1Value(0,"blabla");
-    trak->value.set1Value(0,"hi");
-
-    trak->setGeometry(new SoCone);
-
-    SoSeparator *trakRoot=new SoSeparator;
-
-    trakRoot->addChild(trak);
-    root->addChild(trakRoot);
+    //trak->setGeometry(new SoCone);
+    //SoSeparator *trakRoot=new SoSeparator;
+    //trakRoot->addChild(trak);
+    //root->addChild(trakRoot);
 
     registerScene();
 

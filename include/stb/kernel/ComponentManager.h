@@ -61,7 +61,7 @@ public:
 
 	void addComponent(ComponentInfo* compInfo);
 
-    bool load(std::string compName);
+    Component* load(std::string compName);
 
 	///// Checks if new apps should be downloaded and started or running apps should be stopped and destroyed.
 	void update(); 
@@ -75,7 +75,7 @@ protected:
 	int appListSize;
     int initListSize;
     void initComponent(Component *comp);
-    bool isLoaded(std::string compName);
+    stb::Component* isLoaded(std::string compName);
 private:
 	
 };// class 

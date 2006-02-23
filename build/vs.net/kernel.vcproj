@@ -235,6 +235,16 @@
 					RelativePath="..\..\include\stb\kernel\Config.h">
 				</File>
 			</Filter>
+			<Filter
+				Name="interfaces"
+				Filter="">
+				<File
+					RelativePath="..\..\src\kernel\interfaces\SoTrakEngineInterface.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\kernel\interfaces\SoTrakEngineInterface.h">
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"

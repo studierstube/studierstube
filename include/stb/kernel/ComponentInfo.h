@@ -76,6 +76,9 @@ public:
    void setAvailability(AVAILABILITY avl);
 
    void setTypeID(stb::string type);
+
+   hModule getLibHandle(){return libHandle;}
+
 protected:	
    stb::string typeID;
    stb::string name;

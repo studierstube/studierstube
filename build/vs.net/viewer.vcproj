@@ -234,6 +234,12 @@
 				<File
 					RelativePath="..\..\include\stb\components\viewer\controlmode\SoStbCameraControlMode.h">
 				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoTrackedDisplayControlMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\components\viewer\controlmode\SoTrackedDisplayControlMode.h">
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

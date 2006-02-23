@@ -70,13 +70,13 @@ SoDisplay
 	  ######################################
 	  ######## Camera ######################
 	  ######################################
-	  #camera 
+	  camera 
 	  #SoPerspectiveCamera
 	  #{
 	  #  position 0 0 0 
 	  #  orientation 0 0 1 0
-	  #SoOffAxisCamera
-	  #{
+	  SoOffAxisCamera
+	  {
 	    #  viewportMapping LEAVE_ALONE
 	    #  position -0.037045 0.168842 0.236637
 	    #  orientation 0.999133 -0.00585241 0.0412087  2.99499
@@ -95,7 +95,7 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  #}#camera  
+	  }#camera  
 
 	  ######################################
 	  ######## Viewport ####################
@@ -118,7 +118,7 @@ SoDisplay
 	  ######## ControlMode #################
 	  ######################################
 	  # controlMode SoDesktopControlMode{}
-	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
+	  controlMode SoTrackedDisplayControlMode{}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointMobileDisplayControlMode

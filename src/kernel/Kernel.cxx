@@ -44,6 +44,7 @@
 #include <stb/kernel/SceneManager.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/interfaces/SoTrakEngineInterface.h>
 //
 BEGIN_NAMESPACE_STB
 
@@ -62,6 +63,7 @@ Kernel::Kernel()
     scheduler= new stb::Scheduler();
 	sceneManager= new stb::SceneManager();
 	componentManager= new stb::ComponentManager();
+    stb::SoTrakEngineInterface::initClass();
 	//////
 }
 
@@ -178,6 +180,26 @@ stb::SceneManager*
 Kernel::getSceneManager()
 {
     return sceneManager;
+}
+
+
+stb::SoTrakEngineInterface*
+Kernel::createSoTrakEngine()
+{
+    stb::SoTrakEngineInterface* tEngine=NULL;
+    //get handle to event system
+    Component* comp=componentManager->load("Event");
+    if(!comp)
+    {
+        printf("failed to load event system\n");
+        return tEngine;
+    }
+    // //os_GetProcAddress
+    stb::SoTrakEngineInterface* (*createTrakEngine)()=NULL;
+    createTrakEngine = (stb::SoTrakEngineInterface*(*)())os_GetProcAddress(comp->getInfo()->getLibHandle(),"createTrakEngine");
+    if(createTrakEngine)
+        tEngine=(*createTrakEngine)();
+    return tEngine;
 }
 
 END_NAMESPACE_STB
