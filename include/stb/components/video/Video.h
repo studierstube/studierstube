@@ -22,40 +22,63 @@
 * ========================================================================  
 * PROJECT: Studierstube  
 * ======================================================================== */  
-/** The header file for the ApplicationThread class.  
+/** The header file for the Video class.  
 *  
 * @author Denis Kalkofen  
 *  
-* $Id: ApplicationThread.h 25 2005-11-28 16:11:59Z denis $  
+* $Id: Video.h 25 2005-11-28 16:11:59Z denis $  
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _APPLICATIONTHREAD_H_
-#define _APPLICATIONTHREAD_H_
-
-#include <stb/kernel/Application.h>
+#ifndef _VIDEO_H_
+#define _VIDEO_H_
 #include <stb/base/macros.h>
+#include <stb/kernel/ComponentThread.h>
+
+//#ifdef WIN32
+//    #ifdef STBVIEWER_EXPORTS
+//        #define STBVIEWER_API __declspec(dllexport)
+//    #else
+//        #define STBVIEWER_API __declspec(dllimport)
+//    #endif
+//#endif
+//#ifdef LINUX
+//    #define STBVIEWER_API
+//#endif
+
+namespace openvideo{
+    class Manager;
+}
 
 BEGIN_NAMESPACE_STB
-
 /**
 *	
 */
-class STB_API ApplicationThread : public Application
+class Video : public stb::ComponentThread
 {
 public:
-	/**
-	*     The destructor.
-	*/
-	~ApplicationThread();
-
-    static const char* getBaseTypeID();
-protected:	
     /**
     *     The Constructor	
     */
-    ApplicationThread();
+    Video();
+    /**
+    *     The destructor.
+    */
+    ~Video();
 
+	/// Called before the application is destructed.
+	virtual bool init();
+	/// Called before the application is destructed.
+	virtual void shutDown();
+    //
+    virtual void setParameter(stb::string key, std::string value);
+
+protected:	
+    stb::string configFile; 
+    openvideo::Manager* ovManager;
+    
+    virtual void run();
+ 
 private:
 	
 };// class 
@@ -63,5 +86,16 @@ private:
 END_NAMESPACE_STB
 
 
-
-#endif//_APPLICATIONTHREAD_H_
+#endif//_VIDEO_H_
+//========================================================================
+// End of Video.h 
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

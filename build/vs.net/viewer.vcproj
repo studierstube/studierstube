@@ -240,6 +240,18 @@
 				<File
 					RelativePath="..\..\include\stb\components\viewer\controlmode\SoTrackedDisplayControlMode.h">
 				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoTrackedViewpointControlMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\components\viewer\controlmode\SoTrackedViewpointControlMode.h">
+				</File>
+				<File
+					RelativePath="..\..\src\components\viewer\controlmode\SoTrackedViewpointMobileDisplayControlMode.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\components\viewer\controlmode\SoTrackedViewpointMobileDisplayControlMode.h">
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

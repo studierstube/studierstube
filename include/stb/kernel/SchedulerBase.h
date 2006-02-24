@@ -30,8 +30,8 @@
  * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SCHEDULERBASE_H_
-#define _SCHEDULERBASE_H_
+#ifndef _OV_SCHEDULERBASE_H_
+#define _OV_SCHEDULERBASE_H_
 
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>

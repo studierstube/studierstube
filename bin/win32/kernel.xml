@@ -21,6 +21,13 @@
 		       value ="viewer.iv" />	
 	</Component>
 	
+	<Component  name="Video"
+	            availability="onload"	
+        	    lib="stbvideo">
+	    <Param key   ="configFile" 
+		       value ="openvideo.xml" />	
+	</Component>
+	
 	<Application 
 	    name="SimpleApp"
 		availablity="onload"

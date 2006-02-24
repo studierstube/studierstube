@@ -30,14 +30,14 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoTrackedViewpointControlMode.h"
+//#include "SoTrackedViewpointControlMode.h"
+#include <stb/components/viewer/controlmode/SoTrackedViewpointControlMode.h>
+
+#include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/kernel/Kernel.h>
 
 #include <Inventor/nodes/SoTransform.h>
-
-#include "StbViewer/SoOffAxisCamera.h"
-#include "StbViewer/SoDisplay.h"
-#include "StbKernel/StbKernel.h"
-#include "StbKernel/interfaces/SoTrackedItemInterface.h"
 #include <Inventor/engines/SoTransformVec3f.h> 
 
 SO_NODE_SOURCE(SoTrackedViewpointControlMode);
@@ -77,25 +77,18 @@ SoTrackedViewpointControlMode::activate()
 	if(stbCamera==NULL)
 		return false;
 
-	StbKernel *theKernel=StbKernel::getInstance();
 
-	SoDisplay* display = stbCamera->getSoDisplay();
-
-	SoTrackedItemInterface* trackedItem=theKernel->getSoTrackedItem();
-
-	if(!trackedItem){
-		printf("STB_ERROR: SoTrackedViewpointControlMode could not get the requested SoTrackedItem\n");
-		return false;
-	}
-
-	display->addTrackedItem(trackedItem);
-	
-	trackedItem->stbSinkName.setValue(this->stbSinkName.getValue().getString());
-
-
+    tre=stb::Kernel::getInstance()->createSoTrakEngine();
+    if(!tre)
+    {
+        printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        return false;
+    }
+    tre->key.set1Value(0,"blabla");
+    tre->value.set1Value(0,"hi");
 
 	//set up connection
-	connectHeadTracker(&trackedItem->translation, &trackedItem->rotation);
+	connectHeadTracker(tre);
 
 	return true;
 }
@@ -105,6 +98,20 @@ void
 SoTrackedViewpointControlMode::disconnectHeadTracker()
 {
 	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.disconnect();
+}
+
+//----------------------------------------------------------------------------
+void 
+SoTrackedViewpointControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
+{
+    disconnectHeadTracker();
+
+    // use engine to create tracker to world transformation matrix
+    SoComposeMatrix *ctw = new SoComposeMatrix;
+    ctw->translation.connectFrom(&tracker->translation);
+    ctw->rotation.connectFrom(&tracker->rotation);
+
+    connectHeadTrackerStep2(ctw);
 }
 
 

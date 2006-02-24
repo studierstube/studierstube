@@ -121,9 +121,9 @@ Kernel::log(stb::string nStr)
 void 
 Kernel::logDebug(stb::string nStr)
 {
-#ifdef _DEBUG
-	log(nStr);
-#endif
+    #ifdef _DEBUG
+	    log(nStr);
+    #endif
 }
 
 void

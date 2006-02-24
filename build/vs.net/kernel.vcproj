@@ -191,16 +191,16 @@
 					RelativePath="..\..\include\stb\kernel\Application.h">
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ApplicationThread.cxx">
-				</File>
-				<File
-					RelativePath="..\..\include\stb\kernel\ApplicationThread.h">
-				</File>
-				<File
 					RelativePath="..\..\src\kernel\Component.cxx">
 				</File>
 				<File
 					RelativePath="..\..\include\stb\kernel\Component.h">
+				</File>
+				<File
+					RelativePath="..\..\src\kernel\ComponentThread.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\kernel\ComponentThread.h">
 				</File>
 			</Filter>
 			<Filter

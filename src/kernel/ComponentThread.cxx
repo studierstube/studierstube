@@ -24,27 +24,79 @@
 * ======================================================================== */
 /* @author Denis Kalkofen
 *
-* $Id: ApplicationThread.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: ComponentThread.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
 
-#include <stb/kernel/ApplicationThread.h>
+#include <stb/kernel/ComponentThread.h>
+#include <ace/Thread.h>
+#include <ace/Synch.h>
 
 BEGIN_NAMESPACE_STB
 
-ApplicationThread::ApplicationThread()
+ComponentThread::ComponentThread()
 {
-   //nil
+   mutex = new ACE_Thread_Mutex;
 }
 
-ApplicationThread::~ApplicationThread()
+ComponentThread::~ComponentThread()
 {
-   //nil
+   delete mutex;
 }
 
 const char*
-ApplicationThread::getBaseTypeID()
+ComponentThread::getBaseTypeID()
 {
-    return "ApplicationThread";
+    return "ComponentThread";
 }
+
+void 
+ComponentThread::lock()
+{
+    mutex->acquire();
+}
+
+
+void 
+ComponentThread::unlock()
+{
+    mutex->release();
+}
+
+void 
+ComponentThread::start()
+{
+    threadHandle = new ACE_hthread_t();
+    if(ACE_Thread::spawn((ACE_THR_FUNC)thread_func,
+        this, 	
+        THR_NEW_LWP|THR_JOINABLE, 	
+        0, 	
+        (ACE_hthread_t*)threadHandle,
+        0, 	
+        0, 	
+        0
+        )==-1)
+    { 
+        printf("Error: Error in spawning thread.\n"); 
+    }
+
+}    
+
+    // stops the thread and closes the module
+
+void 
+ComponentThread::close()
+{
+#ifdef WIN32
+    ACE_Thread::join( (ACE_hthread_t*)threadHandle );
+#endif
+
+#ifdef LINUX
+    ACE_Thread::join( (ACE_hthread_t)threadHandle );
+#endif
+
+    // ACE_Thread::cancel( *(ACE_thread_t *)thread );
+    delete ((ACE_hthread_t *)threadHandle);
+}
+
 END_NAMESPACE_STB

@@ -30,14 +30,17 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SoTrackedViewpointMobileDisplayControlMode.h"
-#include "MultRotRot.h"
+#include <stb/components/viewer/controlmode/SoTrackedViewpointMobileDisplayControlMode.h>
+#include <stb/components/viewer/controlmode/MultRotRot.h>
+
+#include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/kernel/Kernel.h>
+
 #include <Inventor/nodes/SoTransform.h>
-#include "StbViewer/SoOffAxisCamera.h"
-#include "StbViewer/SoDisplay.h"
-#include "StbKernel/StbKernel.h"
-#include "StbKernel/interfaces/SoTrackedItemInterface.h"
 #include <Inventor/engines/SoTransformVec3f.h> 
+
+
 
 SO_NODE_SOURCE(SoTrackedViewpointMobileDisplayControlMode);
 
@@ -75,32 +78,52 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
 	if(stbCamera==NULL)
 		return false;
 
-	StbKernel *theKernel=StbKernel::getInstance();
-	SoDisplay* display = stbCamera->getSoDisplay();
+	//StbKernel *theKernel=StbKernel::getInstance();
+	//SoDisplay* display = stbCamera->getSoDisplay();
 
-	SoTrackedItemInterface* trackedItemViewpoint=theKernel->getSoTrackedItem();
-	SoTrackedItemInterface* trackedItemDisplay=theKernel->getSoTrackedItem();
+	//SoTrackedItemInterface* trackedItemViewpoint=theKernel->getSoTrackedItem();
+	//SoTrackedItemInterface* trackedItemDisplay=theKernel->getSoTrackedItem();
 
-	if(!trackedItemViewpoint){
-		printf("STB_ERROR: SoTrackedViewpointControlMode could not get the requested SoTrackedItem to track the viewpoint\n");
-		return false;
-	}
+	//if(!trackedItemViewpoint){
+	//	printf("STB_ERROR: SoTrackedViewpointControlMode could not get the requested SoTrackedItem to track the viewpoint\n");
+	//	return false;
+	//}
 
-	if(!trackedItemDisplay){
-		printf("STB_ERROR: SoTrackedViewpointControlMode could not get the requested SoTrackedItem to track the display\n");
-		return false;
-	}
+	//if(!trackedItemDisplay){
+	//	printf("STB_ERROR: SoTrackedViewpointControlMode could not get the requested SoTrackedItem to track the display\n");
+	//	return false;
+	//}
 
-	display->addTrackedItem(trackedItemViewpoint);
-	display->addTrackedItem(trackedItemDisplay);
+	//display->addTrackedItem(trackedItemViewpoint);
+	//display->addTrackedItem(trackedItemDisplay);
 
-	trackedItemDisplay->stbSinkName.setValue(stbSinkNameDisplay.getValue().getString());
-	trackedItemViewpoint->stbSinkName.setValue(stbSinkNameViewpoint.getValue().getString());
+	//trackedItemDisplay->stbSinkName.setValue(stbSinkNameDisplay.getValue().getString());
+	//trackedItemViewpoint->stbSinkName.setValue(stbSinkNameViewpoint.getValue().getString());
 
-	//set up connection
-	connectHeadTracker(&trackedItemViewpoint->translation, &trackedItemViewpoint->rotation);
-	connectDisplayTracker(&trackedItemDisplay->translation, &trackedItemDisplay->rotation);
+	////set up connection
+	//connectHeadTracker(&trackedItemViewpoint->translation, &trackedItemViewpoint->rotation);
+	//connectDisplayTracker(&trackedItemDisplay->translation, &trackedItemDisplay->rotation);
 
+    trHead=stb::Kernel::getInstance()->createSoTrakEngine();
+    if(!trHead)
+    {
+        printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        return false;
+    }
+    trHead->key.set1Value(0,"blabla");
+    trHead->value.set1Value(0,"hi");
+
+    trDisplay=stb::Kernel::getInstance()->createSoTrakEngine();
+    if(!trDisplay)
+    {
+        printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        return false;
+    }
+    trDisplay->key.set1Value(0,"blabla");
+    trDisplay->value.set1Value(0,"hi");
+
+    connectHeadTracker(trHead);
+    connectDisplayTracker(trDisplay);
 
 	return true;
 }
@@ -112,7 +135,17 @@ SoTrackedViewpointMobileDisplayControlMode::disconnectHeadTracker()
 	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.disconnect();
 }
 
+void 
+SoTrackedViewpointMobileDisplayControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
+{
+    disconnectHeadTracker();
+    // use engine to create tracker to world transformation matrix
+    SoComposeMatrix *ctw = new SoComposeMatrix;
+    ctw->translation.connectFrom(&tracker->translation);
+    ctw->rotation.connectFrom(&tracker->rotation);
 
+    connectHeadTrackerStep2(ctw);
+}
 //----------------------------------------------------------------------------
 void
 SoTrackedViewpointMobileDisplayControlMode::connectHeadTracker(SoSFVec3f *trackerTranslation,
@@ -143,6 +176,26 @@ SoTrackedViewpointMobileDisplayControlMode::connectHeadTrackerStep2(SoComposeMat
 	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
 }
 
+void 
+SoTrackedViewpointMobileDisplayControlMode::connectDisplayTracker(stb::SoTrakEngineInterface *tracker)
+{
+    disconnectDisplayTracker();
+
+    // use engine to create tracker to world transformation matrix
+    SoComposeMatrix *ctw = new SoComposeMatrix;
+    ctw->translation.connectFrom(&tracker->translation);
+    ctw->rotation.connectFrom(&tracker->rotation);
+
+    connectDisplayTrackerStep2(ctw);
+
+    // use engines to calculate rotations	
+    MultRotRot *md = new MultRotRot;
+    md->rotationA.connectFrom(&displayRotationOffset);
+    md->rotationB.connectFrom(&tracker->rotation);
+
+    // connect orientations to calculated rotations
+    ((SoOffAxisCamera*)stbCamera->getCamera())->orientation.connectFrom(&md->product);
+}
 
 
 //----------------------------------------------------------------------------

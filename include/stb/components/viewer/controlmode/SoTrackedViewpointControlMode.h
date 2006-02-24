@@ -33,16 +33,15 @@
 #ifndef _SOTRACKEDVIEWPOINTCONTROLMODE_H_
 #define _SOTRACKEDVIEWPOINTCONTROLMODE_H_
 
-#include "StbViewer/StbViewer.h"
-#include "StbViewer/StbCameraControlMode/SoStbCameraControlMode.h"
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/kernel/interfaces/SoTrakEngineInterface.h>
+
 #include <Inventor/fields/SoSFString.h>
-
-
 #include <Inventor/engines/SoCompose.h> 
 #include <Inventor/fields/SoSFVec3f.h> 
 
 
-class STBVIEWER_API SoTrackedViewpointControlMode :
+class SoTrackedViewpointControlMode :
 	public SoStbCameraControlMode
 {
 SO_NODE_HEADER(SoTrackedViewpointControlMode);
@@ -67,11 +66,11 @@ protected:
     */
     ~SoTrackedViewpointControlMode();     
 
-
-
 	void disconnectHeadTracker();
 	void connectHeadTracker(SoSFVec3f *trackerTranslation, SoSFRotation *trackerRotation);
 	void connectHeadTrackerStep2(SoComposeMatrix *ctw);
+    void connectHeadTracker(stb::SoTrakEngineInterface *tracker);
+    stb::SoTrakEngineInterface* tre;
 };
 
 //----------------------------------------------------------------------------

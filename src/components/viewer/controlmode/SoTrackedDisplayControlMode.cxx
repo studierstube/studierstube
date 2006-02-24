@@ -70,7 +70,6 @@ SoTrackedDisplayControlMode::activate()
     if(stbCamera==NULL)
 	return false;
     
-  
     //StbKernel *theKernel=StbKernel::getInstance();
     //
     //SoDisplay* display = stbCamera->getSoDisplay();  

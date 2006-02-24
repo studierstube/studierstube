@@ -30,12 +30,11 @@
 * $Id: SoTrackedDisplayControlMode.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-
 #define _SOTRACKEDISPLAYCONTROLMODE_H_
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
-#include <Inventor/fields/SoSFString.h>
 #include <stb/kernel/interfaces/SoTrakEngineInterface.h>
+#include <Inventor/fields/SoSFString.h>
 
 class  SoTrackedDisplayControlMode : public SoStbCameraControlMode
 {
