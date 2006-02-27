@@ -30,6 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#ifndef LINUX
+
 #include <stb/kernel/SchedulerWin32.h>
 #include <tinyxml.h>
 #include <stb/kernel/Kernel.h>
@@ -144,6 +146,8 @@ SchedulerWin32::mainLoop()
     }
 }
 END_NAMESPACE_STB
+
+#endif
 //========================================================================
 // End of SchedulerWin32.cxx
 //========================================================================

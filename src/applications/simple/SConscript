@@ -1,0 +1,4 @@
+Import('env')
+
+stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
+env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))

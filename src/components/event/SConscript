@@ -1,0 +1,18 @@
+Import('env')
+
+conf = Configure(env)
+
+#****************************************************************************
+# Make sure OpenTracker is available
+#****************************************************************************
+if conf.TryAction('opentracker-config')[0]:
+    env.ParseConfig('opentracker-config --cppflags --libs')
+else:
+    print "****************************************************************************"
+    print "WARNING: You need to have OpenTracker installed for using event system"
+    print "****************************************************************************"
+
+conf.Finish()
+
+stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'], LIBS=['stbstarlight'])
+env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))

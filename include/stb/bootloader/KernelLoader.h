@@ -34,7 +34,6 @@
 #define _KERNELLOADER_H_
 
 #include <stb/base/string.h>
-#include <stb/base/OS.h>
 #include <stb/base/macros.h>
 
 BEGIN_NAMESPACE_STB

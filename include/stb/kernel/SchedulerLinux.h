@@ -32,8 +32,11 @@
 
 #ifndef _SCHEDULERLINUX_H_
 #define _SCHEDULERLINUX_H_
+
 #include <stb/base/macros.h>
 #include <stb/kernel/SchedulerBase.h>
+
+#include <ace/DLL.h>
 
 BEGIN_NAMESPACE_STB
 /**

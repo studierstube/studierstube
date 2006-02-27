@@ -70,13 +70,13 @@ SoDisplay
 	  ######################################
 	  ######## Camera ######################
 	  ######################################
-	  #camera 
+	  camera 
 	  #SoPerspectiveCamera
 	  #{
 	  #  position 0 0 0 
 	  #  orientation 0 0 1 0
-	  #SoOffAxisCamera
-	  #{
+	  SoOffAxisCamera
+	  {
 	    #  viewportMapping LEAVE_ALONE
 	    #  position -0.037045 0.168842 0.236637
 	    #  orientation 0.999133 -0.00585241 0.0412087  2.99499
@@ -95,21 +95,21 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  #}#camera  
+	  }#camera  
 
 	  ######################################
 	  ######## Viewport ####################
 	  ###################################### 
-	  #viewport SoViewport{
-	  #  origin 0 240 
-	  #  size 320 240
-	  #}
+	  viewport SoViewport{
+	    origin 0 240 
+	    size 320 240
+	  }
 	  
 	  ######################################
 	  ######## DisplayMode #################
 	  ######################################	  
 	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	   displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
 	  
 
@@ -117,15 +117,14 @@ SoDisplay
 	  ######################################
 	  ######## ControlMode #################
 	  ######################################
-	  #controlMode SoDesktopControlMode{}
-	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
+	  # controlMode SoDesktopControlMode{}
+	  # controlMode SoTrackedDisplayControlMode{}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointMobileDisplayControlMode
-	  #{
+	  controlMode SoTrackedViewpointMobileDisplayControlMode
+	  {
 	  #  stbSinkNameDisplay "testTracker1"
 	  #  stbSinkNameViewpoint "testTracker2"
-	  #}
+	  }
 	  
 	  ######################################
 	  ######## Video #######################
@@ -140,28 +139,20 @@ SoDisplay
 	  #content USE Content2  
 	  
     }#SoStbCamera 1
-  ]#stbCameraList 
- 
-}#SoDisplay
-
-
-
-
-	
-	
-    #SoStbCamera
-	#{
+    
+    SoStbCamera
+	{
 	  ######## The Content  ###########
 	  #content USE Content2
 	  
 	  ######## Camera Configuration ###########
-	  #camera 
+	  camera 
 	  #SoPerspectiveCamera
 	  #{
 	  #  position 0 0 0 
 	  #  orientation 0 0 1 0
-	  #SoOffAxisCamera
-	  #{
+	  SoOffAxisCamera
+	  {
 	  #  viewportMapping LEAVE_ALONE
 	  #  position -0.037045 0.168842 0.236637
 	  #  orientation 0.999133 -0.00585241 0.0412087  2.99499
@@ -180,7 +171,7 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  #}
+	  }
 	  #camera  
 	  
 	  ######## StbCamera Control ###########
@@ -198,29 +189,30 @@ SoDisplay
 	  #  ovStbSink "stbSink1"
 	  #}
 
-	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
+	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	   displayMode SoAnaglyphDisplayMode{lensColor 0 1 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  #viewport SoViewport{
-	  #  origin 320 240 
-	  #  size 320 240
-	  #}
+	  
+	  viewport SoViewport{
+	    origin 320 240 
+	    size 320 240
+	  }
 
-	#}#SoStbCamera 1
+	}#SoStbCamera 2
        
-	#SoStbCamera
-	#{
+	SoStbCamera
+	{
 	  ######## The Content  ###########
 	  #content USE Content2
 	  
 	  ######## Camera Configuration ###########
-	  # camera 
+	  camera 
 	  #SoPerspectiveCamera
 	  #{
 	  #  position 0 0 0 
 	  #  orientation 0 0 1 0
-	  #SoOffAxisCamera
-	  #{
+	  SoOffAxisCamera
+	  {
 	  #  viewportMapping LEAVE_ALONE
 	  #  position -0.037045 0.168842 0.236637
 	  #  orientation 0.999133 -0.00585241 0.0412087  2.99499
@@ -239,14 +231,13 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  #}
+	  }
 	  #camera  
 
-	
 	  ######## StbCamera Control ###########
 	  #controlMode SoDesktopControlMode{}
 	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
+	  #controlMode SoTrackedViewpointControlMode{}
 	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
 	  #controlMode SoTrackedViewpointMobileDisplayControlMode
 	  #{
@@ -259,13 +250,26 @@ SoDisplay
 	  #}
 
 	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
-	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  #viewport SoViewport{
-	  #  origin 0 0 
-	  #  size 320 240
-	  #}
-	#}#SoStbCamera 1
+	  # displayMode SoAnaglyphDisplayMode{lensColor 0 0 1}
+	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
+	   
+	  viewport SoViewport{
+	    origin 0 0 
+	    size 320 240
+	  }
+	  
+	}#SoStbCamera 3
+	
+  ]#stbCameraList 
+ 
+}#SoDisplay
+
+
+
+
+	
+	
+
 	
 	
 	

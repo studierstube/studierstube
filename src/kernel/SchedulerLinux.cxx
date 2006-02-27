@@ -36,11 +36,12 @@
 #include <tinyxml.h>
 #include <iostream>
 
+#include <ace/Log_Msg.h>
+
 BEGIN_NAMESPACE_STB
 
 SchedulerLinux::SchedulerLinux()
 {
-    libHandle=NULL;
 }
 
 SchedulerLinux::~SchedulerLinux()
@@ -68,13 +69,13 @@ void
 SchedulerLinux::init()
 {
 
+    // no demangled function pointer available :-(
     stb::string initStr="_ZN4SoQt4initEPKcS1_";
     
     Kernel::getInstance()->logDebug("INFO: load SoQt\n");
-
     stb::string libFileName = "SoQt";
-    libHandle = os_LoadLibrary(libFileName.c_str());
 
+    libHandle = os_LoadLibrary(libFileName.c_str());
     if (!libHandle){
         Kernel::getInstance()->log("ERROR: could not load " + libFileName);
         return;
@@ -82,26 +83,37 @@ SchedulerLinux::init()
 
     //get pointer 
     void (*soGuiInitFunc)(const char *, const char*)=NULL;
-    soGuiInitFunc = (void (*)(const char *, const char*)) 
-        os_GetProcAddress(libHandle, initStr.c_str());
-    if(soGuiInitFunc == NULL)
-        printf("STB_ERROR: could not find init() in %s",libFileName.c_str());
+    soGuiInitFunc = (void (*)(const char *, const char*))os_GetProcAddress(libHandle, initStr.c_str());
+
+    if (!soGuiInitFunc) {
+        ACE_DEBUG((LM_ERROR, "could not get entry point of %s", libFileName.c_str()));
+        return;
+    }
     
     //call SoGui::init 
     (*soGuiInitFunc)("Studierstube","SoQt"); 
+
 }
 
 void 
 SchedulerLinux::mainLoop()
 {
+    // no demangled function pointer available :-(
     stb::string mainLoopStr="_ZN4SoQt8mainLoopEv"; 
 
     if(!libHandle){
         Kernel::getInstance()->logDebug("Error: call soGui.init() before soGui.mainLoop. \n");
         return;
     }
+    
     void (*mainLoopFunc)();
-    mainLoopFunc = (void (*)()) os_GetProcAddress(libHandle, mainLoopStr.c_str());
+    mainLoopFunc = (void (*)())os_GetProcAddress(libHandle, mainLoopStr.c_str());
+
+    if (!mainLoopFunc) {
+        ACE_DEBUG((LM_ERROR, "could not get entry point of %s", mainLoopStr.c_str()));
+        return;
+    }
+
     (*mainLoopFunc)();
     
 }

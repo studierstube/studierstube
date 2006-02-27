@@ -1,0 +1,8 @@
+Import('env')
+
+# need to add base directory
+env['SOURCE_FILES'].append('../base/OS.cxx') 
+env['SOURCE_FILES'].append('../base/string.cxx') 
+
+stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
+env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))

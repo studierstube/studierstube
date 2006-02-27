@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openvideo
+    scheduleMode="timer"
+    updateRate="10"
+>
+
+
+<TestSrc name="TestSource" pixelformat="R8G8B8"> 
+
+<GLUTSink name="glsink1" pixelformat="R8G8B8"/> 
+
+<GL_TEXTURE_2D_Sink name="stbSink" pixelformat="R8G8B8"/>
+
+</TestSrc>
+
+</openvideo>
+
+
+
+
+
+

@@ -32,9 +32,11 @@
 /* ======================================================================= */
 
 #include <stb/bootloader/KernelLoader.h>
-#include <stb/base/OS.h>
 
 #include <iostream>
+
+#include <ace/DLL.h>
+#include <ace/Log_Msg.h>
 
 BEGIN_NAMESPACE_STB
 
@@ -57,25 +59,29 @@ void KernelLoader::setExecFuncName(stb::string aFuncName)
 bool KernelLoader::runKernel(int argc, char* argv[]) 
 {
     using namespace std;
-    hModule libHandle;
-    libHandle = os_LoadLibrary(libName.c_str());
-    
-    if (!libHandle) 
-    {
-        cerr << "ERROR: couldn't load library " << libName << endl;
-        return false;
+
+    ACE_DLL kernel_dll;
+
+    if (kernel_dll.open(libName.c_str())) {
+        ACE_DEBUG((LM_ERROR, "could not load %s library", libName.c_str()));
+        return false;        
     }
+    ACE_DEBUG((LM_ERROR, "%s library loaded.\n", libName.c_str()));
 
     // get function pointer
     void (*startKernel)(int, char**);
-    startKernel = (void(*)(int, char**))os_GetProcAddress(libHandle, execFuncName.c_str());
+    startKernel = (void(*)(int, char**))kernel_dll.symbol(execFuncName.c_str());
+
+    if (!startKernel) {
+        ACE_DEBUG((LM_ERROR, "could not get entry point of %s", libName.c_str()));
+        return false;        
+    }
 
     //call startkernel
     (*startKernel)(argc,argv);
-    
-    //clean up 
-    os_FreeLibrary(libHandle);
 
+    kernel_dll.close();
+    
     return true;
 }
 

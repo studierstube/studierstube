@@ -1,0 +1,10 @@
+prefix=@@INSTALLDIR@@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${exec_prefix}/include
+
+Name: @@STB_PROJECT_NAME@@
+Description: @@STB_PROJECT_DESCRIPTION@@
+Version: @@STB_PROJECT_VERSION@@
+Libs: -L${libdir} -l@@STB_PROJECT_LIBNAME@@
+Cflags: -I${includedir} @@STB_PROJECT_DEFINES@@

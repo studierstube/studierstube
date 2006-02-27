@@ -1,0 +1,4 @@
+Import('env')
+
+stb_exe = env.Program('stb-4.0', env['SOURCE_FILES'], LIBS=['ACE', 'dl'])
+env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/bin', source = stb_exe))

@@ -49,5 +49,4 @@
 //! Define all functions in the gtl namespace
 namespace stb {}
 
-
 #endif

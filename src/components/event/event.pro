@@ -33,7 +33,7 @@ INTERFACES	=
 
 TARGET = stbevent
 
-INCLUDEPATH += $$(STB4)/include
+INCLUDEPATH += $$(STB4)/include /usr/local/include/OpenTracker
 
 LIBS += -lCoin -L$$(STB4)/lib -lstbkernel -lstarlight -lOpenTracker
 

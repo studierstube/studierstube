@@ -1,0 +1,57 @@
+import sys
+import os
+import buildutils
+
+# Import environment from SConstruct file
+Import('env')
+
+##############################
+# Modules
+#
+stb_modules   = ['bootloader', 'kernel']
+
+for stb_module in stb_modules:
+	print "Building " + stb_module + " ..."
+	env['STB_MODULE_NAME'] = stb_module
+	env['STB_LIB_NAME']    = "stb" + stb_module
+	stb_sourcedir          = Dir('#').abspath + os.sep + 'src' + os.sep + env['STB_MODULE_NAME']
+	env['SOURCE_FILES']    = buildutils.listtrav(stb_sourcedir , stb_sourcedir)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
+	stb_scons              = stb_module + os.sep + 'SConscript'
+	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_module + os.sep + 'lib'  + env['STB_LIB_NAME']
+	SConscript(stb_scons, exports='env')
+
+##############################
+# Components
+#
+stb_components   = ['starlight', 'event', 'viewer', 'video']
+
+for stb_component in stb_components:
+	print "Building " + stb_component + " ..."
+	env['STB_MODULE_NAME'] = stb_component
+	env['STB_LIB_NAME']    = "stb" + stb_component
+	stb_sourcedir          = Dir('#').abspath + os.sep + 'src' + os.sep + 'components' + os.sep + env['STB_MODULE_NAME']
+	env['SOURCE_FILES']    = buildutils.listtrav(stb_sourcedir , stb_sourcedir)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
+	stb_scons              = 'components' + os.sep + stb_component + os.sep + 'SConscript'
+	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_component + os.sep + 'lib'  + env['STB_LIB_NAME']
+	SConscript(stb_scons, exports='env')
+
+##############################
+# Applications
+#
+stb_applications   = ['simple']
+
+for stb_application in stb_applications:
+	print "Building " + stb_application + " ..."
+	env['STB_MODULE_NAME'] = stb_application
+	env['STB_LIB_NAME']    = "stb" + stb_application
+	stb_sourcedir          = Dir('#').abspath + os.sep + 'src' + os.sep + 'applications' + os.sep + env['STB_MODULE_NAME']
+	env['SOURCE_FILES']    = buildutils.listtrav(stb_sourcedir , stb_sourcedir)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
+	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
+	stb_scons              = 'applications' + os.sep + stb_application + os.sep + 'SConscript'
+	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_application + os.sep + 'lib'  + env['STB_LIB_NAME']
+	SConscript(stb_scons, exports='env')
