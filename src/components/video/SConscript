@@ -1,4 +1,30 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))
+Import ('user_options_dict')
+Import ('library_env')
+
+video_env = library_env.Copy ()
+
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/components/video'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
+
+# ACE
+video_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
+video_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
+video_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
+# Coin
+video_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
+video_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
+video_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+# OpenVideo
+video_env.Append (CPPPATH = user_options_dict['OPENVIDEO_INCLUDE'])
+video_env.Append (LIBPATH = user_options_dict['OPENVIDEO_LIBPATH'])
+video_env.Append (LIBS    = user_options_dict['OPENVIDEO_LIBRARY'])
+
+video_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbvideo', source=source_files)

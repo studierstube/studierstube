@@ -1,8 +1,32 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-# need to add base directory
-env['SOURCE_FILES'].append('../base/OS.cxx') 
-env['SOURCE_FILES'].append('../base/string.cxx') 
+Import ('user_options_dict')
+Import ('library_env')
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))
+kernel_env = library_env.Copy ()
+
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/kernel'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
+
+source_files += ['../base/string.cxx', '../base/OS.cxx']
+
+# ACE
+kernel_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
+kernel_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
+kernel_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
+# TinyXML
+kernel_env.Append (CPPPATH = user_options_dict['TINYXML_INCLUDE'])
+kernel_env.Append (LIBPATH = user_options_dict['TINYXML_LIBPATH'])
+kernel_env.Append (LIBS    = user_options_dict['TINYXML_LIBRARY'])
+# Coin
+kernel_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
+kernel_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
+kernel_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+
+kernel_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbkernel', source=source_files)

@@ -1,4 +1,22 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))
+Import ('user_options_dict')
+Import ('library_env')
+
+simple_env = library_env.Copy ()
+
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/applications/simple'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
+
+# Coin
+simple_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
+simple_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
+simple_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+
+simple_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/simple', source=source_files)

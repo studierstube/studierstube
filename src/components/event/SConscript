@@ -1,18 +1,33 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-conf = Configure(env)
+Import ('user_options_dict')
+Import ('library_env')
 
-#****************************************************************************
-# Make sure OpenTracker is available
-#****************************************************************************
-if conf.TryAction('opentracker-config')[0]:
-    env.ParseConfig('opentracker-config --cppflags --libs')
-else:
-    print "****************************************************************************"
-    print "WARNING: You need to have OpenTracker installed for using event system"
-    print "****************************************************************************"
+event_env = library_env.Copy ()
 
-conf.Finish()
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/components/event'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'], LIBPATH=['../starlight'], LIBS=['stbstarlight'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))
+# ACE
+event_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
+event_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
+event_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
+# Coin
+event_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
+event_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
+event_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+# OPENTRACKER
+event_env.Append (CPPPATH = user_options_dict['OPENTRACKER_INCLUDE'])
+event_env.Append (LIBPATH = user_options_dict['OPENTRACKER_LIBPATH'])
+event_env.Append (LIBS    = user_options_dict['OPENTRACKER_LIBRARY'])
+
+# Starlight
+event_env.Append (LIBS    = 'stbstarlight')
+
+event_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbevent', source=source_files)

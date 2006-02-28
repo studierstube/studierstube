@@ -1,4 +1,24 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-stb_exe = env.Program('stb-4.0', env['SOURCE_FILES'], LIBS=['ACE', 'dl'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/bin', source = stb_exe))
+Import ('user_options_dict')
+Import ('library_env')
+
+bootloader_env = library_env.Copy ()
+
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/bootloader'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
+
+source_files += ['../base/string.cxx', '../base/OS.cxx']
+
+# ACE
+bootloader_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
+bootloader_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
+bootloader_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
+
+bootloader_env.Program (target='#'+user_options_dict['BUILD_DIR']+'/bin/stb-4.0', source=source_files)

@@ -1,0 +1,7 @@
+#!/usr/bin/python
+Import ('user_options_dict')
+
+SConscript(['starlight/SConscript',
+            'event/SConscript',
+            'viewer/SConscript',
+            'video/SConscript'])

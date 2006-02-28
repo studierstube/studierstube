@@ -1,28 +1,30 @@
-Import('env')
+#!/usr/bin/python
+import sys
+import os
+import buildutils
 
-conf = Configure(env)
+Import ('user_options_dict')
+Import ('library_env')
 
-#****************************************************************************
-# Make sure Qt is available
-#****************************************************************************
-if conf.TryAction('pkg-config --exists qt-mt')[0]:
-    env.ParseConfig('pkg-config --cflags --libs qt-mt')
-else:
-    print "****************************************************************************"
-    print "WARNING: You need to have QT installed for using the viewer module"
-    print "****************************************************************************"
+viewer_env = library_env.Copy ()
 
-#****************************************************************************
-# Make sure SoQt is available
-#****************************************************************************
-if conf.TryAction('soqt-config')[0]:
-    env.ParseConfig('soqt-config --cxxflags --libs')
-else:
-    print "****************************************************************************"
-    print "WARNING: You need to have SoQt installed for using the viewer module"
-    print "****************************************************************************"
+# Get all files from directory while applying ignore filter
+source_dir   = Dir('#').abspath + os.sep + '/src/components/viewer'
+source_files = buildutils.listtrav(source_dir, source_dir)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['SOURCE_FILTER'], True)
+source_files = buildutils.regexpfilter(source_files, user_options_dict['IGNORE_FILTER'], False)
 
-conf.Finish()
+# ACE
+viewer_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
+viewer_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
+viewer_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
+# Coin
+viewer_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
+viewer_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
+viewer_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+# SoQt
+viewer_env.Append (CPPPATH = user_options_dict['SOQT_INCLUDE'])
+viewer_env.Append (LIBPATH = user_options_dict['SOQT_LIBPATH'])
+viewer_env.Append (LIBS    = user_options_dict['SOQT_LIBRARY'])
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'])
-env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))
+viewer_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbviewer', source=source_files)
