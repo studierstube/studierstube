@@ -19,7 +19,6 @@ for stb_module in stb_modules:
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
 	stb_scons              = stb_module + os.sep + 'SConscript'
-	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_module + os.sep + 'lib'  + env['STB_LIB_NAME']
 	SConscript(stb_scons, exports='env')
 
 ##############################
@@ -36,7 +35,6 @@ for stb_component in stb_components:
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
 	stb_scons              = 'components' + os.sep + stb_component + os.sep + 'SConscript'
-	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_component + os.sep + 'lib'  + env['STB_LIB_NAME']
 	SConscript(stb_scons, exports='env')
 
 ##############################
@@ -53,5 +51,4 @@ for stb_application in stb_applications:
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['SOURCE_FILTER'], True)
 	env['SOURCE_FILES']    = buildutils.regexpfilter(env['SOURCE_FILES'], env['IGNORE_FILTER'], False)
 	stb_scons              = 'applications' + os.sep + stb_application + os.sep + 'SConscript'
-	env[env['STB_LIB_NAME']] = env['BUILDDIR'] + os.sep + stb_application + os.sep + 'lib'  + env['STB_LIB_NAME']
 	SConscript(stb_scons, exports='env')

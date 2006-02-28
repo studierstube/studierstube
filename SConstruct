@@ -75,7 +75,7 @@ else:
 env['STB_PROJECT_NAME']        = "Studierstube"
 env['STB_PROJECT_DESCRIPTION'] = "Studierstube - The Augmented Reality Environment"
 env['STB_PROJECT_VERSION']     = "4.0.0"
-env['STB_PROJECT_LIBNAME']     = "stb"
+env['STB_PROJECT_LIBNAME']     = "stbkernel"
 
 buildutils.appendbuilders(env)
 outname = env.AlwaysBuild(env.Substitute('stb.pc', 'stb.pc.in'))
@@ -100,7 +100,7 @@ Help(opts.GenerateHelpText(env))
 #****************************************************************************
 env['SOURCE_FILTER']  = '\.cxx$|\.cpp$'
 env['INCLUDE_FILTER'] = '\.h$'
-env['IGNORE_FILTER']  = '/ignore/|/ignore$|\.scon|\.svn|\.#|bak'
+env['IGNORE_FILTER']  = '/ignore/|/ignore$|\.scon|\.svn|\.#|bak|~$|SConscript'
 
 #****************************************************************************
 # Build by executing SConscript file
@@ -112,8 +112,8 @@ print "\n...Building...\n"
 # Call subsidiary build scripts.
 env['BUILDDIR'] = 'build' + os.sep + sys.platform
 SConscript(['src/SConscript'], exports='env', build_dir=env['BUILDDIR'])
-
-#SConscript(['src/SConscript'], exports='env', build_dir=env['BUILDDIR'], duplicate=1)
+SConscript(['include/SConscript'], exports='env')
+SConscript(['bin/linux/SConscript'], exports='env')
 
 ###########################################################################
 # Done:)

@@ -1,0 +1,16 @@
+import os
+import buildutils
+
+# Import environment from SConstruct file
+Import('env')
+
+# Search for include files
+includedir   = Dir('#').abspath + os.sep + 'include'
+includefiles = buildutils.listtrav(includedir, includedir)
+includefiles = buildutils.regexpfilter(includefiles, env['INCLUDE_FILTER'], True)
+includefiles = buildutils.regexpfilter(includefiles, env['IGNORE_FILTER'], False)
+
+# Install header files
+for include in includefiles:
+    dirname = include[0:include.rindex(os.sep)]
+    env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/include' + os.sep + dirname, source = includedir + os.sep + include))

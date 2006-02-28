@@ -42,6 +42,14 @@ class SoSensor;
 
 #include <stb/kernel/Scheduler.h>
 
+// define here search paths for config files
+#ifdef LINUX
+#define STB_CONFIG_PATH1 "/usr/share/stb/"
+#define STB_CONFIG_PATH2 "/usr/local/share/stb/"
+#define STB_HOME ".stb/"
+#endif
+
+#define KERNEL_CONFIG_FILE "kernel.xml"
 
 /**
 *
@@ -82,6 +90,7 @@ public:
     */
     void logDebug(stb::string  nStr);
     void log(stb::string nStr);
+    void logEx(const char* nStr, ...);
 
     /*
     *	                                                                   

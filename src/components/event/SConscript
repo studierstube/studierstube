@@ -14,5 +14,5 @@ else:
 
 conf.Finish()
 
-stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'], LIBS=['stbstarlight'])
+stb_lib    = env.SharedLibrary(env['STB_LIB_NAME'], env['SOURCE_FILES'], LIBPATH=['../starlight'], LIBS=['stbstarlight'])
 env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/lib', source = stb_lib))

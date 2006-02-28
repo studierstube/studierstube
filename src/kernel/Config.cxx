@@ -53,14 +53,14 @@ Config::parseXML(stb::string filename)
 	TiXmlDocument* document = new TiXmlDocument();
 	
 	if(!document->LoadFile(filename.c_str()))
-	{
+	    {
 		Kernel::getInstance()->log("An error occured during parsing " + filename + "\n");
 		Kernel::getInstance()->log(" Message: ");
-        Kernel::getInstance()->log(document->ErrorDesc());
-        Kernel::getInstance()->log("\n");
+		Kernel::getInstance()->log(document->ErrorDesc());
+		Kernel::getInstance()->log("\n");
 		return false;
-	}
-
+	    }
+	
 	TiXmlElement* root = document->RootElement();
 	if(!stb::stricasecmp(root->Value(),"studierstube"))
 	{

@@ -1,0 +1,14 @@
+import os
+import buildutils
+
+# Import environment from SConstruct file
+Import('env')
+
+# Search for bin files
+bindir   = Dir('#').abspath + os.sep + 'bin/linux'
+binfiles = buildutils.listtrav(bindir, bindir)
+binfiles = buildutils.regexpfilter(binfiles, env['IGNORE_FILTER'], False)
+
+# Install bin files
+for binfile in binfiles:
+    env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/share' + os.sep + "stb", source = bindir + os.sep + binfile))

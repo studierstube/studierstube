@@ -66,7 +66,6 @@ bool KernelLoader::runKernel(int argc, char* argv[])
         ACE_DEBUG((LM_ERROR, "could not load %s library", libName.c_str()));
         return false;        
     }
-    ACE_DEBUG((LM_ERROR, "%s library loaded.\n", libName.c_str()));
 
     // get function pointer
     void (*startKernel)(int, char**);
