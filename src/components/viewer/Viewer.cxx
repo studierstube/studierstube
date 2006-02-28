@@ -106,10 +106,19 @@ Viewer::init()
     //load .iv file 
     std::cout<<"init Viewer\n";
 
-    SoInput myinput;
+#ifdef LINUX
+    SoInput::addDirectoryFirst(STB_CONFIG_PATH1);
+    SoInput::addDirectoryFirst(STB_CONFIG_PATH2);
+
+    char *home_dir = 0;
+    home_dir = getenv("HOME");
+    SoInput::addDirectoryFirst(home_dir);
+#endif
     SoInput::addDirectoryFirst("./");
-    if (!myinput.openFile(configFile.c_str())) 
-    {
+
+    SoInput myinput;
+    if (!myinput.openFile(configFile.c_str())) {
+        
         stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + configFile + "\n");
         SoInput::removeDirectory("./");
         return false;
