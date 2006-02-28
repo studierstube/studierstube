@@ -65,13 +65,14 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     opentracker_lib = opentracker_env.Dictionary()['LIBS']
     opentracker_libpath = opentracker_env.Dictionary()['LIBPATH']
     # Openvideo library information
-    openvideo_env.ParseConfig ('openvideo-config --cppflags --libs')
+    openvideo_env.ParseConfig ('pkg-config --cflags --libs openvideo')
     openvideo_cflags = openvideo_env.Dictionary()['CCFLAGS']
     openvideo_include = openvideo_env.Dictionary()['CPPPATH']
     openvideo_lib = openvideo_env.Dictionary()['LIBS']
     openvideo_libpath = openvideo_env.Dictionary()['LIBPATH']
 
     build_example_app = 'true'
+    enable_openvideo = 'false'
 else:
     print "Other platforms not supported by scons!"
     exit
@@ -155,6 +156,7 @@ else:
 	config.write ("OPENGL_LIBRARY = %r\n"%(opengl_lib))
 
         config.write ("BUILD_EXAMPLE_APP = %r\n"%(build_example_app))
+        config.write ("ENABLE_OPENVIDEO = %r\n"%(enable_openvideo))
         config.close ()
 
 #-----------------------------------------------------------------------------
@@ -213,8 +215,11 @@ user_options.AddOptions (
                 ('INCLUDE_FILTER', 'Specify the header files which should be considered'),
                 ('IGNORE_FILTER', 'Specify the ignore filter for excluding source files'),
 		(BoolOption ('BUILD_EXAMPLE_APP',
-					'Set to 1 to use build the example application.',
-					'true'))
+					'Set to 1 to build the example application.',
+					'true')),
+		(BoolOption ('ENABLE_OPENVIDEO',
+					'Set to 1 to use the OpenVideo library.',
+					'false'))
 	)
 user_options.Update (user_options_env)
 user_options_dict = user_options_env.Dictionary()
