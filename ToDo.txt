@@ -1,9 +1,13 @@
-- event system (linux)
-- add commandline option to change kernel.xml
-- add logging to file or console 
-- use log_mode value 
-- kernel : updateMode=IDLE
-- muddleware client
+- bugzilla for stb4 (B)
+- integrate xmllogger to starlight + compile switch (B)
+- debian build (alex)
+- rpm build (markus)
+- documentation
+- viscenter install
+- write INSTALL for linux (B)
+- logger (D)
+- muddle client for app loading (B)
+- mainloop (D?)
+- videobackground (D)
 - linux daemon + windows service
-- mainloop ?
-- videobackground
+
