@@ -23,4 +23,5 @@ starlight_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 starlight_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 starlight_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 
-starlight_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbstarlight', source=source_files)
+starlight = starlight_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbstarlight', source=source_files)
+starlight_env.Install(user_options_dict['INSTALL_DIR']+'/lib', starlight)

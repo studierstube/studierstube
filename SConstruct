@@ -266,7 +266,11 @@ env['STB_PROJECT_DEFINES']     = global_defs
 
 buildutils.appendbuilders(env)
 outname = env.AlwaysBuild(env.Substitute('stb.pc', 'stb.pc.in'))
-env.Alias(target = ["install"], source = env.AlwaysBuild(env.Install(dir = '${INSTALLDIR}/lib/pkgconfig', source = outname)))
+ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = user_options_dict['INSTALL_DIR']+'/lib/pkgconfig', source = outname)))
+il = env.Alias('install-lib', user_options_dict['INSTALL_DIR'] + '/lib')
+ib = env.Alias('install-bin', user_options_dict['INSTALL_DIR'] + '/bin')
+ih = env.Alias('install-header', user_options_dict['INSTALL_DIR'] + '/include')
+env.Alias('install', [ic, il, ib, ih])
 
 #****************************************************************************
 # Specify source filters
@@ -307,8 +311,7 @@ print "\n...Building...\n"
 
 BuildDir (root_build_dir+'/src', 'src', duplicate=0)
 SConscript (root_build_dir+'/src/SConscript')
-#SConscript (['include/SConscript'])
-#SConscript (['bin/linux/SConscript'])
+SConscript (['include/SConscript'])
 
 
 

@@ -21,4 +21,5 @@ bootloader_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
 bootloader_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
 bootloader_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 
-bootloader_env.Program (target='#'+user_options_dict['BUILD_DIR']+'/bin/stb-4.0', source=source_files)
+bootloader = bootloader_env.Program (target='#'+user_options_dict['BUILD_DIR']+'/bin/stb-4.0', source=source_files)
+bootloader_env.Install(user_options_dict['INSTALL_DIR']+'/bin', bootloader)

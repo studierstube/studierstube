@@ -30,4 +30,5 @@ event_env.Append (LIBS    = user_options_dict['OPENTRACKER_LIBRARY'])
 # Starlight
 event_env.Append (LIBS    = 'stbstarlight')
 
-event_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbevent', source=source_files)
+event = event_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbevent', source=source_files)
+event_env.Install(user_options_dict['INSTALL_DIR']+'/lib', event)

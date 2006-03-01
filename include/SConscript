@@ -1,16 +1,20 @@
+#!/usr/bin/python
 import os
 import buildutils
 
-# Import environment from SConstruct file
-Import('env')
+#!/usr/bin/python
+Import ('user_options_dict')
+Import('library_env')
+
+header_env = library_env.Copy ()
 
 # Search for include files
 includedir   = Dir('#').abspath + os.sep + 'include'
 includefiles = buildutils.listtrav(includedir, includedir)
-includefiles = buildutils.regexpfilter(includefiles, env['INCLUDE_FILTER'], True)
-includefiles = buildutils.regexpfilter(includefiles, env['IGNORE_FILTER'], False)
+includefiles = buildutils.regexpfilter(includefiles, user_options_dict['INCLUDE_FILTER'], True)
+includefiles = buildutils.regexpfilter(includefiles, user_options_dict['IGNORE_FILTER'], False)
 
 # Install header files
 for include in includefiles:
     dirname = include[0:include.rindex(os.sep)]
-    env.Alias(target = ['install'], source = env.Install(dir = '${INSTALLDIR}/include' + os.sep + dirname, source = includedir + os.sep + include))
+    header_env.Install(user_options_dict['INSTALL_DIR'] + os.sep + 'include' + os.sep + dirname, includedir + os.sep + include)

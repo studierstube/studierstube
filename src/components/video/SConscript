@@ -27,4 +27,5 @@ video_env.Append (CPPPATH = user_options_dict['OPENVIDEO_INCLUDE'])
 video_env.Append (LIBPATH = user_options_dict['OPENVIDEO_LIBPATH'])
 video_env.Append (LIBS    = user_options_dict['OPENVIDEO_LIBRARY'])
 
-video_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbvideo', source=source_files)
+video = video_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbvideo', source=source_files)
+video_env.Install(user_options_dict['INSTALL_DIR']+'/lib', video)
