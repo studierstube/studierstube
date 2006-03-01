@@ -270,7 +270,8 @@ ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install
 il = env.Alias('install-lib', user_options_dict['INSTALL_DIR'] + '/lib')
 ib = env.Alias('install-bin', user_options_dict['INSTALL_DIR'] + '/bin')
 ih = env.Alias('install-header', user_options_dict['INSTALL_DIR'] + '/include')
-env.Alias('install', [ic, il, ib, ih])
+iss = env.Alias('install-share', user_options_dict['INSTALL_DIR'] + '/share')
+env.Alias('install', [ic, il, ib, ih, iss])
 
 #****************************************************************************
 # Specify source filters
@@ -312,6 +313,7 @@ print "\n...Building...\n"
 BuildDir (root_build_dir+'/src', 'src', duplicate=0)
 SConscript (root_build_dir+'/src/SConscript')
 SConscript (['include/SConscript'])
+SConscript (['bin/linux/SConscript'])
 
 
 
