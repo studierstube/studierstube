@@ -33,6 +33,7 @@
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
 #include <iostream>
+#include <sstream>
 #include <Inventor/SoInput.h> 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
@@ -107,12 +108,15 @@ Viewer::init()
     std::cout<<"init Viewer\n";
 
 #ifdef LINUX
+    using namespace std;
     SoInput::addDirectoryFirst(STB_CONFIG_PATH1);
     SoInput::addDirectoryFirst(STB_CONFIG_PATH2);
 
     char *home_dir = 0;
     home_dir = getenv("HOME");
-    SoInput::addDirectoryFirst(home_dir);
+    ostringstream fn;
+    fn << home_dir << "/" << STB_HOME;
+    SoInput::addDirectoryFirst(fn.str().c_str());
 #endif
     SoInput::addDirectoryFirst("./");
 

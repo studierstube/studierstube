@@ -218,7 +218,7 @@ void SoContextElement::add( const SbName * indices, const SoNode ** values, cons
 {
     for( int32_t i = 0; i < size; i++ )
     {        
-        SbString pointer((int32_t)values[i]);
+        SbString pointer((unsigned long)values[i]);
 		context[indices[i]] = pointer;
         nodeMap[pointer] = (class SoNode *)values[i];
     }    
