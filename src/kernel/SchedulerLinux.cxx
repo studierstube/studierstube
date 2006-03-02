@@ -93,6 +93,8 @@ SchedulerLinux::init()
     //call SoGui::init 
     (*soGuiInitFunc)("Studierstube","SoQt"); 
 
+    schedule();
+
 }
 
 void 

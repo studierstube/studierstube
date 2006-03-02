@@ -34,6 +34,7 @@
 #include <Inventor/nodes/SoPerspectiveCamera.h> 
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
+#include <stb/kernel/Kernel.h>
 //----------------------------------------------------------------------------
 
 SO_NODE_SOURCE(SoDesktopControlMode);
@@ -85,7 +86,7 @@ SoDesktopControlMode::activate()
 		}
 		else if(stbCamera->getCamera()->isOfType(SoCamera::getClassTypeId()))
 		{
-			printf("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
+			stb::Kernel::getInstance()->log("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
 			return false;
 		}
 	}

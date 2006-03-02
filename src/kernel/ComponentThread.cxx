@@ -29,6 +29,7 @@
 /* ======================================================================= */
 
 #include <stb/kernel/ComponentThread.h>
+#include <stb/kernel/Kernel.h>
 #include <ace/Thread.h>
 #include <ace/Synch.h>
 
@@ -77,7 +78,7 @@ ComponentThread::start()
         0
         )==-1)
     { 
-        printf("Error: Error in spawning thread.\n"); 
+        stb::Kernel::getInstance()->log("Error: Error in spawning thread.\n"); 
     }
 
 }    

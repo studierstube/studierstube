@@ -73,12 +73,10 @@ Component::retrieveParameter()
     if(!compInfo_)
         return;
 
-    printf("Component::retrieveParameter()\n");
     std::map<stb::string,stb::string>::iterator element;
     element = compInfo_->parameter.begin();
     for (int i=0;i<(int)compInfo_->parameter.size();i++) 
     {
-        printf("setParameter\n");
         setParameter((*element).first,(*element).second);
         element++;
     }

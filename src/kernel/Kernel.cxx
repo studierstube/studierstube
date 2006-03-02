@@ -79,7 +79,6 @@ Kernel::Kernel()
 
 Kernel::~Kernel()
 {
-    printf("destructor\n");
     ACE::fini();
     delete config;
     delete scheduler;
@@ -160,12 +159,9 @@ Kernel::start(int argc, char* argv[])
     log("****************************************\n\n");
     
     stb::string kernelConfigFile=getKernelConfig(argc,argv);
-    //if(kernelConfigFile.)
 
     config->parseXML(kernelConfigFile);
-	
     scheduler->init();
-    scheduler->schedule();
     scheduler->mainLoop();
 }
 
@@ -178,8 +174,8 @@ Kernel::stop()
 void
 Kernel::log(stb::string nStr)
 {
- printf("%s",nStr.c_str());
-     }
+    printf("%s",nStr.c_str());
+}
 
 
 void 
@@ -242,7 +238,6 @@ Kernel::update( void * data, SoSensor * sensor)
 {
     instance->sceneManager->update();
     instance->componentManager->update();
-    printf(".");
 }
 
 
@@ -259,24 +254,7 @@ Kernel::getSceneManager()
 }
 
 
-//stb::SoTrakEngineInterface*
-//Kernel::createSoTrakEngine()
-//{
-//    stb::SoTrakEngineInterface* tEngine=NULL;
-//    //get handle to event system
-//    Component* comp=componentManager->load("Event");
-//    if(!comp)
-//    {
-//        printf("failed to load event system\n");
-//        return tEngine;
-//    }
-//    // //os_GetProcAddress
-//    stb::SoTrakEngineInterface* (*createTrakEngine)()=NULL;
-//    createTrakEngine = (stb::SoTrakEngineInterface*(*)())os_GetProcAddress(comp->getInfo()->getLibHandle(),"createTrakEngine");
-//    if(createTrakEngine)
-//        tEngine=(*createTrakEngine)();
-//    return tEngine;
-//}
+
 
 END_NAMESPACE_STB
 

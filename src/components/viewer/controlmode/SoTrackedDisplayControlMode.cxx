@@ -70,30 +70,17 @@ SoTrackedDisplayControlMode::activate()
     if(stbCamera==NULL)
 	return false;
     
-    //StbKernel *theKernel=StbKernel::getInstance();
-    //
-    //SoDisplay* display = stbCamera->getSoDisplay();  
-    //SoTrackedItemInterface* trackedItem=NULL;
-    //trackedItem=theKernel->getSoTrackedItem();
-    //
-    //if(!trackedItem){
-	   // printf("STB_ERROR: SoTrackedDisplayControlMode could not get any SoTrackedItem\n");
-	   // return false;
-    //}
-    //trackedItem->stbSinkName.setValue(this->stbSinkName.getValue().getString());
-    //display->addTrackedItem(trackedItem);
-    
     stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-        printf("failed to load event system\n");
+        stb::Kernel::getInstance()->log("failed to load event system\n");
         return false;
     }
 
     tre=event->createSoTrakEngine();
     if(!tre)
     {
-        printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
         return false;
     }
     tre->key.set1Value(0,"blabla");

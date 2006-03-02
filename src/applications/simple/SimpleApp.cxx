@@ -51,14 +51,12 @@ SimpleApp::SimpleApp()
 
 SimpleApp::~SimpleApp()
 {
-      printf("delete SimpleApp\n");
 }
 
 /// Called before the application is destructed.
 bool 
 SimpleApp::init()
 {
-    printf("init SimpleApp\n");
     if(isInit)
         return true;
      isInit=true;
@@ -74,8 +72,6 @@ SimpleApp::init()
         isInit=true;
         return false;
     }
-   
-    printf("\n------------- SimpleApp loaded deps ----------\n");
 
     root = new SoSeparator();
     SoTransform *tran=new SoTransform;
@@ -124,7 +120,7 @@ SimpleApp::shutDown()
 void 
 SimpleApp::update()
 {
-	printf("update simple app\n");
+	Kernel::getInstance()->log("update simple app\n");
 }
 
 void 

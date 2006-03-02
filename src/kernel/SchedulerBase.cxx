@@ -79,12 +79,12 @@ SchedulerBase::schedule()
 
 	switch(mode)
 	{
-	case IDLE:
-		scheduleIdleSensor();
-		break;
-	case TIMER:
-		scheduleTimerSensor();
-		break;
+	    case IDLE:
+		    scheduleIdleSensor();
+		    break;
+	    case TIMER:
+		    scheduleTimerSensor();
+		    break;
 	}
 	scheduled=true;
 }
@@ -108,7 +108,6 @@ SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
 void
 SchedulerBase::scheduleIdleSensor()
 {
-	//printf("scheduleIdleSensor()\n");
 	//sensor= new SoIdleSensor();
 	//sensor->setFunction(Kernel::update);
 	//sensor->schedule();

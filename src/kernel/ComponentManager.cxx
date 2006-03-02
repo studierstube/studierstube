@@ -53,7 +53,6 @@ ComponentManager::~ComponentManager()
 void 
 ComponentManager::update()
 {
-//     printf("ComponentManager::update()\n");
     // init all new components
     if(initListSize>0)
     {

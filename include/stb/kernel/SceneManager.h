@@ -66,8 +66,6 @@ public:
 		DISPLAY=2
 	};
 
-	void setTouchRoot(TOUCHROOT touchNode);
-
 	SoSeparator* getDisplayRoot();
     
     void setDisplay(SoGroup *display);
@@ -82,6 +80,8 @@ protected:
 	SoSeparator* trackRoot;
 	SoSeparator* sceneRoot;
 	SoSeparator* displayRoot;
+    void setTouchRoot(TOUCHROOT touchNode);
+
 private:
 	
 };// class 

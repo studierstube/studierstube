@@ -162,9 +162,6 @@
 					RelativePath="..\..\include\stb\kernel\SchedulerBase.h">
 				</File>
 				<File
-					RelativePath="..\..\include\stb\kernel\SchedulerLinux.h">
-				</File>
-				<File
 					RelativePath="..\..\src\kernel\SchedulerWin32.cxx">
 				</File>
 				<File
@@ -225,20 +222,6 @@
 					RelativePath="..\..\include\stb\kernel\ComponentRetriever.h">
 				</File>
 			</Filter>
-			<Filter
-				Name="interfaces"
-				Filter="">
-				<Filter
-					Name="Config"
-					Filter="">
-					<File
-						RelativePath="..\..\src\kernel\Config.cxx">
-					</File>
-					<File
-						RelativePath="..\..\include\stb\kernel\Config.h">
-					</File>
-				</Filter>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -249,6 +232,16 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		</Filter>
+		<Filter
+			Name="Config"
+			Filter="">
+			<File
+				RelativePath="..\..\src\kernel\Config.cxx">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\Config.h">
+			</File>
 		</Filter>
 		<File
 			RelativePath="..\..\bin\win32\kernel.xml">

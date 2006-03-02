@@ -102,8 +102,7 @@ Video::run()
 void 
 Video::setGLContext(HGLRC glContext,HDC dc)
 {
-    printf("Video::setGLContext(HGLRC glContext,HDC dc)\n ");
-    if(isGLContext)
+     if(isGLContext)
         return;
     isGLContext=true;
     ovManager->setGLContext(glContext,dc);

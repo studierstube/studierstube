@@ -71,7 +71,7 @@ SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
 void
 SchedulerWin32::loadSoQt()
 {
-    printf("SoQt is not supported yet! \n");
+    Kernel::getInstance()->log("SoQt is not supported yet! \n");
 }
 
 void 
@@ -96,7 +96,7 @@ SchedulerWin32::loadSoWin()
     soGuiInitFunc = (void (*)(const char *, const char*)) 
         GetProcAddress(libHandle,"?init@SoWin@@SAPAUHWND__@@PBD0@Z");
     if(soGuiInitFunc == NULL)
-        printf("STB_ERROR: could not find init() in %s",libFileName.c_str());
+        Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
 
     //call SoGui::init 
     (*soGuiInitFunc)("Studierstube","SoWin"); 
@@ -113,6 +113,7 @@ SchedulerWin32::init()
             loadSoQt();
             break;
     }
+    schedule();
 }
 
 void

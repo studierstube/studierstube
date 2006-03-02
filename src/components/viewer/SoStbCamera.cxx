@@ -35,9 +35,10 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoTransformSeparator.h>
 
+#include <stb/kernel/Kernel.h>
+
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/SoDisplay.h>
-
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
 #include <stb/components/viewer/SoVideoBackground.h>
@@ -147,7 +148,7 @@ SoStbCamera::activateControlMode()
 	if(controlMode.getValue())
 	{
 		if(!(SoCamera*)getAnyPart("camera",false,false,false)){
-			printf("STB_ERROR: StbCameraControlMode: 'no camera found to control'\n ");
+            stb::Kernel::getInstance()->log("STB_ERROR: StbCameraControlMode: 'no camera found to control'\n ");
 			return false;
 		}
 

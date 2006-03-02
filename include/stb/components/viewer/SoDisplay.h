@@ -174,8 +174,6 @@ public:
 
     static SoDisplay* findSoDisplay(SoNode* node);
 
-    virtual void doAction  (  SoAction *  action   );
-
  protected:
    
 

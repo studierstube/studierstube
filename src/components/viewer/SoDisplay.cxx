@@ -275,12 +275,6 @@ SoDisplay::setContent(SoNode* _content)
     }
 }
 
-void 
-SoDisplay::doAction(SoAction *  action)
-{
-    printf("soDisplay ------------------------------>>>>>>>>>>>>>>>>>>\n");
-}
-
 bool
 SoDisplay::find(SoNode *node)
 {

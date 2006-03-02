@@ -260,7 +260,6 @@ void SoStudierstubeViewer::setOVGLContext(stb::Video* video)
 {
     videoComponent=video;
     shareGLContextWithVideo=true;
-    printf("-------- SoStudierstubeViewer::setOVGLContext(stb::Video* video) ------------\n");
 }
 
 void 

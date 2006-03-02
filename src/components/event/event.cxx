@@ -101,11 +101,9 @@ Event::init()
 void 
 Event::setParameter(stb::string key, std::string value)
 {
-    printf("Event::setParameter(stb::string key, std::string value)\n");
     if(key=="configFile")
     {
         configFile=value;
-        printf("configFile=value=%s",value.c_str());
     }
     //else if()
     //{

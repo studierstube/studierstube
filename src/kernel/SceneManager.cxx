@@ -70,7 +70,6 @@ SceneManager::~SceneManager()
 void
 SceneManager::update()
 {
-    printf("-");
     touchRoot->touch();
 }
 
@@ -122,7 +121,6 @@ SceneManager::setTouchRoot(TOUCHROOT touchNode)
 		    touchRoot=sceneRoot;
 		    break;
 	    case DISPLAY:
-            printf("touchRoot=displayRoot; \n\n");
 		    touchRoot=displayRoot;
 		    break;
 	}

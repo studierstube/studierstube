@@ -148,8 +148,6 @@ Viewer::init()
         if (paths[i]->getTail()->isOfType(SoDisplay::getClassTypeId()))
         {
             SoDisplay *display =(SoDisplay *)paths[i]->getTail();
-            printf("display->touch();\n\n");
-            display->touch();
             // add content to display
             display->setContent(stb::Kernel::getInstance()->getSceneManager()->getSceneRoot());
             stb::Kernel::getInstance()->getSceneManager()->setDisplay(display);
