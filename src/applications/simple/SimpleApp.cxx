@@ -35,8 +35,9 @@
 #include <Inventor/nodes/SoCone.h>
 #include <Inventor/nodes/SoCube.h>
 #include <Inventor/nodes/SoSphere.h>
-#include <stb/components/event/SoTrakEngine.h>
-#include <stb/components/event/SoTrackedArtifactKit.h>
+#include <Inventor/nodes/SoTransform.h>
+#include <stb/components/event/event.h>
+//#include <stb/components/event/SoTrackedArtifactKit.h>
 #include <cstdio>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
@@ -67,8 +68,8 @@ SimpleApp::init()
         isInit=false;
         return false;
     }
-
-    if(!Kernel::getInstance()->getComponentManager()->load("Event"))
+    Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
+    if(!event)
     {
         isInit=true;
         return false;
@@ -81,12 +82,12 @@ SimpleApp::init()
     tran->translation.setValue(0.0,0.0,-6.0);
     root->addChild(tran);
     root->addChild(new SoSphere);
-    //SoTrakEngineInterface* tre= stb::Kernel::getInstance()->createSoTrakEngine();
-    //if(!tre)
-    //{
-    //    isInit=false;
-    //    return false;
-    //}
+    SoTrakEngine* tre= event->createSoTrakEngine();
+    if(!tre)
+    {
+        isInit=false;
+        return false;
+    }
     ////SoTrakEngine *tre=new SoTrakEngine;
     //tre->key.set1Value(0,"blabla");
     //tre->value.set1Value(0,"hi");

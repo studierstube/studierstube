@@ -42,7 +42,7 @@ void SoTrakEngine::initClass(void)
 {    
     if( SoType::fromName("SoTrakEngine").isBad() )
     {
-        SO_ENGINE_INIT_CLASS(SoTrakEngine,stb::SoTrakEngineInterface,"TrakEngineInterface");
+        SO_ENGINE_INIT_CLASS(SoTrakEngine,SoEngine,"Engine");
     }
 }
 

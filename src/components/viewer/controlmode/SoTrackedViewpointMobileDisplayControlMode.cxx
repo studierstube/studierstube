@@ -104,7 +104,10 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
 	//connectHeadTracker(&trackedItemViewpoint->translation, &trackedItemViewpoint->rotation);
 	//connectDisplayTracker(&trackedItemDisplay->translation, &trackedItemDisplay->rotation);
 
-    trHead=stb::Kernel::getInstance()->createSoTrakEngine();
+
+
+
+  /*  trHead=stb::Kernel::getInstance()->createSoTrakEngine();
     if(!trHead)
     {
         printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
@@ -123,7 +126,7 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
     trDisplay->value.set1Value(0,"hi");
 
     connectHeadTracker(trHead);
-    connectDisplayTracker(trDisplay);
+    connectDisplayTracker(trDisplay);*/
 
 	return true;
 }
@@ -135,17 +138,17 @@ SoTrackedViewpointMobileDisplayControlMode::disconnectHeadTracker()
 	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.disconnect();
 }
 
-void 
-SoTrackedViewpointMobileDisplayControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
-{
-    disconnectHeadTracker();
-    // use engine to create tracker to world transformation matrix
-    SoComposeMatrix *ctw = new SoComposeMatrix;
-    ctw->translation.connectFrom(&tracker->translation);
-    ctw->rotation.connectFrom(&tracker->rotation);
-
-    connectHeadTrackerStep2(ctw);
-}
+//void 
+//SoTrackedViewpointMobileDisplayControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
+//{
+//    disconnectHeadTracker();
+//    // use engine to create tracker to world transformation matrix
+//    SoComposeMatrix *ctw = new SoComposeMatrix;
+//    ctw->translation.connectFrom(&tracker->translation);
+//    ctw->rotation.connectFrom(&tracker->rotation);
+//
+//    connectHeadTrackerStep2(ctw);
+//}
 //----------------------------------------------------------------------------
 void
 SoTrackedViewpointMobileDisplayControlMode::connectHeadTracker(SoSFVec3f *trackerTranslation,
@@ -176,26 +179,26 @@ SoTrackedViewpointMobileDisplayControlMode::connectHeadTrackerStep2(SoComposeMat
 	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
 }
 
-void 
-SoTrackedViewpointMobileDisplayControlMode::connectDisplayTracker(stb::SoTrakEngineInterface *tracker)
-{
-    disconnectDisplayTracker();
-
-    // use engine to create tracker to world transformation matrix
-    SoComposeMatrix *ctw = new SoComposeMatrix;
-    ctw->translation.connectFrom(&tracker->translation);
-    ctw->rotation.connectFrom(&tracker->rotation);
-
-    connectDisplayTrackerStep2(ctw);
-
-    // use engines to calculate rotations	
-    MultRotRot *md = new MultRotRot;
-    md->rotationA.connectFrom(&displayRotationOffset);
-    md->rotationB.connectFrom(&tracker->rotation);
-
-    // connect orientations to calculated rotations
-    ((SoOffAxisCamera*)stbCamera->getCamera())->orientation.connectFrom(&md->product);
-}
+//void 
+//SoTrackedViewpointMobileDisplayControlMode::connectDisplayTracker(stb::SoTrakEngineInterface *tracker)
+//{
+//    disconnectDisplayTracker();
+//
+//    // use engine to create tracker to world transformation matrix
+//    SoComposeMatrix *ctw = new SoComposeMatrix;
+//    ctw->translation.connectFrom(&tracker->translation);
+//    ctw->rotation.connectFrom(&tracker->rotation);
+//
+//    connectDisplayTrackerStep2(ctw);
+//
+//    // use engines to calculate rotations	
+//    MultRotRot *md = new MultRotRot;
+//    md->rotationA.connectFrom(&displayRotationOffset);
+//    md->rotationB.connectFrom(&tracker->rotation);
+//
+//    // connect orientations to calculated rotations
+//    ((SoOffAxisCamera*)stbCamera->getCamera())->orientation.connectFrom(&md->product);
+//}
 
 
 //----------------------------------------------------------------------------

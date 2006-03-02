@@ -31,10 +31,10 @@
 /* ======================================================================= */
 
 #include <stb/components/viewer/controlmode/SoTrackedDisplayControlMode.h>
-//#include "StbViewer/SoDisplay.h"
-//#include "StbKernel/StbKernel.h"
-//#include "StbKernel/interfaces/SoTrackedItemInterface.h"
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/event/event.h>
+#include <stb/components/event/SoTrakEngine.h>
 
 SO_NODE_SOURCE(SoTrackedDisplayControlMode);
 
@@ -82,9 +82,15 @@ SoTrackedDisplayControlMode::activate()
     //}
     //trackedItem->stbSinkName.setValue(this->stbSinkName.getValue().getString());
     //display->addTrackedItem(trackedItem);
-    //
     
-    tre=stb::Kernel::getInstance()->createSoTrakEngine();
+    stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    if(!event)
+    {
+        printf("failed to load event system\n");
+        return false;
+    }
+
+    tre=event->createSoTrakEngine();
     if(!tre)
     {
         printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
@@ -96,7 +102,7 @@ SoTrackedDisplayControlMode::activate()
 
     stbCamera->getTransform()->translation.connectFrom(&tre->translation);
     stbCamera->getTransform()->rotation.connectFrom(&tre->rotation);
-    
+    //
 
     return true;
 }

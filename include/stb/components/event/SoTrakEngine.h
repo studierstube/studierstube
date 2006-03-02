@@ -42,40 +42,40 @@
 #include <Inventor/fields/SoSFRotation.h>
 #include <Inventor/fields/SoMFName.h>
 #include <Inventor/fields/SoMFString.h>
-#include <stb/kernel/interfaces/SoTrakEngineInterface.h>
+
 #include "SoInputEvent.h"
 
 template <typename T> class EventAdapter;
 
-class EVENT_API SoTrakEngine : public stb::SoTrakEngineInterface
+class EVENT_API SoTrakEngine : public SoEngine
 {
     SO_ENGINE_HEADER(SoTrakEngine);
 
 public:
-    //SoMFName key;
-    //SoMFString value;
+    SoMFName key;
+    SoMFString value;
 
-    //SoSFVec3f       translationIn;  // input translation
-    //SoSFRotation    rotationIn;     // input rotation
-    //SoSFBool        buttonIn0;      // input button 0
-    //SoSFBool        buttonIn1;      // input button 1
-    //SoSFBool        buttonIn2;      // input button 2
-    //SoSFBool        buttonIn3;      // input button 3
-    //SoSFBool        buttonIn4;      // input button 4
-    //SoSFBool        buttonIn5;      // input button 5
-    //SoSFBool        buttonIn6;      // input button 6
-    //SoSFBool        buttonIn7;      // input button 7
+    SoSFVec3f       translationIn;  // input translation
+    SoSFRotation    rotationIn;     // input rotation
+    SoSFBool        buttonIn0;      // input button 0
+    SoSFBool        buttonIn1;      // input button 1
+    SoSFBool        buttonIn2;      // input button 2
+    SoSFBool        buttonIn3;      // input button 3
+    SoSFBool        buttonIn4;      // input button 4
+    SoSFBool        buttonIn5;      // input button 5
+    SoSFBool        buttonIn6;      // input button 6
+    SoSFBool        buttonIn7;      // input button 7
 
-    //SoEngineOutput  translation;    // (SoSFVec3f) tracker translation
-    //SoEngineOutput  rotation;       // (SoSFRotation) tracker rotation
-    //SoEngineOutput  button0;        // (SoSFBool) tracker button 0 value
-    //SoEngineOutput  button1;        // (SoSFBool) tracker button 1 value
-    //SoEngineOutput  button2;        // (SoSFBool) tracker button 2 value
-    //SoEngineOutput  button3;        // (SoSFBool) tracker button 3 value
-    //SoEngineOutput  button4;        // (SoSFBool) tracker button 4 value
-    //SoEngineOutput  button5;        // (SoSFBool) tracker button 5 value
-    //SoEngineOutput  button6;        // (SoSFBool) tracker button 6 value
-    //SoEngineOutput  button7;        // (SoSFBool) tracker button 7 value
+    SoEngineOutput  translation;    // (SoSFVec3f) tracker translation
+    SoEngineOutput  rotation;       // (SoSFRotation) tracker rotation
+    SoEngineOutput  button0;        // (SoSFBool) tracker button 0 value
+    SoEngineOutput  button1;        // (SoSFBool) tracker button 1 value
+    SoEngineOutput  button2;        // (SoSFBool) tracker button 2 value
+    SoEngineOutput  button3;        // (SoSFBool) tracker button 3 value
+    SoEngineOutput  button4;        // (SoSFBool) tracker button 4 value
+    SoEngineOutput  button5;        // (SoSFBool) tracker button 5 value
+    SoEngineOutput  button6;        // (SoSFBool) tracker button 6 value
+    SoEngineOutput  button7;        // (SoSFBool) tracker button 7 value
 
     SoTrakEngine(void);
     static void initClass(void);
@@ -91,10 +91,10 @@ protected:
     friend class EventAdapter<SoTrakEngine>;
 };
 
-extern "C" 
-{
-    EVENT_API SoTrakEngine* createTrakEngine();
-}
+//extern "C" 
+//{
+//    EVENT_API SoTrakEngine* createTrakEngine();
+//}
 
 #endif
 

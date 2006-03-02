@@ -63,11 +63,24 @@
     #define EVENT_API
 #endif
 
-
-BEGIN_NAMESPACE_STB
 /**
 *	
 */
+class SoTrakEngine;
+class SoTrackedArtifactKit;
+class SoTrakEngine;
+class SoOpenTrackerSource;
+class SoEventGroup;
+class SoEventKit;
+class SoEventNode;
+class SoEventSeparator;
+class SoEventSource;
+class SoInputEvent;
+class SoEventRoot;
+class SoEventAction;
+
+
+BEGIN_NAMESPACE_STB
 class Event : public stb::Component
 {
 public:
@@ -86,6 +99,20 @@ public:
     virtual void shutDown();
     //
     virtual void setParameter(stb::string key, std::string value);
+
+    virtual SoTrakEngine* createSoTrakEngine();
+    virtual SoTrackedArtifactKit* createSoTrackedArtifactKit();
+    virtual SoOpenTrackerSource* createSoOpenTrackerSource();
+    virtual SoEventGroup* createSoEventGroup();
+    virtual SoEventKit* createSoEventKit();
+    virtual SoEventNode* createSoEventNode();
+    virtual SoEventSeparator* createSoEventSeparator();
+    virtual SoEventSource* createSoEventSource();
+    virtual SoInputEvent* createSoInputEvent();
+    virtual SoEventRoot* createSoEventRoot();
+    virtual SoEventAction* createSoEventAction();
+
+    
 
 protected:	
     stb::string configFile; 

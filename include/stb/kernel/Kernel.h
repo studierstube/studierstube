@@ -42,14 +42,7 @@ class SoSensor;
 
 #include <stb/kernel/Scheduler.h>
 
-// define here search paths for config files
-#ifdef LINUX
-#define STB_CONFIG_PATH1 "/usr/share/stb/"
-#define STB_CONFIG_PATH2 "/usr/local/share/stb/"
-#define STB_HOME ".stb/"
-#endif
 
-#define KERNEL_CONFIG_FILE "kernel.xml"
 
 /**
 *
@@ -105,8 +98,6 @@ public:
 
     stb::ComponentManager* getComponentManager(){return componentManager;}
 
-    stb::SoTrakEngineInterface* createSoTrakEngine();
-
 protected:	
     ///////////////////// 
     /**
@@ -141,7 +132,13 @@ protected:
     */
     stb::string logFile;
 
+    stb::string getKernelConfig(int argc, char* argv[]);
 
+    // define here search paths for config files
+    stb::string STB_CONFIG_PATH1; //"/usr/share/stb/"
+    stb::string STB_CONFIG_PATH2;// "/usr/local/share/stb/"
+    stb::string STB_HOME;// ".stb/"
+    stb::string KERNEL_CONFIG_FILE;// "kernel.xml"
     /*
     *                                                                    
     */

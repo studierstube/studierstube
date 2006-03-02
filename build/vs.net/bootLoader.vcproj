@@ -20,11 +20,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(STB4ROOT)/include"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(STB4ROOT)/include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -33,9 +33,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="aced.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/studierstubed.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="$(ACEROOT)/lib"
 				DelayLoadDLLs=""
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Debug_bootloader/stbBootLoaderd.pdb"
@@ -133,12 +134,6 @@
 				Filter="">
 				<File
 					RelativePath="..\..\include\stb\base\macros.h">
-				</File>
-				<File
-					RelativePath="..\..\src\base\OS.cxx">
-				</File>
-				<File
-					RelativePath="..\..\include\stb\base\OS.h">
 				</File>
 				<File
 					RelativePath="..\..\src\base\string.cxx">

@@ -305,7 +305,7 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
             if( key.compare("DEF") != 0 )
                 sink->attributes[key.c_str()] = attributes.get(key).c_str();
         }
-
+	
         return sink;
     } 
     else if( name.compare("EventSource") == 0 )

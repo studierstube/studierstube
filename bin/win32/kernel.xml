@@ -25,13 +25,13 @@
 	            availability="onload"	
         	    lib="stbvideo">
 	    <Param key   ="configFile" 
-		       value ="openvideo.xml" />	
+		        value ="openvideo.xml" />	
 	</Component>
 	
-	<Application 
-	    name="SimpleApp"
-		availablity="onload"
-		lib="simple"	
-	/>
+    <Application name="SimpleApp"
+                availability="onload"
+                lib="simple"
+    />
+    
 
 </studierstube>

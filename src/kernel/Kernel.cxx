@@ -44,7 +44,7 @@
 #include <stb/kernel/SceneManager.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/ComponentInfo.h>
-#include <stb/kernel/interfaces/SoTrakEngineInterface.h>
+
 
 #include <fstream>
 #include <sstream>
@@ -55,6 +55,7 @@ BEGIN_NAMESPACE_STB
 
 Kernel*	Kernel::instance=NULL;
 
+
 Kernel::Kernel()
 {
     ACE::init();
@@ -62,14 +63,18 @@ Kernel::Kernel()
     // 
     logMode=OFF;
 	logFile="kernelLog.txt";
-            //
-            config=new stb::Config();
-	
-            scheduler= new stb::Scheduler();
-            sceneManager= new stb::SceneManager();
-            componentManager= new stb::ComponentManager();
-            stb::SoTrakEngineInterface::initClass();
-            //////
+    //
+    config=new stb::Config();
+
+    scheduler= new stb::Scheduler();
+    sceneManager= new stb::SceneManager();
+    componentManager= new stb::ComponentManager();
+
+    //////
+    STB_CONFIG_PATH1="/usr/share/stb/";
+    STB_CONFIG_PATH2= "/usr/local/share/stb/";
+	STB_HOME=".stb/";
+    KERNEL_CONFIG_FILE="kernel.xml";
 }
 
 Kernel::~Kernel()
@@ -92,16 +97,9 @@ Kernel::getInstance()
     return instance;
 }
 
-
-//static
-void 
-Kernel::start(int argc, char* argv[])
+stb::string 
+Kernel::getKernelConfig(int argc, char* argv[])
 {
-    log("****************************************\n");
-    log(STUDIERSTUBE_VERSION_STRING);log("\n");
-    log("(C) ");log(STUDIERSTUBE_YEAR_STRING);log(" Graz University of Technology\n");
-    log("****************************************\n\n");
-    
 #ifdef LINUX
     using namespace std;
     ifstream in;
@@ -115,7 +113,7 @@ Kernel::start(int argc, char* argv[])
 
     logEx("Search for kernel config file in %s ... ", fn.str().c_str());
     in.open(fn.str().c_str(), ios::in);
-    
+
     // if not found, use global1
     if (!in.is_open()) {
         log("not found.\n");
@@ -142,10 +140,29 @@ Kernel::start(int argc, char* argv[])
     }
     log("found.\n");
     in.close();
-    config->parseXML(fn.str().c_str());
-#else
-    config->parseXML(KERNEL_CONFIG_FILE);
+    return fn.str();
 #endif
+
+#ifdef WIN32
+   
+    return this->KERNEL_CONFIG_FILE;
+
+#endif
+}
+
+//static
+void 
+Kernel::start(int argc, char* argv[])
+{
+    log("****************************************\n");
+    log(STUDIERSTUBE_VERSION_STRING);log("\n");
+    log("(C) ");log(STUDIERSTUBE_YEAR_STRING);log("Graz University of Technology\n");
+    log("****************************************\n\n");
+    
+    stb::string kernelConfigFile=getKernelConfig(argc,argv);
+    //if(kernelConfigFile.)
+
+    config->parseXML(kernelConfigFile);
 	
     scheduler->init();
     scheduler->schedule();
@@ -242,24 +259,24 @@ Kernel::getSceneManager()
 }
 
 
-stb::SoTrakEngineInterface*
-Kernel::createSoTrakEngine()
-{
-    stb::SoTrakEngineInterface* tEngine=NULL;
-    //get handle to event system
-    Component* comp=componentManager->load("Event");
-    if(!comp)
-    {
-        printf("failed to load event system\n");
-        return tEngine;
-    }
-    // //os_GetProcAddress
-    stb::SoTrakEngineInterface* (*createTrakEngine)()=NULL;
-    createTrakEngine = (stb::SoTrakEngineInterface*(*)())os_GetProcAddress(comp->getInfo()->getLibHandle(),"createTrakEngine");
-    if(createTrakEngine)
-        tEngine=(*createTrakEngine)();
-    return tEngine;
-}
+//stb::SoTrakEngineInterface*
+//Kernel::createSoTrakEngine()
+//{
+//    stb::SoTrakEngineInterface* tEngine=NULL;
+//    //get handle to event system
+//    Component* comp=componentManager->load("Event");
+//    if(!comp)
+//    {
+//        printf("failed to load event system\n");
+//        return tEngine;
+//    }
+//    // //os_GetProcAddress
+//    stb::SoTrakEngineInterface* (*createTrakEngine)()=NULL;
+//    createTrakEngine = (stb::SoTrakEngineInterface*(*)())os_GetProcAddress(comp->getInfo()->getLibHandle(),"createTrakEngine");
+//    if(createTrakEngine)
+//        tEngine=(*createTrakEngine)();
+//    return tEngine;
+//}
 
 END_NAMESPACE_STB
 

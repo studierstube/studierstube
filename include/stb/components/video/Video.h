@@ -34,6 +34,7 @@
 #define _VIDEO_H_
 #include <stb/base/macros.h>
 #include <stb/kernel/ComponentThread.h>
+#include <stb/components/video/VideoInterface.h>
 
 //#ifdef WIN32
 //    #ifdef STBVIEWER_EXPORTS
@@ -48,6 +49,7 @@
 
 namespace openvideo{
     class Manager;
+    class GL_TEXTURE_2D_Sink;
 }
 
 BEGIN_NAMESPACE_STB
@@ -73,12 +75,23 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
+    virtual void setGLContext(HGLRC glContext,HDC dc);
+    
+    virtual void* getOpenVideoNode(const char *nodeName);
+
+    virtual void aquire2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
+    virtual void release2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
+    virtual int getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink);
+
 protected:	
     stb::string configFile; 
+
     openvideo::Manager* ovManager;
-    
+
+    bool isGLContext;
+
     virtual void run();
- 
+
 private:
 	
 };// class 

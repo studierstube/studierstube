@@ -31,6 +31,15 @@
  /* ======================================================================= */
 
 #include <stb/components/viewer/SoVideoBackground.h>
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/video/Video.h>
+
+#define ENABLE_GL_TEXTURE_2D_SINK
+#include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
+
 
 #ifdef WIN32
 	#include <windows.h>
@@ -60,7 +69,8 @@ SoVideoBackground::SoVideoBackground()
 void 
 SoVideoBackground::GLRender(SoGLRenderAction *action)
 {
-     if(!isInitialized)
+    
+    if(!isInitialized)
     {
 	    isInitialized=initVideoBackground();
     }
@@ -74,12 +84,75 @@ SoVideoBackground::GLRender(SoGLRenderAction *action)
 bool
 SoVideoBackground::initVideoBackground()
 {
-	return true;
+    SoDisplay* display=SoDisplay::findSoDisplay(this);
+    if(!display)
+        return false;
+
+    video=(stb::Video*)stb::Kernel::getInstance()->getComponentManager()->load("Video");
+    if(!video)
+        return false;       
+    ovStbSinkNode=(openvideo::GL_TEXTURE_2D_Sink*)video->getOpenVideoNode(ovStbSink.getValue().getString());
+
+    SoStudierstubeViewer* stbViewer=display->getViewer();
+    if(!stbViewer)
+        return false;
+
+    if(stbViewer->isOVGLContext())
+        return true;
+
+    stbViewer->setOVGLContext(video);
+    return false;
 }
 
 bool
 SoVideoBackground::blitOverlay() 
 {
-   return true;
+    if(!ovStbSinkNode ) 
+        return false;
+
+    video->aquire2DTextureSink(ovStbSinkNode);
+
+    /////////preGLCalls()
+    glPushMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_LIGHTING);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    ///////////////////////    
+
+    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+    glEnable(GL_TEXTURE_2D);
+
+
+
+    // redraw texture
+    glBindTexture(GL_TEXTURE_2D,  video->getTextureID(ovStbSinkNode));
+    glBegin(GL_QUADS);
+    // video backplate
+    glTexCoord2f(ovStbSinkNode->t_u0,ovStbSinkNode->t_v0); glVertex3f(-1.0f, -1.0f,  0.0f);
+    glTexCoord2f(ovStbSinkNode->t_u1,ovStbSinkNode->t_v0); glVertex3f( 1.0f, -1.0f,  0.0f);
+    glTexCoord2f(ovStbSinkNode->t_u1,ovStbSinkNode->t_v1); glVertex3f( 1.0f,  1.0f,  0.0f);
+    glTexCoord2f(ovStbSinkNode->t_u0,ovStbSinkNode->t_v1); glVertex3f(-1.0f,  1.0f,  0.0f);
+
+    glEnd();
+
+    glDisable(GL_TEXTURE_2D);
+
+    ///postGLCalls()
+    glPopAttrib();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    //////////////////////
+    video->release2DTextureSink(ovStbSinkNode);
+    return true;
 }
 

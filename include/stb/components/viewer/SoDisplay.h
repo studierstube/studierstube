@@ -47,13 +47,14 @@
 #include <Inventor/fields/SoSFNode.h>
 
 #include <vector>
-//	SoDisplay
+    //	SoDisplay
 //=============
 // Fields:	* root (SoSeparator - the viewer's root node)
 //			* content (SoSeparator - the display's content)
 //			* stbCameraList (list of stbCameras used in the associated viewer) 
 
 class SoStudierstubeViewer;
+
 class SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);
@@ -107,7 +108,7 @@ public:
         SORTED_OBJECT_SORTED_TRIANGLE_BLEND = SoGLRenderAction::SORTED_OBJECT_SORTED_TRIANGLE_BLEND,
         SORTED_LAYERS_BLEND = SoGLRenderAction::SORTED_LAYERS_BLEND
     };
-    
+
     /** Specifies the position of the upper-left corner of the viewer window.
         (in pixels) 
         note: (0,0) is the upper-left corner of the screen.
@@ -170,7 +171,14 @@ public:
 	SoStudierstubeViewer* getViewer();
 
     void setContent(SoNode* _content);
+
+    static SoDisplay* findSoDisplay(SoNode* node);
+
+    virtual void doAction  (  SoAction *  action   );
+
  protected:
+   
+
     SoStudierstubeViewer* viewer;
     
     /**
@@ -188,6 +196,9 @@ public:
      */
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
     
+    static std::vector<SoDisplay*> displayList;
+
+    bool find(SoNode *node);
  };
 
 //----------------------------------------------------------------------------

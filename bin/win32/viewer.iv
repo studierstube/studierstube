@@ -129,9 +129,10 @@ SoDisplay
 	  ######################################
 	  ######## Video #######################
 	  ######################################
-	  #videoBackground SoVideoBackgroundOV{
-	  # ovStbSink "stbSink1"
-	  #}
+	  videoBackground SoVideoBackground
+	  {
+	    ovStbSink "stbSink"
+	  }
 
 	  ######################################
 	  ######## Content #####################

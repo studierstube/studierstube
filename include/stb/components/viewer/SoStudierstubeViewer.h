@@ -41,6 +41,8 @@
 #endif
 #include <Inventor/nodes/SoDirectionalLight.h> 
 
+#include <stb/components/video/Video.h>
+
 class SoStudierstubeViewer : public SoGuiExaminerViewer
 {
 public:
@@ -115,13 +117,19 @@ public:
      */
     void setWindowPosSize(int x, int y, int width, int height);
 
+    void setOVGLContext(stb::Video* video);
 
-
+#ifdef WIN32
+    HGLRC curGLContext;
+    HDC   curDC;
+#endif
+    bool isOVGLContext(){return isVideoGLContext;}
 protected:
 	void redraw ();
-
-	bool isVideoInitialized;
-
+    bool isVideoGLContext;
+	bool shareGLContextWithVideo;
+    
+    stb::Video* videoComponent;
 private:
 	/** Stores a flag to indicate if window decorations are activated */
     SbBool isWindowDecorationActive;

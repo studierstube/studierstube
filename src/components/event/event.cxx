@@ -119,6 +119,73 @@ Event::shutDown()
 
 }
 
+SoTrakEngine*
+Event::createSoTrakEngine()
+{
+    return new SoTrakEngine();
+}
+
+SoTrackedArtifactKit* 
+Event::createSoTrackedArtifactKit()
+{
+    return new SoTrackedArtifactKit();
+}
+
+
+SoOpenTrackerSource* 
+Event::createSoOpenTrackerSource()
+{
+    return new SoOpenTrackerSource();
+}
+
+SoEventGroup* 
+Event::createSoEventGroup()
+{
+    return new SoEventGroup();
+}
+
+SoEventKit* 
+Event::createSoEventKit()
+{
+    return new SoEventKit();
+}
+
+SoEventNode* 
+Event::createSoEventNode()
+{
+    return new SoEventNode();
+}
+
+SoEventSeparator* 
+Event::createSoEventSeparator()
+{
+    return new SoEventSeparator();
+}
+
+SoEventSource* 
+Event::createSoEventSource()
+{
+    return new SoEventSource();
+}
+
+SoInputEvent* 
+Event::createSoInputEvent()
+{
+    return new SoInputEvent();
+}
+
+SoEventRoot* 
+Event::createSoEventRoot()
+{
+    return new SoEventRoot();
+}
+
+SoEventAction* 
+Event::createSoEventAction()
+{
+    return new SoEventAction();
+}
+
 END_NAMESPACE_STB
 //========================================================================
 // End of Event.cxx

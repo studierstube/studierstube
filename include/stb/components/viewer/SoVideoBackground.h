@@ -37,6 +37,14 @@
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/fields/SoSFString.h> 
 
+namespace openvideo{
+class    GL_TEXTURE_2D_Sink;
+}
+
+namespace stb{
+class Video;
+}
+
 class  SoVideoBackground : public SoNode
 {
    SO_NODE_HEADER(SoVideoBackground);
@@ -70,6 +78,9 @@ protected:
 
    bool isInitialized;
    bool unableToInitialize;
+   openvideo::GL_TEXTURE_2D_Sink* ovStbSinkNode;
+   stb::Video*  video;
+  
 };
 
 

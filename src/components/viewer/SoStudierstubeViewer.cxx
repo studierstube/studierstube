@@ -50,12 +50,16 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 {
     isWindowDecorationActive=TRUE;
     headlight=NULL;
-    isVideoInitialized=false;
+    shareGLContextWithVideo=false;
     SoGLRenderAction* renderAction = this->getGLRenderAction();
     renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);
+    
+    curDC=NULL;
+    curGLContext=NULL;
+    isVideoGLContext=false;
 }
 
 
@@ -251,16 +255,57 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
         this->setSize(SbVec2s(width, height));
 }
 
+
+void SoStudierstubeViewer::setOVGLContext(stb::Video* video)
+{
+    videoComponent=video;
+    shareGLContextWithVideo=true;
+    printf("-------- SoStudierstubeViewer::setOVGLContext(stb::Video* video) ------------\n");
+}
+
 void 
 SoStudierstubeViewer::redraw ()
 {
-    if(!isVideoInitialized)
+    if(!isVideoGLContext && shareGLContextWithVideo)
     {
-	    isVideoInitialized=true;
-	    this->glLockNormal(); // this makes the GL context "current"
-	    //if(OpenVideoContext::getInstance()->startOpenVideo())
-	    //	setClearBeforeRender(FALSE);
+         this->glLockNormal(); // this makes the GL context "current"
+       
+        curDC=wglGetCurrentDC();
+        if(!curDC){
+            printf("StbError: failed to get current dc \n ");
+        }
+
+        HGLRC curStbContext=wglGetCurrentContext();
+        if(!curStbContext){
+            printf("StbError: failed to get current context \n");
+        }
+
+
+        if(curDC && curStbContext)
+        {
+            PIXELFORMATDESCRIPTOR pfd;
+
+            DescribePixelFormat(curDC, 1, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
+            ChoosePixelFormat(curDC, &pfd );
+
+            curGLContext=wglCreateContext(curDC);	
+            if(!curGLContext)
+            {
+                printf("failed to create new opengl context \n");
+                printf("%s\n",GetLastError());
+            }
+            else{
+                if(!wglShareLists(curGLContext, curStbContext))
+                {
+                    printf("OV: failed to share opengl context \n");
+                    printf("%i\n",::GetLastError());
+                }
+            }
+        }
+
+        videoComponent->setGLContext(curGLContext,curDC);
 	    this->glUnlockNormal();// this releases the GL contex	
+        isVideoGLContext=true;
     }
     SoGuiExaminerViewer::redraw();
 }

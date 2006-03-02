@@ -43,6 +43,7 @@
 
 #include <Inventor/actions/SoSearchAction.h>
 
+std::vector<SoDisplay*> SoDisplay::displayList;
 
 SO_NODE_SOURCE(SoDisplay);
 
@@ -91,6 +92,9 @@ SoDisplay::SoDisplay()
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_OBJECT_SORTED_TRIANGLE_BLEND);
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_LAYERS_BLEND);
     SO_NODE_SET_SF_ENUM_TYPE(transparencyType, TransparencyType);
+
+    SoDisplay::displayList.push_back(this);;
+
 }
 
 //----------------------------------------------------------------------------
@@ -271,5 +275,37 @@ SoDisplay::setContent(SoNode* _content)
     }
 }
 
+void 
+SoDisplay::doAction(SoAction *  action)
+{
+    printf("soDisplay ------------------------------>>>>>>>>>>>>>>>>>>\n");
+}
 
+bool
+SoDisplay::find(SoNode *node)
+{
+    SoSearchAction sAction;
+    sAction.reset();
+    sAction.SoSearchAction::setNode(node);
+    sAction.setSearchingAll(TRUE);
+    sAction.apply((SoSeparator*)displayRoot);
+    SoPath *path = sAction.getPath();
+    if(path!=NULL){
+        return false;
+    }  
+    return true;
+}
 
+SoDisplay*
+SoDisplay::findSoDisplay(SoNode* node)
+{
+    for(int i=0;i<(int)(SoDisplay::displayList).size();i++)
+    {
+        //search for the display this videobackground node exists in 
+        if(SoDisplay::displayList[i]->find(node))
+        {
+            return SoDisplay::displayList[i];
+        }
+    }
+    return NULL;
+}

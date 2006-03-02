@@ -34,7 +34,6 @@
 #define _SOTRACKEDVIEWPOINTMOBILEDISPLAYCONTROLMODE_H_
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
-#include <stb/kernel/interfaces/SoTrakEngineInterface.h>
 
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/engines/SoCompose.h> 
@@ -81,11 +80,11 @@ private:
 	void connectDisplayTracker(SoSFVec3f *trackerTranslation,SoSFRotation *trackerRotation);
 	void connectDisplayTrackerStep2(SoComposeMatrix *ctw);
 
-    void connectHeadTracker(stb::SoTrakEngineInterface *tracker);
-    void connectDisplayTracker(stb::SoTrakEngineInterface *tracker);
+    //void connectHeadTracker(stb::SoTrakEngineInterface *tracker);
+    //void connectDisplayTracker(stb::SoTrakEngineInterface *tracker);
 
-    stb::SoTrakEngineInterface* trHead;
-    stb::SoTrakEngineInterface* trDisplay;
+    //stb::SoTrakEngineInterface* trHead;
+    //stb::SoTrakEngineInterface* trDisplay;
 };
 	
 

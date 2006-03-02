@@ -35,7 +35,9 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Studierstube.h>
 
+
 class SoSeparator;
+class SoGroup;
 class SbName;
 class SoNode;
 
@@ -68,7 +70,7 @@ public:
 
 	SoSeparator* getDisplayRoot();
     
-    void setDisplay(SoNode *display);
+    void setDisplay(SoGroup *display);
 
     void setTrackerSource(SoNode *otSource);
 

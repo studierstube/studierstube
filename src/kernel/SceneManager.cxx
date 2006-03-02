@@ -33,6 +33,7 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/SbName.h>
 #include <Inventor/nodes/SoNode.h>
+#include <Inventor/nodes/SoGroup.h>
 
 BEGIN_NAMESPACE_STB
 
@@ -58,7 +59,6 @@ SceneManager::SceneManager()
    root->addChild(sceneRoot);
    sceneRoot->addChild(trackRoot);
    root->addChild(displayRoot);
-   displayRoot->addChild(new SoSeparator); 
    touchRoot=root;
 }
 
@@ -71,7 +71,7 @@ void
 SceneManager::update()
 {
     printf("-");
-	touchRoot->touch();
+    touchRoot->touch();
 }
 
 void 
@@ -100,10 +100,14 @@ SceneManager::setTrackerSource(SoNode *otSource)
 
 
 void 
-SceneManager::setDisplay(SoNode *display)
+SceneManager::setDisplay(SoGroup *display)
 {
     displayRoot->addChild(display);
-    setTouchRoot(DISPLAY);
+    
+    if(display->getNumChildren()>0)
+    {
+        touchRoot=((SoGroup*)display)->getChild(0);
+    }
 }
 
 void
@@ -118,6 +122,7 @@ SceneManager::setTouchRoot(TOUCHROOT touchNode)
 		    touchRoot=sceneRoot;
 		    break;
 	    case DISPLAY:
+            printf("touchRoot=displayRoot; \n\n");
 		    touchRoot=displayRoot;
 		    break;
 	}

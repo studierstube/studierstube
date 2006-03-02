@@ -78,17 +78,17 @@ SoTrackedViewpointControlMode::activate()
 		return false;
 
 
-    tre=stb::Kernel::getInstance()->createSoTrakEngine();
-    if(!tre)
-    {
-        printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
-        return false;
-    }
-    tre->key.set1Value(0,"blabla");
-    tre->value.set1Value(0,"hi");
+ //   tre=stb::Kernel::getInstance()->createSoTrakEngine();
+ //   if(!tre)
+ //   {
+ //       printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+ //       return false;
+ //   }
+ //   tre->key.set1Value(0,"blabla");
+ //   tre->value.set1Value(0,"hi");
 
-	//set up connection
-	connectHeadTracker(tre);
+	////set up connection
+	//connectHeadTracker(tre);
 
 	return true;
 }
@@ -101,18 +101,18 @@ SoTrackedViewpointControlMode::disconnectHeadTracker()
 }
 
 //----------------------------------------------------------------------------
-void 
-SoTrackedViewpointControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
-{
-    disconnectHeadTracker();
-
-    // use engine to create tracker to world transformation matrix
-    SoComposeMatrix *ctw = new SoComposeMatrix;
-    ctw->translation.connectFrom(&tracker->translation);
-    ctw->rotation.connectFrom(&tracker->rotation);
-
-    connectHeadTrackerStep2(ctw);
-}
+//void 
+//SoTrackedViewpointControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
+//{
+//    disconnectHeadTracker();
+//
+//    // use engine to create tracker to world transformation matrix
+//    SoComposeMatrix *ctw = new SoComposeMatrix;
+//    ctw->translation.connectFrom(&tracker->translation);
+//    ctw->rotation.connectFrom(&tracker->rotation);
+//
+//    connectHeadTrackerStep2(ctw);
+//}
 
 
 //----------------------------------------------------------------------------
