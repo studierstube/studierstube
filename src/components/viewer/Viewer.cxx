@@ -77,6 +77,7 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
+    printf("Viewer::init()\n");
     if(isInit)
         return true;
     isInit=true;

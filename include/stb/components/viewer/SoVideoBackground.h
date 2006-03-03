@@ -54,7 +54,7 @@ class  SoVideoBackground : public SoNode
 
    SoVideoBackground();
 
-   virtual ~SoVideoBackground() {}
+   virtual ~SoVideoBackground(){}
 
    /** 
     * initializes the video overlay to a given window size.

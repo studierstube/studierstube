@@ -69,7 +69,7 @@ Event::init()
     if(isInit)
         return isInit;
     isInit=true;
-    std::cout<<"init Event\n";
+
     //get viewer's parameter
     retrieveParameter();
     SoTrackedArtifactKit::initClass();

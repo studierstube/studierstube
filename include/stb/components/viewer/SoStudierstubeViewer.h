@@ -123,11 +123,12 @@ public:
     HGLRC curGLContext;
     HDC   curDC;
 #endif
-    bool isOVGLContext(){return isVideoGLContext;}
+    bool isOVGLContext(){return isGLContextShared;}
 protected:
 	void redraw ();
     bool isVideoGLContext;
 	bool shareGLContextWithVideo;
+    bool isGLContextShared;
     
     stb::Video* videoComponent;
 private:

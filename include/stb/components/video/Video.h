@@ -76,6 +76,8 @@ public:
     virtual void setParameter(stb::string key, std::string value);
 
     virtual void setGLContext(HGLRC glContext,HDC dc);
+
+    virtual void deleteGLContext(HGLRC glContext);
     
     virtual void* getOpenVideoNode(const char *nodeName);
 

@@ -60,6 +60,7 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     curDC=NULL;
     curGLContext=NULL;
     isVideoGLContext=false;
+    isGLContextShared=false;
 }
 
 
@@ -67,6 +68,10 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 // Destructor, does some clean up work.
 SoStudierstubeViewer::~SoStudierstubeViewer()
 {
+    if(isGLContextShared)
+    {
+        videoComponent->deleteGLContext(curGLContext);
+    }
 }
 
 //----------------------------------------------------------------------------
@@ -256,8 +261,10 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 }
 
 
-void SoStudierstubeViewer::setOVGLContext(stb::Video* video)
+void 
+SoStudierstubeViewer::setOVGLContext(stb::Video* video)
 {
+     printf("setOVGLContext(stb::Video* video)\n\n");
     videoComponent=video;
     shareGLContextWithVideo=true;
 }
@@ -265,9 +272,9 @@ void SoStudierstubeViewer::setOVGLContext(stb::Video* video)
 void 
 SoStudierstubeViewer::redraw ()
 {
-    if(!isVideoGLContext && shareGLContextWithVideo)
+    if(!isVideoGLContext)
     {
-         this->glLockNormal(); // this makes the GL context "current"
+        this->glLockNormal(); // this makes the GL context "current"
        
         curDC=wglGetCurrentDC();
         if(!curDC){
@@ -285,7 +292,7 @@ SoStudierstubeViewer::redraw ()
             PIXELFORMATDESCRIPTOR pfd;
 
             DescribePixelFormat(curDC, 1, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
-            ChoosePixelFormat(curDC, &pfd );
+            //ChoosePixelFormat(curDC, &pfd );
 
             curGLContext=wglCreateContext(curDC);	
             if(!curGLContext)
@@ -300,11 +307,17 @@ SoStudierstubeViewer::redraw ()
                     printf("%i\n",::GetLastError());
                 }
             }
-        }
-
-        videoComponent->setGLContext(curGLContext,curDC);
+        }      
 	    this->glUnlockNormal();// this releases the GL contex	
         isVideoGLContext=true;
+    }
+    if(!isGLContextShared && shareGLContextWithVideo)
+    {
+        isGLContextShared=true;
+        this->glLockNormal(); // this makes the GL context "current"
+        videoComponent->setGLContext(curGLContext,curDC);
+        this->glUnlockNormal();// this releases the GL contex	
+        
     }
     SoGuiExaminerViewer::redraw();
 }

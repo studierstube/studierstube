@@ -149,7 +149,7 @@ Kernel::getKernelConfig(int argc, char* argv[])
 #endif
 }
 
-//static
+//
 void 
 Kernel::start(int argc, char* argv[])
 {

@@ -12,14 +12,16 @@
 	<Param key   ="configFile" 
 		   value ="opentracker.xml" />	
 	</Component>
+	
 
-
-	<Component  name="Viewer"
-	        availability="ondemand"	
+		<Component  name="Viewer"
+	        availability="onload"	
         	lib="stbviewer">
 	    <Param key   ="configFile" 
 		       value ="viewer.iv" />	
 	</Component>
+
+
 	
 	<Component  name="Video"
 	            availability="onload"	
@@ -27,6 +29,7 @@
 	    <Param key   ="configFile" 
 		        value ="openvideo.xml" />	
 	</Component>
+	
 	
     <Application name="SimpleApp"
                 availability="onload"

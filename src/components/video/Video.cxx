@@ -57,6 +57,7 @@ Video::~Video()
 bool 
 Video::init()
 {
+    printf("Video::init()\n");
     if(isInit)
         return true;
     isInit=true;
@@ -98,6 +99,12 @@ Video::run()
 
     return;
 }
+
+ void 
+ Video::deleteGLContext(HGLRC glContext)
+ {
+     printf("delete context\n");
+ }
 
 void 
 Video::setGLContext(HGLRC glContext,HDC dc)

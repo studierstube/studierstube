@@ -67,6 +67,7 @@ public:
     */
     ~Kernel();
 
+
     /**
     *	Creates and starts a new kernel. 
     *	The function also initializes ACE and Inventor.
