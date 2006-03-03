@@ -94,7 +94,7 @@ Video::run()
     if(!ovManager->parseConfiguration(configFile.c_str())){
         return;
     }
-    ovManager->initTraverasal();
+    ovManager->initTraversal();
     ovManager->run();
 
     return;
