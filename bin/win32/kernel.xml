@@ -24,7 +24,7 @@
 
 	
 	<Component  name="Video"
-	            availability="onload"	
+	            availability="ondemand"	
         	    lib="stbvideo">
 	    <Param key   ="configFile" 
 		        value ="openvideo.xml" />	

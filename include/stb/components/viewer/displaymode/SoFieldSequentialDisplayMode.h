@@ -70,7 +70,7 @@ protected:
 
 	virtual void setViewer(SoStudierstubeViewer* aViewer);
 
-	bool isQuadBufferAvailable;
+	static bool isQuadBufferAvailable;
 
 	static bool isInit;
 };

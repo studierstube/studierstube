@@ -108,7 +108,7 @@ SoDisplay
 	  ######################################
 	  ######## DisplayMode #################
 	  ######################################	  
-	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	   displayMode SoFieldSequentialDisplayMode{buffer RIGHT}
 	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
 	  
@@ -129,10 +129,10 @@ SoDisplay
 	  ######################################
 	  ######## Video #######################
 	  ######################################
-	  videoBackground SoVideoBackground
-	  {
-	    ovStbSink "stbSink"
-	  }
+	  #videoBackground SoVideoBackground
+	  #{
+	  #  ovStbSink "stbSink"
+	  #}
 
 	  ######################################
 	  ######## Content #####################
@@ -141,12 +141,12 @@ SoDisplay
 	  
     }#SoStbCamera 1
     
+
     SoStbCamera
-	{
-	  ######## The Content  ###########
-	  #content USE Content2
-	  
-	  ######## Camera Configuration ###########
+    { 
+	  ######################################
+	  ######## Camera ######################
+	  ######################################
 	  camera 
 	  #SoPerspectiveCamera
 	  #{
@@ -154,15 +154,15 @@ SoDisplay
 	  #  orientation 0 0 1 0
 	  SoOffAxisCamera
 	  {
-	  #  viewportMapping LEAVE_ALONE
-	  #  position -0.037045 0.168842 0.236637
-	  #  orientation 0.999133 -0.00585241 0.0412087  2.99499
-	  #  aspectRatio 1.33333
-	  #  nearDistance 0.16
-	  #  farDistance 1000
-	  #  focalDistance 2
-	  #  size 0.1 0.075
-	  #  eyepointPosition -0.0305979 0.147538 0.0151514
+	    #  viewportMapping LEAVE_ALONE
+	    #  position -0.037045 0.168842 0.236637
+	    #  orientation 0.999133 -0.00585241 0.0412087  2.99499
+	    #  aspectRatio 1.33333
+	    #  nearDistance 0.16
+	    #  farDistance 1000
+	    #  focalDistance 2
+	    #  size 0.1 0.075
+	    #  eyepointPosition -0.0305979 0.147538 0.0151514
 	    #	  viewportMapping LEAVE_ALONE
 	    #	  eyepointPosition 0.0 0. 1.0
 	    #	  position 0.0 0.0 0.0
@@ -172,94 +172,51 @@ SoDisplay
 	    #	  farDistance 1000
 	    #	  focalDistance 2
 	    #	  size 0.1 0.075
-	  }
-	  #camera  
-	  
-	  ######## StbCamera Control ###########
-	  #controlMode SoDesktopControlMode{}
-	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointMobileDisplayControlMode
-	  #{
-	  #  stbSinkNameDisplay "testTracker1"
-	  #  stbSinkNameViewpoint "testTracker2"
-	  #}
-	  
-	  #videoBackground SoVideoBackgroundOV{
-	  #  ovStbSink "stbSink1"
-	  #}
+	  }#camera  
 
-	  # displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	   displayMode SoAnaglyphDisplayMode{lensColor 0 1 0}
-	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	  
-	  
+	  ######################################
+	  ######## Viewport ####################
+	  ###################################### 
 	  viewport SoViewport{
-	    origin 320 240 
+	    origin 0 240 
 	    size 320 240
 	  }
-
-	}#SoStbCamera 2
-       
-	SoStbCamera
-	{
-	  ######## The Content  ###########
-	  #content USE Content2
 	  
-	  ######## Camera Configuration ###########
-	  camera 
-	  #SoPerspectiveCamera
-	  #{
-	  #  position 0 0 0 
-	  #  orientation 0 0 1 0
-	  SoOffAxisCamera
-	  {
-	  #  viewportMapping LEAVE_ALONE
-	  #  position -0.037045 0.168842 0.236637
-	  #  orientation 0.999133 -0.00585241 0.0412087  2.99499
-	  #  aspectRatio 1.33333
-	  #  nearDistance 0.16
-	  #  farDistance 1000
-	  #  focalDistance 2
-	  #  size 0.1 0.075
-	  #  eyepointPosition -0.0305979 0.147538 0.0151514
-	    #	  viewportMapping LEAVE_ALONE
-	    #	  eyepointPosition 0.0 0. 1.0
-	    #	  position 0.0 0.0 0.0
-	    #	  orientation 0.0 0.0 1.0  0.0
-	    #	  aspectRatio 1.33333
-	    #	  nearDistance 0.16
-	    #	  farDistance 1000
-	    #	  focalDistance 2
-	    #	  size 0.1 0.075
-	  }
-	  #camera  
-
-	  ######## StbCamera Control ###########
-	  #controlMode SoDesktopControlMode{}
-	  #controlMode SoTrackedDisplayControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointControlMode{}
-	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
-	  #controlMode SoTrackedViewpointMobileDisplayControlMode
-	  #{
-	  #  stbSinkNameDisplay "testTracker1"
-	  #  stbSinkNameViewpoint "testTracker2"
-	  #}
-	  
-	  #videoBackground SoVideoBackgroundOV{
-	  #  ovStbSink "stbSink2"
-	  #}
-
-	  #displayMode SoFieldSequentialDisplayMode{buffer LEFT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 0 0 1}
+	  ######################################
+	  ######## DisplayMode #################
+	  ######################################	  
+	   displayMode SoFieldSequentialDisplayMode{buffer LEFT}
+	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
 	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
-	   
-	  viewport SoViewport{
-	    origin 0 0 
-	    size 320 240
-	  }
 	  
-	}#SoStbCamera 3
+
+	  
+	  ######################################
+	  ######## ControlMode #################
+	  ######################################
+	  # controlMode SoDesktopControlMode{}
+	  # controlMode SoTrackedDisplayControlMode{}
+	  #controlMode SoTrackedViewpointControlMode{stbSinkName "testTracker1"}
+	  #controlMode SoTrackedViewpointMobileDisplayControlMode
+	  #{
+	  #  stbSinkNameDisplay "testTracker1"
+	  #  stbSinkNameViewpoint "testTracker2"
+	  #}
+	  
+	  ######################################
+	  ######## Video #######################
+	  ######################################
+	  #videoBackground SoVideoBackground
+	  #{
+	  #  ovStbSink "stbSink"
+	  #}
+
+	  ######################################
+	  ######## Content #####################
+	  ######################################
+	  #content USE Content2  
+	  
+    }#SoStbCamera 1
 	
   ]#stbCameraList 
  

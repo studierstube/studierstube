@@ -34,7 +34,9 @@
 #define _VIDEO_H_
 #include <stb/base/macros.h>
 #include <stb/kernel/ComponentThread.h>
-#include <stb/components/video/VideoInterface.h>
+#ifdef WIN32
+#include <windows.h>
+#endif
 
 //#ifdef WIN32
 //    #ifdef STBVIEWER_EXPORTS

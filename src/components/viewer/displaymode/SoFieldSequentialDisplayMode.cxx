@@ -42,6 +42,7 @@
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 
 bool SoFieldSequentialDisplayMode::isInit=false;
+bool SoFieldSequentialDisplayMode::isQuadBufferAvailable=false;
 
 SO_NODE_SOURCE(SoFieldSequentialDisplayMode);
 
@@ -68,7 +69,6 @@ SoFieldSequentialDisplayMode::SoFieldSequentialDisplayMode()
     
     SO_NODE_SET_SF_ENUM_TYPE(buffer, BufferType);
     
-    isQuadBufferAvailable=false;
 	isInit=false;
 }
 
@@ -113,7 +113,7 @@ SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction *action)
 				glDrawBuffer(GL_BACK_RIGHT);
 				break;
 		}
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);//clear buffers
+		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);//clear buffers
 		glFlush();//force execution of gl commands
 	}
 }
