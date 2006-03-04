@@ -91,10 +91,6 @@ protected:
     friend class EventAdapter<SoTrakEngine>;
 };
 
-//extern "C" 
-//{
-//    EVENT_API SoTrakEngine* createTrakEngine();
-//}
 
 #endif
 

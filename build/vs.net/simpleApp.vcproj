@@ -133,6 +133,9 @@
 				RelativePath="..\..\src\applications\simple\SimpleApp.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\bin\win32\applications\scene.iv">
+		</File>
 	</Files>
 	<Globals>
 		<Global

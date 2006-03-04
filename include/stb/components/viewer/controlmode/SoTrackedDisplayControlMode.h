@@ -51,7 +51,8 @@ public:
 
 	bool activate();
 
-	SoSFString stbSinkName;
+	SoSFString displayTrackerKey;
+    SoSFString displayTrackerValue;
 private:
     /** The destructor unrefs the internal SoTrakEngine. */
     ~SoTrackedDisplayControlMode();

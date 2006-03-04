@@ -33,8 +33,12 @@
 	
     <Application name="SimpleApp"
                 availability="onload"
-                lib="simple"
-    />
+                lib="simple">
+                
+                <Param  key   ="sceneFile" 
+		                value ="applications/scene.iv" />	
+
+    </Application>
     
 
 </studierstube>

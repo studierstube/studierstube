@@ -50,30 +50,30 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 {
     SO_ENGINE_CONSTRUCTOR(SoTrakEngine);
 
-    //SO_ENGINE_ADD_INPUT(key,(""));
-    //SO_ENGINE_ADD_INPUT(value,(""));
+    SO_ENGINE_ADD_INPUT(key,(""));
+    SO_ENGINE_ADD_INPUT(value,(""));
 	
-    //SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
-    //SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
-    //SO_ENGINE_ADD_INPUT(buttonIn0, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn1, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn2, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn3, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn4, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn5, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn6, (FALSE));
-    //SO_ENGINE_ADD_INPUT(buttonIn7, (FALSE));
+    SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
+    SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
+    SO_ENGINE_ADD_INPUT(buttonIn0, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn1, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn2, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn3, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn4, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn5, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn6, (FALSE));
+    SO_ENGINE_ADD_INPUT(buttonIn7, (FALSE));
 
-    //SO_ENGINE_ADD_OUTPUT(translation, SoSFVec3f);
-    //SO_ENGINE_ADD_OUTPUT(rotation, SoSFRotation);
-    //SO_ENGINE_ADD_OUTPUT(button0, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button1, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button2, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button3, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button4, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button5, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button6, SoSFBool);
-    //SO_ENGINE_ADD_OUTPUT(button7, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(translation, SoSFVec3f);
+    SO_ENGINE_ADD_OUTPUT(rotation, SoSFRotation);
+    SO_ENGINE_ADD_OUTPUT(button0, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button1, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button2, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button3, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button4, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button5, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button6, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(button7, SoSFBool);
 }
 
 SoTrakEngine::~SoTrakEngine()
@@ -126,10 +126,4 @@ void SoTrakEngine::evaluate()
     SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
 }
 
-SoTrakEngine* 
-createTrakEngine()
-{
-    printf("\n\n...................create trackengine...............\n");
-    return new SoTrakEngine;
-}
 

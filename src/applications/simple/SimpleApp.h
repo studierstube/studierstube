@@ -61,8 +61,11 @@ public:
 
     virtual void registerScene();
 
+    virtual void setParameter(stb::string key, std::string value);
+
 protected:	
     SoSeparator* root;
+    stb::string sceneFile; 
 private:
 	
 };// class 

@@ -46,12 +46,25 @@ using namespace stb;
 
 SimpleApp::SimpleApp()
 {
-   //nil
+   isInit=false;
 }
 
 SimpleApp::~SimpleApp()
 {
 }
+
+void 
+SimpleApp::setParameter(stb::string key, std::string value)
+{
+    if(key=="sceneFile")
+    {
+        sceneFile=value;
+    }
+    //else if()
+    //{
+    //}
+}
+
 
 /// Called before the application is destructed.
 bool 
@@ -59,31 +72,33 @@ SimpleApp::init()
 {
     if(isInit)
         return true;
-     isInit=true;
+ 
+     //get viewer's parameter
+     retrieveParameter();
+
     //need tracking --> check if componentmanager has loaded the event component.
     if(!Kernel::getInstance()->getComponentManager()->load("Viewer"))
     {
-        isInit=false;
         return false;
     }
     Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-        isInit=true;
         return false;
     }
 
-    root = new SoSeparator();
-    SoTransform *tran=new SoTransform;
-    tran->translation.setValue(0.0,0.0,-6.0);
-    root->addChild(tran);
-    root->addChild(new SoSphere);
-    SoTrakEngine* tre= event->createSoTrakEngine();
-    if(!tre)
-    {
-        isInit=false;
-        return false;
-    }
+
+    //root = new SoSeparator();
+    //SoTransform *tran=new SoTransform;
+    //tran->translation.setValue(0.0,0.0,-6.0);
+    //root->addChild(tran);
+    //root->addChild(new SoSphere);
+    //SoTrakEngine* tre= event->createSoTrakEngine();
+    //if(!tre)
+    //{
+    //    isInit=false;
+    //    return false;
+    //}
     ////SoTrakEngine *tre=new SoTrakEngine;
     //tre->key.set1Value(0,"blabla");
     //tre->value.set1Value(0,"hi");
@@ -104,8 +119,26 @@ SimpleApp::init()
     //trakRoot->addChild(trak);
     //root->addChild(trakRoot);
 
-    registerScene();
+    if(sceneFile.size()<1)
+        return false;
+    SoInput::addDirectoryFirst("./");
+    SoInput myinput;
+    if (!myinput.openFile(sceneFile.c_str())) {
 
+        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + sceneFile + "\n");
+        SoInput::removeDirectory("./");
+        return false;
+    }
+    root=SoDB::readAll(&myinput);
+    myinput.closeFile();
+    SoInput::removeDirectory("./");
+    if (root==NULL) 
+    {
+        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + sceneFile + "\n");
+        return false;
+    }
+
+    registerScene();
     isInit=true;
 	return isInit;
 }

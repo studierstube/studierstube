@@ -53,7 +53,8 @@ SoTrackedDisplayControlMode::SoTrackedDisplayControlMode()
 {
     SO_NODE_CONSTRUCTOR(SoTrackedDisplayControlMode);
 
-	SO_NODE_ADD_FIELD(stbSinkName, (""));
+	SO_NODE_ADD_FIELD(displayTrackerKey, (""));
+    SO_NODE_ADD_FIELD(displayTrackerValue, (""));
 }
 
 //----------------------------------------------------------------------------
@@ -83,13 +84,13 @@ SoTrackedDisplayControlMode::activate()
         stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
         return false;
     }
-    tre->key.set1Value(0,"blabla");
-    tre->value.set1Value(0,"hi");
+    tre->key.set1Value(0,displayTrackerKey.getValue());
+    tre->value.set1Value(0,displayTrackerValue.getValue());
 
 
     stbCamera->getTransform()->translation.connectFrom(&tre->translation);
     stbCamera->getTransform()->rotation.connectFrom(&tre->rotation);
-    //
+   //
 
     return true;
 }

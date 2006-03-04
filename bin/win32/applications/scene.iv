@@ -1,0 +1,9 @@
+#Inventor V2.1 ascii
+
+SoTrackedArtifactKit{
+    key "blabla"
+    value "hi"
+    geometry SoSeparator{
+        SoCube{}
+    }
+}
