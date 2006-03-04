@@ -66,6 +66,9 @@ public:
 protected:	
     SoSeparator* root;
     stb::string sceneFile; 
+    bool needEvent;
+    bool needViewer;
+    bool needStarlight;
 private:
 	
 };// class 

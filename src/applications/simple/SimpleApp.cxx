@@ -37,7 +37,8 @@
 #include <Inventor/nodes/SoSphere.h>
 #include <Inventor/nodes/SoTransform.h>
 #include <stb/components/event/event.h>
-//#include <stb/components/event/SoTrackedArtifactKit.h>
+#include <stb/components/viewer/Viewer.h>
+
 #include <cstdio>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
@@ -47,6 +48,10 @@ using namespace stb;
 SimpleApp::SimpleApp()
 {
    isInit=false;
+   needEvent=false;
+   needViewer=false;
+   needStarlight=false;
+
 }
 
 SimpleApp::~SimpleApp()
@@ -60,9 +65,18 @@ SimpleApp::setParameter(stb::string key, std::string value)
     {
         sceneFile=value;
     }
-    //else if()
-    //{
-    //}
+   else if(key=="needEvent" && value=="true")
+   {
+        needEvent=true;
+   }
+   else if(key=="needViewer" && value=="true")
+   {
+        needViewer=true;
+   }
+   else if(key=="needStarlight" && value=="true")
+   {
+        needStarlight=true;
+   }
 }
 
 
@@ -76,48 +90,19 @@ SimpleApp::init()
      //get viewer's parameter
      retrieveParameter();
 
-    //need tracking --> check if componentmanager has loaded the event component.
-    if(!Kernel::getInstance()->getComponentManager()->load("Viewer"))
-    {
-        return false;
+    
+    if(needViewer){
+        Viewer* viewer=(Viewer*)(Kernel::getInstance()->getComponentManager()->load("Viewer"));
+        if(!viewer)
+            return false;
     }
-    Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
-    if(!event)
+    if(needEvent)
     {
-        return false;
+        Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
+        if(!event)
+            return false;
     }
-
-
-    //root = new SoSeparator();
-    //SoTransform *tran=new SoTransform;
-    //tran->translation.setValue(0.0,0.0,-6.0);
-    //root->addChild(tran);
-    //root->addChild(new SoSphere);
-    //SoTrakEngine* tre= event->createSoTrakEngine();
-    //if(!tre)
-    //{
-    //    isInit=false;
-    //    return false;
-    //}
-    ////SoTrakEngine *tre=new SoTrakEngine;
-    //tre->key.set1Value(0,"blabla");
-    //tre->value.set1Value(0,"hi");
-    //SoTransform *trans=new SoTransform;
-    //trans->translation.connectFrom(&tre->translation);
-    //trans->rotation.connectFrom(&tre->rotation);
-    //SoSeparator *treRoot=new SoSeparator;
-    //treRoot->addChild(trans);
-    //treRoot->addChild(new SoCube);
-    //root->addChild(treRoot);
-    //// test SoTrackedArtifactKit
-    //SoTrackedArtifactKit *trak=new SoTrackedArtifactKit;
-    //trak->key.set1Value(0,"blabla");
-    //trak->value.set1Value(0,"hi");
-
-    //trak->setGeometry(new SoCone);
-    //SoSeparator *trakRoot=new SoSeparator;
-    //trakRoot->addChild(trak);
-    //root->addChild(trakRoot);
+    
 
     if(sceneFile.size()<1)
         return false;
