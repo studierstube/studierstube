@@ -50,6 +50,14 @@ os_LoadLibrary(stb::string fileName)
         name << "d";
     #endif
         name <<".dll";
+
+    //FILE* fp = fopen(name.str().c_str(), "rb");
+    //if(!fp)
+    //{
+    //    printf("can't open %s\n",name.str().c_str());
+    //    return NULL;
+    //}
+
     return LoadLibrary(name.str().c_str());
 #else //LINUX
     using namespace std;

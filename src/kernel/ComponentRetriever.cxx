@@ -75,4 +75,7 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	return newComponent;
 }
 
+
+
+
 END_NAMESPACE_STB

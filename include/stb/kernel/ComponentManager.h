@@ -76,6 +76,7 @@ protected:
     int initListSize;
     void initComponent(Component *comp);
     stb::Component* isLoaded(std::string compName);
+
 private:
 	
 };// class 

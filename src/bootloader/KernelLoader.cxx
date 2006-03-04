@@ -61,7 +61,6 @@ bool KernelLoader::runKernel(int argc, char* argv[])
     using namespace std;
 
     ACE_DLL kernel_dll;
-
     if (kernel_dll.open(libName.c_str())) {
         ACE_DEBUG((LM_ERROR, "could not load %s library", libName.c_str()));
         return false;        

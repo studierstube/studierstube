@@ -33,7 +33,7 @@
 	
     <Application name="SimpleApp"
                 availability="onload"
-                lib="simple">     
+                lib="applications/simple">     
                 <Param  key   ="sceneFile"  value ="applications/scene.iv" />	
                 <Param  key   ="needViewer" value ="true" />	
                 <Param  key   ="needEvent"  value ="true" />	
