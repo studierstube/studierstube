@@ -1,9 +1,12 @@
 #Inventor V2.1 ascii
 
 SoTrackedArtifactKit{
-    key "blabla"
-    value "hi"
+    key "bla"
+    value "hello"
     geometry SoSeparator{
+        SoTransform {
+            translation 0 0 -2
+        }
         SoCube{}
     }
 }

@@ -36,6 +36,10 @@
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/event/event.h>
+#include <stb/components/event/SoTrakEngine.h>
+
 
 #include <Inventor/nodes/SoTransform.h>
 #include <Inventor/engines/SoTransformVec3f.h> 
@@ -57,7 +61,8 @@ SoTrackedViewpointControlMode::SoTrackedViewpointControlMode()
 {
     SO_NODE_CONSTRUCTOR(SoTrackedViewpointControlMode);
 
-    SO_NODE_ADD_FIELD(stbSinkName, ("")); 
+    SO_NODE_ADD_FIELD(viewpointTrackerKey, ("")); 
+    SO_NODE_ADD_FIELD(viewpointTrackerValue, ("")); 
 
 	SO_NODE_ADD_FIELD(eyeOffset, (0.0, 0.0, 0.0));
  
@@ -77,18 +82,24 @@ SoTrackedViewpointControlMode::activate()
 	if(stbCamera==NULL)
 		return false;
 
+    stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    if(!event)
+    {
+        stb::Kernel::getInstance()->log("failed to load event system\n");
+        return false;
+    }
 
- //   tre=stb::Kernel::getInstance()->createSoTrakEngine();
- //   if(!tre)
- //   {
- //       printf("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
- //       return false;
- //   }
- //   tre->key.set1Value(0,"blabla");
- //   tre->value.set1Value(0,"hi");
+    tre=event->createSoTrakEngine();
+    if(!tre)
+    {
+        stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        return false;
+    }
+    tre->key.set1Value(0,viewpointTrackerKey.getValue());
+    tre->value.set1Value(0,viewpointTrackerValue.getValue());
 
 	////set up connection
-	//connectHeadTracker(tre);
+	connectHeadTracker(tre);
 
 	return true;
 }
@@ -101,18 +112,18 @@ SoTrackedViewpointControlMode::disconnectHeadTracker()
 }
 
 //----------------------------------------------------------------------------
-//void 
-//SoTrackedViewpointControlMode::connectHeadTracker(stb::SoTrakEngineInterface *tracker)
-//{
-//    disconnectHeadTracker();
-//
-//    // use engine to create tracker to world transformation matrix
-//    SoComposeMatrix *ctw = new SoComposeMatrix;
-//    ctw->translation.connectFrom(&tracker->translation);
-//    ctw->rotation.connectFrom(&tracker->rotation);
-//
-//    connectHeadTrackerStep2(ctw);
-//}
+void 
+SoTrackedViewpointControlMode::connectHeadTracker(SoTrakEngine *tracker)
+{
+    disconnectHeadTracker();
+
+    // use engine to create tracker to world transformation matrix
+    SoComposeMatrix *ctw = new SoComposeMatrix;
+    ctw->translation.connectFrom(&tracker->translation);
+    ctw->rotation.connectFrom(&tracker->rotation);
+
+    connectHeadTrackerStep2(ctw);
+}
 
 
 //----------------------------------------------------------------------------
@@ -144,6 +155,7 @@ SoTrackedViewpointControlMode::connectHeadTrackerStep2(SoComposeMatrix *ctw)
 	te->vector.connectFrom(&eyeOffset);
 	te->matrix.connectFrom(&ctw->matrix);
 
-	// connect eyepointPositions to transformed offsets
-	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
+	// connect to transformed offsets
+	//((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
+    stbCamera->getTransform()->translation.connectFrom(&te->point);
 }

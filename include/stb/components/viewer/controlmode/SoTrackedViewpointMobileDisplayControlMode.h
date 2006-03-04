@@ -39,14 +39,17 @@
 #include <Inventor/engines/SoCompose.h> 
 #include <Inventor/fields/SoSFVec3f.h> 
 
+class SoTrakEngine;
 class  SoTrackedViewpointMobileDisplayControlMode
 : public SoStbCameraControlMode
 {
 SO_NODE_HEADER(SoTrackedViewpointMobileDisplayControlMode);
 public:
-	SoSFString stbSinkNameViewpoint;
+	SoSFString viewpointTrackerKey;
+	SoSFString displayTrackerKey;
+    SoSFString viewpointTrackerValue;
+    SoSFString displayTrackerValue;
 
-	SoSFString stbSinkNameDisplay;
 
 	/** Offset between head tracker and eye
 	* (in tracker space).
@@ -80,11 +83,11 @@ private:
 	void connectDisplayTracker(SoSFVec3f *trackerTranslation,SoSFRotation *trackerRotation);
 	void connectDisplayTrackerStep2(SoComposeMatrix *ctw);
 
-    //void connectHeadTracker(stb::SoTrakEngineInterface *tracker);
-    //void connectDisplayTracker(stb::SoTrakEngineInterface *tracker);
+    void connectHeadTracker(SoTrakEngine *tracker);
+    void connectDisplayTracker(SoTrakEngine *tracker);
 
-    //stb::SoTrakEngineInterface* trHead;
-    //stb::SoTrakEngineInterface* trDisplay;
+    SoTrakEngine* trHead;
+    SoTrakEngine* trDisplay;
 };
 	
 

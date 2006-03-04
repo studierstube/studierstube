@@ -40,6 +40,7 @@
 #include <Inventor/engines/SoCompose.h> 
 #include <Inventor/fields/SoSFVec3f.h> 
 
+class SoTrakEngine;
 
 class SoTrackedViewpointControlMode :
 	public SoStbCameraControlMode
@@ -58,8 +59,9 @@ public:
 	/** Offset between head tracker and eye
 	* (in tracker space).
 	*/
-	SoSFVec3f eyeOffset;
-
+	SoSFVec3f eyeOffset; 
+    SoSFString viewpointTrackerKey;
+    SoSFString viewpointTrackerValue;
 protected:
     /** 
 	* The destructor 
@@ -69,8 +71,8 @@ protected:
 	void disconnectHeadTracker();
 	void connectHeadTracker(SoSFVec3f *trackerTranslation, SoSFRotation *trackerRotation);
 	void connectHeadTrackerStep2(SoComposeMatrix *ctw);
-    //void connectHeadTracker(stb::SoTrakEngineInterface *tracker);
-//    stb::SoTrakEngineInterface* tre;
+    void connectHeadTracker(SoTrakEngine *tracker);
+    SoTrakEngine* tre;
 };
 
 //----------------------------------------------------------------------------
