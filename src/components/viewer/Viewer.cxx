@@ -77,7 +77,8 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
-    printf("Viewer::init()\n");
+    stb::Kernel::getInstance()->log("Viewer::init(\n");
+
     if(isInit)
         return true;
     isInit=true;
@@ -105,8 +106,7 @@ Viewer::init()
 
     //get viewer's parameter
     retrieveParameter();
-    //load .iv file 
-    std::cout<<"init Viewer\n";
+ 
 
 #ifdef LINUX
     using namespace std;

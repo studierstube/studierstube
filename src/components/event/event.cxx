@@ -66,6 +66,7 @@ Event::~Event()
 bool 
 Event::init()
 {    
+    stb::Kernel::getInstance()->log("Event::init\n");
     if(isInit)
         return isInit;
     isInit=true;

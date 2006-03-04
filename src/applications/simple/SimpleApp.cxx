@@ -84,6 +84,7 @@ SimpleApp::setParameter(stb::string key, std::string value)
 bool 
 SimpleApp::init()
 {
+    stb::Kernel::getInstance()->log("SimpleApp::init\n");
     if(isInit)
         return true;
  

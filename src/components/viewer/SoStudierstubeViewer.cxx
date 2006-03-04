@@ -70,7 +70,7 @@ SoStudierstubeViewer::~SoStudierstubeViewer()
 {
     if(isGLContextShared)
     {
-        videoComponent->deleteGLContext(curGLContext);
+        videoComponent->deleteGLContext();
     }
 }
 

@@ -79,7 +79,7 @@ public:
 
     virtual void setGLContext(HGLRC glContext,HDC dc);
 
-    virtual void deleteGLContext(HGLRC glContext);
+    virtual void deleteGLContext();
     
     virtual void* getOpenVideoNode(const char *nodeName);
 

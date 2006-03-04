@@ -57,7 +57,7 @@ Video::~Video()
 bool 
 Video::init()
 {
-    printf("Video::init()\n");
+    stb::Kernel::getInstance()->log("Video::init(\n");
     if(isInit)
         return true;
     isInit=true;
@@ -101,9 +101,9 @@ Video::run()
 }
 
  void 
- Video::deleteGLContext(HGLRC glContext)
+ Video::deleteGLContext()
  {
-     printf("delete context\n");
+     ovManager->deleteGLContext();
  }
 
 void 
