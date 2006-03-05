@@ -45,6 +45,9 @@
     #define STBVIEWER_API
 #endif
 
+#include <vector>
+class SoDisplay;
+class SoNode;
 BEGIN_NAMESPACE_STB
 /**
 *	
@@ -68,8 +71,13 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
+    static SoDisplay* findSoDisplay(SoNode* node);
+
+    static void removeSoDisplay(SoDisplay* disp);
 protected:	
     stb::string configFile; 
+    static std::vector<SoDisplay*> displayList;
+    void addSoDisplay(SoDisplay* disp);
 private:
 	
 };// class 

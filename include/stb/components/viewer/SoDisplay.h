@@ -45,7 +45,8 @@
 #include <Inventor/fields/SoSFColor.h>
 #include <Inventor/fields/SoMFNode.h>
 #include <Inventor/fields/SoSFNode.h>
-
+#include <stb/components/viewer/guiDefines.h>
+#include SOGUICOMPONENT_H;
 #include <vector>
     //	SoDisplay
 //=============
@@ -172,8 +173,9 @@ public:
 
     void setContent(SoNode* _content);
 
-    static SoDisplay* findSoDisplay(SoNode* node);
+    static void exitViewer(void*, SoGuiComponent* viewer);
 
+    bool find(SoNode *node);
  protected:
    
 
@@ -193,10 +195,8 @@ public:
      *'readInstance' calls createViewer() to create a new studierstubeviewer while reading display from a file
      */
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
-    
-    static std::vector<SoDisplay*> displayList;
 
-    bool find(SoNode *node);
+    
  };
 
 //----------------------------------------------------------------------------

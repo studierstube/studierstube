@@ -32,6 +32,7 @@
 
 #include <stb/components/viewer/SoVideoBackground.h>
 #include <stb/components/viewer/SoDisplay.h>
+#include <stb/components/viewer/Viewer.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
@@ -84,7 +85,7 @@ SoVideoBackground::GLRender(SoGLRenderAction *action)
 bool
 SoVideoBackground::initVideoBackground()
 {
-    SoDisplay* display=SoDisplay::findSoDisplay(this);
+    SoDisplay* display=stb::Viewer::findSoDisplay(this);
     if(!display)
         return false;
 

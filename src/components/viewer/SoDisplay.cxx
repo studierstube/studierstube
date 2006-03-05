@@ -32,6 +32,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 
 #include <stb/kernel/Studierstube.h>
+#include <stb/components/viewer/Viewer.h>
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 
@@ -42,8 +43,6 @@
 #include SOGUI_CURSOR_H
 
 #include <Inventor/actions/SoSearchAction.h>
-
-std::vector<SoDisplay*> SoDisplay::displayList;
 
 SO_NODE_SOURCE(SoDisplay);
 
@@ -92,15 +91,13 @@ SoDisplay::SoDisplay()
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_OBJECT_SORTED_TRIANGLE_BLEND);
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_LAYERS_BLEND);
     SO_NODE_SET_SF_ENUM_TYPE(transparencyType, TransparencyType);
-
-    SoDisplay::displayList.push_back(this);;
-
 }
 
 //----------------------------------------------------------------------------
 /** The destructor */
 SoDisplay::~SoDisplay()
 {
+    printf("~SoDisplay()");
 	if(viewer)
     {
 		viewer->hide();
@@ -111,6 +108,13 @@ SoDisplay::~SoDisplay()
 
 //----------------------------------------------------------------------------
 //
+void 
+SoDisplay::exitViewer(void*, SoGuiComponent* viewer)
+{
+    SoDisplay* display=stb::Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
+    delete viewer;
+    stb::Viewer::removeSoDisplay(display);
+}
 
 
 //----------------------------------------------------------------------------
@@ -230,6 +234,8 @@ SoDisplay::createViewer()
 	//// set viewer's root node and show the studierstubeViewer
 	//////////////////////////////////////////
 	viewer->setSceneGraph(displayRoot);
+
+    viewer->setWindowCloseCallback(exitViewer);
 	viewer->show();
 	//////////////////////////////////////////
 	//// start openvideo if nessesary
@@ -288,18 +294,4 @@ SoDisplay::find(SoNode *node)
         return false;
     }  
     return true;
-}
-
-SoDisplay*
-SoDisplay::findSoDisplay(SoNode* node)
-{
-    for(int i=0;i<(int)(SoDisplay::displayList).size();i++)
-    {
-        //search for the display this videobackground node exists in 
-        if(SoDisplay::displayList[i]->find(node))
-        {
-            return SoDisplay::displayList[i];
-        }
-    }
-    return NULL;
 }

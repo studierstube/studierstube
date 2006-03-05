@@ -31,7 +31,8 @@
 /* ======================================================================= */
 
 #include <stb/components/viewer/SoStudierstubeViewer.h>
-
+#include <stb/components/viewer/SoDisplay.h>
+#include <stb/components/viewer/Viewer.h>
 #include SOGUI_H
 #include SOGUI_CURSOR_H
 #ifdef USE_SOQT
@@ -264,7 +265,6 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 void 
 SoStudierstubeViewer::setOVGLContext(stb::Video* video)
 {
-     printf("setOVGLContext(stb::Video* video)\n\n");
     videoComponent=video;
     shareGLContextWithVideo=true;
 }

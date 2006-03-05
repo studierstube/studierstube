@@ -37,6 +37,7 @@
 #include <Inventor/SoInput.h> 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
+#include <Inventor/nodes/SoNode.h>
 
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStbCamera.h>
@@ -58,6 +59,9 @@
 #include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
+
+
+std::vector<SoDisplay*> stb::Viewer::displayList;
 
 CREATE_COMPONENT_FUNC(Viewer)
 
@@ -150,6 +154,7 @@ Viewer::init()
         {
             SoDisplay *display =(SoDisplay *)paths[i]->getTail();
             // add content to display
+            addSoDisplay(display);
             display->setContent(stb::Kernel::getInstance()->getSceneManager()->getSceneRoot());
             stb::Kernel::getInstance()->getSceneManager()->setDisplay(display);
             // add display to kernel's scenemanager 
@@ -171,6 +176,31 @@ Viewer::setParameter(stb::string key, std::string value)
     //else if()
     //{
     //}
+}
+
+void
+Viewer::addSoDisplay(SoDisplay* dsp)
+{
+    displayList.push_back(dsp);
+}
+
+void
+Viewer::removeSoDisplay(SoDisplay* dsp)
+{
+    //displayList.push_back(dsp);
+}
+
+SoDisplay* 
+Viewer::findSoDisplay(SoNode* node)
+{
+    for(int i=0;i<(int)displayList.size();i++)
+    {
+        if(displayList[i]->find(node))
+        {
+            return displayList[i];
+        }
+    }
+    return NULL; 
 }
 
 /// Called before the application is destructed.

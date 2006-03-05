@@ -54,7 +54,7 @@ public:
     /**
      * Destructor, does some clean up work.
      */
-    ~SoStudierstubeViewer();
+    virtual ~SoStudierstubeViewer();
 
 	////////////////////////////////////////////
 	/////////////// Head Light /////////////////
@@ -118,6 +118,7 @@ public:
     void setWindowPosSize(int x, int y, int width, int height);
 
     void setOVGLContext(stb::Video* video);
+
 
 #ifdef WIN32
     HGLRC curGLContext;
