@@ -54,6 +54,22 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 {
 	////load lib
     stb::string libName=compInfo->getLibName();
+
+//FIX ME: we should remove the gui-binding from the kernel -denis
+//#ifdef WIN32
+//    if(libName=="stbviewer")
+//    {
+//        switch(stb::Kernel::getInstance()->scheduler->getCurrentGuiBinding())
+//        {
+//            case SOWIN::
+//                break;
+//
+//        }
+//       
+//    }
+//#endif
+///////////
+
     Component* newComponent=NULL;
 	if(libName=="")
 		return NULL;

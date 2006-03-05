@@ -64,11 +64,13 @@ public:
 
     virtual void mainLoop();
 
-protected:	
     virtual enum GUI_BINDING {
         SOQT=0,
         SOWIN=1
     };
+    GUI_BINDING getCurrentGuiBinding(){return curGuiBinding;}
+protected:	
+
 
     GUI_BINDING curGuiBinding;
 
