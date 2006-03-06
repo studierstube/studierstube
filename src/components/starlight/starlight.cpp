@@ -3,30 +3,6 @@
 #include <stb/components/starlight/starlight.h>
 
 
-#ifdef WIN32
-
-#define WIN32_LEAN_AND_MEAN	// Exclude rarely-used stuff from Windows headers
-#include <windows.h>
-
-BOOL APIENTRY DllMain( HANDLE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-					 )
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-    return TRUE;
-}
-
-#endif // WIN32
-
-
 #include <stb/components/starlight/SoAbortGroup.h>
 #include <stb/components/starlight/SoClassLoader.h>
 #include <stb/components/starlight/SoConditionalTrigger.h>
@@ -59,8 +35,37 @@ BOOL APIENTRY DllMain( HANDLE hModule,
 #include <stb/components/starlight/SoUse.h>
 #include <stb/components/starlight/SoVariable.h>
 
-STARLIGHT_API void starlight_init(void)
+CREATE_COMPONENT_FUNC(Starlight)
+
+BEGIN_NAMESPACE_STB
+
+/**
+*     The Constructor	
+*/
+Starlight::Starlight()
 {
+    //nil
+}
+/**
+*     The destructor.
+*/
+Starlight::~Starlight()
+{
+    //nil
+}
+/// Called before the application is destructed.
+void 
+Starlight::shutDown()
+{
+
+}
+
+bool
+Starlight::init(void)
+{
+    if(isInit)
+        return true;
+    isInit=true;
     SoClassLoader::initClass();
     SoConditionalTrigger::initClass();
     SoContextElement::initClass();
@@ -91,4 +96,7 @@ STARLIGHT_API void starlight_init(void)
     SoStringMap::initClass();
     SoUse::initClass();
     SoVariable::initClass();
+
+    return isInit;
 }
+END_NAMESPACE_STB

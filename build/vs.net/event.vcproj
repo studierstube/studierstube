@@ -32,7 +32,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib opentrackerd.lib starlightd.lib"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib opentrackerd.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbeventd.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"

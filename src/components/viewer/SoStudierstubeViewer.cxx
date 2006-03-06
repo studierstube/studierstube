@@ -57,9 +57,15 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);
-    
+ifdef WIN32    
     curDC=NULL;
     curGLContext=NULL;
+#endif
+#ifdef LINUX
+    drawable=NULL;
+    dsp=NULL;
+    ovGLContext=NULL;
+#endif
     isVideoGLContext=false;
     isGLContextShared=false;
 }
@@ -275,7 +281,7 @@ SoStudierstubeViewer::redraw ()
     if(!isVideoGLContext)
     {
         this->glLockNormal(); // this makes the GL context "current"
-       
+#ifdef WIN32       
         curDC=wglGetCurrentDC();
         if(!curDC){
             printf("StbError: failed to get current dc \n ");
@@ -307,7 +313,71 @@ SoStudierstubeViewer::redraw ()
                     printf("%i\n",::GetLastError());
                 }
             }
-        }      
+        }   
+#endif
+#ifdef LINUX
+        GLXContext curContext= glXGetCurrentContext();	
+        dsp=glXGetCurrentDisplay();
+        drawable=glXGetCurrentDrawable();
+
+        int major;
+        int minor;
+        glXQueryVersion(dsp,
+            &major,
+            &minor);
+        if(major<1 || minor <3 )
+        {
+            printf("StbError: need at least glx 1.3 to run openvideo");
+            printf(" - you're running glx version %i.%i\n",major,minor);
+        }
+        ovGLContext=NULL;
+        XVisualInfo* vis=NULL;
+
+        int configID;
+        glXQueryContext(dsp,
+            curContext,
+            GLX_FBCONFIG_ID,
+            &configID);
+
+        /////query screen /////////////////
+        int screen;
+        glXQueryContext(dsp,
+            curContext,
+            GLX_SCREEN,
+            &screen);
+
+        /////get FBConfig
+        int nelements;
+        GLXFBConfig  *fbConfigs=glXGetFBConfigs(dsp,
+            screen,
+            &nelements);
+        int value;
+        GLXFBConfig fbConfig;
+        for(int i=0;i<nelements;i++)
+        {
+            glXGetFBConfigAttrib(dsp,
+                fbConfigs[i],
+                GLX_FBCONFIG_ID,
+                &value);
+            if(value==configID){
+                fbConfig=fbConfigs[i];
+                break;
+            }
+        }
+        vis=glXGetVisualFromFBConfig(dsp,
+            fbConfig);
+        if(curContext
+            && dsp
+            && vis)
+        {
+            ovGLContext= glXCreateContext(dsp, 
+                vis,
+                curContext,
+                true);
+            if(!ovGLContext)
+                printf("failed to create openvideo's context\n");
+        }
+#endif
 	    this->glUnlockNormal();// this releases the GL contex	
         isVideoGLContext=true;
     }
@@ -315,7 +385,12 @@ SoStudierstubeViewer::redraw ()
     {
         isGLContextShared=true;
         this->glLockNormal(); // this makes the GL context "current"
+#ifdef WIN32
         videoComponent->setGLContext(curGLContext,curDC);
+#endif
+#ifdef LINUX
+        videoComponent->setGLContext(ovGLContext,drawable,dsp);
+endif
         this->glUnlockNormal();// this releases the GL contex	
         
     }

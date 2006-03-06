@@ -77,7 +77,9 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
+#ifdef WIN32
     virtual void setGLContext(HGLRC glContext,HDC dc);
+#endif
 
     virtual void deleteGLContext();
     

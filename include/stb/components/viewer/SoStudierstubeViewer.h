@@ -119,13 +119,17 @@ public:
 
     void setOVGLContext(stb::Video* video);
 
-
+    bool isOVGLContext(){return isGLContextShared;}
+protected:
 #ifdef WIN32
     HGLRC curGLContext;
     HDC   curDC;
 #endif
-    bool isOVGLContext(){return isGLContextShared;}
-protected:
+#ifdef LINUX
+    GLXDrawable drawable;
+    Display* dsp;
+    GLXContext ovGLContext;
+#endif
 	void redraw ();
     bool isVideoGLContext;
 	bool shareGLContextWithVideo;

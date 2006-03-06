@@ -106,6 +106,7 @@ Video::run()
      ovManager->deleteGLContext();
  }
 
+#ifdef WIN32
 void 
 Video::setGLContext(HGLRC glContext,HDC dc)
 {
@@ -114,6 +115,7 @@ Video::setGLContext(HGLRC glContext,HDC dc)
     isGLContext=true;
     ovManager->setGLContext(glContext,dc);
 }
+#endif
 
 void* 
 Video::getOpenVideoNode(const char *nodeName)

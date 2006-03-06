@@ -70,9 +70,12 @@ Event::init()
     if(isInit)
         return isInit;
     isInit=true;
-
     //get viewer's parameter
     retrieveParameter();
+
+    if(!(Starlight*)(Kernel::getInstance()->getComponentManager()->load("Starlight")))
+        return false;
+
     SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
     SoOpenTrackerSource::initClass();

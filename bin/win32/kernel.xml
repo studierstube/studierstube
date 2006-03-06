@@ -14,11 +14,16 @@
 	</Component>
 	
 
-		<Component  name="Viewer"
-	        availability="ondemand"	
-        	lib="stbviewer">
-	    <Param key   ="configFile" 
-		       value ="viewer.iv" />	
+	<Component  name="Starlight"
+	            availability="ondemand"	
+        	    lib="starlight">
+	</Component>
+	
+	<Component  name="Viewer"
+	            availability="ondemand"	
+                lib="stbviewer">
+	    <Param  key   ="configFile" 
+		        value ="viewer.iv" />	
 	</Component>
 
 
