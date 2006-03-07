@@ -41,11 +41,13 @@
 
 #define GuiWidget_H <qwidget.h> 
 
+#define SOGUICOMPONENT_H <Inventor/Qt/SoQtComponent.h>
 #define SOGUI_H <Inventor/Qt/SoQt.h>
 #define SOGUI_CURSOR_H <Inventor/Qt/SoQtCursor.h>
 #define SOGUI_EXAMINERVIEWER_H <Inventor/Qt/viewers/SoQtExaminerViewer.h>
 
 #define SoGui SoQt
+#define SoGuiComponent SoQtComponent
 #define GuiWidget QWidget*
 #define SoGuiCursor SoQtCursor
 #define SoGuiViewer SoQtViewer

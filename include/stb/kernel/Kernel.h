@@ -99,6 +99,13 @@ public:
 
     stb::ComponentManager* getComponentManager(){return componentManager;}
 
+public:
+    // define here search paths for config files, public available
+    stb::string stb_config_path1;  //"/usr/share/stb/"
+    stb::string stb_config_path2;  // "/usr/local/share/stb/"
+    stb::string stb_home;          // ".stb/"
+    stb::string kernel_config_file;// "kernel.xml"
+
 protected:	
     ///////////////////// 
     /**
@@ -134,12 +141,6 @@ protected:
     stb::string logFile;
 
     stb::string getKernelConfig(int argc, char* argv[]);
-
-    // define here search paths for config files
-    stb::string STB_CONFIG_PATH1; //"/usr/share/stb/"
-    stb::string STB_CONFIG_PATH2;// "/usr/local/share/stb/"
-    stb::string STB_HOME;// ".stb/"
-    stb::string KERNEL_CONFIG_FILE;// "kernel.xml"
     /*
     *                                                                    
     */

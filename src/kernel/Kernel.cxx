@@ -71,10 +71,10 @@ Kernel::Kernel()
     componentManager= new stb::ComponentManager();
 
     //////
-    STB_CONFIG_PATH1="/usr/share/stb/";
-    STB_CONFIG_PATH2= "/usr/local/share/stb/";
-	STB_HOME=".stb/";
-    KERNEL_CONFIG_FILE="kernel.xml";
+    stb_config_path1   = "/usr/share/stb/";
+    stb_config_path2   = "/usr/local/share/stb/";
+    stb_home           = ".stb/";
+    kernel_config_file = "kernel.xml";
 }
 
 Kernel::~Kernel()
@@ -108,7 +108,7 @@ Kernel::getKernelConfig(int argc, char* argv[])
     home_dir = getenv("HOME");
 
     ostringstream fn;
-    fn << home_dir << "/" << STB_HOME << KERNEL_CONFIG_FILE;
+    fn << home_dir << "/" << stb_home << kernel_config_file;
 
     logEx("Search for kernel config file in %s ... ", fn.str().c_str());
     in.open(fn.str().c_str(), ios::in);
@@ -117,7 +117,7 @@ Kernel::getKernelConfig(int argc, char* argv[])
     if (!in.is_open()) {
         log("not found.\n");
         fn.str("");
-        fn << STB_CONFIG_PATH1 << KERNEL_CONFIG_FILE;
+        fn << stb_config_path1 << kernel_config_file;
 
         logEx("Search for kernel config file in %s ... ", fn.str().c_str());
         in.open(fn.str().c_str(), ios::in);
@@ -126,14 +126,14 @@ Kernel::getKernelConfig(int argc, char* argv[])
         if (!in.is_open()) {
             log("not found.\n");
             fn.str("");
-            fn << STB_CONFIG_PATH2 << KERNEL_CONFIG_FILE;
+            fn << stb_config_path2 << kernel_config_file;
 
             logEx("Search for kernel config file in %s ... ", fn.str().c_str());
             in.open(fn.str().c_str(), ios::in);
             if (!in.is_open()) {
                 log("not found.\n");
                 log("ERROR, cannot find any kernel config file, exiting ...\n");
-                return;
+                return stb::string();
             }
         }
     }
@@ -144,7 +144,7 @@ Kernel::getKernelConfig(int argc, char* argv[])
 
 #ifdef WIN32
    
-    return this->KERNEL_CONFIG_FILE;
+    return this->kernel_config_file;
 
 #endif
 }

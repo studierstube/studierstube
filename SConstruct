@@ -65,7 +65,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     opentracker_lib = opentracker_env.Dictionary()['LIBS']
     opentracker_libpath = opentracker_env.Dictionary()['LIBPATH']
     # Openvideo library information
-    openvideo_env.ParseConfig ('pkg-config --cflags --libs openvideo')
+    openvideo_env.ParseConfig ('pkg-config --cflags --libs OpenVideo')
     openvideo_cflags = openvideo_env.Dictionary()['CCFLAGS']
     openvideo_include = openvideo_env.Dictionary()['CPPPATH']
     openvideo_lib = openvideo_env.Dictionary()['LIBS']

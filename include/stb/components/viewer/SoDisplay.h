@@ -46,7 +46,7 @@
 #include <Inventor/fields/SoMFNode.h>
 #include <Inventor/fields/SoSFNode.h>
 #include <stb/components/viewer/guiDefines.h>
-#include SOGUICOMPONENT_H;
+#include SOGUICOMPONENT_H
 #include <vector>
     //	SoDisplay
 //=============

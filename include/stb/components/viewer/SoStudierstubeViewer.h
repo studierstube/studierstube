@@ -43,6 +43,10 @@
 
 #include <stb/components/video/Video.h>
 
+#ifdef LINUX
+#include <GL/glx.h>
+#endif
+
 class SoStudierstubeViewer : public SoGuiExaminerViewer
 {
 public:

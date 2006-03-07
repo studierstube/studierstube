@@ -46,7 +46,10 @@
 #include <stb/components/event/SoTrakEngine.h>
 
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
+
+class Starlight;
 
 CREATE_COMPONENT_FUNC(Event)
 

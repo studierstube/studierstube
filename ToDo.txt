@@ -11,3 +11,4 @@
 - videobackground (D)
 - linux daemon + windows service
 - tinyxml installer (B)
+- use glew for glx stuff (B)

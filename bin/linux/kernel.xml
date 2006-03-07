@@ -2,7 +2,7 @@
 	<kernel 
 	    logMode="off" 
 		logFileName="kernelLog.txt" 
-		guibinding="soqt"
+		guibinding="sowin"
 		updateMode="timer"
 		updateRate="0.03333"/>
 	
@@ -12,27 +12,40 @@
 	<Param key   ="configFile" 
 		   value ="opentracker.xml" />	
 	</Component>
+	
 
-
-	<Component  name="Viewer"
-	        availability="ondemand"	
-        	lib="stbviewer">
-	    <Param key   ="configFile" 
-		       value ="viewer.iv" />	
+	<Component  name="Starlight"
+	            availability="ondemand"	
+        	    lib="starlight">
 	</Component>
 	
-<!--	<Component  name="Video"
-	            availability="onload"	
+	<Component  name="Viewer"
+	            availability="ondemand"	
+                lib="stbviewer">
+	    <Param  key   ="configFile" 
+		        value ="viewer.iv" />	
+	</Component>
+
+
+	
+	<Component  name="Video"
+	            availability="ondemand"	
         	    lib="stbvideo">
 	    <Param key   ="configFile" 
-		       value ="openvideo.xml" />	
+		        value ="openvideo.xml" />	
 	</Component>
--->
+	
+	
+    <Application name="SimpleApp"
+                availability="onload"
+                lib="applications/simple">     
+                <Param  key   ="sceneFile"  value ="applications/scene.iv" />	
+                <Param  key   ="needViewer" value ="true" />	
+                <Param  key   ="needEvent"  value ="true" />	
+		               
 
-	<Application 
-	    name="SimpleApp"
-		availablity="onload"
-		lib="stbsimple"	
-	/>
+
+    </Application>
+    
 
 </studierstube>

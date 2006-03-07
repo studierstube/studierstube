@@ -117,6 +117,16 @@ Video::setGLContext(HGLRC glContext,HDC dc)
 }
 #endif
 
+#ifdef LINUX
+void 
+Video::setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp) {
+    if(isGLContext)
+        return;
+    isGLContext=true;
+    ovManager->setGLContext(drawable, dc, dsp);
+}
+#endif
+
 void* 
 Video::getOpenVideoNode(const char *nodeName)
 {

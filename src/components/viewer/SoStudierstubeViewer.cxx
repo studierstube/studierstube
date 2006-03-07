@@ -57,12 +57,12 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);
-ifdef WIN32    
+#ifdef WIN32    
     curDC=NULL;
     curGLContext=NULL;
 #endif
 #ifdef LINUX
-    drawable=NULL;
+    //drawable=NULL;
     dsp=NULL;
     ovGLContext=NULL;
 #endif
@@ -389,8 +389,8 @@ SoStudierstubeViewer::redraw ()
         videoComponent->setGLContext(curGLContext,curDC);
 #endif
 #ifdef LINUX
-        videoComponent->setGLContext(ovGLContext,drawable,dsp);
-endif
+        videoComponent->setGLContext(drawable, ovGLContext, dsp);
+#endif
         this->glUnlockNormal();// this releases the GL contex	
         
     }

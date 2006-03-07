@@ -38,6 +38,10 @@
 #include <windows.h>
 #endif
 
+#ifdef LINUX
+#include <GL/glx.h>
+#endif
+
 //#ifdef WIN32
 //    #ifdef STBVIEWER_EXPORTS
 //        #define STBVIEWER_API __declspec(dllexport)
@@ -79,6 +83,9 @@ public:
 
 #ifdef WIN32
     virtual void setGLContext(HGLRC glContext,HDC dc);
+#endif
+#ifdef LINUX
+    virtual void setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp);
 #endif
 
     virtual void deleteGLContext();
