@@ -122,6 +122,7 @@ SchedulerWin32::mainLoopSoWin()
     void (*mainLoopFunc)();
     mainLoopFunc = (void (*)()) GetProcAddress(libHandle,"?mainLoop@SoWin@@SAXXZ");
     (*mainLoopFunc)();
+   
 }
 
 void 

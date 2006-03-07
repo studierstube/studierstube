@@ -49,22 +49,22 @@ Config::~Config()
 bool
 Config::parseXML(stb::string filename)
 {   
-	Kernel::getInstance()->logDebug("parsing " + filename + " ...\n");
+    Kernel::getInstance()->logDebug("Stb:: parsing " + filename + " ...\n");
 	TiXmlDocument* document = new TiXmlDocument();
 	
 	if(!document->LoadFile(filename.c_str()))
 	    {
-		Kernel::getInstance()->log("An error occured during parsing " + filename + "\n");
-		Kernel::getInstance()->log(" Message: ");
-		Kernel::getInstance()->log(document->ErrorDesc());
-		Kernel::getInstance()->log("\n");
-		return false;
+		    Kernel::getInstance()->log("An error occured during parsing " + filename + "\n");
+		    Kernel::getInstance()->log(" Message: ");
+		    Kernel::getInstance()->log(document->ErrorDesc());
+		    Kernel::getInstance()->log("\n");
+		    return false;
 	    }
 	
 	TiXmlElement* root = document->RootElement();
 	if(!stb::stricasecmp(root->Value(),"studierstube"))
 	{
-		////parse studierstube parameter
+		////parse file
 		TiXmlElement* element = root->FirstChildElement();
 		while(element)
 		{
@@ -82,12 +82,11 @@ Config::parseXML(stb::string filename)
 bool
 Config::parseXMLElement(TiXmlElement* element)
 {
-	////////Element -> Logging /////////////////
-	if(!stb::stricasecmp(element->Value(),"Kernel"))
-	{
+	///////////////// Kernel /////////////////
+	if(!stb::stricasecmp(element->Value(),"Kernel")){
 		Kernel::getInstance()->parseConfiguration(element);
 	}
-	///////////////// ________ /////////////////
+	///////////////// Component / Application /////////////////
 	else if(!stb::stricasecmp(element->Value(),"Component")
          || !stb::stricasecmp(element->Value(),"Application")
            )
@@ -96,17 +95,7 @@ Config::parseXMLElement(TiXmlElement* element)
 		compInfo->parseConfiguration(element);
 		Kernel::getInstance()->addComponent(compInfo);
 	}
-	/////////////////// ________ /////////////////
-	////else if(!stricmp(element->Value(),"________"))
-	////{
-	////}
-	/////////// Config does not allow children /////
-	//TiXmlElement * childElement = element->FirstChildElement();
-	//while(childElement)
-	//{
-	//	parseXMLElement(childElement);
-	//	childElement = childElement->NextSiblingElement();
-	//}
+
 	return true;
 }
 

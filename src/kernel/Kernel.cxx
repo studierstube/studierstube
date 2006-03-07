@@ -65,7 +65,6 @@ Kernel::Kernel()
 	logFile="kernelLog.txt";
     //
     config=new stb::Config();
-
     scheduler= new stb::Scheduler();
     sceneManager= new stb::SceneManager();
     componentManager= new stb::ComponentManager();
@@ -143,9 +142,9 @@ Kernel::getKernelConfig(int argc, char* argv[])
 #endif
 
 #ifdef WIN32
-   
+    if(argc>1)
+        return argv[1];
     return this->kernel_config_file;
-
 #endif
 }
 
@@ -159,7 +158,6 @@ Kernel::start(int argc, char* argv[])
     log("****************************************\n\n");
     
     stb::string kernelConfigFile=getKernelConfig(argc,argv);
-
     config->parseXML(kernelConfigFile);
     scheduler->init();
     scheduler->mainLoop();
@@ -171,6 +169,7 @@ Kernel::stop()
 {
 }
 
+//////////////////////////////////////// LOGGING ////////////////////////
 void
 Kernel::log(stb::string nStr)
 {
@@ -197,12 +196,12 @@ Kernel::logEx(const char* nStr, ...)
 
     log(tmpString);
 }
+////////////////////////////////////////////////////////////////
 
 void
 Kernel::parseConfiguration(TiXmlElement* element)
 {
     ////////////<logging mode="xxxY filename="xxx"/> /////////
-
     TiXmlAttribute* attribute = element->FirstAttribute();
     while(attribute) //////////// kernel's parameter
     {
@@ -225,10 +224,10 @@ Kernel::parseConfiguration(TiXmlElement* element)
         {
             scheduler->parseConfiguration(attribute);
         }
-	//	///////////////// ------- /////////////////
-	//	//else if(!stricmp(attribute->Name(),"----"))
-	//	//{		
-	//	//}
+	    /////////////////// ------- /////////////////
+	    ////else if(!stricmp(attribute->Name( 00000000000000000000000000000000000000000000000000000000000000000000000),"----"))
+	    ////{		
+	    ////}
         attribute = attribute->Next();
     }
 }

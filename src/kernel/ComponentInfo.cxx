@@ -43,8 +43,8 @@ ComponentInfo::ComponentInfo(){
 }
 
 ComponentInfo::~ComponentInfo(){
- /*   if(libHandle)
-        os_FreeLibrary(libHandle);*/
+    if(libHandle)
+        os_FreeLibrary(libHandle);
 }
 
 void 
@@ -76,12 +76,9 @@ ComponentInfo::setAvailability(AVAILABILITY avl)
 void 
 ComponentInfo::parseConfiguration(TiXmlElement* element)
 {
-    //loadLevel
-    const char  *_lib  = element->Attribute("lib"),
-                *_name = element->Attribute("name"),
-                *_availability=element->Attribute("availability");
-
-
+    const char  *_lib           = element->Attribute("lib"),
+                *_name          = element->Attribute("name"),
+                *_availability  =element->Attribute("availability");
     if(_lib)
         libName=_lib;
     if(_name)
@@ -95,6 +92,7 @@ ComponentInfo::parseConfiguration(TiXmlElement* element)
             availability=ON_DEMAND;
     }
 
+    ////////////////////// parse children ///////////////////////////
     //<Param key   ="" 
     //       value ="" 
     ///>	

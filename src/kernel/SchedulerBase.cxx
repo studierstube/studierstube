@@ -44,6 +44,8 @@ SchedulerBase::SchedulerBase()
 	mode=IDLE;
 	updateRate=0.0;
 	scheduled=false;
+    idle=NULL;
+    timer=NULL;
 
 }
 
@@ -60,13 +62,14 @@ SchedulerBase::unschedule()
 
 	switch(mode)
 	{
-	case IDLE:
-		timer->unschedule();
-		delete timer;
-		break;
-	case TIMER:
-
-		break;
+        case IDLE:
+            idle->unschedule();
+            delete idle;
+	        break;
+        case TIMER:
+            timer->unschedule();
+            delete timer;
+	        break;
 	}
 	scheduled=false;
 }
@@ -108,20 +111,20 @@ SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
 void
 SchedulerBase::scheduleIdleSensor()
 {
-	//sensor= new SoIdleSensor();
-	//sensor->setFunction(Kernel::update);
-	//sensor->schedule();
+    Kernel::getInstance()->logDebug("Info: kernel->schedule idle \n");
+	idle= new SoIdleSensor();
+	idle->setFunction(Kernel::update);
+	idle->schedule();
 }
 
 void
 SchedulerBase::scheduleTimerSensor()
 {
-	Kernel::getInstance()->logDebug("Info: kernel->schedule SoTimerSensor \n");
+	Kernel::getInstance()->logDebug("Info: kernel->schedule timer \n");
 	timer=new SoTimerSensor();
 	timer->setFunction(Kernel::update);
 	timer->setInterval(updateRate);
-	sensor = timer;
-	sensor->schedule();
+	timer->schedule();
 }
 END_NAMESPACE_STB
 //========================================================================
