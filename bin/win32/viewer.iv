@@ -117,7 +117,7 @@ SoDisplay
 	  ######################################
 	  ######## ControlMode #################
 	  ######################################
-	  # controlMode SoDesktopControlMode{}
+	   controlMode SoDesktopControlMode{}
 	  controlMode SoTrackedDisplayControlMode
 	   {
 	       displayTrackerKey "blabla"
@@ -142,10 +142,10 @@ SoDisplay
 	  ######################################
 	  ######## Video #######################
 	  ######################################
-	  #videoBackground SoVideoBackground
-	  #{
-	  #  ovStbSink "stbSink"
-	  #}
+	  videoBackground SoVideoBackground
+	  {
+	    ovStbSink "stbSink"
+	  }
 
 	  ######################################
 	  ######## Content #####################
