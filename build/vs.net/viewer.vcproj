@@ -113,6 +113,109 @@
 			<Tool
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
+		<Configuration
+			Name="Debug_QT|Win32"
+			OutputDirectory="Debug_soqt"
+			IntermediateDirectory="Debug_soqt"
+			ConfigurationType="2"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(QTROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;STBVIEWER_EXPORTS;COIN_DLL;USE_SOQT"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib soqt1d.lib opengl32.lib qt-mt.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/stbviewersoqtd.dll"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(QTROOT)/lib&quot;"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="Debug/stbviewerd.pdb"
+				SubSystem="2"
+				ImportLibrary="$(STB4ROOT)/lib/win32/stbviewerd.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release_QT|Win32"
+			OutputDirectory="Release_qt"
+			IntermediateDirectory="Release_qt"
+			ConfigurationType="2"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(QTROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;STBVIEWER_EXPORTS;COIN_DLL;USE_SOQT"
+				RuntimeLibrary="2"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="FALSE"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="stbkernel.lib coin2.lib soqt1.lib opengl32.lib qt-mt.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/stbviewersoqt.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(QTROOT)/lib&quot;"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="Release/$(ProjectName).pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(STB4ROOT)/lib/win32/stbviewer.lib"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -121,6 +224,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<File
+				RelativePath="..\..\include\stb\components\viewer\configViewer.h">
+			</File>
 			<File
 				RelativePath="..\..\include\stb\components\viewer\guiDefines.h">
 			</File>
