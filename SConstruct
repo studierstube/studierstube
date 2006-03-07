@@ -18,6 +18,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     config_file       = 'config.opts'
     root_build_dir    = 'build/linux'
     install_dir       = '/usr/local'
+    install_root_dir  = ''
     
     use_soqt = 'true'
     release_flags = ['-O2']
@@ -99,6 +100,7 @@ else:
 	config.write ("BUILD_BINARY = 'release'\n")
 	config.write ("BUILD_DIR = %r\n"%(root_build_dir))
 	config.write ("INSTALL_DIR = %r\n"%(install_dir))
+	config.write ("INSTALL_ROOT_DIR = %r\n"%(install_root_dir))
 	
 	config.write ("\n# Extra compiler flags can be defined here.\n")
 	config.write ("DEFINES = %s\n"%(my_defines))
@@ -174,6 +176,8 @@ user_options.AddOptions (
 					root_build_dir),
 		('INSTALL_DIR', 'Target directory for installed files.',
 					install_dir),
+		('INSTALL_ROOT_DIR', 'Target directory for building packages.',
+					install_root_dir),
 		#(BoolOption ('USE_OPENAL',
 		#			'Set to 1 to build the game engine with OpenAL support.',
 		#			'false')),
@@ -264,13 +268,15 @@ env['STB_PROJECT_LIBNAME']     = "stbkernel"
 env['STB_INSTALL_DIR']         = install_dir
 env['STB_PROJECT_DEFINES']     = global_defs
 
+user_options_dict['INSTALL_DIR'] = install_root_dir + install_dir
+
 buildutils.appendbuilders(env)
 outname = env.AlwaysBuild(env.Substitute('stb.pc', 'stb.pc.in'))
 ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = user_options_dict['INSTALL_DIR']+'/lib/pkgconfig', source = outname)))
 il = env.Alias('install-lib', user_options_dict['INSTALL_DIR'] + '/lib')
 ib = env.Alias('install-bin', user_options_dict['INSTALL_DIR'] + '/bin')
 ih = env.Alias('install-header', user_options_dict['INSTALL_DIR'] + '/include')
-iss = env.Alias('install-share', user_options_dict['INSTALL_DIR'] + '/share')
+iss = env.Alias('install-share', os.sep+user_options_dict['INSTALL_DIR'] + '/share')
 env.Alias('install', [ic, il, ib, ih, iss])
 
 #****************************************************************************
