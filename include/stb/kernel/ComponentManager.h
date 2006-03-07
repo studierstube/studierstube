@@ -63,7 +63,7 @@ public:
 
     Component* load(std::string compName);
 
-	///// Checks if new apps should be downloaded and started or running apps should be stopped and destroyed.
+	///// Checks if new apps should be downloaded and started or if running apps should be stopped and destroyed.
 	void update(); 
     
 protected:

@@ -57,8 +57,6 @@ public:
 	Component* getComponent(ComponentInfo *compInfo);
 
 protected:	
-
-
 private:
 	
 };// class 

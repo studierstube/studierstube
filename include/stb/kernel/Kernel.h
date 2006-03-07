@@ -42,8 +42,6 @@ class SoSensor;
 
 #include <stb/kernel/Scheduler.h>
 
-
-
 /**
 *
 */

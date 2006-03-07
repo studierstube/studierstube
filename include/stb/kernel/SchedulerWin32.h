@@ -70,10 +70,7 @@ public:
     };
     GUI_BINDING getCurrentGuiBinding(){return curGuiBinding;}
 protected:	
-
-
     GUI_BINDING curGuiBinding;
-
     void loadSoQt();
     void loadSoWin();
     void mainLoopSoWin();

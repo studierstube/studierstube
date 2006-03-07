@@ -56,30 +56,25 @@ public:
 	*/
 	~SceneManager();
 
-	void registerApp(SoSeparator *appRoot);
-	
 	void update();
 
-	enum TOUCHROOT{
-		ROOT=0,
-		SCENE=1,
-		DISPLAY=2
-	};
-
 	SoSeparator* getDisplayRoot();
-    
-    void setDisplay(SoGroup *display);
-
-    void setTrackerSource(SoNode *otSource);
-
     SoSeparator* getSceneRoot();
 
+    void setDisplay(SoGroup *display);
+    void setTrackerSource(SoNode *otSource);
+    void registerApp(SoSeparator *appRoot);
 protected:	
 	SoSeparator* root;
 	SoNode* touchRoot;
 	SoSeparator* trackRoot;
 	SoSeparator* sceneRoot;
 	SoSeparator* displayRoot;
+    enum TOUCHROOT{
+        ROOT=0,
+        SCENE=1,
+        DISPLAY=2
+    };
     void setTouchRoot(TOUCHROOT touchNode);
 
 private:

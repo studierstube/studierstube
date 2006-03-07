@@ -36,7 +36,7 @@
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
 
-class SoSensor;
+class SoIdleSensor;
 class SoTimerSensor;
 class TiXmlAttribute;
 
@@ -70,7 +70,7 @@ public:
 protected:	
     void scheduleIdleSensor();
     void scheduleTimerSensor();
-    SoSensor *sensor;
+    SoIdleSensor *idle;
     SoTimerSensor *timer;
     bool scheduled;
     MODE mode;
