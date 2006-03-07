@@ -124,6 +124,7 @@ public:
     void setOVGLContext(stb::Video* video);
 
     bool isOVGLContext(){return isGLContextShared;}
+
 protected:
 #ifdef WIN32
     HGLRC curGLContext;

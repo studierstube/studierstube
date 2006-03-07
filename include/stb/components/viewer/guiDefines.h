@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _GUIEDFINES_H_
+#ifndef _GUIDEFINES_H_
 #define _GUIDEFINES_H_
 
 #ifdef USE_SOQT
@@ -54,7 +54,6 @@
 #define SoGuiFullViewer SoQtFullViewer
 #define SoGuiRenderArea SoQtRenderArea
 #define SoGuiExaminerViewer SoQtExaminerViewer
-
 
 #elif USE_SOWIN
 

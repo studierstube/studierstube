@@ -176,9 +176,8 @@ public:
     static void exitViewer(void*, SoGuiComponent* viewer);
 
     bool find(SoNode *node);
- protected:
-   
 
+ protected:
     SoStudierstubeViewer* viewer;
     
     /**
