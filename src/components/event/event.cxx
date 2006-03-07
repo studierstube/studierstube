@@ -99,7 +99,7 @@ Event::init()
 
     SoOpenTrackerSource *otSource=new SoOpenTrackerSource;
     otSource->ref();
-    otSource->configuration.setValue(configFile.c_str());
+    otSource->configuration.setValue(stb::Kernel::getInstance()->findConfigFile(configFile).c_str());
     otSource->processing=SoOpenTrackerSource::TIME;
     //otSource->processing=SoOpenTrackerSource::POLL;
     otSource->interval=SbTime(0.01f);

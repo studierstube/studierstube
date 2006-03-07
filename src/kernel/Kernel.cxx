@@ -98,54 +98,10 @@ Kernel::getInstance()
 stb::string 
 Kernel::getKernelConfig(int argc, char* argv[])
 {
-#ifdef LINUX
-    using namespace std;
-    ifstream in;
-
-    // first attempt: HOME dir
-    char *home_dir = 0;
-    home_dir = getenv("HOME");
-
-    ostringstream fn;
-    fn << home_dir << "/" << stb_home << kernel_config_file;
-
-    logEx("Search for kernel config file in %s ... ", fn.str().c_str());
-    in.open(fn.str().c_str(), ios::in);
-
-    // if not found, use global1
-    if (!in.is_open()) {
-        log("not found.\n");
-        fn.str("");
-        fn << stb_config_path1 << kernel_config_file;
-
-        logEx("Search for kernel config file in %s ... ", fn.str().c_str());
-        in.open(fn.str().c_str(), ios::in);
-
-        // if not found, use global2
-        if (!in.is_open()) {
-            log("not found.\n");
-            fn.str("");
-            fn << stb_config_path2 << kernel_config_file;
-
-            logEx("Search for kernel config file in %s ... ", fn.str().c_str());
-            in.open(fn.str().c_str(), ios::in);
-            if (!in.is_open()) {
-                log("not found.\n");
-                log("ERROR, cannot find any kernel config file, exiting ...\n");
-                return stb::string();
-            }
-        }
-    }
-    log("found.\n");
-    in.close();
-    return fn.str();
-#endif
-
-#ifdef WIN32
-    if(argc>1)
-        return argv[1];
-    return this->kernel_config_file;
-#endif
+    if(argc > 1)
+        return findConfigFile(stb::string(argv[1]));
+    else
+        return findConfigFile(kernel_config_file);
 }
 
 //
@@ -154,7 +110,8 @@ Kernel::start(int argc, char* argv[])
 {
     log("****************************************\n");
     log(STUDIERSTUBE_VERSION_STRING);log("\n");
-    log("(C) ");log(STUDIERSTUBE_YEAR_STRING);log("Graz University of Technology\n");
+    log("(C) ");log(STUDIERSTUBE_YEAR_STRING);
+    log(" Graz University of Technology\n");
     log("****************************************\n\n");
     
     stb::string kernelConfigFile=getKernelConfig(argc,argv);
@@ -230,6 +187,57 @@ Kernel::parseConfiguration(TiXmlElement* element)
 	    ////}
         attribute = attribute->Next();
     }
+}
+
+stb::string&
+Kernel::findConfigFile(const stb::string& cfgfile)
+{
+    stb::string ret(cfgfile);
+
+#ifdef LINUX
+    using namespace std;
+    ifstream in;
+
+    // first attempt: HOME dir
+    char *home_dir = 0;
+    home_dir = getenv("HOME");
+
+    ostringstream fn;
+    fn << home_dir << "/" << stb_home << cfgfile;
+
+    logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+    in.open(fn.str().c_str(), ios::in);
+
+    // if not found, use global1
+    if (!in.is_open()) {
+        log("not found.\n");
+        fn.str("");
+        fn << stb_config_path1 << cfgfile;
+
+        logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+        in.open(fn.str().c_str(), ios::in);
+
+        // if not found, use global2
+        if (!in.is_open()) {
+            log("not found.\n");
+            fn.str("");
+            fn << stb_config_path2 << cfgfile;
+
+            logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+            in.open(fn.str().c_str(), ios::in);
+            if (!in.is_open()) {
+                log("not found.\n");
+                log("ERROR, cannot find requested config file, ...\n");
+                return ret;
+            }
+        }
+    }
+    log("found.\n");
+    in.close();
+    ret = fn.str();
+#endif
+
+    return ret;
 }
 
 void 

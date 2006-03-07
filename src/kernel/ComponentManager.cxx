@@ -164,8 +164,4 @@ ComponentManager::load(std::string compName)
     return NULL;
 }
 
-
-
-
-
 END_NAMESPACE_STB
