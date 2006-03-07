@@ -30,10 +30,13 @@
 * @file                                                                   */
 /* ======================================================================= */
 #include <stb/components/viewer/Viewer.h>
+
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
+
 #include <iostream>
 #include <sstream>
+
 #include <Inventor/SoInput.h> 
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
@@ -51,7 +54,6 @@
 #include <stb/components/viewer/controlmode/SoTrackedViewpointControlMode.h>
 #include <stb/components/viewer/controlmode/SoTrackedViewpointMobileDisplayControlMode.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
-
 
 #include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
@@ -81,7 +83,7 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
-    stb::Kernel::getInstance()->log("Viewer::init(\n");
+    stb::Kernel::getInstance()->logDebug("init Viewer\n");
 
     if(isInit)
         return true;
@@ -111,7 +113,6 @@ Viewer::init()
     //get viewer's parameter
     retrieveParameter();
  
-
 #ifdef LINUX
     using namespace std;
     SoInput::addDirectoryFirst(Kernel::getInstance()->stb_config_path1.c_str());
@@ -187,7 +188,7 @@ Viewer::addSoDisplay(SoDisplay* dsp)
 void
 Viewer::removeSoDisplay(SoDisplay* dsp)
 {
-    //displayList.push_back(dsp);
+    //displayList. (dsp);
 }
 
 SoDisplay* 
