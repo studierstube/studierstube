@@ -44,7 +44,8 @@
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <stb/components/event/SoTrakEngine.h>
-
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/starlight/starlight.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
@@ -76,8 +77,11 @@ Event::init()
     //get viewer's parameter
     retrieveParameter();
 
-    if(!(Starlight*)(Kernel::getInstance()->getComponentManager()->load("Starlight")))
+    Starlight* starlight=(Starlight*)(stb::Kernel::getInstance()->getComponentManager()->load("Starlight"));
+    if(!starlight)
+    {
         return false;
+    }
 
     SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
