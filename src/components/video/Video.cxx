@@ -57,7 +57,7 @@ Video::~Video()
 bool 
 Video::init()
 {
-    stb::Kernel::getInstance()->log("Video::init(\n");
+    stb::Kernel::getInstance()->logDebug("Stb:: init Video\n");
     if(isInit)
         return true;
     isInit=true;
