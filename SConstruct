@@ -47,7 +47,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     tinyxml_lib = tinyxml_env.Dictionary()['LIBS']
     tinyxml_libpath = tinyxml_env.Dictionary()['LIBPATH']
     # Coin library information
-    coin_env.ParseConfig ('coin-config --cxxflags --libs')
+    coin_env.ParseConfig ('coin-config --ldflags --cxxflags --libs')
     coin_cflags = coin_env.Dictionary()['CCFLAGS']
     coin_include = coin_env.Dictionary()['CPPPATH']
     coin_lib = coin_env.Dictionary()['LIBS']
