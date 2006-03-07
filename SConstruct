@@ -53,7 +53,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     coin_lib = coin_env.Dictionary()['LIBS']
     coin_libpath = coin_env.Dictionary()['LIBPATH']
     # Soqt library information
-    soqt_env.ParseConfig ('soqt-config --cppflags --libs')
+    soqt_env.ParseConfig ('soqt-config --cppflags --ldflags --libs')
     soqt_cflags = soqt_env.Dictionary()['CCFLAGS']
     soqt_include = soqt_env.Dictionary()['CPPPATH']
     soqt_lib = soqt_env.Dictionary()['LIBS']
