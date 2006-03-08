@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openvideo scheduleMode="timer" updateRate="30">
+
+	<!-- In this example we generate Test Video -->
+	<TestSrc name="TSrc_1" pixelformat="R8G8B8"> 
+		<!-- This will open a glut window with the video provided by the sink -->
+		<GLUTSink name="glsink1" pixelformat="R8G8B8"/>
+		<!-- This will create an OpenGL texture, necessary for video background in stb4 -->
+		<GL_TEXTURE_2D_Sink name="videoBackgroundSink" pixelformat="R8G8B8"/>
+	</TestSrc>
+
+</openvideo>
+
+
+
+
+
+

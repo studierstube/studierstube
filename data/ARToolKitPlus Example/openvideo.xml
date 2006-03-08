@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openvideo scheduleMode="timer" updateRate="30">
+
+	<!-- In this example we receive video from VideoWrapper -->
+	<VideoWrapperSrc 
+		name="TSrc_1"
+		libId="vc"
+		formatId="IYUV"
+		cameraNum="0"
+		width="320"
+		height="240"
+		frameRate="30"
+		scale="1"
+		pixelformat="R8G8B8"> 
+
+		<!-- This will open a glut window with the video provided by the sink -->
+		<GLUTSink name="glsink1" pixelformat="R8G8B8"/>
+		<!-- This will deliver video to ARToolKitPlus -->
+		<VideoSink name="artoolkitPluSink" pixelformat="R8G8B8"/> 
+		<!-- This will create an OpenGL texture, necessary for video background in stb4 -->
+		<GL_TEXTURE_2D_Sink name="videoBackgroundSink" pixelformat="R8G8B8"/>
+
+	</VideoWrapperSrc>
+
+</openvideo>
+
+
+
+
+
+
