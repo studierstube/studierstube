@@ -89,7 +89,7 @@ public:
     */
     void parseConfiguration(TiXmlElement* root);
     
-    stb::string& findConfigFile(const stb::string& cfgfile);
+    stb::string findConfigFile(const stb::string& cfgfile);
 
     static void update( void * data, SoSensor * sensor);
 
