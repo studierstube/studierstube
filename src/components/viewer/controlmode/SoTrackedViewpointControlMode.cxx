@@ -64,7 +64,7 @@ SoTrackedViewpointControlMode::SoTrackedViewpointControlMode()
     SO_NODE_ADD_FIELD(viewpointTrackerKey, ("")); 
     SO_NODE_ADD_FIELD(viewpointTrackerValue, ("")); 
 
-	SO_NODE_ADD_FIELD(eyeOffset, (0.0, 0.0, 0.0));
+    SO_NODE_ADD_FIELD(eyeOffset, (0.0, 0.0, 0.0));
  
 }
 
@@ -79,6 +79,7 @@ SoTrackedViewpointControlMode::~SoTrackedViewpointControlMode()
 bool 
 SoTrackedViewpointControlMode::activate()
 {
+   printf("test\n");
 	if(stbCamera==NULL)
 		return false;
 
@@ -156,6 +157,6 @@ SoTrackedViewpointControlMode::connectHeadTrackerStep2(SoComposeMatrix *ctw)
 	te->matrix.connectFrom(&ctw->matrix);
 
 	// connect to transformed offsets
-	//((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
-    stbCamera->getTransform()->translation.connectFrom(&te->point);
+        ((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
+	//stbCamera->getTransform()->translation.connectFrom(&te->point);
 }

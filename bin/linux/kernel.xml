@@ -2,7 +2,7 @@
 	<kernel 
 	    logMode="off" 
 		logFileName="kernelLog.txt" 
-		guibinding="sowin"
+		guibinding="soqt"
 		updateMode="timer"
 		updateRate="0.03333"/>
 	
@@ -16,7 +16,7 @@
 
 	<Component  name="Starlight"
 	            availability="ondemand"	
-        	    lib="starlight">
+        	    lib="stbstarlight">
 	</Component>
 	
 	<Component  name="Viewer"
@@ -27,6 +27,7 @@
 	</Component>
 
 
+<!--
 	
 	<Component  name="Video"
 	            availability="ondemand"	
@@ -34,11 +35,12 @@
 	    <Param key   ="configFile" 
 		        value ="openvideo.xml" />	
 	</Component>
+	-->
 	
 	
     <Application name="SimpleApp"
                 availability="onload"
-                lib="applications/simple">     
+                lib="stbsimple">     
                 <Param  key   ="sceneFile"  value ="applications/scene.iv" />	
                 <Param  key   ="needViewer" value ="true" />	
                 <Param  key   ="needEvent"  value ="true" />	
