@@ -189,7 +189,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
     }
 }
 
-stb::string&
+stb::string
 Kernel::findConfigFile(const stb::string& cfgfile)
 {
     stb::string ret(cfgfile);

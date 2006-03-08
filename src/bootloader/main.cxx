@@ -35,6 +35,11 @@
 int 
 main(int argc,char* argv[])
 {
+	if (argc<2)
+	{
+		printf("  Usage: %s filename\n\n",argv[0]);
+		return 0;
+	}
 	const char execFunc[]="executeStudierstube";
 	const char libName[]="stbkernel";
 	stb::KernelLoader loader;
