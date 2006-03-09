@@ -165,7 +165,7 @@ else:
 # Read the options from the config file and update the various necessary flags
 #-----------------------------------------------------------------------------
 list_opts = []
-user_options = Options (config_file)
+user_options = Options (config_file, ARGUMENTS)
 user_options_env = Environment (ENV = os.environ, options = user_options)
 user_options.AddOptions (
 		('VERSION', 'Studierstube version', version),

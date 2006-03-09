@@ -35,11 +35,13 @@
 int 
 main(int argc,char* argv[])
 {
+#ifdef WIN32
 	if (argc<2)
 	{
 		printf("  Usage: %s filename\n\n",argv[0]);
 		return 0;
 	}
+#endif
 	const char execFunc[]="executeStudierstube";
 	const char libName[]="stbkernel";
 	stb::KernelLoader loader;
