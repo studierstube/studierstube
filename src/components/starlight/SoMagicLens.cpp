@@ -30,6 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#ifdef USE_VIDENTE
+
 #include <Inventor/elements/SoGLLazyElement.h>
 #include <Inventor/elements/SoCacheElement.h>
 #include <stb/components/starlight/SoMagicLens.h>
@@ -164,3 +166,5 @@ void SoMagicLens::goMagic(bool flag)
 {
 	isMagic=flag;
 }
+
+#endif //USE_VIDENTE

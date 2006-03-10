@@ -105,6 +105,7 @@ Starlight::init(void)
     SoUse::initClass();
     SoVariable::initClass();
 
+#ifdef USE_VIDENTE
 	// Vidente Nodes and Node Kits
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
@@ -114,7 +115,7 @@ Starlight::init(void)
 	SoMagicLensKit::initClass();
 	SoMagicScene::initClass();
 	SoMagicSceneKit::initClass();
-
+#endif //USE_VIDENTE
 
     return isInit;
 }

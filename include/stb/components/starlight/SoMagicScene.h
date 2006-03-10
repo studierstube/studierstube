@@ -31,8 +31,10 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SoMagicScene_H_
-#define _SoMagicScene_H_
+#ifndef _SOMAGICSCENE_H_
+#define _SOMAGICSCENE_H_
+
+#ifdef USE_VIDENTE
 
 /*
  * --------------------------------------------------------------------------------
@@ -122,4 +124,6 @@ protected:
 	void prepareGL();
 };
 
+
+#endif //USE_VIDENTE
 #endif

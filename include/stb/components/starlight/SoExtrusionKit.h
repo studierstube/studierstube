@@ -34,6 +34,8 @@
 #ifndef _SOEXTRUSIONKIT_H_
 #define _SOEXTRUSIONKIT_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -104,4 +106,5 @@ protected:
 
 };
 
-#endif
+#endif //USE_VIDENTE
+#endif //_SOEXTRUSIONKIT_H_

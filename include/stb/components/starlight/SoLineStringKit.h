@@ -34,6 +34,8 @@
 #ifndef _SOLINESTRINGKIT_H_
 #define _SOLINESTRINGKIT_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -92,4 +94,6 @@ protected:
 
 };
 
+
+#endif //USE_VIDENTE
 #endif

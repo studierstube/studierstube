@@ -29,6 +29,9 @@
 * $Id: SoMagicStylesKit.cpp 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
+
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -215,3 +218,5 @@ void SoMagicStylesKit::setStyle(char *strStyleName, SoNode *style)
 		SO_GET_PART(this, "cxnRenderStyles", SoNodeContext)->value.set1Value(nNumberOfStyles, style);
 	}
 }
+
+#endif //USE_VIDENTE

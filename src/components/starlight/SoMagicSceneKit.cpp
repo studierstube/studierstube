@@ -30,6 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -161,3 +163,5 @@ void SoMagicSceneKit::GLRender(SoGLRenderAction * action)
 	SO_GET_ANY_PART(this, "content", SoMagicScene)->setFboHandle(SoMagicStylesKit::handleCgFbo);
 	SoBaseKit::GLRender(action);
 }
+
+#endif //USE_VIDENTE

@@ -36,6 +36,8 @@
 #ifndef _CGFBOMANAGER_H_
 #define _CGFBOMANAGER_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -120,4 +122,6 @@ private:
 	bool isExtensionSupported(const char *extension);
 };
 
+
+#endif //USE_VIDENTE
 #endif

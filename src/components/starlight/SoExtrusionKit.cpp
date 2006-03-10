@@ -30,6 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -193,3 +195,5 @@ void SoExtrusionKit::refresh()
 	faces->coordIndex.set1Value(nNextLimit+3,	0);
 	faces->coordIndex.set1Value(nNextLimit+4,	-1);
 }
+
+#endif //USE_VIDENTE

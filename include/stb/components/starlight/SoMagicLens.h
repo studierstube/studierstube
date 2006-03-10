@@ -33,6 +33,8 @@
 #ifndef _SOMAGICLENS_H_
 #define _SOMAGICLENS_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -120,4 +122,6 @@ protected:
 	void prepareGL(int which);
 };
 
+
+#endif //USE_VIDENTE
 #endif

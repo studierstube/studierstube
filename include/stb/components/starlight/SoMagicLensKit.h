@@ -35,6 +35,8 @@
 #ifndef _SOMAGICLENSKIT_H_
 #define _SOMAGICLENSKIT_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -104,4 +106,6 @@ protected:
 
 };
 
+
+#endif //USE_VIDENTE
 #endif

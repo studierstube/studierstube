@@ -30,6 +30,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -205,3 +207,5 @@ void SoLineStringKit::refresh()
 	faces->coordIndex.set1Value(nNumberOfVertices*2,-1);
 }
 
+
+#endif //USE_VIDENTE

@@ -34,6 +34,8 @@
 #ifndef _SOMAGIKSTYLESKIT_H_
 #define _SOMAGIKSTYLESKIT_H_
 
+#ifdef USE_VIDENTE
+
 /*
  * --------------------------------------------------------------------------------
  * Includes
@@ -150,4 +152,6 @@ protected:
 
 };
 
+
+#endif //USE_VIDENTE
 #endif
