@@ -1,3 +1,4 @@
+/*
 /* ========================================================================
 * Copyright (C) 2005  Graz University of Technology
 *
@@ -22,85 +23,84 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoExtrusionKit.
+/** The header file for the SoMagicLensKit
 *
 * @author Erick Mendez
 * @ingroup vidente
 *
-* $Id: SoExtrusionKit.h 2006-03-10 mendez $
+* $Id: SoMagicLensKit.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SOEXTRUSIONKIT_H_
-#define _SOEXTRUSIONKIT_H_
+#ifndef _SOMAGICLENSKIT_H_
+#define _SOMAGICLENSKIT_H_
 
 /*
  * --------------------------------------------------------------------------------
  * Includes
  * --------------------------------------------------------------------------------
  */
-#include <Inventor/nodekits/SoBaseKit.h>
-#include <Inventor/fields/SoMFVec3f.h>
-#include <Inventor/fields/SoSFVec3f.h>
-#include <Inventor/sensors/SoFieldSensor.h>
+#ifdef WIN32
+#include <SoWinEnterScope.h>
+#include <windows.h>
+#endif
 
+#include <Inventor/actions/SoGLRenderAction.h>
+
+#ifdef WIN32
+#include <SoWinLeaveScope.h>
+#endif
+
+#include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/nodekits/SoBaseKit.h>
+#include "SoMagicLens.h"
+#include "SoMagicStylesKit.h"
 #include "starlight.h"
 
-/** 
-* Header for an Open Inventor Class that implements an extrusion 
-* Kit given a set of points and a direction vector.
-*
-* Notes: The set of coordinates must be a closed loop, this is, the last
-*	     element must be the same as the first
-*
-* @author Erick Mendez
-* @ingroup vidente
-*/
-
-class STARLIGHT_API SoExtrusionKit: public SoBaseKit
+/**
+ * This class is the kit the user will be using for defining a lens.
+ *
+ * @author Erick Méndez
+ * @ingroup vidente
+ */
+class STARLIGHT_API SoMagicLensKit: public SoBaseKit
 {
-    SO_KIT_HEADER(SoExtrusionKit);
-	typedef SoBaseKit inherited;
+protected:
+	/// Parts of the catalog
+	SO_KIT_HEADER(SoMagicLensKit);
+	SO_KIT_CATALOG_ENTRY_HEADER(sepTop);
+	SO_KIT_CATALOG_ENTRY_HEADER(sepLeft);
+	SO_KIT_CATALOG_ENTRY_HEADER(content); //Assumed to be left
+	SO_KIT_CATALOG_ENTRY_HEADER(sepRight);
+	SO_KIT_CATALOG_ENTRY_HEADER(contentright);
 
 public:
-	 /// Initializes the node kit
-    static void initClass();
 
 	/// The constructor of the class, initializes the catalog
-    SoExtrusionKit();
+    SoMagicLensKit();
 
-	 /// Destructor, deletes the sensors
-    ~SoExtrusionKit();
+	/// Destructor, deletes the sensors
+    ~SoMagicLensKit();
 
-	/// The input vertices that will be extruded
-	SoMFVec3f vertices;
+	/// Initializes the node kit
+    static void initClass();
 
-	/// The extrusion vector, giving the direction and magnitude of extrusion
-	SoSFVec3f extrusionVector;
+	/// Sets the content 
+	void setContent(SoNode *newContent);
+
+	/// Propagates the content 
+	void propagateContent();
+
+	/// Disables or Enables Magic rendering
+	void goMagic(bool flag);
 
 protected:
 
-	/// Sensors
-	SoFieldSensor *verticesSensor;
-	SoFieldSensor *extrusionVectorSensor;
-
-	/// Parts of the catalog
-	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
-	SO_KIT_CATALOG_ENTRY_HEADER(coords);
-	SO_KIT_CATALOG_ENTRY_HEADER(faces);
-	SO_KIT_CATALOG_ENTRY_HEADER(shapeHints);
+	/// Sets the Cg parameters and renders down its tree
+	virtual void GLRender(SoGLRenderAction * action);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
-
-	/// Calls the function that rebuilds the object
-    static void verticesCB(void* data, SoSensor* sensor);
-
-	/// Calls the function that rebuilds the object
-    static void extrusionVectorCB(void* data, SoSensor* sensor);
-
-	/// Rebuilds the Extrusion Object
-	void refresh();
 
 };
 

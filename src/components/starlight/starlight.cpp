@@ -37,6 +37,11 @@
 #include <stb/components/starlight/SoExtrusionKit.h>
 #include <stb/components/starlight/SoLineStringKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
+#include <stb/components/starlight/SoMagicStylesKit.h>
+#include <stb/components/starlight/SoMagicLens.h>
+#include <stb/components/starlight/SoMagicLensKit.h>
+#include <stb/components/starlight/SoMagicScene.h>
+#include <stb/components/starlight/SoMagicSceneKit.h>
 
 CREATE_COMPONENT_FUNC(Starlight)
 
@@ -104,6 +109,12 @@ Starlight::init(void)
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
 	SoPhantomShape::initClass();
+	SoMagicStylesKit::initClass();
+	SoMagicLens::initClass();
+	SoMagicLensKit::initClass();
+	SoMagicScene::initClass();
+	SoMagicSceneKit::initClass();
+
 
     return isInit;
 }
