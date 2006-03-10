@@ -158,6 +158,9 @@
 				RelativePath="..\..\src\components\starlight\SoEngineWrapper.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoExtrusionKit.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoFactorRotation.cpp">
 			</File>
 			<File
@@ -179,6 +182,9 @@
 				RelativePath="..\..\src\components\starlight\SoKeyToggle.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoLinestringKit.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoMultiSwitch.cpp">
 			</File>
 			<File
@@ -195,6 +201,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoNodeToName.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoPhantomShape.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoRoute.cpp">
@@ -265,6 +274,9 @@
 				RelativePath="..\..\include\stb\components\starlight\SoEngineWrapper.h">
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoExtrusionKit.h">
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoFactorRotation.h">
 			</File>
 			<File
@@ -286,6 +298,9 @@
 				RelativePath="..\..\include\stb\components\starlight\SoKeyToggle.h">
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoLineStringKit.h">
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoMultiSwitch.h">
 			</File>
 			<File
@@ -302,6 +317,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoNodeToName.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoPhantomShape.h">
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoRoute.h">

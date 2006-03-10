@@ -34,6 +34,9 @@
 #include <stb/components/starlight/SoStringMap.h>
 #include <stb/components/starlight/SoUse.h>
 #include <stb/components/starlight/SoVariable.h>
+#include <stb/components/starlight/SoExtrusionKit.h>
+#include <stb/components/starlight/SoLineStringKit.h>
+#include <stb/components/starlight/SoPhantomShape.h>
 
 CREATE_COMPONENT_FUNC(Starlight)
 
@@ -96,6 +99,11 @@ Starlight::init(void)
     SoStringMap::initClass();
     SoUse::initClass();
     SoVariable::initClass();
+
+	// Vidente Nodes and Node Kits
+	SoExtrusionKit::initClass();
+	SoLineStringKit::initClass();
+	SoPhantomShape::initClass();
 
     return isInit;
 }
