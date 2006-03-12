@@ -36,6 +36,7 @@
 #include <stb/components/starlight/SoVariable.h>
 #include <stb/components/starlight/SoExtrusionKit.h>
 #include <stb/components/starlight/SoLineStringKit.h>
+#include <stb/components/starlight/SoPipeKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
 #include <stb/components/starlight/SoMagicStylesKit.h>
 #include <stb/components/starlight/SoMagicLens.h>
@@ -109,6 +110,7 @@ Starlight::init(void)
 	// Vidente Nodes and Node Kits
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
+	SoPipeKit::initClass();
 	SoPhantomShape::initClass();
 	SoMagicStylesKit::initClass();
 	SoMagicLens::initClass();

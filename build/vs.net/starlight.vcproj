@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL;USE_VIDENTE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -71,7 +71,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL;USE_VIDENTE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -224,6 +224,9 @@
 				RelativePath="..\..\src\components\starlight\SoPhantomShape.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoPipeKit.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoRoute.cpp">
 			</File>
 			<File
@@ -356,6 +359,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoPhantomShape.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoPipeKit.h">
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoRoute.h">
