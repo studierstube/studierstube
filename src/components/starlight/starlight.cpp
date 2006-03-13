@@ -38,11 +38,7 @@
 #include <stb/components/starlight/SoLineStringKit.h>
 #include <stb/components/starlight/SoPipeKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
-#include <stb/components/starlight/SoMagicStylesKit.h>
-#include <stb/components/starlight/SoMagicLens.h>
-#include <stb/components/starlight/SoMagicLensKit.h>
-#include <stb/components/starlight/SoMagicScene.h>
-#include <stb/components/starlight/SoMagicSceneKit.h>
+
 
 CREATE_COMPONENT_FUNC(Starlight)
 
@@ -106,18 +102,14 @@ Starlight::init(void)
     SoUse::initClass();
     SoVariable::initClass();
 
-#ifdef USE_VIDENTE
-	// Vidente Nodes and Node Kits
+
+	// Ericks Nodes and Node Kits
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
 	SoPipeKit::initClass();
 	SoPhantomShape::initClass();
-	SoMagicStylesKit::initClass();
-	SoMagicLens::initClass();
-	SoMagicLensKit::initClass();
-	SoMagicScene::initClass();
-	SoMagicSceneKit::initClass();
-#endif //USE_VIDENTE
+
+
 
     return isInit;
 }

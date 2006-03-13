@@ -34,7 +34,7 @@
 #ifndef _SOPIPEKIT_H_
 #define _SOPIPEKIT_H_
 
-#ifdef USE_VIDENTE
+
 /*
 * --------------------------------------------------------------------------------
 * Includes
@@ -108,5 +108,5 @@ protected:
 
 };
 
-#endif //USE_VIDENTE
+
 #endif

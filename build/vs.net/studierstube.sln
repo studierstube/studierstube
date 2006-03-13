@@ -7,10 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kernel", "kernel.vcproj", "
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simpleApp", "simpleApp.vcproj", "{95C6CB53-B671-49FB-8F14-B543C9C63098}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "starlight", "starlight.vcproj", "{95C6CB53-B671-49FB-8F14-B543C9C63098}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
@@ -49,18 +45,6 @@ Global
 		{BEE9B92D-CCC2-4C97-92EE-6EE09B8CF3AF}.Release_SoQt.Build.0 = Release|Win32
 		{BEE9B92D-CCC2-4C97-92EE-6EE09B8CF3AF}.Release_SoWin.ActiveCfg = Release|Win32
 		{BEE9B92D-CCC2-4C97-92EE-6EE09B8CF3AF}.Release_SoWin.Build.0 = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug.ActiveCfg = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug.Build.0 = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug_SoQt.ActiveCfg = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug_SoQt.Build.0 = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug_SoWin.ActiveCfg = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug_SoWin.Build.0 = Debug|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release.ActiveCfg = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release.Build.0 = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release_SoQt.ActiveCfg = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release_SoQt.Build.0 = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release_SoWin.ActiveCfg = Release|Win32
-		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release_SoWin.Build.0 = Release|Win32
 		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug.ActiveCfg = Debug|Win32
 		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug.Build.0 = Debug|Win32
 		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Debug_SoQt.ActiveCfg = Debug|Win32

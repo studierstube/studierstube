@@ -38,6 +38,7 @@
 #include <Inventor/nodes/SoTransform.h>
 #include <stb/components/event/event.h>
 #include <stb/components/viewer/Viewer.h>
+#include <stb/components/starlight/starlight.h>
 
 #include <cstdio>
 
@@ -97,14 +98,22 @@ SimpleApp::init()
         if(!viewer)
             return false;
     }
+    if(needStarlight)
+    {
+        Starlight* starlight=(Starlight*)(stb::Kernel::getInstance()->getComponentManager()->load("Starlight"));
+        if(!starlight)
+        {
+            return false;
+        }
+    }
     if(needEvent)
     {
         Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
         if(!event)
             return false;
     }
-    
 
+    //load iv file 
     if(sceneFile.size()<1)
         return false;
     SoInput::addDirectoryFirst("./");
@@ -123,9 +132,11 @@ SimpleApp::init()
         stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + sceneFile + "\n");
         return false;
     }
-
+    
+    //register scene 
     registerScene();
     isInit=true;
+
 	return isInit;
 }
 
@@ -139,7 +150,7 @@ SimpleApp::shutDown()
 void 
 SimpleApp::update()
 {
-	Kernel::getInstance()->log("update simple app\n");
+	Kernel::getInstance()->logDebug("update simple app\n");
 }
 
 void 

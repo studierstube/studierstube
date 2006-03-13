@@ -40,8 +40,9 @@
 #include "starlight.h"
 
 #ifdef WIN32
-#include <windows.h>
-#else
+    #include <windows.h>
+#endif
+#ifdef LINUX
 #include <ltdl.h>
 #endif
 
@@ -100,7 +101,7 @@ private:
 
     virtual ~SoClassLoader();
 
-#if defined(WIN32)
+#ifdef WIN32
     HINSTANCE objectHandle;
 #else
     lt_dlhandle objectHandle;

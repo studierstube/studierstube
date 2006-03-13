@@ -19,8 +19,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL;USE_VIDENTE"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -35,7 +35,7 @@
 				AdditionalDependencies="stbkerneld.lib coin2d.lib opengl32.lib glu32.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/starlightd.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Debug/starlightd.pdb"
 				SubSystem="2"
@@ -70,8 +70,8 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL;USE_VIDENTE"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;COIN_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -84,7 +84,7 @@
 				AdditionalDependencies="stbkernel.lib coin2.lib opengl32.lib glu32.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/starlight.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Release/$(ProjectName).pdb"
 				SubSystem="2"
@@ -121,9 +121,6 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
-			<File
-				RelativePath="..\..\src\components\starlight\CgFboManager.cpp">
-			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\GLtools.cpp">
 			</File>
@@ -188,21 +185,6 @@
 				RelativePath="..\..\src\components\starlight\SoLinestringKit.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\components\starlight\SoMagicLens.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoMagicLensKit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoMagicScene.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoMagicSceneKit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoMagicStylesKit.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\components\starlight\SoMultiSwitch.cpp">
 			</File>
 			<File
@@ -255,9 +237,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath="..\..\include\stb\components\starlight\CgFboManager.h">
-			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\GLtools.h">
 			</File>
@@ -323,21 +302,6 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoLineStringKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMagicLens.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMagicLensKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMagicScene.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMagicSceneKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMagicStylesKit.h">
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoMultiSwitch.h">
