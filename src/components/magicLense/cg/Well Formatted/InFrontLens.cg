@@ -1,0 +1,29 @@
+/*
+ * Authors			: Erick Méndez   [ mendez@icg.tu-graz.ac.at ]
+ *					  Markus Grabner [ grabner@icg.tu-graz.ac.at ]
+ * Institute		: Institut für Maschinelles Sehen und Darstellen,
+ *					  Technische Universität Graz
+ * 
+ * Type				: Fragment Program
+ * Description		: This program should determine if the fragment
+ *					  should fail or pass to the next step of the pipeline
+ *					  given the values stored in the zTexture
+ */
+
+#include "CgStructs.cg"
+
+float4 main(TVertexToFragment inputData, uniform samplerRECT ZTexture):COLOR
+{
+	float4 outputColor;
+	float2 xyFragmentPosition;
+	float4 zTextureValues;
+
+	xyFragmentPosition=inputData.wpos.xy;
+	zTextureValues=texRECT(ZTexture, xyFragmentPosition);
+
+	outputColor=inputData.color0;
+	if (inputData.wpos.z>zTextureValues.x)
+		discard;
+			
+	return outputColor;      
+}
