@@ -22,127 +22,127 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The Source file for the SoMagicScene.
+/** The Source file for the SoMagicLens.
 *
 * @author Erick Mendez
 *
-* $Id: SoMagicScene.cpp 2006-03-10 mendez $
+* $Id: SoMagicLens.cpp 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
-
-#ifdef USE_VIDENTE
-
-/*
- * --------------------------------------------------------------------------------
- * Includes
- * --------------------------------------------------------------------------------
- */
+#include <stb/components/magicLens/SoMagicLens.h>
 #include <Inventor/elements/SoGLLazyElement.h>
 #include <Inventor/elements/SoCacheElement.h>
-#include <stb/components/starlight/SoMagicScene.h>
+
 
 // We load the Cg programs into strings
-const char *strCgBehindLens=
-#include "cg/BehindLens.cg"
+const char *strCgLensBackFace=
+#include "cg/LensBackFace.cg"
 ;
-const char *strCgInsideLens=
-#include "cg/InsideLens.cg"
-;
-const char *strCgInfrontLens=
-#include "cg/InfrontLens.cg"
+const char *strCgLensFrontFace=
+#include "cg/LensFrontFace.cg"
 ;
 
 using namespace std;
 
-SO_NODE_SOURCE(SoMagicScene);
+SO_NODE_SOURCE(SoMagicLens);
 
-void SoMagicScene::initClass(void)
+void SoMagicLens::initClass(void)
 {
-	SO_NODE_INIT_CLASS(SoMagicScene, SoSeparator, "Separator");
+	SO_NODE_INIT_CLASS(SoMagicLens, SoSeparator, "Separator");
 }
 
-SoMagicScene::SoMagicScene(void)
+SoMagicLens::SoMagicLens(void)
 {
-    SO_NODE_CONSTRUCTOR(SoMagicScene);
-	isBuiltIn = TRUE;    
+    SO_NODE_CONSTRUCTOR(SoMagicLens);
+	isBuiltIn = TRUE;
 
 	renderPass=0;
 	areCgProgramsLoaded=false;
 	isMagic=true;
 }
 
-SoMagicScene::~SoMagicScene()
+SoMagicLens::~SoMagicLens()
 {
 	// Clean up
 	if (areCgProgramsLoaded)
 	{
-		cgDestroyProgram(fragmentPrograms[BEHIND_LENS]);
-		cgDestroyProgram(fragmentPrograms[INSIDE_LENS]);
-		cgDestroyProgram(fragmentPrograms[INFRONT_LENS]);
+		cgDestroyProgram(fragmentPrograms[BACK_FACE]);
+		cgDestroyProgram(fragmentPrograms[FRONT_FACE]);
 	}
-
 }
 
-void SoMagicScene::initCgPrograms()
+void SoMagicLens::loadCgPrograms()
 {
 	if (areCgProgramsLoaded) return;
 
-	fragmentPrograms[BEHIND_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgBehindLens, handleCgFbo->fragmentProfile, 0, 0);
-	fragmentPrograms[INSIDE_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgInsideLens, handleCgFbo->fragmentProfile, 0, 0);
-	fragmentPrograms[INFRONT_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgInfrontLens, handleCgFbo->fragmentProfile, 0, 0);
-
-	cgGLLoadProgram(fragmentPrograms[BEHIND_LENS]);
-	cgGLLoadProgram(fragmentPrograms[INSIDE_LENS]);
-	cgGLLoadProgram(fragmentPrograms[INFRONT_LENS]);
+	fragmentPrograms[BACK_FACE]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgLensBackFace, handleCgFbo->fragmentProfile, 0, 0);
+	fragmentPrograms[FRONT_FACE]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgLensFrontFace, handleCgFbo->fragmentProfile, 0, 0);
+	cgGLLoadProgram(fragmentPrograms[BACK_FACE]);
+	cgGLLoadProgram(fragmentPrograms[FRONT_FACE]);
 
 	areCgProgramsLoaded=true;
 }
 
-void SoMagicScene::enableFragmentProgram(int which)
+void SoMagicLens::enableFragmentProgram(int which)
 {
+	// Bind Back Face Program and Enable Profile
 	cgGLEnableProfile(handleCgFbo->fragmentProfile);
 	cgGLBindProgram(fragmentPrograms[which]);
 }
 
-void SoMagicScene::disableCgProgram()
+void SoMagicLens::disableProgram()
 {
+	// Disable Profile
 	cgGLDisableProfile(handleCgFbo->fragmentProfile);
 }
 
-void SoMagicScene::prepareGL()
+void SoMagicLens::prepareGL(int which)
 {
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_TEXTURE_2D);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	switch(which) {
+	case BACK_FACE:
+		glClear(GL_COLOR_BUFFER_BIT);
+		glCullFace(GL_FRONT);
+		glBlendFunc(GL_ONE,GL_ZERO);
+		break;
+	case FRONT_FACE:
+		glCullFace(GL_BACK);
+		glBlendFunc(GL_ONE,GL_ONE);
+		break;
+	}
 
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_BLEND);
+	glEnable(GL_CULL_FACE);
+	glDisable(GL_DEPTH_TEST);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void SoMagicScene::GLRenderBelowPath(SoGLRenderAction * action)
+void SoMagicLens::GLRenderBelowPath(SoGLRenderAction * action)
 {
 	// Necessary
 	SoGLLazyElement::sendAllMaterial(action->getState());
 	SoCacheElement::invalidate(action->getState());
-	
-	glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	initCgPrograms();
 
-	// If we have a program loaded
+	//SbVec2s size=action->getViewportRegion().getWindowSize();
+
+	glPushAttrib(GL_ENABLE_BIT | GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+	loadCgPrograms();
+
 	if (areCgProgramsLoaded&&isMagic)
 	{
-		// Enable the appropriate Fragment Program (three passes)
+		// Enable the appropriate Fragment Program (two passes)
 		enableFragmentProgram(renderPass);
-		// Prepare input from the FBO texture
-		handleCgFbo->prepareReadFromFBO();
-		// Set everything in OpenGL
-		prepareGL();
+		// Prepare to output to the FBO
+		handleCgFbo->targetRenderToFBO();
+		// Set everything in OpenGL for the current pass
+		prepareGL(renderPass);
 
 		// Render
 		SoSeparator::GLRenderBelowPath(action);
 
 		// Let go
-		handleCgFbo->releaseReadFromFBO();
-		disableCgProgram();
+		disableProgram();
+		handleCgFbo->releaseRenderToFBO();
 	}
 	else
 	{
@@ -150,18 +150,18 @@ void SoMagicScene::GLRenderBelowPath(SoGLRenderAction * action)
 		SoSeparator::GLRenderBelowPath(action);
 	}
 
-	renderPass=(renderPass+1)%SCENE_RENDER_PASSES;
+	// We allow two render passes
+	renderPass=(renderPass+1)%LENS_RENDER_PASSES;
 	glPopAttrib();
 }
 
-void SoMagicScene::setFboHandle(CgFboManager *newHandle)
+void SoMagicLens::setFboHandle(CgFboManager *newHandle)
 {
 	handleCgFbo=newHandle;
 }
 
-void SoMagicScene::goMagic(bool flag)
+void SoMagicLens::goMagic(bool flag)
 {
 	isMagic=flag;
 }
 
-#endif //USE_VIDENTE

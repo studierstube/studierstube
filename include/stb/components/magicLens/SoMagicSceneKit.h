@@ -1,4 +1,3 @@
-/*
 /* ========================================================================
 * Copyright (C) 2005  Graz University of Technology
 *
@@ -23,19 +22,19 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoMagicLensKit
+/** The header file for the SoMagicSceneKit
 *
 * @author Erick Mendez
 * @ingroup vidente
 *
-* $Id: SoMagicLensKit.h 2006-03-10 mendez $
+* $Id: SoMagicSceneKit.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SOMAGICLENSKIT_H_
-#define _SOMAGICLENSKIT_H_
 
-#ifdef USE_VIDENTE
+#ifndef _SOMAGICSCENEKIT_H_
+#define _SOMAGICSCENEKIT_H_
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -53,39 +52,53 @@
 #include <SoWinLeaveScope.h>
 #endif
 
-#include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodekits/SoBaseKit.h>
-#include "SoMagicLens.h"
-#include "SoMagicStylesKit.h"
-#include "starlight.h"
+#include <Inventor/fields/SoSFString.h>
+#include <stb/components/starlight/SoNodeContextReport.h>
+
+#include <stb/components/magicLens/SoMagicScene.h>
+#include <stb/components/magicLens/SoMagicStylesKit.h>
+#include <stb/components/starlight/starlight.h>
 
 /**
- * This class is the kit the user will be using for defining a lens.
+ * This class is the kit the user will be using for defining a the scene of a magic lens
  *
- * @author Erick Méndez
+ * @author Erick Mendez
  * @ingroup vidente
  */
-class STARLIGHT_API SoMagicLensKit: public SoBaseKit
+
+class SoMagicSceneKit: public SoBaseKit
 {
-protected:
 	/// Parts of the catalog
-	SO_KIT_HEADER(SoMagicLensKit);
+	SO_KIT_HEADER(SoMagicSceneKit);
 	SO_KIT_CATALOG_ENTRY_HEADER(sepTop);
-	SO_KIT_CATALOG_ENTRY_HEADER(sepLeft);
-	SO_KIT_CATALOG_ENTRY_HEADER(content); //Assumed to be left
-	SO_KIT_CATALOG_ENTRY_HEADER(sepRight);
-	SO_KIT_CATALOG_ENTRY_HEADER(contentright);
+
+	SO_KIT_CATALOG_ENTRY_HEADER(sepBehind);
+	SO_KIT_CATALOG_ENTRY_HEADER(behindRenderStyle);
+	SO_KIT_CATALOG_ENTRY_HEADER(content); //Assumed to be behind
+
+	SO_KIT_CATALOG_ENTRY_HEADER(sepInside);
+	SO_KIT_CATALOG_ENTRY_HEADER(insideRenderStyle);
+	SO_KIT_CATALOG_ENTRY_HEADER(contentInside);
+
+	SO_KIT_CATALOG_ENTRY_HEADER(sepInfront);
+	SO_KIT_CATALOG_ENTRY_HEADER(contentInfront);
+	SO_KIT_CATALOG_ENTRY_HEADER(infrontRenderStyle);
+
 
 public:
 
+	/// This holds the style to be used
+	SoSFString styleName;
+
 	/// The constructor of the class, initializes the catalog
-    SoMagicLensKit();
+	SoMagicSceneKit();
 
 	/// Destructor, deletes the sensors
-    ~SoMagicLensKit();
+	~SoMagicSceneKit();
 
 	/// Initializes the node kit
-    static void initClass();
+	static void initClass();
 
 	/// Sets the content 
 	void setContent(SoNode *newContent);
@@ -96,16 +109,27 @@ public:
 	/// Disables or Enables Magic rendering
 	void goMagic(bool flag);
 
+	/// Sets what style should we use for rendering
+	void setStyle(char *strStyleName);
+
 protected:
 
-	/// Sets the Cg parameters and renders down its tree
-	virtual void GLRender(SoGLRenderAction * action);
+	/// Sensor to refresh the style
+	SoFieldSensor *styleNameSensor;
+
+	// Calls the function that refreshes the style
+	static void stylesHandleCB(void* data, SoSensor* sensor);
+
+	// Calls the function that refreshes the style
+    static void styleNameCB(void* data, SoSensor* sensor);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
 
+	/// Sets the Cg parameters and renders down its tree
+	virtual void GLRender(SoGLRenderAction * action);
+
 };
 
 
-#endif //USE_VIDENTE
 #endif

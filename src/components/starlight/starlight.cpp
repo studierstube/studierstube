@@ -113,4 +113,184 @@ Starlight::init(void)
 
     return isInit;
 }
+
+
+SoClassLoader* 
+Starlight::createSoClassLoader()
+{
+    return new SoClassLoader;
+}
+
+SoConditionalTrigger*    
+Starlight::createSoConditionalTrigger()
+{
+    return new SoConditionalTrigger;
+}
+
+
+SoContext*   
+Starlight::createSoContext()
+{
+    return new SoContext;
+}
+
+SoContextMultiSwitch*    
+Starlight::createSoContextMultiSwitch()
+{
+    return new SoContextMultiSwitch;
+}
+
+SoContextReport*    
+Starlight::createSoContextReport()
+{
+    return new SoContextReport;
+}
+
+SoContextSeparator*    
+Starlight::createSoContextSeparator()
+{
+    return new SoContextSeparator;
+}
+
+SoContextSwitch*    
+Starlight::createSoContextSwitch()
+{
+    return new SoContextSwitch;
+}
+
+SoEaseIn*    
+Starlight::createSoEaseIn()
+{
+    return new SoEaseIn;
+}
+
+SoEngineWrapper*    
+Starlight::createSoEngineWrapper()
+{
+    return new SoEngineWrapper;
+}
+
+SoFactorRotation*    
+Starlight::createSoFactorRotation()
+{
+    return new SoFactorRotation;
+}
+
+
+
+SoFileSubgraph*    
+Starlight::createSoFileSubgraph()
+{
+    return new SoFileSubgraph;
+}
+
+SoFrameBuffer*    
+Starlight::createSoFrameBuffer()
+{
+    return new SoFrameBuffer;
+}
+
+
+SoKeyToggle*    
+Starlight::createSoKeyToggle()
+{
+    return new SoKeyToggle;
+}
+
+SoMultiSwitch*   
+Starlight::createSoMultiSwitch()
+{
+    return new SoMultiSwitch;
+}
+
+SoMultMatrix*    
+Starlight::createSoMultMatrix()
+{
+    return new SoMultMatrix;
+}
+
+SoNodeContext*    
+Starlight::createSoNodeContext()
+{
+    return new SoNodeContext;
+}
+
+SoNodeContextReport*    
+Starlight::createSoNodeContextReport()
+{
+    return new SoNodeContextReport;
+}
+
+SoNodeToName*    
+Starlight::createSoNodeToName()
+{
+    return new SoNodeToName;
+}
+
+SoRoute*
+Starlight::createSoRoute()
+{
+    return new SoRoute;
+}
+
+SoSFFieldContainer*
+Starlight::createSoSFFieldContainer()
+{
+    return new SoSFFieldContainer;
+}
+
+SoStencilBuffer*    
+Starlight::createSoStencilBuffer()
+{
+    return new SoStencilBuffer;
+}
+
+SoStringCalculator*    
+Starlight::createSoStringCalculator()
+{
+    return new SoStringCalculator;
+}
+
+SoStringMap*    
+Starlight::createSoStringMap()
+{
+    return new SoStringMap;
+}
+
+SoUse*    
+Starlight::createSoUse()
+{
+    return new SoUse;
+}
+
+SoVariable*    
+Starlight::createSoVariable()
+{
+    return new SoVariable;
+}
+
+SoExtrusionKit*  
+Starlight::createSoExtrusionKit()
+{
+    return new SoExtrusionKit;
+}
+
+SoLineStringKit* 
+Starlight::createSoLineStringKit()
+{
+    return new SoLineStringKit;
+}
+
+SoPipeKit*       
+Starlight::createSoPipeKit()
+{
+    return new SoPipeKit;
+}
+
+SoPhantomShape*  
+Starlight::createSoPhantomShape()
+{
+    return new SoPhantomShape;
+}
+
 END_NAMESPACE_STB

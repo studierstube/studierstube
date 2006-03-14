@@ -36,7 +36,6 @@
 #ifndef _CGFBOMANAGER_H_
 #define _CGFBOMANAGER_H_
 
-#ifdef USE_VIDENTE
 
 /*
  * --------------------------------------------------------------------------------
@@ -44,10 +43,11 @@
  * --------------------------------------------------------------------------------
  */
 #include <iostream>
+
 #include <GL/glew.h>
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
-#include "starlight.h"
+#include <stb/components/starlight/starlight.h>
 
 #pragma comment(lib, "cg")
 #pragma comment(lib, "cgGL")
@@ -122,6 +122,4 @@ private:
 	bool isExtensionSupported(const char *extension);
 };
 
-
-#endif //USE_VIDENTE
 #endif

@@ -100,19 +100,17 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
-    virtual SoTrakEngine* createSoTrakEngine();
-    virtual SoTrackedArtifactKit* createSoTrackedArtifactKit();
-    virtual SoOpenTrackerSource* createSoOpenTrackerSource();
-    virtual SoEventGroup* createSoEventGroup();
-    virtual SoEventKit* createSoEventKit();
-    virtual SoEventNode* createSoEventNode();
-    virtual SoEventSeparator* createSoEventSeparator();
-    virtual SoEventSource* createSoEventSource();
-    virtual SoInputEvent* createSoInputEvent();
-    virtual SoEventRoot* createSoEventRoot();
-    virtual SoEventAction* createSoEventAction();
-
-    
+    virtual SoTrakEngine*           createSoTrakEngine();
+    virtual SoTrackedArtifactKit*   createSoTrackedArtifactKit();
+    virtual SoOpenTrackerSource*    createSoOpenTrackerSource();
+    virtual SoEventGroup*           createSoEventGroup();
+    virtual SoEventKit*             createSoEventKit();
+    virtual SoEventNode*            createSoEventNode();
+    virtual SoEventSeparator*       createSoEventSeparator();
+    virtual SoEventSource*          createSoEventSource();
+    virtual SoInputEvent*           createSoInputEvent();
+    virtual SoEventRoot*            createSoEventRoot();
+    virtual SoEventAction*          createSoEventAction();
 
 protected:	
     stb::string configFile; 

@@ -45,6 +45,38 @@
     #define STARLIGHT_API
 #endif
 
+class SoClassLoader;
+class SoConditionalTrigger;
+
+class SoContext;
+class SoContextMultiSwitch;
+class SoContextReport;
+class SoContextSeparator;
+class SoContextSwitch;
+class SoEaseIn;
+class SoEngineWrapper;
+class SoFactorRotation;
+class SoFileSubgraph;
+class SoFrameBuffer;
+class SoKeyToggle;
+class SoMultiSwitch;
+class SoMultMatrix;
+class SoNodeContext;
+class SoNodeContextReport;
+class SoNodeToName;
+class SoRoute;
+class SoSFFieldContainer;
+class SoStencilBuffer;
+class SoStringCalculator;
+class SoStringMap;
+class SoUse;
+class SoVariable;
+// Ericks Nodes and Node Kits
+class SoExtrusionKit;
+class SoLineStringKit;
+class SoPipeKit;
+class SoPhantomShape;
+
 BEGIN_NAMESPACE_STB
 /**
 *	
@@ -65,6 +97,38 @@ public:
     virtual bool init();
 
     virtual void shutDown();
+
+    virtual SoClassLoader* createSoClassLoader();
+    virtual SoConditionalTrigger*    createSoConditionalTrigger();
+    virtual SoContext*   createSoContext();
+    virtual SoContextMultiSwitch*    createSoContextMultiSwitch();
+    virtual SoContextReport*    createSoContextReport();
+    virtual SoContextSeparator*    createSoContextSeparator();
+    virtual SoContextSwitch*    createSoContextSwitch();
+    virtual SoEaseIn*    createSoEaseIn();
+    virtual SoEngineWrapper*    createSoEngineWrapper();
+    virtual SoFactorRotation*    createSoFactorRotation();
+    virtual SoFileSubgraph*    createSoFileSubgraph();
+    virtual SoFrameBuffer*    createSoFrameBuffer();
+    virtual SoKeyToggle*    createSoKeyToggle();
+    virtual SoMultiSwitch*   createSoMultiSwitch();
+    virtual SoMultMatrix*    createSoMultMatrix();
+    virtual SoNodeContext*    createSoNodeContext();
+    virtual SoNodeContextReport*    createSoNodeContextReport();
+    virtual SoNodeToName*    createSoNodeToName();
+    virtual SoRoute*    createSoRoute();
+    virtual SoSFFieldContainer*    createSoSFFieldContainer();
+    virtual SoStencilBuffer*    createSoStencilBuffer();
+    virtual SoStringCalculator*    createSoStringCalculator();
+    virtual SoStringMap*    createSoStringMap();
+    virtual SoUse*    createSoUse();
+    virtual SoVariable*    createSoVariable();
+    // Ericks Nodes and Node Kits
+    virtual SoExtrusionKit*  createSoExtrusionKit();
+    virtual SoLineStringKit* createSoLineStringKit();
+    virtual SoPipeKit*       createSoPipeKit();
+    virtual SoPhantomShape*  createSoPhantomShape();
+
 protected:	
 private:
 };// class 

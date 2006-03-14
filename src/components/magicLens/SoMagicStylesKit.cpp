@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef USE_VIDENTE
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -40,7 +40,9 @@
 #include <Inventor/nodes/SoGroup.h>
 #include <stb/components/starlight/SoNodeContext.h>
 #include <iostream>
-#include <stb/components/starlight/SoMagicStylesKit.h>
+#include <stb/components/magicLens/SoMagicStylesKit.h>
+#include <stb/components/magicLens/MagicLens.h>
+#include <stb/components/starlight/starlight.h>
 
 using namespace std;
 
@@ -79,7 +81,8 @@ SoMagicStylesKit::SoMagicStylesKit()
 
 	// Create the nodekit
 	SO_KIT_ADD_CATALOG_ENTRY(sepTop,			SoGroup,		FALSE,	this,	\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNodeContext,	FALSE,	sepTop,	\x0, TRUE);
+    //SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNodeContext,	FALSE,	sepTop,	\x0, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNode,	FALSE,	sepTop,	\x0, TRUE);
 	SO_KIT_ADD_FIELD(styleNames,	(0));
 	SO_KIT_ADD_FIELD(stylesInside,	(0));
 	SO_KIT_ADD_FIELD(stylesOutside,	(0));
@@ -99,6 +102,9 @@ SoMagicStylesKit::SoMagicStylesKit()
 	isLoaded=false;
 	nNumberOfStyles=-1;
 	handleCgFbo=new CgFboManager;
+
+    stb::Starlight* starlight=(stb::Starlight*)(stb::MagicLens::getStarlight());
+    cxnRenderStyles.setValue((SoNodeContext*)(starlight->createSoNodeContext()));
 
 	this->setUpConnections(true, true);
 }
@@ -219,4 +225,3 @@ void SoMagicStylesKit::setStyle(char *strStyleName, SoNode *style)
 	}
 }
 
-#endif //USE_VIDENTE

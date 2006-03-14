@@ -22,18 +22,18 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoMagicLens
+/** The header file for the SoMagicScene.
 *
 * @author Erick Mendez
 * @ingroup vidente
 *
-* $Id: SoMagicLens.h 2006-03-10 mendez $
+* $Id: SoMagicScene.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
-#ifndef _SOMAGICLENS_H_
-#define _SOMAGICLENS_H_
 
-#ifdef USE_VIDENTE
+#ifndef _SOMAGICSCENE_H_
+#define _SOMAGICSCENE_H_
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -43,35 +43,36 @@
 #include <Inventor/nodes/SoSeparator.h>
 
 #ifdef WIN32
-#include <SoWinEnterScope.h>
-#include <windows.h>
+    #include <SoWinEnterScope.h>
+    #include <windows.h>
 #endif
 
 #include <Inventor/actions/SoGLRenderAction.h>
 
 #ifdef WIN32
-#include <SoWinLeaveScope.h>
+    #include <SoWinLeaveScope.h>
 #endif
 
-#include "CgFboManager.h"
-#include "starlight.h"
+#include <stb/components/starlight/starlight.h>
+#include <stb/components/magicLens/CgFboManager.h>
 
-#ifndef LENS_RENDER_PASSES
-#define LENS_RENDER_PASSES 2
-#define BACK_FACE 0
-#define FRONT_FACE 1
+#ifndef SCENE_RENDER_PASSES
+    #define SCENE_RENDER_PASSES 3
+    #define BEHIND_LENS 0
+    #define INSIDE_LENS 1
+    #define INFRONT_LENS 2
 #endif
 
 /**
- * This class implements a Magic Lens as defined by Ropinski's algorithm
- * user should avoid using it directly and instead use SoMagicLensKit
+ * This class implements the Scene of a Magic Lens as defined by Ropinski's algorithm
+ * user should avoid using it directly and instead use SoMagicSceneKit
  *
  * @author Erick Méndez
  * @ingroup vidente
  */
-class STARLIGHT_API SoMagicLens: public SoSeparator
+class SoMagicScene: public SoSeparator
 {
-	SO_NODE_HEADER(SoMagicLens);
+	SO_NODE_HEADER(SoMagicScene);
 
 public:
 
@@ -79,15 +80,15 @@ public:
 	bool areCgProgramsLoaded;
 
 	/// The constructor of the class, initializes whats necessary
-	SoMagicLens();
+	SoMagicScene();
 
 	/// Destructor, deletes whatever is left
-	~SoMagicLens();
+	~SoMagicScene();
 	
 	/// Initializes the node
     static void initClass();
 
-	/// Sets the Fbo handle and passes the same to its magic child
+	/// Sets the Fbo handle
 	void setFboHandle(CgFboManager *newHandle);
 
 	/// Disables or Enables Magic rendering
@@ -100,8 +101,8 @@ protected:
 	/// Flag for turning on/off magic
 	bool isMagic;
 
-	/// We need 2 fragment programs, one for each render pass
-	CGprogram fragmentPrograms[LENS_RENDER_PASSES];
+	/// We need 3 fragment programs, one for each render pass
+	CGprogram fragmentPrograms[SCENE_RENDER_PASSES];
 
 	/// Pointer to the Handle of the FBO
 	CgFboManager *handleCgFbo;
@@ -109,19 +110,17 @@ protected:
 	/// Sets the Cg parameters and renders down its tree
 	virtual void GLRenderBelowPath(SoGLRenderAction * action);
 
-	/// Loads the Cg Programs
-	void loadCgPrograms();
+	/// Initializes the Cg Programs
+	void initCgPrograms();
 
 	/// Enables the Specified Fragment Program
 	void enableFragmentProgram(int which);
 
-	/// Disables the current Cg Program
-	void disableProgram();
+	/// Disables the Cg program
+	void disableCgProgram();
 
 	/// Sets whatever GL commands we need
-	void prepareGL(int which);
+	void prepareGL();
 };
 
-
-#endif //USE_VIDENTE
-#endif
+#endif //#define _SOMAGICSCENE_H_

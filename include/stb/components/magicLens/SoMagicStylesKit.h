@@ -34,7 +34,7 @@
 #ifndef _SOMAGIKSTYLESKIT_H_
 #define _SOMAGIKSTYLESKIT_H_
 
-#ifdef USE_VIDENTE
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -57,8 +57,8 @@
 #include <Inventor/fields/SoMFString.h>
 #include <Inventor/fields/SoMFNode.h>
 #include <Inventor/sensors/SoFieldSensor.h>
-#include "CgFboManager.h"
-#include "starlight.h"
+#include <stb/components/magicLens/CgFboManager.h>
+#include <stb/components/starlight/starlight.h>
 
 //#define PRINT_FRAMERATE
 
@@ -71,7 +71,7 @@
  * @ingroup vidente
  */
 
-class STARLIGHT_API SoMagicStylesKit: public SoBaseKit
+class SoMagicStylesKit: public SoBaseKit
 {
     SO_KIT_HEADER(SoMagicStylesKit);
 
@@ -153,5 +153,4 @@ protected:
 };
 
 
-#endif //USE_VIDENTE
 #endif

@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef USE_VIDENTE
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -38,7 +38,9 @@
  * --------------------------------------------------------------------------------
  */
 #include <stb/components/starlight/SoContextSeparator.h>
-#include <stb/components/starlight/SoMagicLensKit.h>
+#include <stb/components/magicLens/SoMagicLensKit.h>
+#include <stb/components/starlight/starlight.h>
+#include <stb/components/magicLens/MagicLens.h>
 
 using namespace std;
 
@@ -65,7 +67,10 @@ SoMagicLensKit::SoMagicLensKit()
 	SO_KIT_CONSTRUCTOR(SoMagicLensKit);
 
 	// This is for the parts of the catalog
-	SO_KIT_ADD_CATALOG_ENTRY(sepTop,				SoContextSeparator,	FALSE,	this,	\x0, TRUE);
+    //////// denis 
+	//SO_KIT_ADD_CATALOG_ENTRY(sepTop,				SoContextSeparator,	FALSE,	this,	\x0, TRUE);
+    //#define SO_KIT_ADD_CATALOG_ENTRY(_part_, _partclass_, _isdefnull_ , _parent_, _sibling_, _ispublic_) 
+    SO_KIT_ADD_CATALOG_ENTRY(sepTop,SoSeparator,TRUE,	this,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(sepLeft,				SoSeparator, TRUE, sepTop,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,		SoNode, SoMagicLens, TRUE, sepLeft, "", TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(sepRight,				SoSeparator, TRUE, sepTop,	\x0, TRUE);
@@ -74,6 +79,9 @@ SoMagicLensKit::SoMagicLensKit()
 	SO_KIT_INIT_INSTANCE();
 
 	SO_GET_ANY_PART(this, "content", SoMagicLens)->setFboHandle(SoMagicStylesKit::handleCgFbo);
+
+    stb::Starlight* starlight=(stb::Starlight*)(stb::MagicLens::getStarlight());
+    sepTop.setValue((SoContextSeparator*)(starlight->createSoContextSeparator()));
 
 	this->setUpConnections(TRUE, TRUE);
 }
@@ -128,4 +136,4 @@ void SoMagicLensKit::GLRender(SoGLRenderAction * action)
 	SoBaseKit::GLRender(action);
 }
 
-#endif //USE_VIDENTE
+

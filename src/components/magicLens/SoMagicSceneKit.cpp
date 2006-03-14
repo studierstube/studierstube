@@ -30,7 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef USE_VIDENTE
+
 
 /*
  * --------------------------------------------------------------------------------
@@ -40,7 +40,9 @@
 #include <stb/components/starlight/SoContextSeparator.h>
 #include <stb/components/starlight/SoNodeContextReport.h>
 #include <Inventor/nodes/SoTransform.h>
-#include <stb/components/starlight/SoMagicSceneKit.h>
+#include <stb/components/magicLens/SoMagicSceneKit.h>
+#include <stb/components/magicLens/MagicLens.h>
+#include <stb/components/starlight/starlight.h>
 
 using namespace std;
 
@@ -63,20 +65,27 @@ void SoMagicSceneKit::initClass(void)
 */
 SoMagicSceneKit::SoMagicSceneKit()
 {
-	SO_KIT_CONSTRUCTOR(SoMagicSceneKit);
-	SO_KIT_ADD_CATALOG_ENTRY(sepTop,						SoContextSeparator, TRUE, this,	\x0, TRUE);
+    // SO_KIT_ADD_CATALOG_ENTRY(
+    // name,className,nullByDefault,parentName,rightSiblingName,isPublic
 
+	SO_KIT_CONSTRUCTOR(SoMagicSceneKit);
+    //////////////////////// DENIS 
+    //SO_KIT_ADD_CATALOG_ENTRY(sepTop,						SoContextSeparator, FALSE, this,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(sepTop,						SoSeparator, TRUE, this,	\x0, FALSE);
 	SO_KIT_ADD_CATALOG_ENTRY(sepBehind,						SoSeparator, TRUE, sepTop,	\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(behindRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepBehind, "", TRUE);
+	//SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(behindRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepBehind, "", TRUE);
+    SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(behindRenderStyle,	SoNode, SoNode, TRUE, sepBehind, "", TRUE);
 	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,				SoNode, SoMagicScene, TRUE, sepBehind, "", TRUE);
 	//SO_KIT_ADD_CATALOG_ENTRY(content,		SoSeparator, TRUE, sepBehind,	\x0, TRUE);
 
 	SO_KIT_ADD_CATALOG_ENTRY(sepInside,						SoSeparator, TRUE, sepTop,	\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(insideRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepInside, "", TRUE);
+	//SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(insideRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepInside, "", TRUE);
+    SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(insideRenderStyle,	SoNode, SoNode, TRUE, sepInside, "", TRUE);
 	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(contentInside,		SoNode, SoMagicScene, TRUE, sepInside, "", TRUE);
 
 	SO_KIT_ADD_CATALOG_ENTRY(sepInfront,					SoSeparator, TRUE, sepTop,	\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(infrontRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepInfront, "", TRUE);
+   // SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(infrontRenderStyle,	SoNode, SoNodeContextReport, TRUE, sepInfront, "", TRUE);
+	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(infrontRenderStyle,	SoNode, SoNode, TRUE, sepInfront, "", TRUE);
 	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(contentInfront,		SoNode, SoMagicScene, TRUE, sepInfront, "", TRUE);
 
 	SO_KIT_ADD_FIELD(styleName,		(NULL));
@@ -87,6 +96,12 @@ SoMagicSceneKit::SoMagicSceneKit()
 
 	// Create the Sensors
 	styleNameSensor=new SoFieldSensor(SoMagicSceneKit::styleNameCB, this);
+
+    stb::Starlight* starlight=(stb::Starlight*)(stb::MagicLens::getStarlight());
+    sepTop.setValue((SoContextSeparator*)(starlight->createSoContextSeparator()));
+    behindRenderStyle.setValue(((SoNodeContextReport*)(starlight->createSoNodeContextReport())));
+    insideRenderStyle.setValue(((SoNodeContextReport*)(starlight->createSoNodeContextReport())));
+    infrontRenderStyle.setValue(((SoNodeContextReport*)(starlight->createSoNodeContextReport())));
 
 	this->setUpConnections(TRUE, TRUE);
 }
@@ -164,4 +179,3 @@ void SoMagicSceneKit::GLRender(SoGLRenderAction * action)
 	SoBaseKit::GLRender(action);
 }
 
-#endif //USE_VIDENTE

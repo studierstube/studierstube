@@ -30,10 +30,7 @@
 * $Id: CgFboManager.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
-
-#ifdef USE_VIDENTE
-
-#include <stb/components/starlight/CgFboManager.h>
+#include <stb/components/magicLens/CgFboManager.h>
 #include <iostream>
 #include <string.h>
 #include <assert.h>
@@ -198,4 +195,4 @@ void CgFboManager::initProfiles()
 	isLoaded=true;
 }
 
-#endif //USE_VIDENTE
+
