@@ -87,7 +87,10 @@ SoDesktopControlMode::activate()
 		else if(stbCamera->getCamera()->isOfType(SoCamera::getClassTypeId()))
 		{
 			stb::Kernel::getInstance()->log("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
-			return false;
+            stbCamera->getTransform()->translation.connectFrom(&refCam->position);
+            stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
+          
+			return true;
 		}
 	}
 
