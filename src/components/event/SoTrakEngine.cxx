@@ -19,12 +19,12 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
  * ======================================================================== */
-/** header file for SoTrakEngine engine
+/** Source file for SoTrakEngine engine
   *
   * @author Gerhard Reitmayr, Istvan Barakonyi
   *
@@ -93,6 +93,8 @@ void SoTrakEngine::inputChanged(SoField* whichField)
 void SoTrakEngine::processEvent(SoInputEvent *event)
 {
     if (event){
+
+		/// FIXME: Why is the schema not used here? Mendez 20060315
         SbVec3f pos=event->getSFVec3f("event.position");
         SbRotation rot=event->getSFRotation("event.orientation");
 

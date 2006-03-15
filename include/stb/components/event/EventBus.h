@@ -45,13 +45,14 @@ class EVENT_API EventProducer
 {
 };
 
-/// listener interface class
+/// Subscriber class, will get filtered updates directly from the publisher
 class EVENT_API EventSubscriber
 {
 public:
     virtual void newEvent( SoInputEvent * event ) = 0;
 };
 
+/// Filter class, in charge of accepting or rejecting events
 class EVENT_API EventFilter 
 {
 public: 
@@ -62,19 +63,30 @@ class EVENT_API EventBus
 {
 public:
 
+	/// Adds a subscriber and its filter to our list
     void addSubscriber( EventSubscriber * subscriber , EventFilter * filter = NULL);
+
+	/// Removes the subscriber from the list
     void removeSubscriber( EventSubscriber * subscriber );
 
+	/// Publish the events to the subscribers
     void publish( SoInputEvent * event );
 
+	/// It's a singleton, this gets the proper instance
     static EventBus & getSingleton(void);
 
 protected:
+	/// Constructor is protected
     EventBus(void);
+
+	/// The singleton instance
     static EventBus *singleton;
+
+	/// Destructor is protected
     virtual ~EventBus(void);
 
+	/// The list of subscribers and their filters
     std::map<EventSubscriber *, EventFilter *> subscriptions;
 };
 
-#endif
+#endif //__EVENTBUS_H__

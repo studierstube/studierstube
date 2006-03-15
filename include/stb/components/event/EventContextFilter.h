@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -53,9 +53,13 @@ protected:
     NameStringMap predicates;
 };
 
+/// This class should be included in all those classes that 
+/// would like to be event aware
 template <typename T> class EventAdapter : public EventSubscriber
 {
 public:
+	/// Constructor, upon creation sets all its key value pairs and
+	/// registers itself with the EventBus
     EventAdapter( T * myParent ) : parent(myParent)
     {
         int i;
@@ -64,12 +68,14 @@ public:
         EventBus::getSingleton().addSubscriber( this, &filter );
     }
 
+	/// Upon destruction it removes itself from the EventBus (the publisher)
     virtual ~EventAdapter()
     {
         EventBus::getSingleton().removeSubscriber( this );
         parent = NULL;
     }
 
+	/// newEvent calls the processEvent of its parent
     virtual void newEvent( SoInputEvent * event )
     {
         parent->processEvent( event );
@@ -79,4 +85,5 @@ protected:
     T * parent;
     BasicEventFilter filter;
 };
-#endif
+
+#endif //__EVENTCONTEXTFILTER_H__

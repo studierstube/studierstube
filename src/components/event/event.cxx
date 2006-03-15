@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -80,6 +80,7 @@ Event::init()
     Starlight* starlight=(Starlight*)(stb::Kernel::getInstance()->getComponentManager()->load("Starlight"));
     if(!starlight)
     {
+		// FIXME: Error Message should be displayed here. Mendez 20060315
         return false;
     }
 
@@ -100,6 +101,9 @@ Event::init()
     SoOpenTrackerSource *otSource=new SoOpenTrackerSource;
     otSource->ref();
     otSource->configuration.setValue(stb::Kernel::getInstance()->findConfigFile(configFile).c_str());
+
+	// FIXME: This looks hardcoded instead of retrieved from the config file. 
+	// unless it is changed on runtime and this is only initialization. Mendez 20060315
     otSource->processing=SoOpenTrackerSource::TIME;
     //otSource->processing=SoOpenTrackerSource::POLL;
     otSource->interval=SbTime(0.01f);

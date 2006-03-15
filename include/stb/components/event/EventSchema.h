@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -53,46 +53,55 @@ public:
     {
     };
 
-    const SbVec3f position(void)
+	/// Transforms the value of the "position" key to SbVec3f and returns it
+	const SbVec3f position(void)
     {
         return event.getSFVec3f("event.position");
     };
 
+	/// Sets the value of the "position" key
     void position(const SbVec3f & vec)
     {
         event.set("event.position", vec);
     };
 
+	/// Transforms the value of the "orientation" key to SbRotation and returns it
     const SbRotation orientation(void)
     {
         return event.getSFRotation("event.orientation");
     };
 
+	/// Sets the value of the "orientation" key
     void orientation(const SbRotation & rot)
     {
         event.set("event.orientation", rot);
     };
 
+	/// Transforms the value of the "confidence" key to float and returns it
     float confidence(void)
     {
         return event.getSFFloat("event.confidence");
     };
 
+	/// Sets the value of the "confidence" key
     void confidence(float conf)
     {
         event.set("event.confidence", conf);
     };
 
+	/// Transforms the value of the "time" key to const SbTime and returns it
+	const SbTime time(void)
+	{
+		return event.getSFTime("event.time");
+	};
+
+	/// Sets the value of the "time" key
     void time( const SbTime & time)
     {
         event.set("event.time", time );
     };
 
-    const SbTime time(void)
-    {
-        return event.getSFTime("event.time");
-    };
-
+	/// Transforms the value of the "button."+number key to SbBool and returns it
     SbBool button( int32_t number )
     {
         if( number >= 0 && number <= 16)
@@ -105,6 +114,7 @@ public:
         return false;
     };
 
+	/// Sets the value of the "button."+number key
     void button( int32_t number, SbBool value )
     {
         if( number >= 0 && number <= 16 )

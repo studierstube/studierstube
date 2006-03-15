@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -48,6 +48,8 @@ public :
     }
 };
 
+
+/// A Map containing a Name, a String, and a comparison between the two.
 typedef std::map<SbName, SbString, lessName> NameStringMap;
 
 inline bool operator<( const SbString & s1, const SbString & s2)
@@ -55,4 +57,4 @@ inline bool operator<( const SbString & s1, const SbString & s2)
     return (strcmp( s1.getString(), s2.getString()) < 0);
 }
 
-#endif
+#endif //__TOOLS_H__

@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -116,4 +116,4 @@ protected:
     /// observe Events for the EventModule input handlers
     void handleEvent(SoHandleEventAction * action);
 };
-#endif
+#endif //__SOOPENTRACKERSOURCE_H__

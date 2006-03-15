@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -76,8 +76,11 @@ public:
 
     void operator()(const std::map<EventSubscriber *, EventFilter *>::value_type & pair)
     {
+		/// Verifies that there is at least one filter
         if( pair.second ){
+			/// Queries if the event matches the filter
             if( pair.second->accept( event )){
+				/// Notifies the subscriber about this new event
                 pair.first->newEvent( event );
             }
         }
@@ -87,6 +90,7 @@ public:
 void EventBus::publish( SoInputEvent * event )
 {
     Sender sender( event );
+	/// Try to notify all the subscribers
     std::for_each( subscriptions.begin(), subscriptions.end(), sender );
 }
 

@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -83,4 +83,4 @@ protected:
     // action method for event type nodes will be instantiated for all different event aware base types
     template <class T> static void nodeS( SoAction * action, SoNode * node );
 };
-#endif
+#endif //__SOEVENTACTION_H__

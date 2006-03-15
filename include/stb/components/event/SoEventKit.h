@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -41,6 +41,7 @@
 
 class SoEventAction;
 
+/// An abstract class for creating Event aware nodekits
 class EVENT_API SoEventKit : public SoBaseKit
 {
     SO_KIT_HEADER(SoEventKit);
@@ -49,13 +50,15 @@ public:
     SoEventKit(void);
     static void initClass(void);
 
+	/// Derived classes should implement this function
     virtual void preOrder( SoEventAction * )
     {
     };
 
+	/// Derived classes should implement this function
     virtual void postOrder( SoEventAction *)
     {
     };
 };
 
-#endif
+#endif //__SOEVENTKIT_H__

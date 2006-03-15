@@ -19,7 +19,7 @@
  * Dieter Schmalstieg
  * <schmalstieg@icg.tu-graz.ac.at>
  * Graz University of Technology, 
- * Institut for Computer Graphics and Vision,
+ * Institute for Computer Graphics and Vision,
  * Inffeldgasse 16a, 8010 Graz, Austria.
  * ========================================================================
  * PROJECT: Studierstube
@@ -41,6 +41,7 @@
 
 class SoEventAction;
 
+/// An abstract class for creating Event aware separators
 class EVENT_API SoEventSeparator : public SoSeparator
 {
     SO_NODE_HEADER(SoEventSeparator);
@@ -53,10 +54,12 @@ public:
 
     static void initClass(void);
 
+	/// Derived classes should implement this function
     virtual void preOrder( SoEventAction * )
     {
     };
 
+	/// Derived classes should implement this function
     virtual void postOrder( SoEventAction *)
     {
     };
@@ -66,4 +69,4 @@ protected:
     {};
 };
 
-#endif
+#endif //__SOEVENTSEPARATOR_H__
