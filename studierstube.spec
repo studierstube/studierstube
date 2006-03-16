@@ -12,7 +12,7 @@ Packager:	Institute for Computer Graphics and Vision, Graz University of Technol
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
 Requires:	tinyxml ACE openvideo opentracker
-BuildRequires:	tinyxml ACE openvideo opentracker
+BuildRequires:	scons tinyxml ACE openvideo opentracker
 
 %define _prefix %{prefix}
 
@@ -24,11 +24,11 @@ BuildRequires:	tinyxml ACE openvideo opentracker
 %setup
 
 %build
-scons --cache-force INSTALL_DIR=%{_prefix}
+scons PREFIX=%{_prefix} LIBDIR=%{_libdir}
 
 %install
-scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT INSTALL_DIR=%{_prefix} install
-rm $RPM_BUILD_ROOT/%{_libdir}/.sconsign
+scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
+#rm $RPM_BUILD_ROOT/%{_libdir}/.sconsign
 
 %clean
 scons -c
@@ -36,8 +36,8 @@ scons -c
 
 %files
 %defattr(-,root,root)
-#%{_libdir}/*
-#%{_prefix}/include/*
+%{_libdir}/*
+%{_prefix}/include/*
 #%exclude %{_libdir}/pkgconfig/.sconsign
 #%exclude %{_prefix}/include/openvideo/.sconsign
 #%exclude %{_prefix}/include/openvideo/nodes/.sconsign

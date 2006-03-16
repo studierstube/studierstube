@@ -30,4 +30,4 @@ kernel_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 kernel_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 
 kernel = kernel_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbkernel', source=source_files)
-kernel_env.Install(user_options_dict['INSTALL_DIR']+'/lib', kernel)
+kernel_env.Install(user_options_dict['LIBDIR'], kernel)

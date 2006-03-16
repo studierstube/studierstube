@@ -15,4 +15,4 @@ binfiles = buildutils.regexpfilter(binfiles, user_options_dict['IGNORE_FILTER'],
 
 # Install bin files
 for binfile in binfiles:
-    bin_env.Install(user_options_dict['INSTALL_DIR'] + os.sep + 'share' + os.sep + 'stb', bindir + os.sep + binfile)
+    bin_env.Install(user_options_dict['PREFIX'] + os.sep + 'share' + os.sep + 'stb', bindir + os.sep + binfile)

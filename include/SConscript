@@ -17,4 +17,4 @@ includefiles = buildutils.regexpfilter(includefiles, user_options_dict['IGNORE_F
 # Install header files
 for include in includefiles:
     dirname = include[0:include.rindex(os.sep)]
-    header_env.Install(user_options_dict['INSTALL_DIR'] + os.sep + 'include' + os.sep + dirname, includedir + os.sep + include)
+    header_env.Install(user_options_dict['PREFIX'] + os.sep + 'include' + os.sep + dirname, includedir + os.sep + include)

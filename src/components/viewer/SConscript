@@ -28,4 +28,4 @@ viewer_env.Append (LIBPATH = user_options_dict['SOQT_LIBPATH'])
 viewer_env.Append (LIBS    = user_options_dict['SOQT_LIBRARY'])
 
 viewer = viewer_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbviewer', source=source_files)
-viewer_env.Install(user_options_dict['INSTALL_DIR']+'/lib', viewer)
+viewer_env.Install(user_options_dict['LIBDIR'], viewer)

@@ -13,11 +13,13 @@ soqt_env = Environment (ENV = os.environ)
 opentracker_env =  Environment (ENV = os.environ)
 openvideo_env =  Environment (ENV = os.environ)
 env = Environment (ENV = os.environ)
+env.CacheDir(os.environ['HOME'] + '/.scache')
 
 if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     config_file       = 'config.opts'
     root_build_dir    = 'build/linux'
-    install_dir       = '/usr/local'
+    prefix            = '/usr/local'
+    libdir            = prefix + '/lib'
     install_root_dir  = ''
     
     use_soqt = 'true'
@@ -99,7 +101,8 @@ else:
 	config.write ("VERSION = %r\n"%(version))
 	config.write ("BUILD_BINARY = 'release'\n")
 	config.write ("BUILD_DIR = %r\n"%(root_build_dir))
-	config.write ("INSTALL_DIR = %r\n"%(install_dir))
+	config.write ("PREFIX = %r\n"%(prefix))
+	config.write ("LIBDIR = %r\n"%(libdir))
 	config.write ("INSTALL_ROOT_DIR = %r\n"%(install_root_dir))
 	
 	config.write ("\n# Extra compiler flags can be defined here.\n")
@@ -174,8 +177,10 @@ user_options.AddOptions (
 					 allowed_values = ('release', 'debug'))),
 		('BUILD_DIR', 'Target directory for intermediate files.',
 					root_build_dir),
-		('INSTALL_DIR', 'Target directory for installed files.',
-					install_dir),
+		('PREFIX', 'Target directory for installed files.',
+					prefix),
+		('LIBDIR', 'Target directory for library files.',
+					libdir),
 		('INSTALL_ROOT_DIR', 'Target directory for building packages.',
 					install_root_dir),
 		#(BoolOption ('USE_OPENAL',
@@ -226,6 +231,7 @@ user_options.AddOptions (
 					'false'))
 	)
 user_options.Update (user_options_env)
+user_options.Save('config.opts', user_options_env)
 user_options_dict = user_options_env.Dictionary()
 Help(user_options.GenerateHelpText(user_options_env))
 root_build_dir = user_options_dict['BUILD_DIR']
@@ -265,18 +271,22 @@ env['STB_PROJECT_NAME']        = "Studierstube"
 env['STB_PROJECT_DESCRIPTION'] = "Studierstube - The Augmented Reality Environment"
 env['STB_PROJECT_VERSION']     = "4.0"
 env['STB_PROJECT_LIBNAME']     = "stbkernel"
-env['STB_INSTALL_DIR']         = install_dir
+env['STB_PREFIX']              = user_options_dict['PREFIX']
+env['STB_LIBDIR']              = user_options_dict['LIBDIR']
 env['STB_PROJECT_DEFINES']     = global_defs
+#print user_options_dict['PREFIX'] + " " + user_options_dict['LIBDIR'];
 
-user_options_dict['INSTALL_DIR'] = install_root_dir + install_dir
+#user_options_dict['PREFIX'] = install_root_dir + prefix
+#user_options_dict['LIBDIR'] = install_root_dir + libdir
+root = user_options_dict['INSTALL_ROOT_DIR'] + os.sep
 
 buildutils.appendbuilders(env)
 outname = env.AlwaysBuild(env.Substitute('stb.pc', 'stb.pc.in'))
-ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = user_options_dict['INSTALL_DIR']+'/lib/pkgconfig', source = outname)))
-il = env.Alias('install-lib', user_options_dict['INSTALL_DIR'] + '/lib')
-ib = env.Alias('install-bin', user_options_dict['INSTALL_DIR'] + '/bin')
-ih = env.Alias('install-header', user_options_dict['INSTALL_DIR'] + '/include')
-iss = env.Alias('install-share', os.sep+user_options_dict['INSTALL_DIR'] + '/share')
+ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = root+user_options_dict['LIBDIR']+'/pkgconfig', source = outname)))
+il = env.Alias('install-lib', root + user_options_dict['LIBDIR'])
+ib = env.Alias('install-bin', root + user_options_dict['PREFIX'] + '/bin')
+ih = env.Alias('install-header', root + user_options_dict['PREFIX'] + '/include')
+iss = env.Alias('install-share', root + user_options_dict['PREFIX'] + '/share')
 env.Alias('install', [ic, il, ib, ih, iss])
 
 #****************************************************************************

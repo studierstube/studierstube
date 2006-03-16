@@ -1,6 +1,6 @@
-prefix=@@STB_INSTALL_DIR@@
+prefix=@@STB_PREFIX@@
+libdir=@@STB_LIBDIR@@
 exec_prefix=${prefix}
-libdir=${prefix}/lib
 includedir=${exec_prefix}/include
 
 Name: @@STB_PROJECT_NAME@@

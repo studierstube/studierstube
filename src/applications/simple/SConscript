@@ -20,4 +20,4 @@ simple_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 simple_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 
 simple = simple_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbsimple', source=source_files)
-simple_env.Install(user_options_dict['INSTALL_DIR']+'/lib', simple)
+simple_env.Install(user_options_dict['LIBDIR'], simple)
