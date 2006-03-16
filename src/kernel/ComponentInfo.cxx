@@ -125,10 +125,10 @@ ComponentInfo::parseConfiguration(TiXmlElement* element)
     }
 
     if(name==""){
-        Kernel::getInstance()->log("ERROR: missing attribute 'name' for Component\n");
+        logPrintE("missing attribute 'name' for Component\n");
     }
     if(libName==""){
-        Kernel::getInstance()->log("ERROR: missing attribute 'lib' for Component\n");
+        logPrintE("missing attribute 'lib' for Component\n");
     }
 }
 

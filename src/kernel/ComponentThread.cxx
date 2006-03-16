@@ -78,7 +78,7 @@ ComponentThread::start()
         0
         )==-1)
     { 
-        stb::Kernel::getInstance()->log("Error: Error in spawning thread.\n"); 
+        logPrintE("Spawning thread.\n"); 
     }
 
 }    

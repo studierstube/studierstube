@@ -71,7 +71,7 @@ SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
 void
 SchedulerWin32::loadSoQt()
 {
-    Kernel::getInstance()->log("SoQt is not supported yet! \n");
+    logPrintE("SoQt is not supported yet! \n");
 }
 
 void 

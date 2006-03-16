@@ -37,6 +37,8 @@
 #include <stb/base/string.h>
 #include <stb/kernel/Studierstube.h>
 
+#include <stb/kernel/StbLogger.h>
+
 class TiXmlElement;
 class SoSensor;
 

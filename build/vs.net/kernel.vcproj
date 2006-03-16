@@ -129,6 +129,9 @@
 				RelativePath="..\..\include\stb\kernel\Kernel.h">
 			</File>
 			<File
+				RelativePath="..\..\src\kernel\StbLogger.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\kernel\Studierstube.cxx">
 			</File>
 			<File
@@ -228,6 +231,12 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath="..\..\include\stb\kernel\MessagesDefines.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\StbLogger.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

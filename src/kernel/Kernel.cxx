@@ -108,11 +108,11 @@ Kernel::getKernelConfig(int argc, char* argv[])
 void 
 Kernel::start(int argc, char* argv[])
 {
-    log("****************************************\n");
-    log(STUDIERSTUBE_VERSION_STRING);log("\n");
-    log("(C) ");log(STUDIERSTUBE_YEAR_STRING);
-    log(" Graz University of Technology\n");
-    log("****************************************\n\n");
+    logPrint("****************************************\n");
+    logPrint(STUDIERSTUBE_VERSION_STRING);logPrint("\n");
+    logPrint("(C) ");logPrint(STUDIERSTUBE_YEAR_STRING);
+    logPrint(" Graz University of Technology\n");
+    logPrint("****************************************\n\n");
     
     stb::string kernelConfigFile=getKernelConfig(argc,argv);
     config->parseXML(kernelConfigFile);
@@ -227,7 +227,7 @@ Kernel::findConfigFile(const stb::string& cfgfile)
             in.open(fn.str().c_str(), ios::in);
             if (!in.is_open()) {
                 log("not found.\n");
-                log("ERROR, cannot find requested config file, ...\n");
+                logPrintE(LOG_ERROR_FILE_NOT_FOUND);
                 return ret;
             }
         }
