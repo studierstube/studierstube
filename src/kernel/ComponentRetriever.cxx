@@ -76,14 +76,14 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	hModule libHandle;
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
-		Kernel::getInstance()->log("ERROR: couldn't load" + libName + "\n");
+		logPrintE("ERROR: couldn't load" + libName + "\n");
         return NULL;
 	}
 	compInfo->setHModule(libHandle);
 	Component* (*createComponent)()=(Component*(*)())os_GetProcAddress(libHandle,"createComponent");
     if(!createComponent)
     {
-        Kernel::getInstance()->log("ERROR: can't find createComponent() in " + libName + "\n");
+        logPrintE("ERROR: can't find createComponent() in " + libName + "\n");
         return NULL;
     }
 	newComponent=(*createComponent)();

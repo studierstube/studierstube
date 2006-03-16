@@ -130,7 +130,8 @@ Kernel::stop()
 void
 Kernel::log(stb::string nStr)
 {
-    printf("%s",nStr.c_str());
+	//printf("%s",nStr.c_str());
+	logPrint(nStr);
 }
 
 
@@ -138,7 +139,7 @@ void
 Kernel::logDebug(stb::string nStr)
 {
 #ifdef _DEBUG
-    log(nStr);
+	logPrint(nStr);
 #endif
 }
 
@@ -151,7 +152,7 @@ Kernel::logEx(const char* nStr, ...)
     va_start(marker, nStr);
     vsprintf(tmpString, nStr, marker);
 
-    log(tmpString);
+	logPrint(nStr);
 }
 ////////////////////////////////////////////////////////////////
 
@@ -205,34 +206,34 @@ Kernel::findConfigFile(const stb::string& cfgfile)
     ostringstream fn;
     fn << home_dir << "/" << stb_home << cfgfile;
 
-    logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+    logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
     in.open(fn.str().c_str(), ios::in);
 
     // if not found, use global1
     if (!in.is_open()) {
-        log("not found.\n");
+        logPrint("not found.\n");
         fn.str("");
         fn << stb_config_path1 << cfgfile;
 
-        logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+        logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
         in.open(fn.str().c_str(), ios::in);
 
         // if not found, use global2
         if (!in.is_open()) {
-            log("not found.\n");
+            logPrint("not found.\n");
             fn.str("");
             fn << stb_config_path2 << cfgfile;
 
-            logEx("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+            logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
             in.open(fn.str().c_str(), ios::in);
             if (!in.is_open()) {
-                log("not found.\n");
+                logPrint("not found.\n");
                 logPrintE(LOG_ERROR_FILE_NOT_FOUND);
                 return ret;
             }
         }
     }
-    log("found.\n");
+    logPrint("found.\n");
     in.close();
     ret = fn.str();
 #endif

@@ -54,10 +54,10 @@ Config::parseXML(stb::string filename)
 	
 	if(!document->LoadFile(filename.c_str()))
 	    {
-		    Kernel::getInstance()->log("An error occured during parsing " + filename + "\n");
-		    Kernel::getInstance()->log(" Message: ");
-		    Kernel::getInstance()->log(document->ErrorDesc());
-		    Kernel::getInstance()->log("\n");
+		    logPrintE("An error occured during parsing " + filename + "\n");
+		    logPrint(" Message: ");
+		    logPrint(document->ErrorDesc());
+		    logPrint("\n");
 		    return false;
 	    }
 	

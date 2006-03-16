@@ -87,7 +87,7 @@ SchedulerWin32::loadSoWin()
 
     libHandle = LoadLibrary(libFileName.c_str());
     if (!libHandle){
-        Kernel::getInstance()->log("ERROR: could not load " + libFileName);
+		logPrintE("could not load " + libFileName);
         return;
     }
 

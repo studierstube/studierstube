@@ -160,7 +160,7 @@ ComponentManager::load(std::string compName)
         }
     }
 
-    stb::Kernel::getInstance()->log("Error: unable to find " + compName + "\n");
+    logPrintE("Error: unable to find " + compName + "\n");
     return NULL;
 }
 
