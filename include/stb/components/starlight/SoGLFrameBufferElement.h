@@ -45,7 +45,7 @@
  * @author Gerhard Reitmayr
  * @ingroup camera
  */
-class STARLIGHT_API SoGLFrameBufferElement : public SoElement {
+class  SoGLFrameBufferElement : public SoElement {
     typedef SoElement inherited;
     
     SO_ELEMENT_HEADER(SoGLFrameBufferElement);

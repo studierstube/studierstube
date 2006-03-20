@@ -46,7 +46,7 @@
     @author Istvan Barakonyi
     @ingroup util
  */
-class STARLIGHT_API SoFileSubgraph: public SoBaseKit
+class  SoFileSubgraph: public SoBaseKit
 {
     SO_KIT_HEADER(SoFileSubgraph);
     /// Separator node to attach the loaded scenegraph to

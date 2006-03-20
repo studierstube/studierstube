@@ -35,15 +35,6 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 
-#ifdef WIN32
-	#ifdef STARLIGHT_EXPORTS
-		#define STARLIGHT_API __declspec(dllexport)
-	#else
-		#define STARLIGHT_API __declspec(dllimport)
-	#endif
-#else
-    #define STARLIGHT_API
-#endif
 
 class SoClassLoader;
 class SoConditionalTrigger;

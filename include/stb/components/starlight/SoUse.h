@@ -60,7 +60,7 @@ SoUse {
  * @author Gerhard Reitmayr
  * @ingroup util
  */
-class STARLIGHT_API SoUse : public SoGroup
+class  SoUse : public SoGroup
 {
     SO_NODE_HEADER(SoUse);
 

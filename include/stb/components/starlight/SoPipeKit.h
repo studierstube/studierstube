@@ -55,7 +55,7 @@
 * @ingroup vidente
 */
 
-class STARLIGHT_API SoPipeKit: public SoBaseKit
+class  SoPipeKit: public SoBaseKit
 {
 	SO_KIT_HEADER(SoPipeKit);
 	typedef SoBaseKit inherited;

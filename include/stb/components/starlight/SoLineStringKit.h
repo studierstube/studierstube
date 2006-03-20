@@ -47,7 +47,7 @@
 #include <Inventor/sensors/SoFieldSensor.h>
 #include "starlight.h"
 
-class STARLIGHT_API SoLineStringKit: public SoBaseKit
+class  SoLineStringKit: public SoBaseKit
 {
     SO_KIT_HEADER(SoLineStringKit);
 	typedef SoBaseKit inherited;

@@ -55,7 +55,7 @@ class SoWriteAction;
 /* @def Traverse all children	    */
 #define SO_SWITCH_ALL		(-3)	
 
-class STARLIGHT_API SoMultiSwitch;
+class  SoMultiSwitch;
 
 /**
  * callback type for the test callback called by a SoMultiSwitch node.
@@ -105,7 +105,7 @@ typedef SbBool SoMultiSwitchCB( void * userdata, SoMultiSwitch * switchNode,
  * @author Gerhard Reitmayr
  * @ingroup util
  */
-class STARLIGHT_API SoMultiSwitch : public SoGroup
+class  SoMultiSwitch : public SoGroup
 {
     SO_NODE_HEADER(SoMultiSwitch);
 

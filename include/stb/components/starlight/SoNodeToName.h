@@ -60,7 +60,7 @@ SoNodeToName {
  * @ingroup util
  * @author Gerhard Reitmayr
  */
-class STARLIGHT_API SoNodeToName : public SoEngine {
+class  SoNodeToName : public SoEngine {
 public:
 	SO_ENGINE_HEADER(SoNodeToName);
 	

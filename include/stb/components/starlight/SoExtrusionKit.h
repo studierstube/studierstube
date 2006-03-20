@@ -59,7 +59,7 @@
 * @ingroup vidente
 */
 
-class STARLIGHT_API SoExtrusionKit: public SoBaseKit
+class  SoExtrusionKit: public SoBaseKit
 {
     SO_KIT_HEADER(SoExtrusionKit);
 	typedef SoBaseKit inherited;

@@ -64,7 +64,7 @@
  * @ingroup workspace
  * @ingroup util
  */
-class STARLIGHT_API SoClassLoader
+class  SoClassLoader
 :
 public SoNode
 {

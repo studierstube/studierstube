@@ -57,7 +57,7 @@ class SoWriteAction;
  * @ingroup util
  * @author Hermann Wurnig, Gerd Hesina, Gerhard Reitmayr
  */
-class STARLIGHT_API SoAbortGroup : public SoGroup {
+class  SoAbortGroup : public SoGroup {
 
 	SO_NODE_HEADER(SoAbortGroup);
 

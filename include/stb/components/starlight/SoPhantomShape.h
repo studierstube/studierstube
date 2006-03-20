@@ -50,7 +50,7 @@
 * @ingroup vidente
 */
 
-class STARLIGHT_API SoPhantomShape: public SoSeparator
+class  SoPhantomShape: public SoSeparator
 {
     SO_NODE_HEADER(SoPhantomShape);
 public:

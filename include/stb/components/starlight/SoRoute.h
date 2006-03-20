@@ -75,7 +75,7 @@ Example
 
 
 */
-class STARLIGHT_API SoRoute : public SoNode {
+class  SoRoute : public SoNode {
 
    SO_NODE_HEADER(SoRoute);
 

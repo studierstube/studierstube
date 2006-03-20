@@ -54,7 +54,7 @@ SoFrameBuffer {
  * @author Gerhard Reitmayr
  * @ingroup camera
  */
-class STARLIGHT_API SoFrameBuffer : public SoNode {
+class  SoFrameBuffer : public SoNode {
     
     SO_NODE_HEADER(SoFrameBuffer);
     

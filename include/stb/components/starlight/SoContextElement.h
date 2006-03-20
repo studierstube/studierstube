@@ -46,7 +46,7 @@
  * @ingroup context
  * @author Gerhard Reitmayr
  */
-class STARLIGHT_API SoContextElement : public SoAccumulatedElement  
+class  SoContextElement : public SoAccumulatedElement  
 {    
      SO_ELEMENT_HEADER(SoContextElement);
 public:	

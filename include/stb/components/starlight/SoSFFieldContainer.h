@@ -52,7 +52,7 @@ class SoSFFieldContainer;
 
 */
 
-class STARLIGHT_API SoSFFieldContainer : public SoSField {
+class  SoSFFieldContainer : public SoSField {
 
     // Use standard field stuff
     SO_SFIELD_HEADER(SoSFFieldContainer, SoFieldContainer *, SoFieldContainer *);

@@ -80,7 +80,7 @@ SoContextSwitch {
 </pre>
 * @ingroup context
 */
-class STARLIGHT_API SoContextSwitch : public SoGroup
+class  SoContextSwitch : public SoGroup
 {
     SO_NODE_HEADER(SoContextSwitch);
     

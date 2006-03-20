@@ -54,7 +54,7 @@
  * @ingroup context
  * @author Gerhard Reitmayr
  */
-class STARLIGHT_API SoContextSeparator : public SoSeparator {
+class  SoContextSeparator : public SoSeparator {
     typedef SoSeparator inherited;
 
 	SO_NODE_HEADER(SoContextSeparator);
