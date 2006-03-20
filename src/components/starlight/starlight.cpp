@@ -34,10 +34,8 @@
 #include <stb/components/starlight/SoStringMap.h>
 #include <stb/components/starlight/SoUse.h>
 #include <stb/components/starlight/SoVariable.h>
-#include <stb/components/starlight/SoExtrusionKit.h>
-#include <stb/components/starlight/SoLineStringKit.h>
-#include <stb/components/starlight/SoPipeKit.h>
-#include <stb/components/starlight/SoPhantomShape.h>
+
+
 
 
 CREATE_COMPONENT_FUNC(Starlight)
@@ -101,15 +99,6 @@ Starlight::init(void)
     SoStringMap::initClass();
     SoUse::initClass();
     SoVariable::initClass();
-
-
-	// Ericks Nodes and Node Kits
-	SoExtrusionKit::initClass();
-	SoLineStringKit::initClass();
-	SoPipeKit::initClass();
-	SoPhantomShape::initClass();
-
-
 
     return isInit;
 }
@@ -269,28 +258,5 @@ Starlight::createSoVariable()
     return new SoVariable;
 }
 
-SoExtrusionKit*  
-Starlight::createSoExtrusionKit()
-{
-    return new SoExtrusionKit;
-}
-
-SoLineStringKit* 
-Starlight::createSoLineStringKit()
-{
-    return new SoLineStringKit;
-}
-
-SoPipeKit*       
-Starlight::createSoPipeKit()
-{
-    return new SoPipeKit;
-}
-
-SoPhantomShape*  
-Starlight::createSoPhantomShape()
-{
-    return new SoPhantomShape;
-}
 
 END_NAMESPACE_STB

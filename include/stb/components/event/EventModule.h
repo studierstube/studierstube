@@ -168,7 +168,7 @@ Quit            q               signals to quit OpenTracker
  * @author Gerhard Reitmayr
  * @ingroup tracking
  */
-class EVENT_API EventModule : public ot::Module, public ot::NodeFactory
+class  EventModule : public ot::Module, public ot::NodeFactory
 {
 
 protected:

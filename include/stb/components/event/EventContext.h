@@ -37,7 +37,7 @@
 #include "event.h"
 #include "tools.h"
 
-class EVENT_API EventContext
+class  EventContext
 {
 protected:
 

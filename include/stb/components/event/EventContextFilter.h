@@ -39,7 +39,7 @@
 #include "tools.h"
 #include "EventBus.h"
 
-class EVENT_API BasicEventFilter :  public EventFilter
+class  BasicEventFilter :  public EventFilter
 {
 public:
     BasicEventFilter(void);

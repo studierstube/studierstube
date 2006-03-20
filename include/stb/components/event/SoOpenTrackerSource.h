@@ -52,7 +52,7 @@ class State;
 
 class EventModule;
 
-class EVENT_API SoOpenTrackerSource : public SoEventSource
+class  SoOpenTrackerSource : public SoEventSource
 {
     SO_NODE_HEADER( SoOpenTrackerSource );
 

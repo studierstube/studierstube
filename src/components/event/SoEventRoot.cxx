@@ -49,10 +49,6 @@ void SoEventRoot::initClass(void)
 {    
     if( SoType::fromName("SoEventRoot").isBad() )
     {
-        if( SoType::fromName("SoContext").isBad() )
-        {
-            SoContext::initClass();
-        }
         SoEventAction::initClass();
         SoInputEvent::initClass();
         SO_KIT_INIT_CLASS(SoEventRoot, SoBaseKit, "BaseKit");

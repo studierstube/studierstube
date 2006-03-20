@@ -41,25 +41,25 @@
 class SoInputEvent;
 class EventContext;
 
-class EVENT_API EventProducer
+class  EventProducer
 {
 };
 
 /// Subscriber class, will get filtered updates directly from the publisher
-class EVENT_API EventSubscriber
+class  EventSubscriber
 {
 public:
     virtual void newEvent( SoInputEvent * event ) = 0;
 };
 
 /// Filter class, in charge of accepting or rejecting events
-class EVENT_API EventFilter 
+class  EventFilter 
 {
 public: 
     virtual bool accept( SoInputEvent * event ) = 0;
 };
 
-class EVENT_API EventBus
+class  EventBus
 {
 public:
 

@@ -63,7 +63,7 @@ class SbViewportRegion;
  * @author Gerhard Reitmayr
  * @ingroup tracking
  */
-class EVENT_API EventMouseSource : public ot::Node
+class  EventMouseSource : public ot::Node
 {
 // Members
 public:

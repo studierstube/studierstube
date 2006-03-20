@@ -62,11 +62,6 @@ class SoStringCalculator;
 class SoStringMap;
 class SoUse;
 class SoVariable;
-// Ericks Nodes and Node Kits
-class SoExtrusionKit;
-class SoLineStringKit;
-class SoPipeKit;
-class SoPhantomShape;
 
 BEGIN_NAMESPACE_STB
 /**
@@ -114,11 +109,6 @@ public:
     virtual SoStringMap*    createSoStringMap();
     virtual SoUse*    createSoUse();
     virtual SoVariable*    createSoVariable();
-    // Ericks Nodes and Node Kits
-    virtual SoExtrusionKit*  createSoExtrusionKit();
-    virtual SoLineStringKit* createSoLineStringKit();
-    virtual SoPipeKit*       createSoPipeKit();
-    virtual SoPhantomShape*  createSoPhantomShape();
 
 protected:	
 private:

@@ -42,7 +42,7 @@
 class SoEventAction;
 
 /// An abstract class for creating Event aware groups
-class EVENT_API SoEventGroup : public SoGroup
+class  SoEventGroup : public SoGroup
 {
     SO_NODE_HEADER(SoEventGroup);
 

@@ -42,7 +42,7 @@
 class SoEventAction;
 
 /// An abstract class for creating Event aware nodekits
-class EVENT_API SoEventKit : public SoBaseKit
+class  SoEventKit : public SoBaseKit
 {
     SO_KIT_HEADER(SoEventKit);
 

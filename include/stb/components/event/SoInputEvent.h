@@ -50,7 +50,7 @@ class EventData;
 class EventProducer;
 
 // TODO make a full POD
-class EVENT_API SoInputEvent : public SoEvent
+class  SoInputEvent : public SoEvent
 {
     SO_EVENT_HEADER();
 

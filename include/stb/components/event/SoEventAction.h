@@ -41,7 +41,7 @@
 
 class SoInputEvent;
 
-class EVENT_API SoEventAction : public SoCallbackAction
+class  SoEventAction : public SoCallbackAction
 {
     SO_ACTION_HEADER(SoEventAction);
 

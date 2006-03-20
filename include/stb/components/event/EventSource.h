@@ -67,7 +67,7 @@
  * computed strings etc.
  * @ingroup tracking
  */
-class EVENT_API EventSource : public ot::Node
+class  EventSource : public ot::Node
 {
 
 protected:
