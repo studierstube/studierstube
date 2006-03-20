@@ -7,12 +7,12 @@
 		updateRate="0.03333"/>
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
-    <Component  name="Event" availability="ondemand" lib="stbevent">
+	<Component  name="Event" availability="ondemand" lib="stbevent">
 		<Param key="configFile" value ="opentracker.xml"/>	
 	</Component>
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
-	<Component name="Viewer" availability="ondemand" lib="stbviewer">
+	<Component name="Viewer" availability="onload" lib="stbviewer">
 	    <Param key="configFile" value="viewer.iv"/>
 	</Component>
 	    
@@ -24,12 +24,18 @@
 	<Component name="Video" availability="ondemand"	lib="stbvideo">
 	    <Param key="configFile" value="openvideo.xml"/>
 	</Component>
-	
-	<!-- This is the Application -->
-    <Application name="SimpleApp" availability="onload" lib="applications/simple">
-                <Param key="sceneFile"  value ="applications/scene.iv"/>
-                <Param key="needViewer" value ="true"/>
-                <Param key="needEvent"  value ="true"/>
-    </Application>
 
+
+    <Component name="MagicLens" availability="ondemand"	lib="magicLens">
+	</Component>
+
+  	
+    <Application name="SimpleApp" availability="onload" lib="applications/simple">
+                <Param key="sceneFile"  value ="applications/testNoBlink.iv"/>
+                <Param key="needViewer" value ="true"/>
+                <Param key="needEvent"  value ="false"/>
+                <Param key="needStarlight"  value ="true"/>
+                <Param key="needMagicLens"  value ="true"/>
+                
+    </Application>
 </studierstube>

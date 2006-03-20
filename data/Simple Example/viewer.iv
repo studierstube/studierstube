@@ -9,10 +9,10 @@ SoDisplay
   height 540
   
   # Enable or disable headlight
-  headlight TRUE
+  #headlight TRUE
   
   # Specify the intensity of the headlight
-  headlightIntensity 1.0
+  #headlightIntensity 1.0
   
   # Specify additional environment nodes.
   # (SoEnvironment,SoLightModel,SoLight,SoLightKit)
@@ -28,147 +28,59 @@ SoDisplay
   #        of all transparencyTypes
   #  transparencyType SCREEN_DOOR 
   #  transparencyType ADD       
-  #  transparencyType DELAYED_ADDD:\Denis\Work\stb4
+  #  transparencyType DELAYED_ADD
   #  transparencyType SORTED_OBJECT_ADD 
   #  transparencyType DELAYED_BLEND     
   #  transparencyType SORTED_OBJECT_BLEND 
-  transparencyType BLEND
+  #  transparencyType BLEND
   
   
   # specifies visibility of the mouse cursor in within the window. 
   # @note works only with Qt currently */
-  showMouse TRUE
+  #showMouse TRUE
   
   #  specifies whether the window should be decorated orD:\Denis\Work\stb4 not
   # (have borders, title bar, etc. ). Default value is TRUE.
   # This is independend of the display mode.          
-  windowBorder TRUE
-  
+    windowBorder TRUE
+  #  windowBorder FALSE
+
   # specifies whether the window should be on top of all others or not
   # if specified for more than one window, than the latest one is on 
   # top of all others, but the others are also on top of "normal"
   # windows. 
   # Only implemented for QT currently!
-  windowOnTop FALSE
+  #windowOnTop FALSE
   
   # specifies whether the viewer should be decorated or D:\Denis\Work\stb4not, 
   # this enables the buttons and wheel widgets around the render area.
   # Default value is TRUE. 
   # This is independend of the display mode.
-  decoration TRUE
+  #decoration TRUE
+  #decoration FALSE
   
   # specifies whether to request a stencil buffer or not. 
   # This setting is important if you use SoStencilBuffer nodes in your applications
-  stencilBuffer FALSE
+  #stencilBuffer FALSE
   
-  #content SoSphere{}
+###########################################
+###########################################
 
-  stbCameraList 
-  [
-    SoStbCamera
-    { 
-	  ######################################
-	  ######## Camera ######################
-	  ######################################
-	  camera 
-	  SoPerspectiveCamera
-	  {
-	    position 0 0 -10 
-	    orientation 0 1 0 3.141592654
-	    nearDistance 0.16
-	    farDistance 100
-	  #SoOffAxisCamera
-	  #{
-	    #  position -0.0148 -0.0124 -1.0000
-	    #  eyepointPosition 0 0 0
-	    #  size 0.7881 0.5935
-	    #  viewportMapping ADJUST_CAMERA
-	    #  nearDistance 0.01
-	    #  farDistance 100
-	    #  orientation 0.999133 -0.00585241 0.0412087  2.99499
-	    #  aspectRatio 1.33333
-	    #  focalDistance 2
-	    #	  viewportMapping LEAVE_ALONE
-	    #	  eyepointPosition 0.0 0. 1.0
-	    #	  position 0.0 0.0 0.0
-	    #	  orientation 0.0 0.0 1.0  0.0
-	    #	  aspectRatio 1.33333
-	    #	  nearDistance 0.16
-	    #	  farDistance 1000
-	    #	  focalDistance 2
-	    #	  size 0.1 0.075
-	  }#camera  
+sceneGraph SoSeparator
+{
+    SoStbScene{}   
+    #SoCone{}
+} #sceneGraph SoSeparator
 
-	  ######################################
-	  ######## Viewport ####################
-	  ###################################### 
-	  viewport SoViewport{
-	    origin 0 240 
-	    size 320 240
-	  }
-	  
-	  ######################################
-	  ######## DisplayMode #################
-	  ######################################	  
-	  # displayMode SoFieldSequentialDisplayMode{buffer RIGHT}
-	  # displayMode SoAnaglyphDisplayMode{lensColor 1 0 0}
-	  # displayMode SoLineSequentialDisplayMode{lines EVEN}	 
-	  
-
-	  
-	  ######################################
-	  ######## ControlMode #################
-	  ######################################
-	  #controlMode SoDesktopControlMode{}
-	  #controlMode SoTrackedDisplayControlMode
-	  # {
-	  #     displayTrackerKey "blabla"
-	  #     displayTrackerValue "hi"
-	  # }
-	  #controlMode SoTrackedViewpointControlMode
-      #  {
-	  #      eyeOffset 0 0 0 
-      #      viewpointTrackerKey "blabla"
-      #      viewpointTrackerValue "hi"
-      #  }
-	  # controlMode SoTrackedViewpointMobileDisplayControlMode
-	  # {
-	  #      viewpointTrackerKey ""
-      #      viewpointTrackerValue ""      
-      #	     eyeOffset 0 0 0 	
-      #      displayTrackerKey ""
-      #      displayTrackerValue ""  
-      #      displayOffset 0 0 0 
-	  #}
-	  
-	  ######################################
-	  ######## Video #######################
-	  ######################################
-	  videoBackground SoVideoBackground
-	  {
-	    ovStbSink "videoBackgroundSink"
-	  }
-
-	  ######################################
-	  ######## Content #####################
-	  ######################################
-	  #content USE Content2  
-	  
-    }#SoStbCamera 1
-    
+###########################################
+###########################################
 
 
-  ]#stbCameraList 
+
+
+
+
+
+
  
 }#SoDisplay
-
-
-
-
-	
-	
-
-	
-	
-	
-	
