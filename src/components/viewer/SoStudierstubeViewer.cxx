@@ -53,7 +53,7 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     headlight=NULL;
     shareGLContextWithVideo=false;
     SoGLRenderAction* renderAction = this->getGLRenderAction();
-    renderAction->setSmoothing(TRUE);
+ //   renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);

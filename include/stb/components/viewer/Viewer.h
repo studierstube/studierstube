@@ -34,16 +34,6 @@
 #define _VIEWER_H_
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
-#ifdef WIN32
-    #ifdef STBVIEWER_EXPORTS
-        #define STBVIEWER_API __declspec(dllexport)
-    #else
-        #define STBVIEWER_API __declspec(dllimport)
-    #endif
-#endif
-#ifdef LINUX
-    #define STBVIEWER_API
-#endif
 
 #include <vector>
 class SoDisplay;

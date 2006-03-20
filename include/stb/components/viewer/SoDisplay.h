@@ -79,13 +79,8 @@ public:
     ////////////////////////////////////
     ////////////// DISPLAY FIELDS //////
     /////////////////////////////////////
-    /** The content to render */
-    SoSFNode content;
-    
-    /** 
-     * the StbCameras the display 'owns' 
-     */
-    SoMFNode stbCameraList;
+    /** The scene graph */
+    SoSFNode sceneGraph;
     
 
     //////////////////////////////////////////

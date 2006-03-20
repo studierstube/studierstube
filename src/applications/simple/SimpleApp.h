@@ -69,6 +69,7 @@ protected:
     bool needEvent;
     bool needViewer;
     bool needStarlight;
+    bool needMagicLens;
 private:
 	
 };// class 

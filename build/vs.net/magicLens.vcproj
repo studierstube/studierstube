@@ -20,7 +20,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(GLEWROOT)\include&quot;;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -33,13 +33,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="stbkerneld.lib coin2d.lib opengl32.lib glew32.lib"
-				OutputFile="$(STB4ROOT)/bin/win32/magiclensed.dll"
+				OutputFile="$(STB4ROOT)/bin/win32/magiclensd.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(GLEWROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Debug/starlightd.pdb"
+				ProgramDatabaseFile="Debug/magiclensd.pdb"
 				SubSystem="2"
-				ImportLibrary="$(STB4ROOT)/lib/win32/magiclensed.lib"
+				ImportLibrary="$(STB4ROOT)/lib/win32/magiclensd.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -82,7 +82,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="stbkernel.lib coin2.lib opengl32.lib glew32.lib"
-				OutputFile="$(STB4ROOT)/bin/win32/magiclense.dll"
+				OutputFile="$(STB4ROOT)/bin/win32/magiclens.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;;&quot;$(GLEWROOT)/lib&quot;"
 				GenerateDebugInformation="TRUE"
@@ -90,7 +90,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(STB4ROOT)/lib/win32/magiclense.lib"
+				ImportLibrary="$(STB4ROOT)/lib/win32/magiclens.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>

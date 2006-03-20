@@ -45,6 +45,8 @@
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 #include <stb/components/viewer/SoViewport.h>
 
+#include <stb/kernel/SoStbScene.h>
+
 
 SO_KIT_SOURCE(SoStbCamera);
 
@@ -79,7 +81,7 @@ SoStbCamera::SoStbCamera()
 	//----------------------------------------------------------------------------
     SO_KIT_ADD_CATALOG_ENTRY(root,SoSeparator,FALSE, this,"", FALSE);
     
-	SO_KIT_ADD_CATALOG_ABSTRACT_ENTRY(content,SoNode,SoSeparator,TRUE, root,"", TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(content,stb::SoStbScene   ,FALSE, root,""     , TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE, root,content, FALSE);	
 	
 	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);

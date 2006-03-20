@@ -181,6 +181,12 @@
 				<File
 					RelativePath="..\..\include\stb\kernel\SceneManager.h">
 				</File>
+				<File
+					RelativePath="..\..\src\kernel\SoStbScene.cxx">
+				</File>
+				<File
+					RelativePath="..\..\include\stb\kernel\SoStbScene.h">
+				</File>
 			</Filter>
 			<Filter
 				Name="Component"

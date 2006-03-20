@@ -82,7 +82,7 @@ SoMagicStylesKit::SoMagicStylesKit()
 	// Create the nodekit
 	SO_KIT_ADD_CATALOG_ENTRY(sepTop,			SoGroup,		FALSE,	this,	\x0, TRUE);
     //SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNodeContext,	FALSE,	sepTop,	\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNode,	FALSE,	sepTop,	\x0, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(cxnRenderStyles,	SoNode,	TRUE,	sepTop,	\x0, TRUE);
 	SO_KIT_ADD_FIELD(styleNames,	(0));
 	SO_KIT_ADD_FIELD(stylesInside,	(0));
 	SO_KIT_ADD_FIELD(stylesOutside,	(0));

@@ -115,7 +115,7 @@ void CgFboManager::init()
 	if (!(isFloatTextureSupported=isExtensionSupported("GL_NV_float_buffer")))
 		printf("CgFboManager: Floating point textures not available, falling back to byte.\n");
 
-	//isFloatTextureSupported=false;
+	isFloatTextureSupported=false;
 
 	// Create the FBO handle
 	glGenFramebuffersEXT(1, &handleFrameBufferObject);

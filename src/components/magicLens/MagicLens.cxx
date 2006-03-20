@@ -37,6 +37,12 @@
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 
+#include <stb/components/magicLens/SoMagicLens.h>
+#include <stb/components/magicLens/SoMagicLensKit.h>
+#include <stb/components/magicLens/SoMagicScene.h>
+#include <stb/components/magicLens/SoMagicSceneKit.h>
+#include <stb/components/magicLens/SoMagicStylesKit.h>
+
 CREATE_COMPONENT_FUNC(MagicLens)
 
 BEGIN_NAMESPACE_STB
@@ -79,7 +85,11 @@ MagicLens::init()
         return false;
     }
     // init nodes
- 
+    SoMagicLens::initClass();
+    SoMagicLensKit::initClass();
+    SoMagicScene::initClass();
+    SoMagicSceneKit::initClass();
+    SoMagicStylesKit::initClass();
     //get MagicLens's parameter
     retrieveParameter();
     isInit=true;

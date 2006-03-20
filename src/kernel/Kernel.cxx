@@ -44,7 +44,7 @@
 #include <stb/kernel/SceneManager.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/ComponentInfo.h>
-
+#include <stb/kernel/SoStbScene.h>
 
 #include <fstream>
 #include <sstream>
@@ -64,6 +64,7 @@ Kernel::Kernel()
     logMode=OFF;
 	logFile="kernelLog.txt";
     //
+    SoStbScene::initClass();
     config=new stb::Config();
     scheduler= new stb::Scheduler();
     sceneManager= new stb::SceneManager();
