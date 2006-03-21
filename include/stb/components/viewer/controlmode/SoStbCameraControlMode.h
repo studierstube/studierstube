@@ -71,6 +71,8 @@ protected:
 	*	The StbCamera which is controlled
 	*/
 	SoStbCamera* stbCamera;
+
+    bool activated;
 };
 
 

@@ -68,6 +68,8 @@ protected:
 
 	~SoFieldSequentialDisplayMode();
 
+    virtual bool activate();
+
 	virtual void setViewer(SoStudierstubeViewer* aViewer);
 
 	static bool isQuadBufferAvailable;

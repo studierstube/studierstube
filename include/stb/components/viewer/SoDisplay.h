@@ -82,7 +82,8 @@ public:
     /** The scene graph */
     SoSFNode sceneGraph;
     
-
+    /** Specifies whether the viewer's headlight is turned on or off. */ 
+    SoSFBool  useRefCamera;
     //////////////////////////////////////////
     ////////////// Viewer Configuration //////
     //////////////////////////////////////////
@@ -166,11 +167,11 @@ public:
     
 	SoStudierstubeViewer* getViewer();
 
-    void setContent(SoNode* _content);
-
     static void exitViewer(void*, SoGuiComponent* viewer);
 
     bool find(SoNode *node);
+
+    SoPerspectiveCamera* getReferenceCamera();
 
  protected:
     SoStudierstubeViewer* viewer;
@@ -189,7 +190,6 @@ public:
      *'readInstance' calls createViewer() to create a new studierstubeviewer while reading display from a file
      */
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
-
     
  };
 

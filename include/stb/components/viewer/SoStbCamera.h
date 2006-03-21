@@ -43,17 +43,13 @@ class SoDisplay;
 
 class SoStbCamera : public SoBaseKit
 {
+public:
     SO_KIT_HEADER(SoStbCamera);
-    SO_KIT_CATALOG_ENTRY_HEADER(root);
-	SO_KIT_CATALOG_ENTRY_HEADER(content);
+    
 	SO_KIT_CATALOG_ENTRY_HEADER(xfSep);
+    SO_KIT_CATALOG_ENTRY_HEADER(transform);
+    SO_KIT_CATALOG_ENTRY_HEADER(controlMode);
 	SO_KIT_CATALOG_ENTRY_HEADER(camera);
-
-	SO_KIT_CATALOG_ENTRY_HEADER(transform);
-	SO_KIT_CATALOG_ENTRY_HEADER(controlMode);
-	SO_KIT_CATALOG_ENTRY_HEADER(displayMode);
-	SO_KIT_CATALOG_ENTRY_HEADER(videoBackground);
-	SO_KIT_CATALOG_ENTRY_HEADER(viewport);
 
 public:
 	/** The constructor */
@@ -65,25 +61,6 @@ public:
     /** Inventor class initialization */
     static void initClass();
 
-
-	/** Returns true if the content was explicitly added */
-	bool hasContent();
-
-	/** 
-	* Sets the SoStbCamera's content 
-	*/
-	void setContent(SoNode *newContent);
-
-	/** 
-	*	Sets the SoStbCamera's reference camera.
-	*/
-	void setReferenceCamera(SoPerspectiveCamera* refCam);
-
-	/** 
-	*	Get the SoStbCamera's reference camera.
-	*/
-	SoPerspectiveCamera* getReferenceCamera();
-
 	/** 
 	*	Return the SoStbCamera's camera.
 	*/
@@ -94,22 +71,22 @@ public:
 	*/
 	SoTransform* getTransform();
 	
-	/** 
-	* The StbCamera's controlMode needs to be activated. 
-	*/
-	bool activateControlMode();
-
-	bool activateDisplayMode(SoStudierstubeViewer* aViewer);
-
-	void setSoDisplay(SoDisplay *aDisplay);
-
-	SoDisplay* getSoDisplay();
+    bool activate();
 
 protected:
-	SoDisplay* soDisplay;
-
-	SoPerspectiveCamera* referenceCamera;
+    /** Overrides the inherited method to implement a new
+        SoGLRenderAction behavior. 
+        @param action the SoGLRenderAction calling this method
+    */
+    bool activated;
+    
+    virtual void GLRender(SoGLRenderAction* action);
 	
+    /** 
+    * The StbCamera's controlMode needs to be activated. 
+    */
+    bool activateControlMode();
+
 };
 
 //----------------------------------------------------------------------------

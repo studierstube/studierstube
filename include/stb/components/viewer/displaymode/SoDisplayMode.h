@@ -54,11 +54,15 @@ public:
     static void initClass();
    	
 	virtual void setViewer(SoStudierstubeViewer* aViewer);
+
+    virtual bool activate();
 	
 protected:
 	virtual void GLRender(SoGLRenderAction *action);
 
 	SoStudierstubeViewer* viewer;
+
+    bool activated;
 };
 
 
