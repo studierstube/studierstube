@@ -31,6 +31,8 @@
 /* ======================================================================= */
 
 #include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
+#include <stb/components/viewer/Viewer.h>
+#include <stb/components/viewer/SoDisplay.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h> 
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
@@ -73,128 +75,60 @@ SoDesktopControlMode::activate()
 	
 	// set offsets 
 	//get values
-	SoPerspectiveCamera *refCam = stbCamera->getReferenceCamera();
-	SbVec3f eposLeft;  
-	SbVec3f posLeft;
+	//SoPerspectiveCamera *refCam = stbCamera->getReferenceCamera();
+    //SoPerspectiveCamera*
+    //    SoStbCamera::getReferenceCamera()
+    //{
+   SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+        if(!dsp){
+            return false;
+        }
+     SoPerspectiveCamera *refCam = dsp->getReferenceCamera();
+    //}
+	//SbVec3f eposLeft;  
+	//SbVec3f posLeft;
+    //SoPerspectiveCamera*
+    //    SoStbCamera::getReferenceCamera()
+    //{
+    //    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+    //    if(!dsp){
+    //        printf("!dsp");
+    //        return false;
+    //    }
+    //    return dsp->getReferenceCamera();
+    //}
+	//if(stbCamera->getCamera()!=NULL)
+	//{
+	//	if(stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId()))
+	//	{
+	//		eposLeft  = ((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.getValue();
+	//		posLeft	  = ((SoOffAxisCamera*)stbCamera->getCamera())->position.getValue();
+	//	}
+	//	else if(stbCamera->getCamera()->isOfType(SoCamera::getClassTypeId()))
+	//	{
+	//		stb::Kernel::getInstance()->log("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
+ //              stbCamera->getTransform()->translation.connectFrom(&refCam->position);
+ //              stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
+ //            
+	//		return true;
+	//	}
+	//}
 
-	if(stbCamera->getCamera()!=NULL)
-	{
-		if(stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId()))
-		{
-			eposLeft  = ((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.getValue();
-			posLeft	  = ((SoOffAxisCamera*)stbCamera->getCamera())->position.getValue();
-		}
-		else if(stbCamera->getCamera()->isOfType(SoCamera::getClassTypeId()))
-		{
-			stb::Kernel::getInstance()->log("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
-            stbCamera->getTransform()->translation.connectFrom(&refCam->position);
-            stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
-          
-			return true;
-		}
-	}
-
-	SbVec3f posRef	  = refCam->position.getValue();//= (eposLeft + eposRight)/2.0f;
-	SbRotation rotRef = refCam->orientation.getValue();// = diff * rotRight;	
+	//SbVec3f posRef	  = refCam->position.getValue();//= (eposLeft + eposRight)/2.0f;
+	//SbRotation rotRef = refCam->orientation.getValue();// = diff * rotRight;	
+	////
+	//SbVec3f temp;
+	//rotRef.inverse().multVec((eposLeft - posRef),temp);
+	//eyeOffset = temp;
+	//rotRef.inverse().multVec((posLeft - posRef),temp);
+	//displayOffset = temp;
 	//
-	SbVec3f temp;
-	rotRef.inverse().multVec((eposLeft - posRef),temp);
-	eyeOffset = temp;
-	rotRef.inverse().multVec((posLeft - posRef),temp);
-	displayOffset = temp;
-	
-	//set up connection
-	connectHeadTracker(&refCam->position, &refCam->orientation);
-	connectDisplayTracker(&refCam->position, &refCam->orientation);
+	////set up connection
+	//connectHeadTracker(&refCam->position, &refCam->orientation);
+	//connectDisplayTracker(&refCam->position, &refCam->orientation);
+    
+    stbCamera->getTransform()->translation.connectFrom(&refCam->position);
+    stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
 
 	return true;
-}
-
-//----------------------------------------------------------------------------
-void
-SoDesktopControlMode::disconnectHeadTracker()
-{
-	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.disconnect();
-}
-
-
-//----------------------------------------------------------------------------
-void
-SoDesktopControlMode::connectHeadTracker(SoSFVec3f *trackerTranslation,
-										 SoSFRotation *trackerRotation)
-{
-	disconnectHeadTracker();
-
-	// use engine to create tracker to world transformation matrix
-	SoComposeMatrix *ctw = new SoComposeMatrix;
-	ctw->translation.connectFrom(trackerTranslation);
-	ctw->rotation.connectFrom(trackerRotation);
-
-	connectHeadTrackerStep2(ctw);
-}
-
-
-//----------------------------------------------------------------------------
-void
-SoDesktopControlMode::connectHeadTrackerStep2(SoComposeMatrix *ctw)
-{
-	// use engines to transform offsets
-	SoTransformVec3f *te;
-	te = new SoTransformVec3f;
-	te->vector.connectFrom(&eyeOffset);
-	te->matrix.connectFrom(&ctw->matrix);
-
-	// connect eyepointPositions to transformed offsets
-	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
-}
-
-
-
-//----------------------------------------------------------------------------
-
-void
-SoDesktopControlMode::disconnectDisplayTracker()
-{
-	stbCamera->getCamera()->position.disconnect();
-	stbCamera->getCamera()->orientation.disconnect();
-}
-
-
-
-//----------------------------------------------------------------------------
-void
-SoDesktopControlMode::connectDisplayTracker(SoSFVec3f *trackerTranslation,
-											SoSFRotation *trackerRotation)
-{
-	disconnectDisplayTracker();
-
-	// use engine to create tracker to world transformation matrix
-	SoComposeMatrix *ctw = new SoComposeMatrix;
-	ctw->translation.connectFrom(trackerTranslation);
-	ctw->rotation.connectFrom(trackerRotation);
-	
-	connectDisplayTrackerStep2(ctw);
-
-	// use engines to calculate rotations	
-	MultRotRot *md = new MultRotRot;
-	md->rotationA.connectFrom(&displayRotationOffset);
-	md->rotationB.connectFrom(trackerRotation);
-
-	// connect orientations to calculated rotations
-	stbCamera->getCamera()->orientation.connectFrom(&md->product);
-
-}
-
-//----------------------------------------------------------------------------
-void
-SoDesktopControlMode::connectDisplayTrackerStep2(SoComposeMatrix *ctw)
-{
-	// use engines to transform offsets
-	SoTransformVec3f *tdo;
-	tdo = new SoTransformVec3f;
-	tdo->vector.connectFrom(&displayOffset);
-	tdo->matrix.connectFrom(&ctw->matrix);
-
-	// connect positions to transformed offsets
-	stbCamera->getCamera()->position.connectFrom(&tdo->point);		
 }

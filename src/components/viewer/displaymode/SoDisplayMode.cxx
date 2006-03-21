@@ -57,7 +57,17 @@ SoDisplayMode::SoDisplayMode()
 void 
 SoDisplayMode::GLRender(SoGLRenderAction *action)
 {
-    //nil
+    if(!activated)
+    {
+        activated=activate();
+    }
+
+}
+
+bool 
+SoDisplayMode::activate()
+{
+    return true;
 }
 
 void 

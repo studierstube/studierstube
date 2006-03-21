@@ -37,6 +37,7 @@
 
 #include <stb/kernel/Kernel.h>
 
+#include <stb/components/viewer/Viewer.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
@@ -65,37 +66,30 @@ SoStbCamera::SoStbCamera()
 {
     SO_KIT_CONSTRUCTOR(SoStbCamera);
     
-	// SO_KIT_ADD_CATALOG_ENTRY(
+    // SO_KIT_ADD_CATALOG_ENTRY(
     // name,className,nullByDefault,parentName,rightSiblingName,isPublic
-	//--------------- SoUser structure -------------------------------------------
-	//						  kitRoot (SoStbCamera)
-	//							 | 
-	//                           | 
-	//                           |
-	//                 |----------------|
-	//                 |				|			
-	//				 camRoot(xfSep)		  content
-	//                 |
-	//		|--------------|-----------|-------------|------------|-------------|
-	// cameraTransform  controlMode  viewport  videoBackground dispMode  camera(SoOffAxis)
-	//----------------------------------------------------------------------------
-    SO_KIT_ADD_CATALOG_ENTRY(root,SoSeparator,FALSE, this,"", FALSE);
-    
-    SO_KIT_ADD_CATALOG_ENTRY(content,stb::SoStbScene   ,FALSE, root,""     , TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE, root,content, FALSE);	
-	
-	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE, xfSep,"", TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(displayMode,SoDisplayMode,TRUE, xfSep,camera, TRUE);
-
-	SO_KIT_ADD_CATALOG_ENTRY(videoBackground,SoVideoBackground,TRUE, xfSep,displayMode, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(viewport,SoViewport,TRUE, xfSep,videoBackground, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,viewport, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE , xfSep,controlMode, TRUE);
-
+    //--------------- SoUser structure -------------------------------------------
+    //						  kitRoot (SoStbCamera)
+    //							 | 
+    //                           | 
+    //                           |
+    //                 |----------
+    //                 |						
+    //				 xfSep		  
+    //                 |
+    //		|--------------|-----------|
+    //    transform  controlMode  camera
+    //----------------------------------------------------------------------------
+ 
+    SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE,        this,   ""  , FALSE);	
+	SO_KIT_ADD_CATALOG_ENTRY(camera,SoPerspectiveCamera,FALSE,        xfSep,   "", TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,camera, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE ,           xfSep,controlMode, TRUE);
 
     SO_KIT_INIT_INSTANCE();
 
-	referenceCamera=NULL;
+    setSearchingChildren(TRUE);
+    activated=false;
 }
 
 /** The destructor */
@@ -104,32 +98,13 @@ SoStbCamera::~SoStbCamera()
 	//nil
 }
 
-bool
-SoStbCamera::hasContent()
+bool 
+SoStbCamera::activate()
 {
-	if(SO_CHECK_ANY_PART(this,"content",SoNode)==NULL)
-		return false;
+    if(activateControlMode())
+        return true;
 
-	return TRUE;
-}
-
-void 
-SoStbCamera::setContent(SoNode *newContent)
-{
-	if(newContent)
-		setAnyPart("content",newContent);
-}
-
-void 
-SoStbCamera::setReferenceCamera(SoPerspectiveCamera *refCam)
-{
-	referenceCamera=refCam;
-}
-
-SoPerspectiveCamera*
-SoStbCamera::getReferenceCamera()
-{
-	return referenceCamera;
+   return false;
 }
 
 SoCamera* 
@@ -162,25 +137,26 @@ SoStbCamera::activateControlMode()
 	return false;
 }
 
-bool
-SoStbCamera::activateDisplayMode(SoStudierstubeViewer* aViewer)
-{
-	if(displayMode.getValue()){
-		((SoDisplayMode*)(displayMode.getValue()))->setViewer(aViewer);
-		return true;
-	}
-	return false;
-}
-
 void 
-SoStbCamera::setSoDisplay(SoDisplay *aDisplay)
+SoStbCamera::GLRender(SoGLRenderAction* action)
 {
-	soDisplay=aDisplay;
+    if(!activated)
+    {
+        activated=activate();
+    }
+
+    SoBaseKit::GLRender(action);
 }
 
-SoDisplay*
-SoStbCamera::getSoDisplay()
-{
-	return soDisplay;
-}
+//void 
+//SoStbCamera::setSoDisplay(SoDisplay *aDisplay)
+//{
+//	soDisplay=aDisplay;
+//}
+//
+//SoDisplay*
+//SoStbCamera::getSoDisplay()
+//{
+//	return soDisplay;
+//}
 

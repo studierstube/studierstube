@@ -52,6 +52,7 @@ SoStbCameraControlMode::SoStbCameraControlMode()
 {
 	SO_NODE_CONSTRUCTOR(SoStbCameraControlMode);
 	stbCamera=NULL;
+     activated=false;
 	// add fields
 }
 
@@ -67,7 +68,6 @@ bool
 SoStbCameraControlMode::activate()
 {
 	//nil
-	
 	return false;
 }
 

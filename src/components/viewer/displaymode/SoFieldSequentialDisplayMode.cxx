@@ -37,6 +37,8 @@
 #define WIN32_LEAN_AND_MEAN
 #endif
 
+#include <stb/components/viewer/Viewer.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
@@ -100,6 +102,10 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 void 
 SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction *action)
 {
+    if(!activated)
+    {
+        activated=activate();
+    }
 
 	if(isQuadBufferAvailable)
 	{
@@ -118,3 +124,15 @@ SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction *action)
 	}
 }
 
+bool 
+SoFieldSequentialDisplayMode::activate()
+{
+    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+    if(!dsp){
+        return false;
+    }
+    
+    setViewer(dsp->getViewer());
+
+    return true;
+}

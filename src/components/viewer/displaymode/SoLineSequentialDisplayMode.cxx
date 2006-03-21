@@ -145,7 +145,6 @@ SoLineSequentialDisplayMode::~SoLineSequentialDisplayMode()
     // nil
 }
 
-
 void 
 SoLineSequentialDisplayMode::GLRender(SoGLRenderAction *action)
 {

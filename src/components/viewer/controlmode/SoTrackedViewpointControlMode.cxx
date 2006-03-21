@@ -32,7 +32,6 @@
 
 //#include "SoTrackedViewpointControlMode.h"
 #include <stb/components/viewer/controlmode/SoTrackedViewpointControlMode.h>
-
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/kernel/Kernel.h>
@@ -79,7 +78,6 @@ SoTrackedViewpointControlMode::~SoTrackedViewpointControlMode()
 bool 
 SoTrackedViewpointControlMode::activate()
 {
-   printf("test\n");
 	if(stbCamera==NULL)
 		return false;
 

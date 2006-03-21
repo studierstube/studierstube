@@ -48,6 +48,7 @@
 #include <stb/components/viewer/SoVideoBackground.h>
 #include <stb/components/viewer/SoViewport.h>
 
+
 #include <stb/components/viewer/controlmode/SoDesktopControlMode.h>
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 #include <stb/components/viewer/controlmode/SoTrackedDisplayControlMode.h>
@@ -61,7 +62,6 @@
 #include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
-
 
 std::vector<SoDisplay*> stb::Viewer::displayList;
 
@@ -156,7 +156,6 @@ Viewer::init()
             SoDisplay *display =(SoDisplay *)paths[i]->getTail();
             // add content to display
             addSoDisplay(display);
-            display->setContent(stb::Kernel::getInstance()->getSceneManager()->getSceneRoot());
             stb::Kernel::getInstance()->getSceneManager()->setDisplay(display);
             // add display to kernel's scenemanager 
         }

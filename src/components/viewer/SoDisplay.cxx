@@ -76,6 +76,7 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(decoration, (TRUE));
     SO_NODE_ADD_FIELD(windowOnTop, (FALSE));
     SO_NODE_ADD_FIELD(stencilBuffer, (FALSE));
+    SO_NODE_ADD_FIELD(useRefCamera, (TRUE));
     
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SCREEN_DOOR);
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, ADD);
@@ -95,12 +96,10 @@ SoDisplay::SoDisplay()
 /** The destructor */
 SoDisplay::~SoDisplay()
 {
-    printf("~SoDisplay()");
 	if(viewer)
     {
 		viewer->hide();
 		delete viewer;
-		displayRoot->unref();
 	}
 }
 
@@ -110,8 +109,8 @@ void
 SoDisplay::exitViewer(void*, SoGuiComponent* viewer)
 {
     SoDisplay* display=stb::Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
-    delete viewer;
     stb::Viewer::removeSoDisplay(display);
+//    delete viewer;
 }
 
 
@@ -126,51 +125,47 @@ SoDisplay::createViewer()
 	//								|
 	//          |---------------------
 	//         examCam    
-	//               		
-	//					
-	//
 	//
 	displayRoot=new SoSeparator();
-    this->addChild(displayRoot);
-	examCam= new SoPerspectiveCamera();
-	displayRoot->addChild(examCam);
+    if(useRefCamera.getValue()){
+	    examCam= new SoPerspectiveCamera();
+	    displayRoot->addChild(examCam);
+    }
+    if(sceneGraph.getValue()){
+        displayRoot->addChild(sceneGraph.getValue());
+    }
 
 	////////////////////////////////////////
 	// create StudierstubeViewer
 	////////////////////////////////////////
 	viewer=new SoStudierstubeViewer(NULL);
 
-    if(sceneGraph.getValue()){
-        printf("displayRoot->addChild(sceneGraph.getValue());");
-        displayRoot->addChild(sceneGraph.getValue());
-    }
 	///////////////////////////////////////////////////
 	// add all the stbCameras to the viewer's root node
-    //for (int i=0;i<stbCameraList.getNum();i++)
-    //{
+    // for (int i=0;i<stbCameraList.getNum();i++)
+    // {
     //    if(stbCameraList[i]!=NULL 
     //    && stbCameraList[i]->isOfType(SoStbCamera::getClassTypeId()))
     //    {
-	   //     SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
-	   //     //Set reference camera's parameter to match with the OffAxisCamera of the first StbCamera 
-	   //     if(	i==0 
-		  //      && stbCamera->getCamera()
-		  //      && stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId())
-		  //      )
-	   //     {
-		  //      SoPerspectiveCamera *refCam = (SoPerspectiveCamera*)examCam;
-		  //      SoOffAxisCamera *cam=(SoOffAxisCamera*)stbCamera->getCamera();
+    //     SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
+    //     //Set reference camera's parameter to match with the OffAxisCamera of the first StbCamera 
+	//     if(	i==0 
+    //      && stbCamera->getCamera()
+    //      && stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId())
+    //      )
+    //     {
+    //      SoPerspectiveCamera *refCam = (SoPerspectiveCamera*)examCam;
+    //      SoOffAxisCamera *cam=(SoOffAxisCamera*)stbCamera->getCamera();
+	//      refCam->aspectRatio		=	cam->size.getValue()[0]/cam->size.getValue()[1];
+	//      refCam->focalDistance	=	cam->focalDistance;
+	//      refCam->nearDistance	=	cam->nearDistance;
+	//      refCam->farDistance		=	cam->farDistance;
+	//      refCam->viewportMapping =	cam->viewportMapping;
+	//      refCam->orientation		=	cam->orientation;
+	//     }
 
-		  //      refCam->aspectRatio		=	cam->size.getValue()[0]/cam->size.getValue()[1];
-		  //      refCam->focalDistance	=	cam->focalDistance;
-		  //      refCam->nearDistance	=	cam->nearDistance;
-		  //      refCam->farDistance		=	cam->farDistance;
-		  //      refCam->viewportMapping =	cam->viewportMapping;
-		  //      refCam->orientation		=	cam->orientation;
-	   //     }
-
-	   //     ///////////////////////////////////////////////////////////////////////////////////////
-	   //     ///////////// Tell the StbCamera about SoDisplay's reference camera  ///////////////////
+	//     ///////////////////////////////////////////////////////////////////////////////////////
+    //   ///////////// Tell the StbCamera about SoDisplay's reference camera  ///////////////////
 	   //     stbCamera->setSoDisplay(this);
 	   //     stbCamera->setReferenceCamera(examCam);
 
@@ -258,27 +253,12 @@ SoDisplay::getViewer()
 	return this->viewer;
 }
 
-void 
-SoDisplay::setContent(SoNode* _content)
+SoPerspectiveCamera* 
+SoDisplay::getReferenceCamera()
 {
-    //content.setValue(_content);
-    // tell cameras about the new content
-    //for (int i=0;i<stbCameraList.getNum();i++)
-    //{
-    //    if(stbCameraList[i]!=NULL 
-    //        && stbCameraList[i]->isOfType(SoStbCamera::getClassTypeId()))
-    //    {
-    //        SoStbCamera *stbCamera=(SoStbCamera *)stbCameraList[i];
-    //        ///////////////////////////////////////////////
-    //        ///////////// Set Content  ///////////////////
-    //        //set the displays content only if no content has been defined for the StbCamera
-    //        if(!stbCamera->hasContent())
-    //        {
-    //            stbCamera->setContent(content.getValue());
-    //        }
-    //      }
-    //}
+    return examCam;
 }
+
 
 bool
 SoDisplay::find(SoNode *node)
@@ -289,7 +269,7 @@ SoDisplay::find(SoNode *node)
     sAction.setSearchingAll(TRUE);
     sAction.apply((SoSeparator*)displayRoot);
     SoPath *path = sAction.getPath();
-    if(path!=NULL){
+    if(path==NULL){
         return false;
     }  
     return true;
