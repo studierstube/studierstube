@@ -1,0 +1,57 @@
+<studierstube>
+	<kernel 
+	    logMode="off" 
+		logFileName="kernelLog.txt" 
+		guibinding="sowin"
+		updateMode="timer"
+		updateRate="0.03333"/>
+
+	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
+	<Component  name="Event" availability="ondemand" lib="stbevent">
+		<Param key="configFile" value ="opentracker.xml"/>	
+	</Component>
+
+	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
+	<Component name="Viewer" availability="ondemand" lib="stbviewer">
+	    
+	    <Param key="configFile" value="desktopViewer.iv"/>
+	    <!-- <Param key="configFile" value="hmdVisCenter.iv"/> -->
+	    <!-- <Param key="configFile" value="hmdVRLab.iv"/> -->
+	    <!-- <Param key="configFile" value="powerWallVisCenter.iv"/> -->
+
+	</Component>
+	    
+	<!-- This is the Starlight Component. It is in charge of providing us with extra nodes with stb3 functionalities -->
+	<Component name="Starlight" availability="ondemand" lib="starlight">
+	</Component>
+
+	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
+	<Component name="Video" availability="ondemand"	lib="stbvideo">
+	    <Param key="configFile" value="openvideo.xml"/>
+	</Component>
+
+
+    <Component name="MagicLens" availability="ondemand"	lib="magicLens">
+	</Component>
+
+  	
+   <!-- MagicLens Example -->
+   <!--     <Application name="SimpleApp" availability="onload" lib="applications/simple">
+                <Param key="sceneFile"  value ="applications/magicLensExample/testNoBlink.iv"/>
+                <Param key="needViewer" value ="true"/>
+                <Param key="needEvent"  value ="false"/>
+                <Param key="needStarlight"  value ="true"/>
+                <Param key="needMagicLens"  value ="true"/>              
+    </Application>    
+    -->
+
+   <Application name="SimpleApp" availability="onload" lib="applications/simple">
+                <Param key="sceneFile"  value ="magicLensExample/testNoBlink.iv"/>
+                <Param key="needViewer" value ="true"/>
+                <Param key="needEvent"  value ="false"/>
+                <Param key="needStarlight"  value ="true"/>
+                <Param key="needMagicLens"  value ="true"/>              
+    </Application>    
+    
+
+</studierstube>

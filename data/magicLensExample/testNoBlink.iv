@@ -1,0 +1,56 @@
+#Inventor V2.1 ascii
+
+
+SoSeparator
+{	
+   	SoMagicStylesKit
+	{
+		styleNames [ "Power", "Water", "Gas" ]
+		stylesInside [ Material { transparency 1 }, Material { diffuseColor 0 0 1 }, Material { diffuseColor 0 1 1 }	]
+		stylesOutside [ Material { diffuseColor 0 1 0 }, Material { diffuseColor 1 0 0 }, Material { diffuseColor 1 1 1 } ]
+	}
+	
+	SoMagicLensKit
+	{
+		content SoMagicLens 
+		{
+			DEF LENTE SoGroup
+			{
+				Cube { } 
+			}
+		}
+	}
+	
+	SoMagicSceneKit
+	{
+		styleName "Water"
+		content SoMagicScene 
+		{ 
+			DEF PIPE Cylinder { height 10 radius 0.1 } 
+		}
+	}
+	
+	SoMagicSceneKit
+	{
+		styleName "Power"
+		content SoMagicScene 
+		{
+			SoSeparator 
+			{
+				SoTransform { translation -1 0 0 }
+				USE PIPE
+			}
+		}
+	}
+
+	
+	# You can commment the following
+	Material 
+	{ 
+		diffuseColor 1 1 1
+		transparency 0.8
+	}
+	USE LENTE
+	# up to here
+	
+}
