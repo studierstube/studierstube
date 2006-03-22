@@ -1,1 +1,0 @@
-..\bin\win32\studierstubed.exe ..\data\kernel.xml
