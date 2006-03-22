@@ -14,7 +14,8 @@
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
 	<Component name="Viewer" availability="ondemand" lib="stbviewer">
 	    
-	    <Param key="configFile" value="desktopViewer.iv"/>
+	    <Param key="configFile" value="desktopViewerVideo.iv"/>
+	    <!--<Param key="configFile" value="desktopViewer.iv"/> -->
 	    <!-- <Param key="configFile" value="hmdVisCenter.iv"/> -->
 	    <!-- <Param key="configFile" value="hmdVRLab.iv"/> -->
 	    <!-- <Param key="configFile" value="powerWallVisCenter.iv"/> -->
@@ -27,7 +28,7 @@
 
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
 	<Component name="Video" availability="ondemand"	lib="stbvideo">
-	    <Param key="configFile" value="openvideo.xml"/>
+	    <Param key="configFile" value="openvideoVideoWrapperSrc.xml"/>
 	</Component>
 
 
@@ -35,23 +36,33 @@
 	</Component>
 
   	
-   <!-- MagicLens Example -->
-   <!--     <Application name="SimpleApp" availability="onload" lib="applications/simple">
-                <Param key="sceneFile"  value ="applications/magicLensExample/testNoBlink.iv"/>
-                <Param key="needViewer" value ="true"/>
+<!-- ---------------------------- MagicLens ----- --------------------------------------- -->
+     <Application name="SimpleApp" availability="onload" lib="applications/simple">
+                 <Param key="sceneFile"  value ="magicLens/testNoBlink.iv"/>
+                 <Param key="needViewer" value ="true"/>
                 <Param key="needEvent"  value ="false"/>
-                <Param key="needStarlight"  value ="true"/>
-                <Param key="needMagicLens"  value ="true"/>              
-    </Application>    
-    -->
+                 <Param key="needStarlight"  value ="true"/>
+                <Param key="needMagicLens"  value ="true"/>          
+         </Application>    
 
-   <Application name="SimpleApp" availability="onload" lib="applications/simple">
-                <Param key="sceneFile"  value ="magicLensExample/testNoBlink.iv"/>
-                <Param key="needViewer" value ="true"/>
-                <Param key="needEvent"  value ="false"/>
-                <Param key="needStarlight"  value ="true"/>
-                <Param key="needMagicLens"  value ="true"/>              
-    </Application>    
-    
+<!------------------------------ minInvARBiopsy Example --------------------------------------- -->    
+<!--    <Application name="minInvARBiopsy" availability="onload" lib="applications/simple"> <!--
+<!--                <Param key="sceneFile"  value ="arBiopsy/scene.iv"/> -->
+<!--                <Param key="needViewer" value ="true"/> -->
+<!--                <Param key="needEvent"  value ="false"/> -->
+<!--                <Param key="needStarlight"  value ="true"/> -->
+<!--                <Param key="needMagicLens"  value ="true"/> -->          
+<!--    </Application>    -->    
+
+<!------------------------------ ARBiopsy Example --------------------------------------- -->
+<!--    <Application name="ARBiopsy" availability="onload" lib="applications/simple"> -->
+<!--                <Param key="sceneFile"  value ="arBiopsy/scene.iv"/> -->
+<!--                <Param key="needViewer" value ="true"/>  -->
+<!--                <Param key="needEvent"  value ="true"/> -->
+<!--                <Param key="needStarlight"  value ="true"/> -->
+<!--                <Param key="needMagicLens"  value ="true"/>    -->          
+<!--    </Application>    -->
+
+
 
 </studierstube>
