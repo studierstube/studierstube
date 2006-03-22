@@ -123,9 +123,6 @@ Global
 		{95C6CB53-B671-49FB-8F14-B543C9C63098}.Release_SoWin.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
-		..\..\data\desktopViewerVideo.iv = ..\..\data\desktopViewerVideo.iv
-		..\..\data\kernel.xml = ..\..\data\kernel.xml
-		..\..\data\openvideoVideoWrapperSrc.xml = ..\..\data\openvideoVideoWrapperSrc.xml
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
