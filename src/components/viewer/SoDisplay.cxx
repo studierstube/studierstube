@@ -127,6 +127,7 @@ SoDisplay::createViewer()
 	//         examCam    
 	//
 	displayRoot=new SoSeparator();
+    this->addChild(displayRoot);
     if(useRefCamera.getValue()){
 	    examCam= new SoPerspectiveCamera();
 	    displayRoot->addChild(examCam);
