@@ -7,7 +7,7 @@
 		name="TSrc_1"
 		libId="vc"
 		formatId="IYUV"
-		cameraNum="0"
+		cameraNum="1"
 		width="320"
 		height="240"
 		frameRate="30"

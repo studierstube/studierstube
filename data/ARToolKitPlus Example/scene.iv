@@ -1,0 +1,18 @@
+#Inventor V2.1 ascii
+
+DEF tr SoTrakEngine {
+    key "tracking"
+    value "otTrack"
+}
+
+SoSeparator
+{
+	SoTransform
+	{
+		translation = USE tr.translation
+		rotation = USE tr.rotation
+		scaleFactor 0.5 0.5 0.5
+	}
+	SoCube
+	{}
+}
