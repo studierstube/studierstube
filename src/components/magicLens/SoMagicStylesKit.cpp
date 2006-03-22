@@ -49,7 +49,6 @@ using namespace std;
 SO_KIT_SOURCE(SoMagicStylesKit);
 
 SoMagicStylesKit *SoMagicStylesKit::pinstance=0;
-CgFboManager *SoMagicStylesKit::handleCgFbo=NULL;
 
 SoMagicStylesKit *SoMagicStylesKit::getInstance()
 {
@@ -101,7 +100,6 @@ SoMagicStylesKit::SoMagicStylesKit()
 	// A little setting up
 	isLoaded=false;
 	nNumberOfStyles=-1;
-	handleCgFbo=new CgFboManager;
 
     stb::Starlight* starlight=(stb::Starlight*)(stb::MagicLens::getStarlight());
     cxnRenderStyles.setValue((SoNodeContext*)(starlight->createSoNodeContext()));
@@ -153,7 +151,7 @@ void SoMagicStylesKit::GLRender(SoGLRenderAction * action)
 	{
 		isLoaded=true;
 		// Initialize Cg and the FBO
-		handleCgFbo->init();
+		CgFboManager::getInstance()->init();
 	}
 
 	SoBaseKit::GLRender(action);

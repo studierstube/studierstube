@@ -86,9 +86,9 @@ void SoMagicScene::initCgPrograms()
 {
 	if (areCgProgramsLoaded) return;
 
-	fragmentPrograms[BEHIND_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgBehindLens, handleCgFbo->fragmentProfile, 0, 0);
-	fragmentPrograms[INSIDE_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgInsideLens, handleCgFbo->fragmentProfile, 0, 0);
-	fragmentPrograms[INFRONT_LENS]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgInfrontLens, handleCgFbo->fragmentProfile, 0, 0);
+	fragmentPrograms[BEHIND_LENS]=cgCreateProgram(CgFboManager::getInstance()->context, CG_SOURCE, strCgBehindLens, CgFboManager::getInstance()->fragmentProfile, 0, 0);
+	fragmentPrograms[INSIDE_LENS]=cgCreateProgram(CgFboManager::getInstance()->context, CG_SOURCE, strCgInsideLens, CgFboManager::getInstance()->fragmentProfile, 0, 0);
+	fragmentPrograms[INFRONT_LENS]=cgCreateProgram(CgFboManager::getInstance()->context, CG_SOURCE, strCgInfrontLens, CgFboManager::getInstance()->fragmentProfile, 0, 0);
 
 	cgGLLoadProgram(fragmentPrograms[BEHIND_LENS]);
 	cgGLLoadProgram(fragmentPrograms[INSIDE_LENS]);
@@ -99,13 +99,13 @@ void SoMagicScene::initCgPrograms()
 
 void SoMagicScene::enableFragmentProgram(int which)
 {
-	cgGLEnableProfile(handleCgFbo->fragmentProfile);
+	cgGLEnableProfile(CgFboManager::getInstance()->fragmentProfile);
 	cgGLBindProgram(fragmentPrograms[which]);
 }
 
 void SoMagicScene::disableCgProgram()
 {
-	cgGLDisableProfile(handleCgFbo->fragmentProfile);
+	cgGLDisableProfile(CgFboManager::getInstance()->fragmentProfile);
 }
 
 void SoMagicScene::prepareGL()
@@ -132,7 +132,7 @@ void SoMagicScene::GLRenderBelowPath(SoGLRenderAction * action)
 		// Enable the appropriate Fragment Program (three passes)
 		enableFragmentProgram(renderPass);
 		// Prepare input from the FBO texture
-		handleCgFbo->prepareReadFromFBO();
+		CgFboManager::getInstance()->prepareReadFromFBO();
 		// Set everything in OpenGL
 		prepareGL();
 
@@ -140,7 +140,7 @@ void SoMagicScene::GLRenderBelowPath(SoGLRenderAction * action)
 		SoSeparator::GLRenderBelowPath(action);
 
 		// Let go
-		handleCgFbo->releaseReadFromFBO();
+		CgFboManager::getInstance()->releaseReadFromFBO();
 		disableCgProgram();
 	}
 	else
@@ -151,11 +151,6 @@ void SoMagicScene::GLRenderBelowPath(SoGLRenderAction * action)
 
 	renderPass=(renderPass+1)%SCENE_RENDER_PASSES;
 	glPopAttrib();
-}
-
-void SoMagicScene::setFboHandle(CgFboManager *newHandle)
-{
-	handleCgFbo=newHandle;
 }
 
 void SoMagicScene::goMagic(bool flag)

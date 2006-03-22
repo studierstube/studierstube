@@ -88,9 +88,6 @@ public:
 	/// Initializes the node
     static void initClass();
 
-	/// Sets the Fbo handle
-	void setFboHandle(CgFboManager *newHandle);
-
 	/// Disables or Enables Magic rendering
 	void goMagic(bool flag);
 
@@ -103,9 +100,6 @@ protected:
 
 	/// We need 3 fragment programs, one for each render pass
 	CGprogram fragmentPrograms[SCENE_RENDER_PASSES];
-
-	/// Pointer to the Handle of the FBO
-	CgFboManager *handleCgFbo;
 
 	/// Sets the Cg parameters and renders down its tree
 	virtual void GLRenderBelowPath(SoGLRenderAction * action);

@@ -84,9 +84,6 @@ public:
 	float framerate;
 #endif
 
-	/// Pointer to the Handle of the FBO
-	static CgFboManager *handleCgFbo;
-
 	/// The Style names
 	SoMFString styleNames;
 

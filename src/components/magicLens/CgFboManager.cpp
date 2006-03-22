@@ -42,6 +42,7 @@
  */
 CGprofile CgFboManager::fragmentProfile;
 CGcontext CgFboManager::context;
+CgFboManager*	CgFboManager::instance=NULL;
 
 bool CgFboManager::isExtensionSupported(const char *extension)
 {
@@ -64,6 +65,14 @@ bool CgFboManager::isExtensionSupported(const char *extension)
 		start=terminator;
 	}
 	return false;
+}
+
+
+CgFboManager * CgFboManager::getInstance()
+{
+	if(instance == NULL)
+		instance = new CgFboManager();
+	return instance;
 }
 
 CgFboManager::CgFboManager()
@@ -115,7 +124,7 @@ void CgFboManager::init()
 	if (!(isFloatTextureSupported=isExtensionSupported("GL_NV_float_buffer")))
 		printf("CgFboManager: Floating point textures not available, falling back to byte.\n");
 
-	isFloatTextureSupported=false;
+	//isFloatTextureSupported=false;
 
 	// Create the FBO handle
 	glGenFramebuffersEXT(1, &handleFrameBufferObject);

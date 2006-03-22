@@ -75,8 +75,8 @@ void SoMagicLens::loadCgPrograms()
 {
 	if (areCgProgramsLoaded) return;
 
-	fragmentPrograms[BACK_FACE]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgLensBackFace, handleCgFbo->fragmentProfile, 0, 0);
-	fragmentPrograms[FRONT_FACE]=cgCreateProgram(handleCgFbo->context, CG_SOURCE, strCgLensFrontFace, handleCgFbo->fragmentProfile, 0, 0);
+	fragmentPrograms[BACK_FACE]=cgCreateProgram(CgFboManager::getInstance()->context, CG_SOURCE, strCgLensBackFace, CgFboManager::getInstance()->fragmentProfile, 0, 0);
+	fragmentPrograms[FRONT_FACE]=cgCreateProgram(CgFboManager::getInstance()->context, CG_SOURCE, strCgLensFrontFace, CgFboManager::getInstance()->fragmentProfile, 0, 0);
 	cgGLLoadProgram(fragmentPrograms[BACK_FACE]);
 	cgGLLoadProgram(fragmentPrograms[FRONT_FACE]);
 
@@ -86,14 +86,14 @@ void SoMagicLens::loadCgPrograms()
 void SoMagicLens::enableFragmentProgram(int which)
 {
 	// Bind Back Face Program and Enable Profile
-	cgGLEnableProfile(handleCgFbo->fragmentProfile);
+	cgGLEnableProfile(CgFboManager::getInstance()->fragmentProfile);
 	cgGLBindProgram(fragmentPrograms[which]);
 }
 
 void SoMagicLens::disableProgram()
 {
 	// Disable Profile
-	cgGLDisableProfile(handleCgFbo->fragmentProfile);
+	cgGLDisableProfile(CgFboManager::getInstance()->fragmentProfile);
 }
 
 void SoMagicLens::prepareGL(int which)
@@ -133,7 +133,7 @@ void SoMagicLens::GLRenderBelowPath(SoGLRenderAction * action)
 		// Enable the appropriate Fragment Program (two passes)
 		enableFragmentProgram(renderPass);
 		// Prepare to output to the FBO
-		handleCgFbo->targetRenderToFBO();
+		CgFboManager::getInstance()->targetRenderToFBO();
 		// Set everything in OpenGL for the current pass
 		prepareGL(renderPass);
 
@@ -142,7 +142,7 @@ void SoMagicLens::GLRenderBelowPath(SoGLRenderAction * action)
 
 		// Let go
 		disableProgram();
-		handleCgFbo->releaseRenderToFBO();
+		CgFboManager::getInstance()->releaseRenderToFBO();
 	}
 	else
 	{
@@ -153,11 +153,6 @@ void SoMagicLens::GLRenderBelowPath(SoGLRenderAction * action)
 	// We allow two render passes
 	renderPass=(renderPass+1)%LENS_RENDER_PASSES;
 	glPopAttrib();
-}
-
-void SoMagicLens::setFboHandle(CgFboManager *newHandle)
-{
-	handleCgFbo=newHandle;
 }
 
 void SoMagicLens::goMagic(bool flag)

@@ -69,17 +69,14 @@ class CgFboManager
 {
 public:
 
+	// Retrieves a pointer to the Singleton
+	static CgFboManager * getInstance();
+
 	/// The Cg Context
 	static CGcontext context;
 
 	/// The fragment profile
 	static CGprofile fragmentProfile;
-
-	/// The constructor of the class, initializes whats necessary
-	CgFboManager();
-
-	/// Destructor, deletes whatever is left
-	~CgFboManager();
 
 	/// Initializes the Texture and the FBO
 	void init();
@@ -102,12 +99,23 @@ public:
 	/// Finds a suitable profile and initializes it
 	void initProfiles();
 
-private:
-	/// The FBO handle
 	GLuint handleFrameBufferObject;
+	GLuint handleDBTexture;
+
+private:
+
+	// Holds the only instance of this class
+	static CgFboManager *instance;
+
+	/// The FBO handle
 
 	/// The handle of the texture to which the FBO was targeted
-	GLuint handleDBTexture;
+
+	/// The constructor of the class, initializes whats necessary
+	CgFboManager();
+
+	/// Destructor, deletes whatever is left
+	~CgFboManager();
 
 	/// Flag for initialization
 	bool isLoaded;

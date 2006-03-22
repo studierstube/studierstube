@@ -92,8 +92,6 @@ SoMagicSceneKit::SoMagicSceneKit()
 
 	SO_KIT_INIT_INSTANCE();
 
-	SO_GET_ANY_PART(this, "content", SoMagicScene)->setFboHandle(SoMagicStylesKit::handleCgFbo);
-
 	// Create the Sensors
 	styleNameSensor=new SoFieldSensor(SoMagicSceneKit::styleNameCB, this);
 
@@ -175,7 +173,6 @@ void SoMagicSceneKit::GLRender(SoGLRenderAction * action)
 {
 	// Use instead a Field sensor!!!!
 	propagateContent();
-	SO_GET_ANY_PART(this, "content", SoMagicScene)->setFboHandle(SoMagicStylesKit::handleCgFbo);
 	SoBaseKit::GLRender(action);
 }
 

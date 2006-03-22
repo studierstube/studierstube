@@ -78,8 +78,6 @@ SoMagicLensKit::SoMagicLensKit()
 
 	SO_KIT_INIT_INSTANCE();
 
-	SO_GET_ANY_PART(this, "content", SoMagicLens)->setFboHandle(SoMagicStylesKit::handleCgFbo);
-
     stb::Starlight* starlight=(stb::Starlight*)(stb::MagicLens::getStarlight());
     sepTop.setValue((SoContextSeparator*)(starlight->createSoContextSeparator()));
 
@@ -131,8 +129,6 @@ void SoMagicLensKit::GLRender(SoGLRenderAction * action)
 {
 	// Use instead a Field sensor!!!!
 	propagateContent();
-	SO_GET_ANY_PART(this, "content", SoMagicLens)->setFboHandle(SoMagicStylesKit::handleCgFbo);
-	SO_GET_ANY_PART(this, "contentright", SoMagicLens)->setFboHandle(SoMagicStylesKit::handleCgFbo);
 	SoBaseKit::GLRender(action);
 }
 
