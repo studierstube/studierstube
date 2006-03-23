@@ -35,6 +35,11 @@
 #include <stb/components/starlight/SoUse.h>
 #include <stb/components/starlight/SoVariable.h>
 
+#include <stb/components/starlight/SoPipeKit.h>
+#include <stb/components/starlight/SoExtrusionKit.h>
+#include <stb/components/starlight/SoLineStringKit.h>
+#include <stb/components/starlight/SoPhantomShape.h>
+
 
 
 
@@ -98,7 +103,12 @@ Starlight::init(void)
     SoStringCalculator::initClass();
     SoStringMap::initClass();
     SoUse::initClass();
-    SoVariable::initClass();
+	SoVariable::initClass();
+
+	SoPipeKit::initClass();
+	SoExtrusionKit::initClass();
+	SoLineStringKit::initClass();
+	SoPhantomShape::initClass();
 
     return isInit;
 }

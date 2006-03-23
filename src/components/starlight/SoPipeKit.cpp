@@ -102,8 +102,6 @@ SbBool SoPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 		// We connect AFTER base class.
 		inherited::setUpConnections(onoff, doitalways);
 
-		// Attach the field sensors, always make sure to change first the 
-		// extrusion vector
 		coordsSensor->attach(&this->coords);
 		radiusSensor->attach(&this->radius);
 

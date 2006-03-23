@@ -103,7 +103,7 @@ protected:
 	/// Creates a Sphere of a radius set by the class at the given position
 	SoSeparator *createSphere(SbVec3f position);
 
-	/// Rebuilds the Extrusion Object
+	/// Rebuilds the Object
 	void refresh();
 
 };

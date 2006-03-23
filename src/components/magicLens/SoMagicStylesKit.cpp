@@ -119,8 +119,6 @@ SbBool SoMagicStylesKit::setUpConnections(SbBool onoff, SbBool doitalways)
 		// We connect AFTER base class.
 		SoBaseKit::setUpConnections(onoff, doitalways);
 
-		// Attach the field sensors, always make sure to change first the 
-		// extrusion vector
 		styleNamesSensor->attach(&this->styleNames);
 		stylesInsideSensor->attach(&this->stylesInside);
 		stylesOutsideSensor->attach(&this->stylesOutside);
