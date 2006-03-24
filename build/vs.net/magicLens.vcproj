@@ -142,6 +142,9 @@
 			<File
 				RelativePath="..\..\src\components\magicLens\SoMagicStylesKit.cpp">
 			</File>
+			<File
+				RelativePath="..\..\src\components\magicLens\SoXRayKit.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -167,6 +170,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\magicLens\SoMagicStylesKit.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\magicLens\SoXRayKit.h">
 			</File>
 		</Filter>
 	</Files>

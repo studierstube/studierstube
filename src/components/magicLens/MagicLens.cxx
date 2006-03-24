@@ -42,6 +42,7 @@
 #include <stb/components/magicLens/SoMagicScene.h>
 #include <stb/components/magicLens/SoMagicSceneKit.h>
 #include <stb/components/magicLens/SoMagicStylesKit.h>
+#include <stb/components/magicLens/SoXRayKit.h>
 
 CREATE_COMPONENT_FUNC(MagicLens)
 
@@ -89,7 +90,8 @@ MagicLens::init()
     SoMagicLensKit::initClass();
     SoMagicScene::initClass();
     SoMagicSceneKit::initClass();
-    SoMagicStylesKit::initClass();
+	SoMagicStylesKit::initClass();
+	SoXRayKit::initClass();
     //get MagicLens's parameter
     retrieveParameter();
     isInit=true;
