@@ -12,7 +12,7 @@ Packager:	Institute for Computer Graphics and Vision, Graz University of Technol
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
 Requires:	tinyxml ACE openvideo opentracker
-BuildRequires:	scons tinyxml ACE openvideo opentracker
+BuildRequires:	scons tinyxml tinyxml-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel
 
 %define _prefix %{prefix}
 
