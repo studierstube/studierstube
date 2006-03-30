@@ -4,7 +4,8 @@ import buildutils
 
 #!/usr/bin/python
 Import ('user_options_dict')
-Import('library_env')
+Import ('library_env')
+Import ('env')
 
 bin_env = library_env.Copy ()
 
@@ -15,4 +16,4 @@ binfiles = buildutils.regexpfilter(binfiles, user_options_dict['IGNORE_FILTER'],
 
 # Install bin files
 for binfile in binfiles:
-    bin_env.Install(user_options_dict['PREFIX'] + os.sep + 'share' + os.sep + 'stb', bindir + os.sep + binfile)
+    env.Alias(target = ['install'], source = bin_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['PREFIX'] + os.sep + 'share' + os.sep + 'stb', bindir + os.sep + binfile))

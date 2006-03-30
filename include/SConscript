@@ -4,7 +4,8 @@ import buildutils
 
 #!/usr/bin/python
 Import ('user_options_dict')
-Import('library_env')
+Import ('library_env')
+Import ('env')
 
 header_env = library_env.Copy ()
 
@@ -17,4 +18,4 @@ includefiles = buildutils.regexpfilter(includefiles, user_options_dict['IGNORE_F
 # Install header files
 for include in includefiles:
     dirname = include[0:include.rindex(os.sep)]
-    header_env.Install(user_options_dict['PREFIX'] + os.sep + 'include' + os.sep + dirname, includedir + os.sep + include)
+    env.Alias(target = ['install'], source = header_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['PREFIX'] + os.sep + 'include' + os.sep + dirname, includedir + os.sep + include))

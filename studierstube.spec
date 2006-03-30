@@ -36,8 +36,16 @@ scons -c
 
 %files
 %defattr(-,root,root)
-%{_libdir}/*
+%{_libdir}/*.so*
+%{_libdir}/pkgconfig/*
+%{_bindir}/*
+%{_prefix}/share/stb/*
 %{_prefix}/include/*
+
+# what are these files good for???
+#%exclude %{_bindir}/stb.pc
+#%exclude %{_prefix}/share/stb.pc
+
 #%exclude %{_libdir}/pkgconfig/.sconsign
 #%exclude %{_prefix}/include/openvideo/.sconsign
 #%exclude %{_prefix}/include/openvideo/nodes/.sconsign

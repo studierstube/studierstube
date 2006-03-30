@@ -5,6 +5,7 @@ import buildutils
 
 Import ('user_options_dict')
 Import ('library_env')
+Import ('env')
 
 viewer_env = library_env.Copy ()
 
@@ -28,4 +29,4 @@ viewer_env.Append (LIBPATH = user_options_dict['SOQT_LIBPATH'])
 viewer_env.Append (LIBS    = user_options_dict['SOQT_LIBRARY'])
 
 viewer = viewer_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbviewer', source=source_files)
-viewer_env.Install(user_options_dict['LIBDIR'], viewer)
+env.Alias(target = ['install'], source = viewer_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['LIBDIR'], viewer))

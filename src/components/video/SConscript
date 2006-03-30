@@ -5,6 +5,7 @@ import buildutils
 
 Import ('user_options_dict')
 Import ('library_env')
+Import ('env')
 
 video_env = library_env.Copy ()
 
@@ -28,4 +29,4 @@ video_env.Append (LIBPATH = user_options_dict['OPENVIDEO_LIBPATH'])
 video_env.Append (LIBS    = user_options_dict['OPENVIDEO_LIBRARY'])
 
 video = video_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbvideo', source=source_files)
-video_env.Install(user_options_dict['LIBDIR'], video)
+env.Alias(target = ['install'], source = video_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['LIBDIR'], video))

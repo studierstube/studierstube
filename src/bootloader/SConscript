@@ -5,6 +5,7 @@ import buildutils
 
 Import ('user_options_dict')
 Import ('library_env')
+Import ('env')
 
 bootloader_env = library_env.Copy ()
 
@@ -22,4 +23,4 @@ bootloader_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
 bootloader_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 
 bootloader = bootloader_env.Program (target='#'+user_options_dict['BUILD_DIR']+'/bin/stb-4.0', source=source_files)
-bootloader_env.Install(user_options_dict['PREFIX']+'/bin', bootloader)
+env.Alias(target = ['install'], source = bootloader_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['PREFIX']+'/bin', bootloader))

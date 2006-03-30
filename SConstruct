@@ -10,8 +10,8 @@ ace_env = Environment (ENV = os.environ)
 tinyxml_env = Environment (ENV = os.environ)
 coin_env = Environment (ENV = os.environ)
 soqt_env = Environment (ENV = os.environ)
-opentracker_env =  Environment (ENV = os.environ)
-openvideo_env =  Environment (ENV = os.environ)
+opentracker_env = Environment (ENV = os.environ)
+openvideo_env = Environment (ENV = os.environ)
 env = Environment (ENV = os.environ)
 env.CacheDir(os.environ['HOME'] + '/.scache')
 
@@ -278,15 +278,15 @@ env['STB_PROJECT_DEFINES']     = global_defs
 
 #user_options_dict['PREFIX'] = install_root_dir + prefix
 #user_options_dict['LIBDIR'] = install_root_dir + libdir
-root = user_options_dict['INSTALL_ROOT_DIR'] + os.sep
+install_root_dir = user_options_dict['INSTALL_ROOT_DIR'] + os.sep
 
 buildutils.appendbuilders(env)
 outname = env.AlwaysBuild(env.Substitute('stb.pc', 'stb.pc.in'))
-ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = root+user_options_dict['LIBDIR']+'/pkgconfig', source = outname)))
-il = env.Alias('install-lib', root + user_options_dict['LIBDIR'])
-ib = env.Alias('install-bin', root + user_options_dict['PREFIX'] + '/bin')
-ih = env.Alias('install-header', root + user_options_dict['PREFIX'] + '/include')
-iss = env.Alias('install-share', root + user_options_dict['PREFIX'] + '/share')
+ic = env.Alias(target = ["install-config"], source = env.AlwaysBuild(env.Install(dir = install_root_dir + user_options_dict['LIBDIR'] + '/pkgconfig', source = outname)))
+il = env.Alias('install-lib', install_root_dir + user_options_dict['LIBDIR'])
+ib = env.Alias('install-bin', install_root_dir + user_options_dict['PREFIX'] + '/bin')
+ih = env.Alias('install-header', install_root_dir + user_options_dict['PREFIX'] + '/include')
+iss = env.Alias('install-share', install_root_dir + user_options_dict['PREFIX'] + '/share')
 env.Alias('install', [ic, il, ib, ih, iss])
 
 #****************************************************************************
@@ -318,6 +318,7 @@ Export ('cflags')
 Export ('defines')
 Export ('user_options_dict')
 Export ('library_env')
+Export ('env')
 
 #****************************************************************************
 # Build by executing SConscript file
