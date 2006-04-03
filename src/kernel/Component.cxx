@@ -45,6 +45,7 @@ Component::Component():
 
 Component::~Component()
 {
+    printf ("~Component");
     if(compInfo_){
 		delete compInfo_;
     }

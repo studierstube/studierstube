@@ -52,7 +52,7 @@ public:
     /**
     *     The destructor.
     */
-    ~Viewer();
+    virtual ~Viewer();
 
 	/// Called before the application is destructed.
 	virtual bool init();

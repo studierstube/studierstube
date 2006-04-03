@@ -32,9 +32,13 @@
 
 using namespace stb;
 
-Application::Application(){}
+Application::Application()
+{}
 
-Application::~Application(){}
+Application::~Application()
+{
+    printf("delete application");
+}
 
 void 
 Application::update()

@@ -90,6 +90,8 @@ SoDisplay::SoDisplay()
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_OBJECT_SORTED_TRIANGLE_BLEND);
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SORTED_LAYERS_BLEND);
     SO_NODE_SET_SF_ENUM_TYPE(transparencyType, TransparencyType);
+
+    examCam=NULL;
 }
 
 //----------------------------------------------------------------------------

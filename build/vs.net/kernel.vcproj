@@ -259,9 +259,6 @@
 				RelativePath="..\..\include\stb\kernel\Config.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\bin\win32\kernel.xml">
-		</File>
 	</Files>
 	<Globals>
 		<Global

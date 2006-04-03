@@ -77,7 +77,7 @@ public:
     /**
     *     The destructor.
     */
-    ~Starlight();
+    virtual ~Starlight();
 
     /// Called before the application is destructed.
     virtual bool init();

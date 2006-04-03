@@ -58,7 +58,9 @@ ComponentManager::update()
     {
         for(int i=0;i<initListSize;i++)
         {
-            initComponent(initList[i]);
+            Component* newComp=initList[i];
+            if(!initComponent(newComp))
+                initList[i]=NULL;
         }
         initList.clear();
         initListSize=0;
@@ -71,8 +73,7 @@ ComponentManager::update()
     }
 }
 
-
-void
+bool
 ComponentManager::initComponent(Component *comp)
 {
     if(comp->init())
@@ -86,10 +87,10 @@ ComponentManager::initComponent(Component *comp)
         }
         else if(id==Component::getBaseTypeID())
             compList.push_back(comp);
-
+        return true;
     }
-    else
-        delete comp;
+    
+    return false;
 }
 
 void 
@@ -97,18 +98,18 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
 {
     switch(compInfo->getAvailability())
     {
-    case ComponentInfo::ON_DEMAND:
-        demandList.push_back(compInfo);
-        break;
-    case ComponentInfo::ON_LOAD:
-        Component* newComp=NULL;
-        newComp=(Component*)compRetriever->getComponent(compInfo);
-        if(!newComp){
-            return;
-        }
-        initList.push_back(newComp);
-        initListSize++;
-        break;
+        case ComponentInfo::ON_DEMAND:
+            demandList.push_back(compInfo);
+            break;
+        case ComponentInfo::ON_LOAD:
+            Component* newComp=NULL;
+            newComp=(Component*)compRetriever->getComponent(compInfo);
+            if(!newComp){
+                return;
+            }
+            initList.push_back(newComp);
+            initListSize++;
+            break;
     }
 }
 

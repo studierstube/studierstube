@@ -47,7 +47,7 @@ public:
 	/**
 	*     The destructor.
 	*/
-	~ComponentThread();
+	virtual ~ComponentThread();
 
     /**
     * This method is called after initialisation is finished and before the

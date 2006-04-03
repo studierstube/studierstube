@@ -50,7 +50,7 @@ public:
 	/**
 	*     The destructor.
 	*/
-	~SimpleApp();
+	virtual ~SimpleApp();
 
 	/// Called before the application is destructed.
 	virtual bool init();
@@ -69,7 +69,7 @@ protected:
     bool needEvent;
     bool needViewer;
     bool needStarlight;
-    bool needMagicLens;
+ 
 private:
 	
 };// class 

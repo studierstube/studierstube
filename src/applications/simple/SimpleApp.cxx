@@ -39,7 +39,7 @@
 #include <stb/components/event/event.h>
 #include <stb/components/viewer/Viewer.h>
 #include <stb/components/starlight/starlight.h>
-#include <stb/components/magicLens/MagicLens.h>
+
 
 #include <cstdio>
 
@@ -53,12 +53,13 @@ SimpleApp::SimpleApp()
    needEvent=false;
    needViewer=false;
    needStarlight=false;
-   needMagicLens=false;
+
 
 }
 
 SimpleApp::~SimpleApp()
 {
+    //nil
 }
 
 void 
@@ -79,10 +80,6 @@ SimpleApp::setParameter(stb::string key, std::string value)
    else if(key=="needStarlight" && value=="true")
    {
         needStarlight=true;
-   }
-   else if(key=="needMagicLens" && value=="true")
-   {
-       needMagicLens=true;
    }
 }
 
@@ -119,12 +116,7 @@ SimpleApp::init()
             return false;
     }
 
-    if(needMagicLens)
-    {
-        MagicLens* lens=(MagicLens*)(Kernel::getInstance()->getComponentManager()->load("MagicLens"));
-        if(!lens)
-            return false;
-    }
+
     //load iv file 
     if(sceneFile.size()<1)
         return false;

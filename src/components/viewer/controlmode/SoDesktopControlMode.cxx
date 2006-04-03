@@ -72,61 +72,15 @@ SoDesktopControlMode::activate()
 {
 	if(stbCamera==NULL)
 		return false;
-	
-	// set offsets 
-	//get values
-	//SoPerspectiveCamera *refCam = stbCamera->getReferenceCamera();
-    //SoPerspectiveCamera*
-    //    SoStbCamera::getReferenceCamera()
-    //{
-   SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
-        if(!dsp){
-            return false;
-        }
-     SoPerspectiveCamera *refCam = dsp->getReferenceCamera();
-    //}
-	//SbVec3f eposLeft;  
-	//SbVec3f posLeft;
-    //SoPerspectiveCamera*
-    //    SoStbCamera::getReferenceCamera()
-    //{
-    //    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
-    //    if(!dsp){
-    //        printf("!dsp");
-    //        return false;
-    //    }
-    //    return dsp->getReferenceCamera();
-    //}
-	//if(stbCamera->getCamera()!=NULL)
-	//{
-	//	if(stbCamera->getCamera()->isOfType(SoOffAxisCamera::getClassTypeId()))
-	//	{
-	//		eposLeft  = ((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.getValue();
-	//		posLeft	  = ((SoOffAxisCamera*)stbCamera->getCamera())->position.getValue();
-	//	}
-	//	else if(stbCamera->getCamera()->isOfType(SoCamera::getClassTypeId()))
-	//	{
-	//		stb::Kernel::getInstance()->log("STB_ERROR: can't active SoDesktopControlMode for none SoOffAxisCamera's\n");
- //              stbCamera->getTransform()->translation.connectFrom(&refCam->position);
- //              stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
- //            
-	//		return true;
-	//	}
-	//}
 
-	//SbVec3f posRef	  = refCam->position.getValue();//= (eposLeft + eposRight)/2.0f;
-	//SbRotation rotRef = refCam->orientation.getValue();// = diff * rotRight;	
-	////
-	//SbVec3f temp;
-	//rotRef.inverse().multVec((eposLeft - posRef),temp);
-	//eyeOffset = temp;
-	//rotRef.inverse().multVec((posLeft - posRef),temp);
-	//displayOffset = temp;
-	//
-	////set up connection
-	//connectHeadTracker(&refCam->position, &refCam->orientation);
-	//connectDisplayTracker(&refCam->position, &refCam->orientation);
-    
+    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+    if(!dsp)
+        return false;
+
+    SoPerspectiveCamera *refCam = dsp->getReferenceCamera();
+    if(!refCam)
+        return false;
+     
     stbCamera->getTransform()->translation.connectFrom(&refCam->position);
     stbCamera->getTransform()->rotation.connectFrom(&refCam->orientation);
 

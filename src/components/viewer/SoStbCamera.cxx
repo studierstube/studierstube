@@ -82,7 +82,7 @@ SoStbCamera::SoStbCamera()
     //----------------------------------------------------------------------------
  
     SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE,        this,   ""  , FALSE);	
-	SO_KIT_ADD_CATALOG_ENTRY(camera,SoPerspectiveCamera,FALSE,        xfSep,   "", TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE,        xfSep,   "", TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,camera, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE ,           xfSep,controlMode, TRUE);
 
@@ -101,10 +101,7 @@ SoStbCamera::~SoStbCamera()
 bool 
 SoStbCamera::activate()
 {
-    if(activateControlMode())
-        return true;
-
-   return false;
+    return activateControlMode();
 }
 
 SoCamera* 
@@ -130,7 +127,9 @@ SoStbCamera::activateControlMode()
 		}
 
 		((SoStbCameraControlMode*)controlMode.getValue())->setStbCamera(this);
-		((SoStbCameraControlMode*)controlMode.getValue())->activate();
+
+        if(!((SoStbCameraControlMode*)controlMode.getValue())->activate())
+		    return false;
 
 		return true;
 	}
@@ -143,6 +142,7 @@ SoStbCamera::GLRender(SoGLRenderAction* action)
     if(!activated)
     {
         activated=activate();
+        return ;
     }
 
     SoBaseKit::GLRender(action);

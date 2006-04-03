@@ -56,7 +56,7 @@ public:
     /**
     *     The destructor.
     */
-    ~SchedulerWin32();
+    virtual ~SchedulerWin32();
 
     virtual void parseConfiguration(TiXmlAttribute* attribute);
 

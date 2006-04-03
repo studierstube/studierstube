@@ -74,7 +74,7 @@ public:
     /**
     *     The destructor.
     */
-    ~Event();
+    virtual ~Event();
 
     /// Called before the application is destructed.
     virtual bool init();

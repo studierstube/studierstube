@@ -72,7 +72,7 @@ public:
     /**
     *     The destructor.
     */
-    ~Video();
+    virtual ~Video();
 
 	/// Called before the application is destructed.
 	virtual bool init();

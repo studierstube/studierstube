@@ -250,9 +250,6 @@
 				RelativePath="..\..\include\stb\components\event\tools.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\bin\win32\opentracker.xml">
-		</File>
 	</Files>
 	<Globals>
 		<Global

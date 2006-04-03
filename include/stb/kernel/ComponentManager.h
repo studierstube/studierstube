@@ -74,7 +74,7 @@ protected:
 	ComponentRetriever *compRetriever;
 	int appListSize;
     int initListSize;
-    void initComponent(Component *comp);
+    bool initComponent(Component *comp);
     stb::Component* isLoaded(std::string compName);
 
 private:
