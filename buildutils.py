@@ -39,7 +39,7 @@ def substitutefile(infile, outfile, at, substfunction, env):
 ###########################################################################
 # Define a function that recursively lists directory contents
 ###########################################################################
-def listtrav(directory, removebase = []):
+def listtrav(directory, removebase = [], filesonly = False):
     # like os.listdir, but traverses directory trees
     stack = [directory]
     files = []
@@ -60,8 +60,9 @@ def listtrav(directory, removebase = []):
             if removebase and absname.startswith(absbase):
                 usename = absname[len(absbase):len(absname)]
                 
-            files.append(usename)
-            # print usename
+            if not (filesonly and os.path.isdir(fullname)):
+                files.append(usename)
+                # print usename
             
             if os.path.isdir(fullname) and not os.path.islink(fullname):
                 stack.append(fullname)

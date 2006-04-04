@@ -274,10 +274,7 @@ env['STB_PROJECT_LIBNAME']     = "stbkernel"
 env['STB_PREFIX']              = user_options_dict['PREFIX']
 env['STB_LIBDIR']              = user_options_dict['LIBDIR']
 env['STB_PROJECT_DEFINES']     = global_defs
-#print user_options_dict['PREFIX'] + " " + user_options_dict['LIBDIR'];
 
-#user_options_dict['PREFIX'] = install_root_dir + prefix
-#user_options_dict['LIBDIR'] = install_root_dir + libdir
 install_root_dir = user_options_dict['INSTALL_ROOT_DIR'] + os.sep
 
 buildutils.appendbuilders(env)
@@ -330,7 +327,8 @@ print "\n...Building...\n"
 BuildDir (root_build_dir+'/src', 'src', duplicate=0)
 SConscript (root_build_dir+'/src/SConscript')
 SConscript (['include/SConscript'])
-SConscript (['bin/linux/SConscript'])
+SConscript (['data/SConscript'])
+#SConscript (['bin/linux/SConscript'])
 
 
 

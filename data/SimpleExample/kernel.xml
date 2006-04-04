@@ -1,7 +1,5 @@
 <studierstube>
 	<kernel 
-	    logMode="off" 
-		logFileName="kernelLog.txt" 
 		guibinding="soqt"
 		updateMode="timer"
 		updateRate="0.03333"/>
@@ -27,21 +25,10 @@
 	</Component>
 
 
-<!--
-	
-	<Component  name="Video"
-	            availability="ondemand"	
-        	    lib="stbvideo">
-	    <Param key   ="configFile" 
-		        value ="openvideo.xml" />	
-	</Component>
-	-->
-	
-	
     <Application name="SimpleApp"
                 availability="onload"
                 lib="stbsimple">     
-                <Param  key   ="sceneFile"  value ="applications/scene.iv" />	
+                <Param  key   ="sceneFile"  value ="applications/SimpleExample/simpleScene.iv" />	
                 <Param  key   ="needViewer" value ="true" />	
                 <Param  key   ="needEvent"  value ="true" />	
 		               
