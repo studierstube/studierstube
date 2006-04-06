@@ -142,9 +142,39 @@ void SoExtrusionKit::extrusionVectorCB(void *data, SoSensor *sensor)
 
 void SoExtrusionKit::refresh()
 {
-	unsigned int i, nNumberOfVertices, nNumberOfCoordinates, nNextLimit, nNextIndex;
 
-	nNumberOfVertices=vertices.getNum();
+	// There must be at least three
+	if (vertices.getNum()<3) return;
+
+	printf("BEFORE NUMVERT=%d\n",vertices.getNum());
+	SoMFVec2f cleanVertices;
+	unsigned int i, k, nNumberOfVertices, nNumberOfCoordinates, nNextLimit, nNextIndex;
+	k=0;
+
+	// Clean repeated vertices
+	// Copy the first vertex
+	cleanVertices.set1Value(k,vertices[k]);
+	// Then all other vertices except the last
+	for (i=1;i<vertices.getNum()-1;i++)
+	{
+		if (vertices[i]!=vertices[i-1])
+		{
+			k++;
+			cleanVertices.set1Value(k,vertices[i]);
+		}
+	}
+	// And now the last only if is not equal to the first
+	if (vertices[vertices.getNum()-1]!=vertices[0])
+	{
+		k++;
+		cleanVertices.set1Value(k,vertices[vertices.getNum()-1]);
+	}
+
+
+	printf("AFTER NUMVERT=%d\n",cleanVertices.getNum());
+
+	// Afterwards there should still be at least three
+	nNumberOfVertices=cleanVertices.getNum();
 	if (nNumberOfVertices<3) return;
 
 	SbVec3f tmpVec;
@@ -154,14 +184,14 @@ void SoExtrusionKit::refresh()
 	// Attach footprint coordinates
 	for (i=0;i<nNumberOfVertices;i++)
 	{
-		tmpVec.setValue(vertices[i][0],vertices[i][1],0);
+		tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
 		coords->point.set1Value(i,tmpVec);
 	}
 
 	// Attach extruded footprint coordinates
 	for (i=0;i<nNumberOfVertices;i++)
 	{
-		tmpVec.setValue(vertices[i][0],vertices[i][1],0);
+		tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
 		coords->point.set1Value(i+nNumberOfVertices,tmpVec+extrusionVector.getValue());
 	}
 
