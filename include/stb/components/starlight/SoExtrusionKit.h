@@ -42,7 +42,7 @@
  * --------------------------------------------------------------------------------
  */
 #include <Inventor/nodekits/SoBaseKit.h>
-#include <Inventor/fields/SoMFVec3f.h>
+#include <Inventor/fields/SoMFVec2f.h>
 #include <Inventor/fields/SoSFVec3f.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 
@@ -75,7 +75,7 @@ public:
     ~SoExtrusionKit();
 
 	/// The input vertices that will be extruded
-	SoMFVec3f vertices;
+	SoMFVec2f vertices;
 
 	/// The extrusion vector, giving the direction and magnitude of extrusion
 	SoSFVec3f extrusionVector;
