@@ -36,18 +36,17 @@ int
 main(int argc,char* argv[])
 {
 #ifdef WIN32
-	if (argc<2)
-	{
-		printf("  Usage: %s filename\n\n",argv[0]);
-		return 0;
-	}
-#endif
-	const char execFunc[]="executeStudierstube";
-	const char libName[]="stbkernel";
-	stb::KernelLoader loader;
-	loader.setExecFuncName(execFunc);
-	loader.setLibName(libName);
-	loader.runKernel(argc,argv);
-
+    if (argc<2) {
+	printf("  Usage: %s filename\n\n",argv[0]);
 	return 0;
+    }
+#endif
+    const char execFunc[]="executeStudierstube";
+    const char libName[]="stbkernel";
+    stb::KernelLoader loader;
+    loader.setExecFuncName(execFunc);
+    loader.setLibName(libName);
+    loader.runKernel(argc,argv);
+    
+    return 0;
 }

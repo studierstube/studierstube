@@ -115,6 +115,7 @@ Viewer::init()
  
 #ifdef LINUX
     using namespace std;
+    SoInput::addDirectoryFirst(Kernel::getInstance()->stb_base_name.c_str());
     SoInput::addDirectoryFirst(Kernel::getInstance()->stb_config_path1.c_str());
     SoInput::addDirectoryFirst(Kernel::getInstance()->stb_config_path2.c_str());
 
@@ -185,7 +186,7 @@ Viewer::addSoDisplay(SoDisplay* dsp)
 }
 
 void
-Viewer::removeSoDisplay(SoDisplay* dsp)
+Viewer::removeSoDisplay(SoDisplay*)
 {
     //displayList. (dsp);
 }

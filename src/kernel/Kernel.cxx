@@ -71,6 +71,7 @@ Kernel::Kernel()
     componentManager= new stb::ComponentManager();
 
     //////
+    stb_base_name      = "/usr/share/stb/applications/SimpleExample/";
     stb_config_path1   = "/usr/share/stb/";
     stb_config_path2   = "/usr/local/share/stb/";
     stb_home           = ".stb/";
@@ -102,7 +103,7 @@ Kernel::getKernelConfig(int argc, char* argv[])
     if(argc > 1)
         return findConfigFile(stb::string(argv[1]));
     else
-        return findConfigFile(kernel_config_file);
+        return findConfigFile(kernel_config_file, true);
 }
 
 //
@@ -192,51 +193,53 @@ Kernel::parseConfiguration(TiXmlElement* element)
 }
 
 stb::string
-Kernel::findConfigFile(const stb::string& cfgfile)
+Kernel::findConfigFile(const stb::string& cfgfile, bool search)
 {
     stb::string ret(cfgfile);
 
 #ifdef LINUX
-    using namespace std;
-    ifstream in;
+    if (search) {
+        using namespace std;
+        ifstream in;
 
-    // first attempt: HOME dir
-    char *home_dir = 0;
-    home_dir = getenv("HOME");
+        // first attempt: HOME dir
+        char *home_dir = 0;
+        home_dir = getenv("HOME");
 
-    ostringstream fn;
-    fn << home_dir << "/" << stb_home << cfgfile;
-
-    logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
-    in.open(fn.str().c_str(), ios::in);
-
-    // if not found, use global1
-    if (!in.is_open()) {
-        logPrint("not found.\n");
-        fn.str("");
-        fn << stb_config_path1 << cfgfile;
+        ostringstream fn;
+        fn << home_dir << "/" << stb_home << cfgfile;
 
         logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
         in.open(fn.str().c_str(), ios::in);
 
-        // if not found, use global2
+        // if not found, use global1
         if (!in.is_open()) {
             logPrint("not found.\n");
             fn.str("");
-            fn << stb_config_path2 << cfgfile;
+            fn << stb_config_path1 << cfgfile;
 
             logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
             in.open(fn.str().c_str(), ios::in);
+
+            // if not found, use global2
             if (!in.is_open()) {
                 logPrint("not found.\n");
-                logPrintE(LOG_ERROR_FILE_NOT_FOUND);
-                return ret;
+                fn.str("");
+                fn << stb_config_path2 << cfgfile;
+
+                logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
+                in.open(fn.str().c_str(), ios::in);
+                if (!in.is_open()) {
+                    logPrint("not found.\n");
+                    logPrintE(LOG_ERROR_FILE_NOT_FOUND);
+                    return ret;
+                }
             }
         }
+        logPrint("found.\n");
+        in.close();
+        ret = fn.str();
     }
-    logPrint("found.\n");
-    in.close();
-    ret = fn.str();
 #endif
 
     return ret;

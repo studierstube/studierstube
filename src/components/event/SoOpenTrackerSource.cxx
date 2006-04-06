@@ -103,7 +103,7 @@ SoOpenTrackerSource::~SoOpenTrackerSource()
     }
 }
 
-void SoOpenTrackerSource::configChanged( void * data, SoSensor * sensor)
+void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 {
     assert(data);
     SoOpenTrackerSource * self = (SoOpenTrackerSource *)data;
@@ -132,7 +132,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * sensor)
     }
 }
 
-void SoOpenTrackerSource::processChanged( void * data, SoSensor * sensor )
+void SoOpenTrackerSource::processChanged( void * data, SoSensor * )
 {
     assert(data);
     SoOpenTrackerSource * self = (SoOpenTrackerSource *)data;
@@ -165,7 +165,7 @@ void SoOpenTrackerSource::processChanged( void * data, SoSensor * sensor )
     }
 }
 
-void SoOpenTrackerSource::runTrackerCB( void * data, SoSensor * sensor )
+void SoOpenTrackerSource::runTrackerCB( void * data, SoSensor * )
 {
     assert(data);
     ((SoOpenTrackerSource *)data)->runTracker();

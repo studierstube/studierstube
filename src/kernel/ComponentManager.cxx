@@ -36,6 +36,8 @@
 #include <stb/kernel/ComponentRetriever.h>
 #include <stb/kernel/Kernel.h>
 
+#include <iostream>
+
 BEGIN_NAMESPACE_STB
 
 ComponentManager::ComponentManager()
@@ -116,8 +118,11 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
 stb::Component* 
 ComponentManager::isLoaded(std::string compName)
 {
+    using namespace std;
+//     cerr << "Check if component is loaded: " <<  compName << endl;
     for(int i=0;i<(int)compList.size();i++)
     {
+// 	cerr << "Check if component is loaded: " << compList[i]->getInfo()->getName()  << endl;
         if(compList[i]->getInfo()->getName()==compName)
             return compList[i];
     }
