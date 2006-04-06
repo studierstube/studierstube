@@ -201,7 +201,7 @@ void SoPipeKit::refresh()
 		}
 	}
 
-	// Afterwards there should still be two
+	// Afterwards there should still be at least two
 	nNumberOfCoordinates=cleanCoords.getNum();
 	if (nNumberOfCoordinates<2)
 		return;
