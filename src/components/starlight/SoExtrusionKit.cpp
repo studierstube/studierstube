@@ -146,7 +146,6 @@ void SoExtrusionKit::refresh()
 	// There must be at least three
 	if (vertices.getNum()<3) return;
 
-	printf("BEFORE NUMVERT=%d\n",vertices.getNum());
 	SoMFVec2f cleanVertices;
 	unsigned int i, k, nNumberOfVertices, nNumberOfCoordinates, nNextLimit, nNextIndex;
 	k=0;
@@ -169,9 +168,6 @@ void SoExtrusionKit::refresh()
 		k++;
 		cleanVertices.set1Value(k,vertices[vertices.getNum()-1]);
 	}
-
-
-	printf("AFTER NUMVERT=%d\n",cleanVertices.getNum());
 
 	// Afterwards there should still be at least three
 	nNumberOfVertices=cleanVertices.getNum();
