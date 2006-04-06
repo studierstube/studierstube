@@ -183,9 +183,26 @@ SoSeparator *SoPipeKit::createSphere(SbVec3f position)
 
 void SoPipeKit::refresh()
 {
-	unsigned int i, nNumberOfCoordinates;
+	// There must be at least two
+	if (coords.getNum()<2) return;
 
-	nNumberOfCoordinates=coords.getNum();
+	SoMFVec3f cleanCoords;
+	unsigned int i, k, nNumberOfCoordinates;
+	k=0;
+
+	// Clean repeated coordinates
+	cleanCoords.set1Value(k,coords[k]);
+	for (i=1;i<coords.getNum();i++)
+	{
+		if (coords[i]!=coords[i-1])
+		{
+			k++;
+			cleanCoords.set1Value(k,coords[i]);
+		}
+	}
+
+	// Afterwards there should still be two
+	nNumberOfCoordinates=cleanCoords.getNum();
 	if (nNumberOfCoordinates<2)
 		return;
 
@@ -195,20 +212,20 @@ void SoPipeKit::refresh()
 
 	// Add an initial sphere if desired
 	if (caps.getValue())
-		pipes->addChild(createSphere(coords[0]));
+		pipes->addChild(createSphere(cleanCoords[0]));
 
 	// Add an initial section
-	pipes->addChild(createCylinder(coords[0],coords[1]));
+	pipes->addChild(createCylinder(cleanCoords[0],cleanCoords[1]));
 	// Add the rest
 	for (i=1;i<nNumberOfCoordinates-1;i++)
 	{
-		pipes->addChild(createSphere(coords[i]));
-		pipes->addChild(createCylinder(coords[i],coords[i+1]));
+		pipes->addChild(createSphere(cleanCoords[i]));
+		pipes->addChild(createCylinder(cleanCoords[i],cleanCoords[i+1]));
 	}
 
 	// Add an ending sphere if desired
 	if (caps.getValue())
-		pipes->addChild(createSphere(coords[nNumberOfCoordinates-1]));
+		pipes->addChild(createSphere(cleanCoords[nNumberOfCoordinates-1]));
 
 }
 

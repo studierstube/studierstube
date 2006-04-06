@@ -73,7 +73,7 @@ SoExtrusionKit::SoExtrusionKit()
 	SO_KIT_ADD_CATALOG_ENTRY(faces,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
 
 	// This is for the Fields
-	SO_KIT_ADD_FIELD(vertices,			(0,0,0));
+	SO_KIT_ADD_FIELD(vertices,			(0,0));
 	SO_KIT_ADD_FIELD(extrusionVector,	(0,0,0));
 
     SO_KIT_INIT_INSTANCE();
@@ -145,16 +145,25 @@ void SoExtrusionKit::refresh()
 	unsigned int i, nNumberOfVertices, nNumberOfCoordinates, nNextLimit, nNextIndex;
 
 	nNumberOfVertices=vertices.getNum();
+	if (nNumberOfVertices<3) return;
+
+	SbVec3f tmpVec;
 	SoCoordinate3 *coords=(SoCoordinate3 *)(this->getPart("coords", TRUE));
 	SoIndexedFaceSet *faces=(SoIndexedFaceSet *)(this->getPart("faces", TRUE));
 
 	// Attach footprint coordinates
 	for (i=0;i<nNumberOfVertices;i++)
-		coords->point.set1Value(i,vertices[i]);
+	{
+		tmpVec.setValue(vertices[i][0],vertices[i][1],0);
+		coords->point.set1Value(i,tmpVec);
+	}
 
 	// Attach extruded footprint coordinates
 	for (i=0;i<nNumberOfVertices;i++)
-		coords->point.set1Value(i+nNumberOfVertices,vertices[i].getValue()+extrusionVector.getValue());
+	{
+		tmpVec.setValue(vertices[i][0],vertices[i][1],0);
+		coords->point.set1Value(i+nNumberOfVertices,tmpVec+extrusionVector.getValue());
+	}
 
 	// This is the total of coordinates in 'coords'
 	nNumberOfCoordinates=nNumberOfVertices*2;
