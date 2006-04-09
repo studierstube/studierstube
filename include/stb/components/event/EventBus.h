@@ -49,7 +49,7 @@ class  EventProducer
 class  EventSubscriber
 {
 public:
-    ~EventSubscriber();
+    ~EventSubscriber(){}
     virtual void newEvent( SoInputEvent * event ) = 0;
 };
 
@@ -57,7 +57,7 @@ public:
 class  EventFilter 
 {
 public: 
-    ~EventFilter();
+    ~EventFilter(){}
     virtual bool accept( SoInputEvent * event ) = 0;
 };
 
