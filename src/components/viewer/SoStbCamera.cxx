@@ -77,14 +77,17 @@ SoStbCamera::SoStbCamera()
     //                 |						
     //				 xfSep		  
     //                 |
-    //		|--------------|-----------|
-    //    transform  controlMode  camera
+    //		|--------------|----------|--------|
+    //    transform  controlMode   offset     camera
     //----------------------------------------------------------------------------
  
     SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE,        this,   ""  , FALSE);	
 	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE,        xfSep,   "", TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,camera, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE ,           xfSep,controlMode, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(offset,SoTransform,TRUE, xfSep,camera, FALSE);
+    SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,offset, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE ,           xfSep,controlMode, TRUE);
+
+
 
     SO_KIT_INIT_INSTANCE();
 
