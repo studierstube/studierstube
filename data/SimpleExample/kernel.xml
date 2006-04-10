@@ -1,6 +1,6 @@
 <studierstube>
 	<kernel 
-		guibinding="soqt"
+		guibinding="sowin"
 		updateMode="timer"
 		updateRate="0.03333"/>
 	
@@ -27,8 +27,8 @@
 
     <Application name="SimpleApp"
                 availability="onload"
-                lib="stbsimple">     
-                <Param  key   ="sceneFile"  value ="applications/SimpleExample/simpleScene.iv" />	
+                lib="simple">     
+                <Param  key   ="sceneFile"  value ="simplescene.iv" />	
                 <Param  key   ="needViewer" value ="true" />	
                 <Param  key   ="needEvent"  value ="true" />	
 		               
