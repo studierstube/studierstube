@@ -19,7 +19,7 @@ BEGIN_NAMESPACE_STB
 int stricasecmp(const stb::string str1, const stb::string str2)
 {
 #ifdef WIN32
-    return stricmp(str1.c_str(),str2.c_str());
+    return _stricmp(str1.c_str(),str2.c_str());
 #else //LINUX
     #include <strings.h>
     return strcasecmp(str1.c_str(),str2.c_str());

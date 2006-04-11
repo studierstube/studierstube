@@ -109,7 +109,7 @@ void SoVariable::inputChanged(void *data,SoSensor *sensor)
         for (i=0;i<4;variable->inUsed[i++]=false);
         for (i=0;i<variable->expression.getNum();i++){
             // duplicates string
-            char *str=strdup(variable->expression[i].getString());
+            char *str=_strdup(variable->expression[i].getString());
             variable->expressionValue.set1Value(i,variable->formatExpression(str));
         }
     }
@@ -302,7 +302,7 @@ char* SoVariable::formatExpression(char *expr)
     }
     if (isType("BOOL")) result+=" ? 1 : 0";
 
-    return strdup(result.c_str());
+    return _strdup(result.c_str());
 }
 
 void SoVariable::convertBooleanField(SoMField *field,unsigned short num)
@@ -328,7 +328,7 @@ void SoVariable::convertBooleanField(SoMField *field,unsigned short num)
 
 bool SoVariable::isType(char *str)
 {
-    char *typeStr=strdup(type.getValue().getString());
+    char *typeStr=_strdup(type.getValue().getString());
     for (unsigned int i=0;i<strlen(typeStr);i++){
         typeStr[i]=toupper(typeStr[i]);
     }

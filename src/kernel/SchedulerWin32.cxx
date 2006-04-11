@@ -33,7 +33,7 @@
 #ifndef LINUX
 
 #include <stb/kernel/SchedulerWin32.h>
-#include <tinyxml.h>
+#include <TinyXML/tinyxml.h>
 #include <stb/kernel/Kernel.h>
 
 

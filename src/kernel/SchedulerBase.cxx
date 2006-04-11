@@ -31,7 +31,7 @@
 /* ======================================================================= */
 #include <stb/kernel/SchedulerBase.h>
 
-#include <tinyxml.h>
+#include <TinyXML/tinyxml.h>
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 #include <stb/kernel/Kernel.h>

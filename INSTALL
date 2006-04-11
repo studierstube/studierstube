@@ -12,6 +12,7 @@ must also be installed first:
 - TinyXML (http://www.grinninglizard.com/tinyxml/)
 - Coin and SoQt (http://www.coin3d.org)
 - OpenTracker (http://www.studierstube.org/opentracker)
+- boost 1.3.1.0 (http://www.boost.org/)
 
 Optionally:
 

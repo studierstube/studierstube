@@ -34,7 +34,7 @@
 #include <stb/kernel/Studierstube.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <tinyxml.h>
+#include <TinyXML/tinyxml.h>
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h> 
 #include <Inventor/sensors/SoSensor.h>

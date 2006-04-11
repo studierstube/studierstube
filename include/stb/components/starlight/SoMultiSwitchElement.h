@@ -79,7 +79,7 @@ public:
     static const int32_t * get( SoState *state, int32_t * num )
     {
         const SoMultiSwitchElement * el = (const SoMultiSwitchElement *)getConstElement(state, classStackIndex);
-        *num = el->indices.size();
+        *num = (int32_t) el->indices.size();
         return & el->indices.front();
     }
 

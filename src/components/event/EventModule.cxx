@@ -222,7 +222,7 @@ void EventModule::init(StringTable& attributes, ConfigNode * localTree)
                 vector<string>::iterator funcIt = find( functionMap.begin(), functionMap.end(), function );                                
                 if( funcIt != functionMap.end() )
                 {
-                    int index = funcIt - functionMap.begin();
+                    int index = (int) (funcIt - functionMap.begin());
                     map<string,int>::iterator codeIt = keyCodeMap.find( key );
                     unsigned int code;
                     if( codeIt == keyCodeMap.end())
@@ -395,14 +395,14 @@ void EventModule::handleEvent(SoHandleEventAction * action)
     if (SO_KEY_PRESS_EVENT(event, ANY) && keySources.size() > 0) 
     {
         int keysym=((SoKeyboardEvent*)event)->getKey();
-        int index = find(keyMap.begin(), keyMap.end(), keysym ) - keyMap.begin();
+        int index = (int) (find(keyMap.begin(), keyMap.end(), keysym ) - keyMap.begin());
         if( index <= QUIT )
             handleKeyDown( index );
     }
     else if(SO_KEY_RELEASE_EVENT(event, ANY) && keySources.size() > 0)
     {
         int keysym=((SoKeyboardEvent*)event)->getKey();
-        int index = find(keyMap.begin(), keyMap.end(), keysym ) - keyMap.begin();
+        int index = (int) (find(keyMap.begin(), keyMap.end(), keysym ) - keyMap.begin());
         if( index <= QUIT )
             handleKeyUp( index );
     }
