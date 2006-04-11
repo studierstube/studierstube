@@ -37,6 +37,10 @@
 
 #include <stb/components/starlight/SoVariable.h>
 
+#ifndef WIN32
+#define _strdup strdup
+#endif
+
 
 SO_NODE_SOURCE(SoVariable);
 

@@ -31,7 +31,7 @@
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/Kernel.h>
 
-#include <TinyXML/tinyxml.h>
+#include <tinyxml/tinyxml.h>
 
 
 BEGIN_NAMESPACE_STB
