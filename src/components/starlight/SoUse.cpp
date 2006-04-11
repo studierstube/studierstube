@@ -70,7 +70,7 @@ void SoUse::write(SoWriteAction *action)
     SoNode::write(action);
 }
 
-void SoUse::nameChanged( void * data, SoSensor * sensor)
+void SoUse::nameChanged( void * data, SoSensor * /*sensor*/ )
 {
     assert(data != NULL);
     assert(((SoNode *)data)->isOfType(SoUse::getClassTypeId()));

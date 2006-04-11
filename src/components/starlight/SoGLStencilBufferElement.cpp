@@ -90,7 +90,7 @@ void SoGLStencilBufferElement::push(SoState * state)
     prev->capture(state);
 }
 
-void SoGLStencilBufferElement::pop(SoState * state, const SoElement * prevTopElement)
+void SoGLStencilBufferElement::pop(SoState * /*state*/, const SoElement * prevTopElement)
 {
     SoGLStencilBufferElement * prev = (SoGLStencilBufferElement*)prevTopElement;
     if ( (*this) != (*prev)) {

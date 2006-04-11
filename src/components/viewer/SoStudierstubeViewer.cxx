@@ -52,7 +52,7 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     isWindowDecorationActive=TRUE;
     headlight=NULL;
     shareGLContextWithVideo=false;
-    SoGLRenderAction* renderAction = this->getGLRenderAction();
+    // SoGLRenderAction* renderAction = this->getGLRenderAction();
  //   renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
@@ -84,7 +84,7 @@ SoStudierstubeViewer::~SoStudierstubeViewer()
 //----------------------------------------------------------------------------
 // Overides the inherited setHeadlight method
 void
-SoStudierstubeViewer::setHeadlight(SbBool on)
+SoStudierstubeViewer::setHeadlight(SbBool /*on*/)
 {
  /* SoStereoCameraKit *camKit = getStereoCameraKit();
     assert(camKit);

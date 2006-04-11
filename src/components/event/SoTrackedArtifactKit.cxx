@@ -189,7 +189,7 @@ void SoTrackedArtifactKit::movedCB()
     // to be used in subclasses
 }
 
-void SoTrackedArtifactKit::moved( void *data, SoSensor *sensor )
+void SoTrackedArtifactKit::moved( void *data, SoSensor * /*sensor*/ )
 {
     // reset timeOut timer
     SoTrackedArtifactKit *self=(SoTrackedArtifactKit*)data;
@@ -204,13 +204,13 @@ void SoTrackedArtifactKit::moved( void *data, SoSensor *sensor )
     self->movedCB();
 }
     
-void SoTrackedArtifactKit::timerFired( void *data, SoSensor *sensor )
+void SoTrackedArtifactKit::timerFired( void *data, SoSensor * /*sensor*/ )
 {
     SoTrackedArtifactKit *self=(SoTrackedArtifactKit*)data;
     self->showGeometry(FALSE);
 }
 
-void SoTrackedArtifactKit::visibleChanged( void * data, SoSensor * sensor )
+void SoTrackedArtifactKit::visibleChanged( void * data, SoSensor * /*sensor*/ )
 {
     SoTrackedArtifactKit *self=(SoTrackedArtifactKit*)data;
     self->showGeometry(self->isVisible.getValue());

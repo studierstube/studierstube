@@ -118,7 +118,7 @@ void SoVariable::inputChanged(void *data,SoSensor *sensor)
         }
     }
     else if (sensor==variable->input_type_Sensor) {
-        const char *typeString=variable->type.getValue().getString();
+        // const char *typeString=variable->type.getValue().getString();
 
         // set up calculator field connections
         if (variable->isType("STRING")) {

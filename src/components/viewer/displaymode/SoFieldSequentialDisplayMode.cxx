@@ -100,7 +100,7 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 }
 
 void 
-SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction *action)
+SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 {
     if(!activated)
     {

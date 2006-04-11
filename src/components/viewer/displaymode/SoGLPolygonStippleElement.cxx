@@ -71,7 +71,7 @@ void SoGLPolygonStippleElement::push(SoState * state)
     prev->capture(state);
 }
 
-void SoGLPolygonStippleElement::pop(SoState * state, const SoElement * prevTopElement)
+void SoGLPolygonStippleElement::pop(SoState * /*state*/, const SoElement * prevTopElement)
 {
     SoGLPolygonStippleElement * prev = (SoGLPolygonStippleElement*)prevTopElement;
     if ( (*this) != (*prev)) {

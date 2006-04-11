@@ -203,7 +203,7 @@ SoClassLoader::findEntryPoint(SbString classname)
    oss << "_ZN" << string(classname.getString()).length() 
 	   << classname.getString() << "9" << "initClass" << "Ev";
     
-   char *error;
+   // char *error;
 
    initClassFunc = (void (*)()) lt_dlsym(objectHandle, oss.str().c_str());
         

@@ -128,13 +128,13 @@ SbBool SoExtrusionKit::setUpConnections(SbBool onoff, SbBool doitalways)
     return !(connectionsSetUp = onoff);
 }
 
-void SoExtrusionKit::verticesCB(void *data, SoSensor *sensor)
+void SoExtrusionKit::verticesCB(void *data, SoSensor */*sensor*/)
 {
     SoExtrusionKit *exkTmp= (SoExtrusionKit *)data;
 	exkTmp->refresh();
 }
 
-void SoExtrusionKit::extrusionVectorCB(void *data, SoSensor *sensor)
+void SoExtrusionKit::extrusionVectorCB(void *data, SoSensor */*sensor*/)
 {
     SoExtrusionKit *exkTmp= (SoExtrusionKit *)data;
 	exkTmp->refresh();

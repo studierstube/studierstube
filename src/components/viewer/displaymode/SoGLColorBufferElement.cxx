@@ -71,7 +71,7 @@ void SoGLColorBufferElement::push(SoState * state)
     prev->capture(state);
 }
 
-void SoGLColorBufferElement::pop(SoState * state, const SoElement * prevTopElement)
+void SoGLColorBufferElement::pop(SoState * /*state*/, const SoElement * prevTopElement)
 {	
     SoGLColorBufferElement * prev = (SoGLColorBufferElement*)prevTopElement;
     if ( (*this) != (*prev)) {

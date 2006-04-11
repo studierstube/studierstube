@@ -71,7 +71,7 @@ void SoGLFrameBufferElement::push(SoState * state)
     prev->capture(state);
 }
 
-void SoGLFrameBufferElement::pop(SoState * state, const SoElement * prevTopElement)
+void SoGLFrameBufferElement::pop(SoState * /*state*/, const SoElement * prevTopElement)
 {
     SoGLFrameBufferElement * prev = (SoGLFrameBufferElement*)prevTopElement;
     if (this->mask != prev->mask ) {

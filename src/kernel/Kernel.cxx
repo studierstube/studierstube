@@ -246,7 +246,7 @@ Kernel::findConfigFile(const stb::string& cfgfile, bool search)
 }
 
 void 
-Kernel::update( void * data, SoSensor * sensor)
+Kernel::update( void * data, SoSensor * /*sensor*/)
 {
     instance->sceneManager->update();
     instance->componentManager->update();

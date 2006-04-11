@@ -57,7 +57,7 @@ Component::getBaseTypeID()
     return "Component";
 }
 void 
-Component::setParameter(stb::string key, std::string value)
+Component::setParameter(stb::string /*key*/, std::string /*value*/)
 {
 
 }

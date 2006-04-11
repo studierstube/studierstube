@@ -68,7 +68,7 @@ SoVideoBackground::SoVideoBackground()
 }
 
 void 
-SoVideoBackground::GLRender(SoGLRenderAction *action)
+SoVideoBackground::GLRender(SoGLRenderAction * /*action*/)
 {
     
     if(!isInitialized)

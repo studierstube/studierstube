@@ -96,8 +96,8 @@ void	SoOffAxisCamera::scaleHeight(float scaleFactor)
     size.setValue(ppSize);
 }
 
-void	SoOffAxisCamera::viewBoundingBox(const SbBox3f &box,
-                                         float aspect, float slack)
+void	SoOffAxisCamera::viewBoundingBox(const SbBox3f &/*box*/,
+                                         float /*aspect*/, float /*slack*/)
 {
     // NIL
 }

@@ -55,7 +55,7 @@ SoDisplayMode::SoDisplayMode()
 
 //----------------------------------------------------------------------------
 void 
-SoDisplayMode::GLRender(SoGLRenderAction *action)
+SoDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 {
     if(!activated)
     {

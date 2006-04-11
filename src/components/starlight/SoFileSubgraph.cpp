@@ -77,7 +77,7 @@ SbBool SoFileSubgraph::setUpConnections(SbBool onOff, SbBool doItAlways)
     return !(connectionsSetUp = onOff);
 }
 
-void SoFileSubgraph::fileNameCB(void *data,SoSensor *sensor)
+void SoFileSubgraph::fileNameCB(void *data,SoSensor * /*sensor*/)
 {
     SoFileSubgraph *fileSubGraph=(SoFileSubgraph*)data;
     fileSubGraph->fileNameChanged();

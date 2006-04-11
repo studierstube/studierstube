@@ -56,8 +56,8 @@ void SoEventRoot::initClass(void)
 }
 
 SoEventRoot::SoEventRoot(void) :
-adapter(NULL),
 localAction(NULL),
+adapter(NULL),
 lastEvent( NULL )
 {
     SO_KIT_CONSTRUCTOR(SoEventRoot);
@@ -114,7 +114,7 @@ SbBool SoEventRoot::setUpConnections(SbBool onOff, SbBool doItAlways)
     return !(connectionsSetUp = onOff);
 }
 
-void SoEventRoot::dataChanged( void * data, SoSensor * sensor )
+void SoEventRoot::dataChanged( void * data, SoSensor * /*sensor*/ )
 {
     assert( data );
     SoEventRoot * self = (SoEventRoot *) data;
@@ -170,7 +170,7 @@ void SoEventRoot::processEvent( SoInputEvent * event )
     applyAction();
 }
 
-void SoEventRoot::sceneChanged( void * data, SoSensor * sensor )
+void SoEventRoot::sceneChanged( void * data, SoSensor * /*sensor*/ )
 {
     assert( data );
     SoEventRoot * self = (SoEventRoot *) data;

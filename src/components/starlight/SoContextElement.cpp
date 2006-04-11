@@ -85,7 +85,7 @@ void SoContextElement::init(SoState *state)
 }
 
 // Overrides push() method to copy values from next instance in the stack
-void SoContextElement::push(SoState *state)
+void SoContextElement::push(SoState * /*state*/)
 {
     SoContextElement * ctxElt = (SoContextElement *) getNextInStack();
     context = ctxElt->context;
