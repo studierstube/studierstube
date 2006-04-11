@@ -175,9 +175,9 @@ updated: 11-04-2006
 	----------------------
 	  
 	  
-                        | STB4 | OpenVideo | OpenTracker | 
+                          | STB4 | OpenVideo | OpenTracker | 
 	  --------------------+------+-----------+-------------+
-	   ACEROOT 						|  x   |     x     |      x      |
+	   ACEROOT 	       	  |  x   |     x     |      x      |
 	   ARTOOLKITROOT      |  x   |           |      x      |
 	   ARTOOLKITPLUSROOT  |  x   |           |      x      |
 	   BOOSTROOT          |  x   |           |             |
