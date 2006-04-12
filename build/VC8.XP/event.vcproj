@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib opentrackerd.lib starlightd.lib"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib opentrackerd.lib stbstarlightd.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbeventd.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkernel.lib coin2.lib opentracker.lib starlight.lib"
+				AdditionalDependencies="stbkernel.lib coin2.lib opentracker.lib stbstarlight.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbevent.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"

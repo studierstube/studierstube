@@ -142,7 +142,7 @@
 				AdditionalDependencies="ace.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/studierstube.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="$(ACEROOT)/lib"
+				AdditionalLibraryDirectories="$(ACEROOT)/lib/win32"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Release_bootloader/stbBootLoader.pdb"
 				SubSystem="1"

@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="kernel"
-	ProjectGUID="{B2BB163A-D3AD-4198-8A1B-39BB88317210}"
+	ProjectGUID="{95C6CB53-B671-49FB-8F14-B543C9C63098}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -39,7 +39,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 				AdditionalDependencies="Coin2d.lib aced.lib tinyxmld.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbkerneld.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Debug/stbKerneld.pdb"
 				SubSystem="2"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-D_WIN32_WINNT=0x0400"
-				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
+				AdditionalIncludeDirectories="&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -140,9 +140,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="coin2.lib ace.lib opengl32.lib tinyxml.lib"
-				OutputFile="$(STB4ROOT)/bin/win32/stbKernel.dll"
+				OutputFile="$(STB4ROOT)/bin/win32/stbkernel.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Release/$(ProjectName).pdb"
 				SubSystem="2"
@@ -203,6 +203,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\kernel\Studierstube.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\kernel\TinyXML.cxx"
 				>
 			</File>
 			<Filter

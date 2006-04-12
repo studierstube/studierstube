@@ -4,7 +4,7 @@
 
 
 authors: Michael Kalkusch
-updated: 11-04-2006
+created: 11-04-2006
 
 
   Required packages:
@@ -13,70 +13,123 @@ updated: 11-04-2006
     - Studierstube 4.0
         http://www.studierstube.org
         
-		- ACE 5.4.7
-		    http://deuce.doc.wustl.edu/Download.html
-		- TinyXML 2.4.2 mod 
-		    modified version of TinyXML 2.4.2
-		    http://www.grinninglizard.com/tinyxml/
-		- Coin  2.4.4
-		    http://www.coin3d.org
-		- SoQt 1.3.0 
-		    http://www.coin3d.org
-		    
-		- OpenTracker 1.1.1
-		    http://www.studierstube.org/opentracker
-		    
-		- boost 1.3.1.0 
-		    http://www.boost.org/
-		
-		
-		Optional packages:
-		==================
-		  - XERCES 
-	        OpenTracker
-	        optional instead of TinyXML as XML parser
-	        http://xml.apache.org/xerces-c/
-	        
-			- Nvidia CG Toolkit 
-			    required for Studierstube 4.0 "MagicLens"
-			    http://developer.nvidia.com/object/cg_toolkit.html
-			    
-	    - GLEW OpenGL Extension Wrangler Library 
-	        required for Studierstube 4.0 "MagicLens"
-	        http://glew.sourceforge.net/
-	        
-	   
+    - ACE 5.4.7
+        http://deuce.doc.wustl.edu/Download.html
+    - TinyXML 2.4.2 mod 
+        modified version of TinyXML 2.4.2
+        http://www.grinninglizard.com/tinyxml/
+    - Coin  2.4.4
+        http://www.coin3d.org
+    - SoQt 1.3.0 
+        http://www.coin3d.org
+        
+    - OpenTracker 1.1.1
+        http://www.studierstube.org/opentracker
+        
+    - boost 1.3.1.0 
+        http://www.boost.org/
+        
+    - GLUT 3.7.6
+        http://www.xmission.com/~nate/glut.html
+    
+    - VidCapture
+        modified version based on VidCapture 0.30
+        required for OpenVideo
+          https://svn.icg.tu-graz.ac.at/svn/OpenVideoMod/trunk/        
+        unpatched version:
+          http://sourceforge.net/projects/vidcapture/
+      
+    - VideoWrapper 0.1
+        modified version based on VideoWrapper 0.1
+        required for OpenVideo
+          https://svn.icg.tu-graz.ac.at/svn/OpenVideoMod/trunk/      
+        unpatched version:                
+          http://sourceforge.net/projects/videowrapper/
+    
+    
+    
+    Optional packages:
+    ==================
+      - XERCES 
+          OpenTracker
+          optional instead of TinyXML as XML parser
+          http://xml.apache.org/xerces-c/
+          
+      - Nvidia CG Toolkit 
+          required for Studierstube 4.0 "MagicLens"
+          http://developer.nvidia.com/object/cg_toolkit.html
+          
+      - GLEW OpenGL Extension Wrangler Library 
+          required for Studierstube 4.0 "MagicLens"
+          http://glew.sourceforge.net/
 
 
-	Required environment varibles:
-	------------------------------
-	
-		Studierstube v4.0
-		=================
-	
-	   List of all required environment variables for Studierstube v4.0
-	   combined with ARToolkitPlus, OpenTracker and OpenVideo:
-	   
-	   	   
-	   ACEROOT   
-	   ARTOOLKITROOT
-	   ARTOOLKITPLUSROOT   
-	   BOOSTROOT
-	   COINROOT 
-	   OPENVIDEOROOT
-	   OTROOT  
-	   PATH=%PATH%;%ACEROOT%\bin\win32;%COINROOT%\bin;%OTROOT%\bin\win32
-	   STB4ROOT   
-	   TINYXMLMODROOT 
-	   VIDCAPTUREROOT
-	   VIDEOWRAPPERROOT
-	   	   	   
-	  	   
-	   Set environment variabels via "Start"-->"Settings"-->"ControPanel"
-	     -->"System"-->"Advanced"-->"Environment Variables"
-	     
-	   Note: After setting environment variables "Visual Studio" has to be restarted and
-	     each shell must also be restarted to apply the changed environment variables!
+
+
+   List of dependecies:
+  ----------------------
+    
+                        | STB4 | OpenVideo | OpenTracker |
+    --------------------+------+-----------+-------------+
+     ACEROOT            |  x   |     x     |      x      |
+     ARTOOLKITROOT      |      |           |     (x)     |
+     ARTOOLKITPLUSROOT  |  x   |           |      x      |
+     BOOSTROOT          |  x   |           |             |
+     COINROOT           |  x   |           |             |
+     OPENVIDEOROOT      |  x   |     x     |             |
+     OTROOT             |  x   |           |      x      |
+     STB4ROOT           |  x   |           |             |
+     TINYXMLROOT        |      |     x     |             |
+     TINYXMLMODROOT     |  x   |     x     |      x      |
+     VIDCAPTUREROOT     |  x   |     x     |             |
+     VIDEOWRAPPERROOT   |  x   |     x     |             |
+     GLUT (dll&header)  |      |     x     |             |
+    --------------------+------+-----------+-------------+
+                        
+     Stb4 projects:     | MagicLens |
+     -------------------+-----------+
+     GLEW               |     x     |
+     NVIDIA CG TOOLKIT  |     x     |
+     -------------------+-----------+         
+     
+     x  ........... required
+    (x) ........... oprtional
+    
+    STB4 .......... Studierstube 4.0  (http://www.studierstube.org/)
+    OpenTracker ... OpenTracker 1.1.1 (http://www.studierstube.org/opentracker/)
+    OpenVideo ..... OpenVideo 0.1     (http://www.studierstube.org/)
+
+
+
+  Required environment varibles:
+  ------------------------------
+  
+    Studierstube v4.0
+    =================
+  
+     List of all required environment variables for Studierstube v4.0
+     combined with ARToolkitPlus, OpenTracker and OpenVideo:
+     
+         
+     ACEROOT   
+     ARTOOLKITPLUSROOT   
+     BOOSTROOT
+     COINROOT 
+     OPENVIDEOROOT
+     OTROOT  
+     PATH=%PATH%;%ACEROOT%\bin\win32;%COINROOT%\bin;%OTROOT%\bin\win32
+     STB4ROOT   
+     TINYXMLROOT
+     TINYXMLMODROOT 
+     VIDCAPTUREROOT
+     VIDEOWRAPPERROOT
+             
+         
+     Set environment variabels via "Start"-->"Settings"-->"ControPanel"
+       -->"System"-->"Advanced"-->"Environment Variables"
+       
+     Note: After setting environment variables "Visual Studio" has to be restarted and
+       each shell must also be restarted to apply the changed environment variables!
    
      
      Project dependencies in Studierstube 4.0:
@@ -123,79 +176,60 @@ updated: 11-04-2006
         
       
    
+      Compile Studierstube:
+      ---------------------
+      
+      (1) If you use TinyXML_Mod:
+              copy TinyXML_Mod.lib   --> TinyXML.lib
+              copy TinyXML_Modd.lib  --> TinyXMLd.lib
+   
    
   Environment variables listed per package: 
   -----------------------------------------
    
    
-	  Environment varibles for ARToolkitPlus:
-	  =======================================
-	  
-		  ARTOOLKITROOT
-		  ARTOOLKITPLUSROOT
-	    
-	   
-	   
-	  Environment varibles for OpenVideo:
-	  ===================================
-	  
-	    OpenVideo dll
-	    -------------
-	    
-			  ACEROOT
-			  OPENVIDEOROOT
-			  TINYXMLROOT
-			  VIDCAPTUREROOT
-			  VIDEOWRAPPERROOT
-	  
-	    OpenVideo "standalone"
-	    ----------------------
-	  
-	      ACEROOT
-	      OPENVIDEOROOT
-	      
-	  
-	  
-	  Environment varibles for OpenTracker 1.1.1:
-	  ===========================================
-	  
-		  ACEROOT
-		  ARTOOLKITROOT
-		  ARTOOLKITPLUSROOT
-		  OTROOT  
-		    TINYXMLMODROOT
-		      or  
-		    XERCESCROOT
-		  
-	  Note: Either TINYXMLMODROOT or XERCESROOT are required for parsing XML files with TinyXML or Xerces
-	  
-	  
-	  
-	 List of dependecies:
-	----------------------
-	  
-	  
-                          | STB4 | OpenVideo | OpenTracker | 
-	  --------------------+------+-----------+-------------+
-	   ACEROOT 	       	  |  x   |     x     |      x      |
-	   ARTOOLKITROOT      |  x   |           |      x      |
-	   ARTOOLKITPLUSROOT  |  x   |           |      x      |
-	   BOOSTROOT          |  x   |           |             |
-	   COINROOT           |  x   |           |             |
-	   OPENVIDEOROOT      |  x   |     x     |             |
-	   OTROOT             |  x   |           |      x      |
-	   STB4ROOT           |  x   |           |             |
-	   TINYXMLMODROOT     |  x   |     x     |      x      |
-	   VIDCAPTUREROOT     |  x   |     x     |             |
-	   VIDEOWRAPPERROOT   |  x   |     x     |             |
-	  --------------------+------+-----------+-------------+
-	                      
-	   Stb4 projects:     | MagicLens |
-	   -------------------+-----------+
-	   GLEW               |     x     |
-	   NVIDIA CG TOOLKIT  |     x     |
-	   -------------------+-----------+
-	   
-	   
+    Environment varibles for ARToolkitPlus:
+    =======================================
+          
+      ARTOOLKITPLUSROOT
+      
+     
+     
+    Environment varibles for OpenVideo:
+    ===================================
+       
+      OpenVideo dll
+      -------------
+      
+        ACEROOT
+        OPENVIDEOROOT
+        TINYXMLROOT
+        VIDCAPTUREROOT
+        VIDEOWRAPPERROOT
+    
+      OpenVideo "standalone"
+      ----------------------
+    
+        ACEROOT
+        OPENVIDEOROOT
+        
+    
+      HINT: copy  include\openvideo\configOV.template.h   include\openvideo\configOV.h 
+    
+    
+    Environment varibles for OpenTracker 1.1.1:
+    ===========================================
+    
+      ACEROOT           
+      ARTOOLKITPLUSROOT
+      OTROOT  
+        TINYXMLMODROOT
+          or  
+        XERCESCROOT
+      
+    Note: Either TINYXMLMODROOT or XERCESROOT are required for parsing XML files with TinyXML or Xerces
+
+
+
 If you have any questions concerning Windows MS VC 8.0 for
-Studierstube 4.0, write to <kalkusch@icg.tu-graz.ac.at>.	   
+Studierstube 4.0, write to <kalkusch@icg.tu-graz.ac.at>.
