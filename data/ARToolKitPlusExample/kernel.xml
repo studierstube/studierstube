@@ -17,7 +17,7 @@
 	</Component>
 	    
 	<!-- This is the Starlight Component. It is in charge of providing us with extra nodes with stb3 functionalities -->
-	<Component name="Starlight" availability="ondemand" lib="starlight">
+	<Component name="Starlight" availability="ondemand" lib="stbstarlight">
 	</Component>
 
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
