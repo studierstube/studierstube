@@ -77,6 +77,9 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(windowOnTop, (FALSE));
     SO_NODE_ADD_FIELD(stencilBuffer, (FALSE));
     SO_NODE_ADD_FIELD(useRefCamera, (TRUE));
+    SO_NODE_ADD_FIELD(showFrameRate,(FALSE));
+    SO_NODE_ADD_FIELD(showTriangleCount,(FALSE));
+
     
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SCREEN_DOOR);
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, ADD);
@@ -235,6 +238,8 @@ SoDisplay::createViewer()
 	//////////////////////////////////////////
 	viewer->setSceneGraph(displayRoot);
 
+    viewer->printTriangles(showTriangleCount.getValue());
+    viewer->printFrameRate(showFrameRate.getValue());
     viewer->setWindowCloseCallback(exitViewer);
 	viewer->show();
 }

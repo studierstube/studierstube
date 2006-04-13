@@ -43,6 +43,11 @@
 
 #include <stb/components/video/Video.h>
 
+#ifdef WIN32
+    #include <windows.h>
+    #include <time.h>
+#endif
+
 #ifdef LINUX
 #include <GL/glx.h>
 #endif
@@ -125,6 +130,11 @@ public:
 
     bool isOVGLContext(){return isGLContextShared;}
 
+    int countTriangles();
+
+    void printTriangles(bool onOff);
+
+    void printFrameRate(bool onOff);
 protected:
 #ifdef WIN32
     HGLRC curGLContext;
@@ -147,6 +157,17 @@ private:
 	
     /** The headlight managed by the viewer */
     SoDirectionalLight *headlight;
+
+    bool showTriangleCount;
+
+    bool showFrameRate;
+#ifdef WIN32
+    DWORD thisTime;
+    DWORD lastTime;
+    float diffTime;
+    float framerate;
+#endif
+
 };
 
 //----------------------------------------------------------------------------

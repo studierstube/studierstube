@@ -33,6 +33,7 @@
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/Viewer.h>
+#include <Inventor/actions/SoGetPrimitiveCountAction.h>
 #include SOGUI_H
 #include SOGUI_CURSOR_H
 #ifdef USE_SOQT
@@ -68,6 +69,8 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 #endif
     isVideoGLContext=false;
     isGLContextShared=false;
+    showTriangleCount=false;
+    showFrameRate=false;
 }
 
 
@@ -79,6 +82,14 @@ SoStudierstubeViewer::~SoStudierstubeViewer()
     {
         videoComponent->deleteGLContext();
     }
+}
+
+int 
+SoStudierstubeViewer::countTriangles()
+{
+    SoGetPrimitiveCountAction countAction;
+    countAction.apply(this->getSceneGraph());
+    return countAction.getTriangleCount();
 }
 
 //----------------------------------------------------------------------------
@@ -394,5 +405,32 @@ SoStudierstubeViewer::redraw ()
         this->glUnlockNormal();// this releases the GL contex	
         
     }
+
+
+    if(showFrameRate){
+    #if defined(WIN32)
+        DWORD thisTime = GetTickCount();
+        diffTime=thisTime-lastTime;
+        if (diffTime>0) framerate=1000*(1/diffTime);
+        lastTime=thisTime;
+        printf("[Render = %3.1f] \n",framerate);
+       
+    #endif
+     }
+    if(showTriangleCount)
+        printf("[triangleCount = %i] \n",this->countTriangles());
+
     SoGuiExaminerViewer::redraw();
 }
+
+void 
+SoStudierstubeViewer::printTriangles(bool onOff)
+{
+    this->showTriangleCount=onOff;
+}
+
+void 
+SoStudierstubeViewer::printFrameRate(bool onOff)
+{
+    this->showFrameRate=onOff;
+}   

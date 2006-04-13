@@ -156,6 +156,9 @@ public:
      * Default value is FALSE. */
     SoSFBool stencilBuffer;
     
+    SoSFBool showFrameRate;
+
+    SoSFBool showTriangleCount;
     //////////////////////////////////////
     ///////////// API ////////////////////
     /** 
