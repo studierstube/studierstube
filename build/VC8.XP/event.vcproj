@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="Debug_event"
+			IntermediateDirectory="Debug_event"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -47,8 +47,8 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib opentrackerd.lib stbstarlightd.lib"
+				AdditionalDependencies="coin2d.lib opentrackerd.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbeventd.dll"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Debug/stbeventd.pdb"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkernel.lib coin2.lib opentracker.lib stbstarlight.lib"
+				AdditionalDependencies="coin2.lib opentracker.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbevent.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"

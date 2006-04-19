@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="kernel"
-	ProjectGUID="{95C6CB53-B671-49FB-8F14-B543C9C63098}"
+	ProjectGUID="{B2BB163A-D3AD-4198-8A1B-39BB88317210}"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="Debug_kernel"
+			IntermediateDirectory="Debug_kernel"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -39,15 +39,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS;TINYXML_MOD_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -60,10 +60,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Coin2d.lib aced.lib tinyxmld.lib"
+				AdditionalDependencies="Coin2d.lib aced.lib opengl32.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbkerneld.dll"
-				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(TINYXMLROOT)/lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Debug/stbKerneld.pdb"
 				SubSystem="2"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-D_WIN32_WINNT=0x0400"
-				AdditionalIncludeDirectories="&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
+				AdditionalIncludeDirectories="&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLROOT)/lib&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -139,10 +139,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib ace.lib opengl32.lib tinyxml.lib"
+				AdditionalDependencies="coin2.lib ace.lib opengl32.lib"
 				OutputFile="$(STB4ROOT)/bin/win32/stbkernel.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(TINYXMLROOT)/lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="Release/$(ProjectName).pdb"
 				SubSystem="2"
