@@ -82,6 +82,7 @@ public:
      */
     SbBool isHeadlight() const;
 
+    void showMouse(bool mouseOn);
     /**
      *  Returns the SoDirectionalLight-instance used as headlight.
      * @return Pointer to SoDirectionalLight-instance used as headlight.
@@ -168,7 +169,9 @@ private:
     float framerate;
 #endif
 
+    bool showCursor;
 };
+
 
 //----------------------------------------------------------------------------
 #endif//_SOSTUDIERSTUBEVIEWER_H_
