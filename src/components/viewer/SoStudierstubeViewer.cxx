@@ -71,6 +71,7 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     isGLContextShared=false;
     showTriangleCount=false;
     showFrameRate=false;
+    showCursor=true;
 }
 
 
@@ -419,8 +420,16 @@ SoStudierstubeViewer::redraw ()
      }
     if(showTriangleCount)
         printf("[triangleCount = %i] \n",this->countTriangles());
-
+    if(showCursor==FALSE){
+        setComponentCursor(SoGuiCursor::getBlankCursor());
+    }
     SoGuiExaminerViewer::redraw();
+}
+
+void 
+SoStudierstubeViewer::showMouse(bool mouseOn)
+{
+    showCursor=mouseOn;
 }
 
 void 

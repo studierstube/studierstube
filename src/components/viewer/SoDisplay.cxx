@@ -231,7 +231,9 @@ SoDisplay::createViewer()
 	if( showMouse.getValue() == FALSE )
 	{
 		viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
+        viewer->showMouse(false);
 	}
+    
 	//////////////////////////////////////////
 	//// start StudierstubeViewer
 	//// set viewer's root node and show the studierstubeViewer
