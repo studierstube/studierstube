@@ -10,8 +10,8 @@ URL:		http://www.studierstube.org
 Packager:	Institute for Computer Graphics and Vision, Graz University of Technology, Austria
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
-Requires:	tinyxml ACE openvideo opentracker
-BuildRequires:	scons tinyxml tinyxml-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel
+Requires:	tinyxml ACE openvideo opentracker Coin SoQt
+BuildRequires:	scons tinyxml tinyxml-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel
 
 %define _prefix %{prefix}
 
