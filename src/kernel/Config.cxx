@@ -92,6 +92,7 @@ Config::parseXMLElement(TiXmlElement* element)
            )
 	{
 		ComponentInfo *compInfo=new ComponentInfo();
+		compInfo->setTypeID(element->Value());
 		compInfo->parseConfiguration(element);
 		Kernel::getInstance()->addComponent(compInfo);
 	}

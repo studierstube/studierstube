@@ -81,7 +81,7 @@ ComponentManager::initComponent(Component *comp)
     if(comp->init())
     {
         // add to applist or comp.list
-        stb::string id=comp->getBaseTypeID();
+        stb::string id=comp->getTypeID();
         if(id==Application::getBaseTypeID())
         {
             appList.push_back((Application*)comp);

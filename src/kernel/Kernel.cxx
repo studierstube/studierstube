@@ -136,7 +136,6 @@ Kernel::log(stb::string nStr)
 	logPrint(nStr);
 }
 
-
 void 
 Kernel::logDebug(stb::string nStr)
 {
@@ -176,7 +175,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
                 logMode=OFF;
         }
         ///////////////// logFile /////////////////
-        else if(!stb::stricasecmp(attribute->Name(),"logFile"))
+        else if(!stb::stricasecmp(attribute->Name(),"logFileName"))
         {
             logFile=attribute->Value();
         }
@@ -248,7 +247,7 @@ Kernel::findConfigFile(const stb::string& cfgfile, bool search)
 void 
 Kernel::update( void * data, SoSensor * /*sensor*/)
 {
-    instance->sceneManager->update();
+	instance->sceneManager->update();
     instance->componentManager->update();
 }
 
