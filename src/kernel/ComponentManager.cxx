@@ -138,12 +138,16 @@ ComponentManager::isLoaded(std::string compName)
 stb::Component* 
 ComponentManager::load(std::string compName)
 {
+    using namespace std;
+    cerr << "Trying to load component: " << compName << endl;
+
     stb::Component* retComp=isLoaded(compName);
     if(retComp)
         return retComp;
     //search demandList
     for(int i=0;i<(int)demandList.size();i++)
     {
+	cerr << "\t" << "comparing " << demandList[i] << endl;
         if(demandList[i]->getName()==compName)
         {
             Component* newComp=NULL;
@@ -154,6 +158,8 @@ ComponentManager::load(std::string compName)
             initComponent(newComp);
             return newComp;
         }
+	cerr << "\t" << "not found" << endl;
+
     }
     //search initList 
     for(int i=0;i<(int)initList.size();i++)

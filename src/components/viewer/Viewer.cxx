@@ -115,15 +115,7 @@ Viewer::init()
  
 #ifdef LINUX
     using namespace std;
-    SoInput::addDirectoryFirst(Kernel::getInstance()->stb_base_name.c_str());
-    SoInput::addDirectoryFirst(Kernel::getInstance()->stb_config_path1.c_str());
-    SoInput::addDirectoryFirst(Kernel::getInstance()->stb_config_path2.c_str());
-
-    char *home_dir = 0;
-    home_dir = getenv("HOME");
-    ostringstream fn;
-    fn << home_dir << "/" << Kernel::getInstance()->stb_home.c_str();
-    SoInput::addDirectoryFirst(fn.str().c_str());
+    SoInput::addDirectoryFirst(Kernel::getInstance()->base_dir.c_str());
 #endif
     SoInput::addDirectoryFirst("./");
 

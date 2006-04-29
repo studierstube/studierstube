@@ -30,5 +30,10 @@ kernel_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 kernel_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 kernel_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 
+# Muddleware
+kernel_env.Append (CPPPATH = '/data/home/breiting/devel/muddleware/include')
+kernel_env.Append (LIBPATH = '/data/home/breiting/devel/muddleware/src/client')
+kernel_env.Append (LIBS    = '-lmuddleclient')
+
 kernel = kernel_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbkernel', source=source_files)
 env.Alias(target = ['install'], source = kernel_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['LIBDIR'], kernel))

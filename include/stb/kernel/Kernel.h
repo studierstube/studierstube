@@ -91,8 +91,6 @@ public:
     */
     void parseConfiguration(TiXmlElement* root);
     
-    stb::string findConfigFile(const stb::string& cfgfile, bool search=false);
-
     static void update( void * data, SoSensor * sensor);
 
     void addComponent(ComponentInfo* compInfo);
@@ -103,11 +101,10 @@ public:
 
 public:
     // define here search paths for config files, public available
-    stb::string stb_base_name;     // points to a default application directory 
-    stb::string stb_config_path1;  // "/usr/share/stb/"
-    stb::string stb_config_path2;  // "/usr/local/share/stb/"
-    stb::string stb_home;          // ".stb/"
     stb::string kernel_config_file;// "kernel.xml"
+    stb::string base_dir;
+
+    stb::string findConfigFile(stb::string cfg_file);
 
 protected:	
     ///////////////////// 

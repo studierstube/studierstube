@@ -49,6 +49,13 @@
 	typedef void* hModule; 
 #endif
 
+//Module handle
+#ifdef WIN32
+	#define OS_SEP "\\"
+#else
+	#define OS_SEP "/"
+#endif
+
 //-------------------------------
 //functions
 hModule os_LoadLibrary(stb::string fileName);

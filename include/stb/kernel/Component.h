@@ -67,6 +67,8 @@ public:
 
     virtual ComponentInfo* getInfo(){return compInfo_;}
 
+    virtual stb::string getTypeID();
+
     static const char* getBaseTypeID();
 protected:	
     /**

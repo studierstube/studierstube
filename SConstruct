@@ -247,6 +247,8 @@ else:
 
 defines += user_options_dict['DEFINES']
 defines += ['LINUX']
+# Uncomment the following line if you want to have muddleware support
+defines += ['MUDDLEWARE_SUPPORT']
 cflags += user_options_dict['CCFLAGS']
 cxxflags += user_options_dict['CXXFLAGS']
 

@@ -42,6 +42,7 @@
 
 
 #include <cstdio>
+#include <iostream>
 
 CREATE_COMPONENT_FUNC(SimpleApp)
 
@@ -49,6 +50,8 @@ using namespace stb;
 
 SimpleApp::SimpleApp()
 {
+    using namespace std;
+    cerr << "Ctor simple app ..." << endl;
    isInit=false;
    needEvent=false;
    needViewer=false;

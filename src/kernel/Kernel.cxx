@@ -32,6 +32,7 @@
 
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/Studierstube.h>
+#include <stb/base/string.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml/tinyxml.h>
@@ -71,10 +72,6 @@ Kernel::Kernel()
     componentManager= new stb::ComponentManager();
 
     //////
-    stb_base_name      = "/usr/share/stb/applications/SimpleExample/";
-    stb_config_path1   = "/usr/share/stb/";
-    stb_config_path2   = "/usr/local/share/stb/";
-    stb_home           = ".stb/";
     kernel_config_file = "kernel.xml";
 }
 
@@ -97,25 +94,45 @@ Kernel::getInstance()
     return instance;
 }
 
+stb::string
+Kernel::findConfigFile(stb::string cfg_file) {
+#ifdef LINUX
+    using namespace std;
+    ostringstream tmp;
+    tmp << base_dir << "/" << cfg_file;
+    return tmp.str();
+#endif
+    
+    return cfg_file;
+}
+
 stb::string 
-Kernel::getKernelConfig(int argc, char* argv[])
+Kernel::getKernelConfig(int , char**)
 {
-    if(argc > 1)
-        return findConfigFile(stb::string(argv[1]));
-    else
-        return findConfigFile(kernel_config_file, true);
+    return findConfigFile(kernel_config_file);
 }
 
 //
 void 
 Kernel::start(int argc, char* argv[])
 {
-    logPrint("****************************************\n");
+    logPrint("*****************************************\n");
     logPrint(STUDIERSTUBE_VERSION_STRING);logPrint("\n");
     logPrint("(C) ");logPrint(STUDIERSTUBE_YEAR_STRING);
     logPrint(" Graz University of Technology\n");
-    logPrint("****************************************\n\n");
+    logPrint("*****************************************\n\n");
     
+    // extract application base directory name as search path
+    // only useful for linux
+#ifdef LINUX
+    if (argc > 1) {
+        base_dir = stb::string(argv[1]);
+    } else {
+        base_dir = ".";
+    }
+    std::cerr << "BASEDIR = " << base_dir << std::endl;
+#endif
+
     stb::string kernelConfigFile=getKernelConfig(argc,argv);
     config->parseXML(kernelConfigFile);
     scheduler->init();
@@ -191,63 +208,10 @@ Kernel::parseConfiguration(TiXmlElement* element)
     }
 }
 
-stb::string
-Kernel::findConfigFile(const stb::string& cfgfile, bool search)
-{
-    stb::string ret(cfgfile);
-
-#ifdef LINUX
-    if (search) {
-        using namespace std;
-        ifstream in;
-
-        // first attempt: HOME dir
-        char *home_dir = 0;
-        home_dir = getenv("HOME");
-
-        ostringstream fn;
-        fn << home_dir << "/" << stb_home << cfgfile;
-
-        logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
-        in.open(fn.str().c_str(), ios::in);
-
-        // if not found, use global1
-        if (!in.is_open()) {
-            logPrint("not found.\n");
-            fn.str("");
-            fn << stb_config_path1 << cfgfile;
-
-            logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
-            in.open(fn.str().c_str(), ios::in);
-
-            // if not found, use global2
-            if (!in.is_open()) {
-                logPrint("not found.\n");
-                fn.str("");
-                fn << stb_config_path2 << cfgfile;
-
-                logPrint("Search for %s config file in %s ... ", cfgfile.c_str(), fn.str().c_str());
-                in.open(fn.str().c_str(), ios::in);
-                if (!in.is_open()) {
-                    logPrint("not found.\n");
-                    logPrintE(LOG_ERROR_FILE_NOT_FOUND);
-                    return ret;
-                }
-            }
-        }
-        logPrint("found.\n");
-        in.close();
-        ret = fn.str();
-    }
-#endif
-
-    return ret;
-}
-
 void 
 Kernel::update( void * data, SoSensor * /*sensor*/)
 {
-	instance->sceneManager->update();
+    instance->sceneManager->update();
     instance->componentManager->update();
 }
 

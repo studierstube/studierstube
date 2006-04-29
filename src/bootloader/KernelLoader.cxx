@@ -62,7 +62,7 @@ bool KernelLoader::runKernel(int argc, char* argv[])
 
     ACE_DLL kernel_dll;
     if (kernel_dll.open(libName.c_str())) {
-        ACE_DEBUG((LM_ERROR, "could not load %s library", libName.c_str()));
+        ACE_DEBUG((LM_ERROR, "could not load %s library\n", libName.c_str()));
         return false;        
     }
 
@@ -71,7 +71,7 @@ bool KernelLoader::runKernel(int argc, char* argv[])
     startKernel = (void(*)(int, char**))kernel_dll.symbol(execFuncName.c_str());
 
     if (!startKernel) {
-        ACE_DEBUG((LM_ERROR, "could not get entry point of %s", libName.c_str()));
+        ACE_DEBUG((LM_ERROR, "could not get entry point of %s\n", libName.c_str()));
         return false;        
     }
 

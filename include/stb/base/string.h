@@ -35,6 +35,9 @@ typedef std::string string;
 
 int stricasecmp(const stb::string str1, const stb::string str2);
 
+// return the base name (directory) of a file string
+void getBaseName(stb::string& in_string, const stb::string& str, const char* delim);
+
 
 END_NAMESPACE_STB
 

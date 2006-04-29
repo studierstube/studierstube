@@ -26,6 +26,12 @@ int stricasecmp(const stb::string str1, const stb::string str2)
 #endif
     return -1;
 }
+
+void getBaseName(stb::string& in_string, const stb::string& str, const char* delim)
+{
+    in_string =  str.substr(0, str.rfind(delim));
+}
+
 ///////////////// std::strcasecmp
 
 END_NAMESPACE_STB
