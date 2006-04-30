@@ -28,7 +28,7 @@
  * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef STB_MUDDLEWARE
+#ifdef ENABLE_MUDDLEWARE
 
 #include <stb/kernel/XMLManagerImpl.h>
 #include <tinyxml/tinyxml.h>

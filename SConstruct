@@ -12,6 +12,7 @@ coin_env = Environment (ENV = os.environ)
 soqt_env = Environment (ENV = os.environ)
 opentracker_env = Environment (ENV = os.environ)
 openvideo_env = Environment (ENV = os.environ)
+muddleware_env = Environment (ENV = os.environ)
 env = Environment (ENV = os.environ)
 env.CacheDir(os.environ['HOME'] + '/.scache')
 
@@ -73,9 +74,16 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     openvideo_include = openvideo_env.Dictionary()['CPPPATH']
     openvideo_lib = openvideo_env.Dictionary()['LIBS']
     openvideo_libpath = openvideo_env.Dictionary()['LIBPATH']
+    # Muddleware library information
+    muddleware_env.ParseConfig ('pkg-config --cflags --libs Muddleware_Client')
+    muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
+    muddleware_include = muddleware_env.Dictionary()['CPPPATH']
+    muddleware_lib = muddleware_env.Dictionary()['LIBS']
+    muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
 
     build_example_app = 'true'
     enable_openvideo = 'false'
+    enable_muddleware = 'false'
 else:
     print "Other platforms not supported by scons!"
     exit
@@ -156,12 +164,19 @@ else:
 	config.write ("OPENVIDEO_LIBPATH = %r\n"%(openvideo_libpath))
 	config.write ("OPENVIDEO_LIBRARY = %r\n"%(openvideo_lib))
 
+        config.write ("\n# Muddleware library.\n")
+        config.write ("MUDDLEWARE_CFLAGS = %r\n"%(muddleware_cflags))
+	config.write ("MUDDLEWARE_INCLUDE = %r\n"%(muddleware_include))
+	config.write ("MUDDLEWARE_LIBPATH = %r\n"%(muddleware_libpath))
+	config.write ("MUDDLEWARE_LIBRARY = %r\n"%(muddleware_lib))
+
 	config.write ("OPENGL_INCLUDE = %r\n"%(opengl_include))
 	config.write ("OPENGL_LIBPATH = %r\n"%(opengl_libpath))
 	config.write ("OPENGL_LIBRARY = %r\n"%(opengl_lib))
 
         config.write ("BUILD_EXAMPLE_APP = %r\n"%(build_example_app))
         config.write ("ENABLE_OPENVIDEO = %r\n"%(enable_openvideo))
+        config.write ("ENABLE_MUDDLEWARE = %r\n"%(enable_muddleware))
         config.close ()
 
 #-----------------------------------------------------------------------------
@@ -212,6 +227,10 @@ user_options.AddOptions (
 		('OPENVIDEO_INCLUDE', 'Include directory for OPENVIDEO header files.'),
 		('OPENVIDEO_LIBPATH', 'Library path where the OPENVIDEO library is located.'),
 		('OPENVIDEO_LIBRARY', 'OPENVIDEO library name.'),
+		('MUDDLEWARE_CFLAGS', 'Necessary CFLAGS when using MUDDLEWARE functionality.'),
+		('MUDDLEWARE_INCLUDE', 'Include directory for MUDDLEWARE header files.'),
+		('MUDDLEWARE_LIBPATH', 'Library path where the MUDDLEWARE library is located.'),
+		('MUDDLEWARE_LIBRARY', 'MUDDLEWARE library name.'),
 		('TINYXML_CFLAGS', 'Necessary CFLAGS when using TINYXML functionality.'),
 		('TINYXML_INCLUDE', 'Include directory for TINYXML header files.'),
 		('TINYXML_LIBPATH', 'Library path where the TINYXML library is located.'),
@@ -228,6 +247,9 @@ user_options.AddOptions (
 					'true')),
 		(BoolOption ('ENABLE_OPENVIDEO',
 					'Set to 1 to use the OpenVideo library.',
+					'false')),
+		(BoolOption ('ENABLE_MUDDLEWARE',
+					'Set to 1 to use the Muddleware library.',
 					'false'))
 	)
 user_options.Update (user_options_env)
@@ -248,7 +270,8 @@ else:
 defines += user_options_dict['DEFINES']
 defines += ['LINUX']
 # Uncomment the following line if you want to have muddleware support
-defines += ['MUDDLEWARE_SUPPORT']
+if user_options_dict['ENABLE_MUDDLEWARE'] == 1:
+    defines += ['ENABLE_MUDDLEWARE']
 cflags += user_options_dict['CCFLAGS']
 cxxflags += user_options_dict['CXXFLAGS']
 
@@ -267,7 +290,6 @@ if os.path.isdir (root_build_dir) == 0:
 
 #****************************************************************************
 # Set project details used in the package-config (.pc) file
-# See OpenVideo.pc.in
 #****************************************************************************
 env['STB_PROJECT_NAME']        = "Studierstube"
 env['STB_PROJECT_DESCRIPTION'] = "Studierstube - The Augmented Reality Environment"
