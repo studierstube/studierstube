@@ -337,25 +337,25 @@ void EventModule::pushState()
         {    
             if( moving == false )
                 lastTime = OSUtils::currentTime();
-            State & state = keySources[station]->state;
+            Event & state = keySources[station]->state;
             double currentTime = OSUtils::currentTime();
             double diff = (currentTime - lastTime) / 1000;    
             lastTime = currentTime;
             
-            state.position[0] += (float) (states[X] * posSpeed * diff);
-            state.position[1] += (float) (states[Y] * posSpeed * diff);
-            state.position[2] += (float) (states[Z] * posSpeed * diff);
+            state.getPosition()[0] += (float) (states[X] * posSpeed * diff);
+            state.getPosition()[1] += (float) (states[Y] * posSpeed * diff);
+            state.getPosition()[2] += (float) (states[Z] * posSpeed * diff);
             data[0] = (float) states[RX];
             data[1] = (float) states[RY];
             data[2] = (float) states[RZ];
             data[3] = (float) (angularSpeed * diff);
             MathUtils::axisAngleToQuaternion( data, data );
-            memcpy(help, state.orientation, sizeof( help ));
-            MathUtils::multiplyQuaternion( data, help, state.orientation );
-            MathUtils::normalizeQuaternion( state.orientation );
-            state.button = states[B1] | (states[B2] << 1) | (states[B3] << 2) | (states[B4] << 3);
+            memcpy(help, &state.getOrientation()[0], sizeof( help ));
+            MathUtils::multiplyQuaternion( data, help, &state.getOrientation()[0] );
+            MathUtils::normalizeQuaternion( &state.getOrientation()[0] );
+            state.setButton(states[B1] | (states[B2] << 1) | (states[B3] << 2) | (states[B4] << 3));
             state.timeStamp();
-            state.confidence = 1;
+            state.setConfidence(1);
             keySources[station]->updateObservers( state );    
             changed = false;
             moving = (sum>0);
@@ -384,7 +384,7 @@ void EventModule::pushState()
     }
 }
 
-void EventModule::processEvent( const ot::State * event, const EventSink * sink )
+void EventModule::processEvent( const ot::Event * event, const EventSink * sink )
 {
     parent->processEvent( event, &sink->attributes );
 }
@@ -489,13 +489,10 @@ void EventModule::handleKeyDown( int key )
            break;
         case RESET:
             if( keySources.find(station) != keySources.end()){
-                keySources[station]->state.position[0] = 0;
-                keySources[station]->state.position[1] = 0;
-                keySources[station]->state.position[2] = 0;
-                keySources[station]->state.orientation[0] = 0;
-                keySources[station]->state.orientation[1] = 0;
-                keySources[station]->state.orientation[2] = 0;
-                keySources[station]->state.orientation[3] = 1;
+	        static const float position[] = { 0, 0, 0 };
+		static const float orientation[] = { 0, 0, 0, 1 };
+                keySources[station]->state.setPosition(position);
+                keySources[station]->state.setOrientation(orientation);
             }
             break;
     }

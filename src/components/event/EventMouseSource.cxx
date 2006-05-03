@@ -45,7 +45,7 @@ EventMouseSource::EventMouseSource( Mode mode_, int window_ ) :
     window( window_ ),
     changed( false )
 {
-    state.confidence = 1;
+    state.setConfidence(1);
 }
 
 void EventMouseSource::processEvent( const SoEvent & event, const SbViewportRegion & region )
@@ -60,11 +60,11 @@ void EventMouseSource::processEvent( const SoEvent & event, const SbViewportRegi
         pos = event.getNormalizedPosition(region);
         pos[1] = 1 - pos[1];
     }
-    if( state.position[0] != pos[0] ||
-        state.position[1] != pos[1] )
+    if( state.getPosition()[0] != pos[0] ||
+        state.getPosition()[1] != pos[1] )
     {
-        state.position[0] = pos[0];
-        state.position[1] = pos[1];
+        state.getPosition()[0] = pos[0];
+        state.getPosition()[1] = pos[1];
         // FIXME: event->getTime() is about 300 ms behind system time in Coin3D!
         // Therefore we set the time of the event to the current system time.
         // This is done for all implementations to guarantee identical behaviour.
@@ -78,37 +78,37 @@ void EventMouseSource::processEvent( const SoEvent & event, const SbViewportRegi
     {
         if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON1))
         {
-            state.button |= 1;
+            state.getButton() |= 1;
             state.timeStamp();
             changed = true;
         }
         else if( SoMouseButtonEvent::isButtonReleaseEvent(&event,SoMouseButtonEvent::BUTTON1))
         {
-            state.button &= 0xfffe;
+            state.getButton() &= 0xfffe;
             state.timeStamp();
             changed = true;
         }
         else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON2))
         {
-            state.button |= 2;
+            state.getButton() |= 2;
             state.timeStamp();
             changed = true;
         }
         else if( SoMouseButtonEvent::isButtonReleaseEvent(&event,SoMouseButtonEvent::BUTTON2))
         {
-            state.button &= 0xfffd;
+            state.getButton() &= 0xfffd;
             state.timeStamp();
             changed = true;
         }
         else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON3))
         {
-            state.button |= 1;
+            state.getButton() |= 1;
             state.timeStamp();
             changed = true;
         }
         else if( SoMouseButtonEvent::isButtonReleaseEvent(&event,SoMouseButtonEvent::BUTTON3))
         {
-            state.button &= 0xfffb;
+	  state.getButton() &= 0xfffb;
             state.timeStamp();
             changed = true;
         }
@@ -119,14 +119,14 @@ void EventMouseSource::processEvent( const SoEvent & event, const SbViewportRegi
         // mousewheel rotated down - 
         else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON4))
         {
-            state.position[2] -= 0.1f;
+            state.getPosition()[2] -= 0.1f;
             state.timeStamp();
             changed = true;
         }
         // mousewheel rotated up
         else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON5))
         {
-            state.position[2] += 0.1f;
+            state.getPosition()[2] += 0.1f;
             state.timeStamp();
             changed = true;
         }

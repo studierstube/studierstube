@@ -60,7 +60,7 @@ public:
     /// station number
     int number;
     /// the state that is stored
-    ot::State state;
+    ot::Event state;
     /// a flag to indicate whether it was changed during processing
     bool changed;
 

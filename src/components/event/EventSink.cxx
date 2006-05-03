@@ -52,7 +52,7 @@ int EventSink::isEventGenerator()
     return 1;
 }
 
-void EventSink::onEventGenerated( ot::State& event, ot::Node& )
+void EventSink::onEventGenerated( ot::Event& event, ot::Node& )
 {
     parent->processEvent( &event, this );
     updateObservers( event );

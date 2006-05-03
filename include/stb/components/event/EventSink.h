@@ -90,7 +90,7 @@ public:
      * @param generator reference to the EventGenerator object that
      *        notified the EventObserver.
      */
-    virtual void onEventGenerated( ot::State& event, ot::Node& generator);
+    virtual void onEventGenerated( ot::Event& event, ot::Node& generator);
 
     NameStringMap attributes;
 };

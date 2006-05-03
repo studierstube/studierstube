@@ -47,7 +47,7 @@
 
 namespace ot {
 class Context;
-class State;
+class Event;
 };
 
 class EventModule;
@@ -81,7 +81,7 @@ public:
         return context;
     };
 
-    void processEvent( const ot::State * state, const NameStringMap * attributes = NULL );
+    void processEvent( const ot::Event * state, const NameStringMap * attributes = NULL );
 
 protected:
     virtual ~SoOpenTrackerSource();

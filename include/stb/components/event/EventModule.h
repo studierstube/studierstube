@@ -291,7 +291,7 @@ public:
     void handleEvent( SoHandleEventAction * action  );
 
     /// interface from EventSink nodes to process OpenTracker events
-    void processEvent( const ot::State * event, const EventSink * sink );
+    void processEvent( const ot::Event * event, const EventSink * sink );
 };
 
 #endif //__EVENTMODULE_H__
