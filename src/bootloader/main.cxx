@@ -35,14 +35,17 @@
 int 
 main(int argc,char* argv[])
 {
+    stb::string libName="stbkernel";
 #ifdef WIN32
-    if (argc<2) {
-	printf("  Usage: %s filename\n\n",argv[0]);
-	return 0;
+    if (argc<2){
+	    printf("  Usage: %s filename\n\n",argv[0]);
+	    return 0;
     }
+    #ifdef DEBUG
+        libName="stbkerneld";
+    #endif
 #endif
     const char execFunc[]="executeStudierstube";
-    const char libName[]="stbkernel";
     stb::KernelLoader loader;
     loader.setExecFuncName(execFunc);
     loader.setLibName(libName);
