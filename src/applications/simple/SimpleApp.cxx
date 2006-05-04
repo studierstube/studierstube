@@ -28,7 +28,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#include "SimpleApp.h"
+#include <stb/applications/simple/SimpleApp.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
