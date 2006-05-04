@@ -28,7 +28,7 @@
 
   <Application name="SimpleApp"
 	       availability="onload"
-	       lib="stbsimple">     
+	       lib="simple">     
     <Param  key   ="sceneFile"  value ="simpleScene.iv" />	
     <Param  key   ="needViewer" value ="true" />	
     <Param  key   ="needEvent"  value ="true" />	

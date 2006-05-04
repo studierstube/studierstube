@@ -2,7 +2,7 @@
 <OpenTracker>
 	<configuration>
 		<!-- Here we place all the necessary configurations -->
-		<ConsoleConfig headerline="Sample Tracking Input" interval="1"/>
+	    <ConsoleConfig headerline="Sample Tracking Input" interval="1" display="on"/>
 	    <EventConfig keyevents="on" mouseevents="on"/>
 	</configuration>
 
