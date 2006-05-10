@@ -16,6 +16,10 @@ install:
 	@echo "Installing Studierstube using SCons"
 	@scons -Q install
 
+doxy:
+	@echo "Generating Studierstube documentation"
+	@doxygen doc/studierstube_v4.dox
+
 clean:
 	@echo "Cleaning Studierstube using SCons"
 	@scons -Q -c
