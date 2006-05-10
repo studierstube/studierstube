@@ -11,6 +11,7 @@ tar cfjh $NAME.tar.bz2 \
 --exclude "*.vcproj" \
 --exclude "*~" \
 --exclude "build" \
+--exclude "html" \
 --exclude config.opts \
 --exclude .sconsign \
 --exclude $NAME.tar.bz2 \

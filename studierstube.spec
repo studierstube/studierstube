@@ -24,9 +24,13 @@ STUDIERSTUBE is a leading framework for the development of mobile, collaborative
 
 %build
 scons PREFIX=%{_prefix} LIBDIR=%{_libdir}
+cd doc
+doxygen studierstube_v4.dox
 
 %install
 scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
+mkdir -p $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
+cp -a doc/html $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
 
 %clean
 scons -c
@@ -37,6 +41,7 @@ scons -c
 %{_libdir}/*.so*
 %{_bindir}/*
 %{_prefix}/share/stb/*
+
 
 %package devel
 Summary:	Studierstube header files
@@ -50,3 +55,16 @@ This package contains header files and include files that are needed for develop
 %defattr(-,root,root)
 %{_prefix}/include/*
 %{_libdir}/pkgconfig/*
+
+
+%package doc
+Summary:	Studierstube header files
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
+
+%description doc
+Studierstube documentation
+
+%files doc
+%defattr(-,root,root)
+%{_prefix}/share/doc/packages/studierstube
