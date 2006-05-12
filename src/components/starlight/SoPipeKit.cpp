@@ -118,13 +118,13 @@ SbBool SoPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 	return !(connectionsSetUp = onoff);
 }
 
-void SoPipeKit::coordsCB(void *data, SoSensor */*sensor*/)
+void SoPipeKit::coordsCB(void *data, SoSensor * /*sensor*/)
 {
 	SoPipeKit *tmp= (SoPipeKit *)data;
 	tmp->refresh();
 }
 
-void SoPipeKit::radiusCB(void *data, SoSensor */*sensor*/)
+void SoPipeKit::radiusCB(void *data, SoSensor * /*sensor*/)
 {
 	SoPipeKit *tmp= (SoPipeKit *)data;
 	tmp->refresh();

@@ -30,6 +30,7 @@
 
 #include <stb/kernel/ComponentThread.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/base/fixWin32Issues.h>
 #include <ace/Thread.h>
 #include <ace/Synch.h>
 

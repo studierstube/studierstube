@@ -36,6 +36,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml/tinyxml.h>
+#include <stb/base/fixWin32Issues.h>
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h> 
 #include <Inventor/sensors/SoSensor.h>

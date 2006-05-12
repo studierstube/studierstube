@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bootloader", "bootloader.vcproj", "{0788D2D1-5EC9-4A33-9DE3-8FBD81871AFC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kernel", "kernel.vcproj", "{42748253-9DEC-4BB4-9483-FDDA842B610B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "event", "event.vcproj", "{45F95B97-9D59-473C-BB07-4860F7C6B983}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "starlight", "starlight.vcproj", "{074E91D6-DBE7-46AA-A936-1C0FDF801B38}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "video", "video.vcproj", "{F7ABEF5E-C843-4AA1-936C-46BB342AF47B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer", "viewer.vcproj", "{18E53DD1-4A91-4D5B-B85E-2090809D9C13}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simpleApp", "simpleApp.vcproj", "{9DAA14E4-2350-42DC-B63A-842B03DBF922}"
+	ProjectSection(ProjectDependencies) = postProject
+		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0788D2D1-5EC9-4A33-9DE3-8FBD81871AFC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0788D2D1-5EC9-4A33-9DE3-8FBD81871AFC}.Debug|Win32.Build.0 = Debug|Win32
+		{0788D2D1-5EC9-4A33-9DE3-8FBD81871AFC}.Release|Win32.ActiveCfg = Release|Win32
+		{0788D2D1-5EC9-4A33-9DE3-8FBD81871AFC}.Release|Win32.Build.0 = Release|Win32
+		{42748253-9DEC-4BB4-9483-FDDA842B610B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{42748253-9DEC-4BB4-9483-FDDA842B610B}.Debug|Win32.Build.0 = Debug|Win32
+		{42748253-9DEC-4BB4-9483-FDDA842B610B}.Release|Win32.ActiveCfg = Release|Win32
+		{42748253-9DEC-4BB4-9483-FDDA842B610B}.Release|Win32.Build.0 = Release|Win32
+		{45F95B97-9D59-473C-BB07-4860F7C6B983}.Debug|Win32.ActiveCfg = Debug|Win32
+		{45F95B97-9D59-473C-BB07-4860F7C6B983}.Debug|Win32.Build.0 = Debug|Win32
+		{45F95B97-9D59-473C-BB07-4860F7C6B983}.Release|Win32.ActiveCfg = Release|Win32
+		{45F95B97-9D59-473C-BB07-4860F7C6B983}.Release|Win32.Build.0 = Release|Win32
+		{074E91D6-DBE7-46AA-A936-1C0FDF801B38}.Debug|Win32.ActiveCfg = Debug|Win32
+		{074E91D6-DBE7-46AA-A936-1C0FDF801B38}.Debug|Win32.Build.0 = Debug|Win32
+		{074E91D6-DBE7-46AA-A936-1C0FDF801B38}.Release|Win32.ActiveCfg = Release|Win32
+		{074E91D6-DBE7-46AA-A936-1C0FDF801B38}.Release|Win32.Build.0 = Release|Win32
+		{F7ABEF5E-C843-4AA1-936C-46BB342AF47B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F7ABEF5E-C843-4AA1-936C-46BB342AF47B}.Debug|Win32.Build.0 = Debug|Win32
+		{F7ABEF5E-C843-4AA1-936C-46BB342AF47B}.Release|Win32.ActiveCfg = Release|Win32
+		{F7ABEF5E-C843-4AA1-936C-46BB342AF47B}.Release|Win32.Build.0 = Release|Win32
+		{18E53DD1-4A91-4D5B-B85E-2090809D9C13}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18E53DD1-4A91-4D5B-B85E-2090809D9C13}.Debug|Win32.Build.0 = Debug|Win32
+		{18E53DD1-4A91-4D5B-B85E-2090809D9C13}.Release|Win32.ActiveCfg = Release|Win32
+		{18E53DD1-4A91-4D5B-B85E-2090809D9C13}.Release|Win32.Build.0 = Release|Win32
+		{9DAA14E4-2350-42DC-B63A-842B03DBF922}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9DAA14E4-2350-42DC-B63A-842B03DBF922}.Debug|Win32.Build.0 = Debug|Win32
+		{9DAA14E4-2350-42DC-B63A-842B03DBF922}.Release|Win32.ActiveCfg = Release|Win32
+		{9DAA14E4-2350-42DC-B63A-842B03DBF922}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
