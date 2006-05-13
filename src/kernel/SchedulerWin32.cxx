@@ -30,7 +30,9 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+
 #ifndef LINUX
+
 
 #include <stb/kernel/SchedulerWin32.h>
 #include <TinyXML/tinyxml.h>
@@ -38,6 +40,7 @@
 
 
 BEGIN_NAMESPACE_STB
+
 
 SchedulerWin32::SchedulerWin32()
 {
@@ -59,6 +62,8 @@ SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
             curGuiBinding=SchedulerWin32::SOWIN;		
         else if(!stb::stricasecmp(attribute->Value(),"SoQt"))
             curGuiBinding=SchedulerWin32::SOQT;	
+		else if(!stb::stricasecmp(attribute->Value(),"SoGL"))
+			curGuiBinding=SchedulerWin32::SOGL;	
     }
     //else if()
     //{
@@ -102,6 +107,36 @@ SchedulerWin32::loadSoWin()
     (*soGuiInitFunc)("Studierstube","SoWin"); 
 }
 
+
+void 
+SchedulerWin32::loadSoGL()
+{
+	Kernel::getInstance()->logDebug("INFO: load SoGL\n");
+	//
+#ifdef _DEBUG   
+	std::string libFileName="SoGLd.dll";
+#else
+	std::string libFileName="SoGL.dll";
+#endif	
+
+	libHandle = LoadLibrary(libFileName.c_str());
+	if (!libHandle){
+		logPrintE("could not load " + libFileName);
+		return;
+	}
+
+	//get pointer 
+	void (*soGuiInitFunc)(const char *, const char*)=NULL;
+	soGuiInitFunc = (void (*)(const char *, const char*)) 
+		GetProcAddress(libHandle, "init");
+	if(soGuiInitFunc == NULL)
+		Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
+
+	//call SoGui::init 
+	(*soGuiInitFunc)("Studierstube", "SoGL"); 
+}
+
+
 void 
 SchedulerWin32::init()
 {
@@ -112,6 +147,9 @@ SchedulerWin32::init()
         case SOQT:
             loadSoQt();
             break;
+		case SOGL:
+			loadSoGL();
+			break;
     }
     schedule();
 }
@@ -123,6 +161,15 @@ SchedulerWin32::mainLoopSoWin()
     mainLoopFunc = (void (*)()) GetProcAddress(libHandle,"?mainLoop@SoWin@@SAXXZ");
     (*mainLoopFunc)();
    
+}
+
+void
+SchedulerWin32::mainLoopSoGL()
+{
+	void (*mainLoopFunc)();
+	mainLoopFunc = (void (*)()) GetProcAddress(libHandle,"?mainLoop");
+	(*mainLoopFunc)();
+
 }
 
 void 
@@ -145,11 +192,19 @@ SchedulerWin32::mainLoop()
         case SOQT:
             mainLoopSoQt();
             break;
+		case SOGL:
+			mainLoopSoGL();
+			break;
     }
 }
+
+
 END_NAMESPACE_STB
 
-#endif
+
+#endif // #ifndef LINUX
+
+
 //========================================================================
 // End of SchedulerWin32.cxx
 //========================================================================

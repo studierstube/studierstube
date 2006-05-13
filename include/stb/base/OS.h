@@ -35,26 +35,58 @@
 
 #include <stb/base/string.h>
 
-#ifdef WIN32
-	#define WIN32_LEAN_AND_MEAN
-	#include "windows.h"
+
+#if defined(_WIN32_WCE)
+
+#  define STB_IS_WINDOWS
+#  define STB_IS_WINCE
+
+#elif defined(WIN32)
+
+#  define STB_IS_WINDOWS
+#  define STB_IS_WINXP
+
+#elif defined(LINUX)
+
+#  define STB_IS_LINUX
+
 #else
-	#include <dlfcn.h>
+
+#  pragma error("unknown OS!!!")
+
 #endif
 
-//Module handle
-#ifdef WIN32
-	typedef HMODULE hModule;
-#else
-	typedef void* hModule; 
+
+#ifdef STB_IS_WINDOWS
+
+#  define WIN32_LEAN_AND_MEAN
+#  define OS_SEP "\\"
+#  include <windows.h>
+
 #endif
 
-//Module handle
-#ifdef WIN32
-	#define OS_SEP "\\"
-#else
-	#define OS_SEP "/"
+
+#ifdef STB_IS_LINUX
+
+#  include <dlfcn.h>
+#  define OS_SEP "/"
+
 #endif
+
+
+BEGIN_NAMESPACE_STB
+
+
+#ifdef STB_IS_WINDOWS
+
+   typedef HMODULE hModule;
+
+#elif defined(STB_IS_LINUX)
+
+   typedef void* hModule; 
+
+#endif
+
 
 //-------------------------------
 //functions
@@ -65,8 +97,11 @@ int*    os_GetProcAddress(hModule moduleHandle,const char*   procName);
 bool    os_FreeLibrary(hModule libHandle);
 
 
+END_NAMESPACE_STB
+
 
 #endif //OS_H
+
 
 /* ========================================================================
  * End of file

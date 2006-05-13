@@ -43,7 +43,11 @@ BEGIN_NAMESPACE_STB
 ComponentManager::ComponentManager()
 {
 	compRetriever=new stb::ComponentRetriever();
+
+#pragma message(">>> daniel2denis: do we really need this 'appListSize' ?")
 	appListSize=0;
+
+#pragma message(">>> daniel2denis: do we really need this 'initListSize' ?")
     initListSize=0;
 }
 

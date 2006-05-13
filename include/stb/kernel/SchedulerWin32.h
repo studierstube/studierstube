@@ -66,15 +66,18 @@ public:
 
     virtual enum GUI_BINDING {
         SOQT=0,
-        SOWIN=1
+        SOWIN=1,
+		SOGL=2
     };
     GUI_BINDING getCurrentGuiBinding(){return curGuiBinding;}
 protected:	
     GUI_BINDING curGuiBinding;
     void loadSoQt();
     void loadSoWin();
+	void loadSoGL();
     void mainLoopSoWin();
     void mainLoopSoQt();
+	void mainLoopSoGL();
 
 private:
 	

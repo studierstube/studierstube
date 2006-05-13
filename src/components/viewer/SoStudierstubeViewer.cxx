@@ -411,7 +411,7 @@ SoStudierstubeViewer::redraw ()
     if(showFrameRate){
     #if defined(WIN32)
         DWORD thisTime = GetTickCount();
-        diffTime=thisTime-lastTime;
+        diffTime = (float)(thisTime-lastTime);
         if (diffTime>0) framerate=1000*(1/diffTime);
         lastTime=thisTime;
         printf("[Render = %3.1f] \n",framerate);

@@ -240,8 +240,8 @@ SoDisplay::createViewer()
 	//////////////////////////////////////////
 	viewer->setSceneGraph(displayRoot);
 
-    viewer->printTriangles(showTriangleCount.getValue());
-    viewer->printFrameRate(showFrameRate.getValue());
+    viewer->printTriangles(showTriangleCount.getValue() == TRUE);
+    viewer->printFrameRate(showFrameRate.getValue() == TRUE);
     viewer->setWindowCloseCallback(exitViewer);
 	viewer->show();
 }

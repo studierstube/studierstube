@@ -75,6 +75,26 @@
 #define SoGuiRenderArea SoWinRenderArea
 #define SoGuiExaminerViewer SoWinExaminerViewer
 
-#endif
+#elif USE_SOGL
+
+#define SOGUICOMPONENT_H <stb/sogl/SoGLComponent.h>
+#define SOGUI_H <stb/sogl/SoGL.h>
+#define SOGUI_CURSOR_H <stb/sogl/SoGLCursor.h>
+#define SOGUI_EXAMINERVIEWER_H <stb/sogl/SoGLExaminerViewer.h>
+
+#define SoGui SoGL
+#define SoGuiComponent SoGLComponent
+#define GuiWidget HWND
+#define SoGuiCursor SoGLCursor
+#define SoGuiViewer SoGLViewer
+#define SoGuiFullViewer SoGLViewer
+#define SoGuiRenderArea SoGLRenderArea
+#define SoGuiExaminerViewer SoGLExaminerViewer
+
+#else // no window binding defined
+
+#pragma error("ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL")
+
+#endif // end of windows bindings
 
 #endif //GUIDEFINES_H

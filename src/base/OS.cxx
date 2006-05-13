@@ -36,6 +36,9 @@
 #include <iostream>
 
 
+BEGIN_NAMESPACE_STB
+
+
 //---------------------------------------
 /**
 */
@@ -82,7 +85,7 @@ os_LoadLibrary(stb::string fileName)
 /**
 */
 int*
-os_GetProcAddress(hModule moduleHandle,const char*   procName)
+stb::os_GetProcAddress(hModule moduleHandle,const char*   procName)
 {
 #ifdef WIN32
     return (int*)GetProcAddress(moduleHandle, procName);
@@ -104,6 +107,10 @@ os_FreeLibrary(hModule libHandle)
     return true;
 #endif
 }
+
+
+END_NAMESPACE_STB
+
 
 /* ========================================================================
  * End of file

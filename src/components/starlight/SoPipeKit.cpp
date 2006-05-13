@@ -192,7 +192,7 @@ void SoPipeKit::refresh()
 
 	// Clean repeated coordinates
 	cleanCoords.set1Value(k,coords[k]);
-	for (i=1;i<coords.getNum();i++)
+	for (i=1;i<(unsigned int)coords.getNum();i++)
 	{
 		if (coords[i]!=coords[i-1])
 		{

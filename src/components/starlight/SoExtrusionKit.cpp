@@ -154,7 +154,7 @@ void SoExtrusionKit::refresh()
 	// Copy the first vertex
 	cleanVertices.set1Value(k,vertices[k]);
 	// Then all other vertices except the last
-	for (i=1;i<vertices.getNum()-1;i++)
+	for (i=1;i<(unsigned int)vertices.getNum()-1;i++)
 	{
 		if (vertices[i]!=vertices[i-1])
 		{
