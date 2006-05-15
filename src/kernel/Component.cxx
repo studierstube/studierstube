@@ -57,11 +57,6 @@ Component::getTypeID()
 	return compInfo_->typeID;
 }
 
-const char*
-Component::getBaseTypeID()
-{
-    return "Component";
-}
 
 void 
 Component::setParameter(stb::string /*key*/, std::string /*value*/)

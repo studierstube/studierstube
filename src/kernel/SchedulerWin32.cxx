@@ -54,7 +54,7 @@ SchedulerWin32::~SchedulerWin32()
 }
 
 void
-SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
+SchedulerWin32::readConfiguration(TiXmlAttribute* attribute)
 {
     if(!stb::stricasecmp(attribute->Name(),"guiBinding"))
     {
@@ -67,10 +67,9 @@ SchedulerWin32::parseConfiguration(TiXmlAttribute* attribute)
     }
     //else if()
     //{
-
     //}
     else
-        SchedulerBase::parseConfiguration(attribute);
+        SchedulerBase::readConfiguration(attribute);
 }
 
 void
@@ -82,8 +81,6 @@ SchedulerWin32::loadSoQt()
 void 
 SchedulerWin32::loadSoWin()
 {
-    Kernel::getInstance()->logDebug("INFO: load SoWin\n");
-    //
 #ifdef _DEBUG   
     std::string libFileName="SoWin1d.dll";
 #else
@@ -101,7 +98,8 @@ SchedulerWin32::loadSoWin()
     soGuiInitFunc = (void (*)(const char *, const char*)) 
         GetProcAddress(libHandle,"?init@SoWin@@SAPAUHWND__@@PBD0@Z");
     if(soGuiInitFunc == NULL)
-        Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
+        ; // FIXME: insert log message as sremoved log 
+        //Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
 
     //call SoGui::init 
     (*soGuiInitFunc)("Studierstube","SoWin"); 
@@ -111,7 +109,8 @@ SchedulerWin32::loadSoWin()
 void 
 SchedulerWin32::loadSoGL()
 {
-	Kernel::getInstance()->logDebug("INFO: load SoGL\n");
+    // FIXME: insert log message as sremoved log 
+	//Kernel::getInstance()->logDebug("INFO: load SoGL\n");
 	//
 #ifdef _DEBUG   
 	std::string libFileName="SoGLd.dll";
@@ -130,7 +129,8 @@ SchedulerWin32::loadSoGL()
 	soGuiInitFunc = (void (*)(const char *, const char*)) 
 		GetProcAddress(libHandle, "init");
 	if(soGuiInitFunc == NULL)
-		Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
+        ; // FIXME: insert log message as sremoved log 
+		//Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
 
 	//call SoGui::init 
 	(*soGuiInitFunc)("Studierstube", "SoGL"); 
@@ -182,7 +182,8 @@ void
 SchedulerWin32::mainLoop()
 {
     if(!libHandle){
-        Kernel::getInstance()->logDebug("Error: call soGui.init() before soGui.mainLoop. \n");
+        // FIXME: insert log message as soon as the logger is done
+        //Kernel::getInstance()->logDebug("Error: call soGui.init() before soGui.mainLoop. \n");
         return;
     }
     switch(curGuiBinding){

@@ -33,6 +33,10 @@
 #ifndef _SCHEDULER_H_
 #define _SCHEDULER_H_
 
+/**@ingroup kernel
+* Scheduler is defined depending on the current operating system
+*/
+
 #ifdef WIN32
     #include <stb/kernel/SchedulerWin32.h>
     namespace stb{

@@ -46,6 +46,7 @@
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoVideoBackground.h>
+#include <stb/components/viewer/SoVideoPlane.h>
 #include <stb/components/viewer/SoViewport.h>
 
 
@@ -83,7 +84,8 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
-    stb::Kernel::getInstance()->logDebug("init Viewer\n");
+    //FIXME: insert log message as soon as the logger is done      
+//    stb::Kernel::getInstance()->logDebug("init Viewer\n");
 
     if(isInit)
         return true;
@@ -109,6 +111,7 @@ Viewer::init()
 
     SoViewport::initClass();
     SoVideoBackground::initClass();
+    SoVideoPlane::initClass();
 
     //get viewer's parameter
     retrieveParameter();
@@ -121,8 +124,8 @@ Viewer::init()
 
     SoInput myinput;
     if (!myinput.openFile(configFile.c_str())) {
-        
-        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + configFile + "\n");
+        //FIXME: insert log message as soon as the logger is done      
+//        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + configFile + "\n");
         SoInput::removeDirectory("./");
         return false;
     }
@@ -131,7 +134,8 @@ Viewer::init()
     SoInput::removeDirectory("./");
     if (fileRoot==NULL) 
     {
-        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + configFile + "\n");
+        //FIXME: insert log message as soon as the logger is done
+//        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + configFile + "\n");
         return false;
     }
     fileRoot->ref();

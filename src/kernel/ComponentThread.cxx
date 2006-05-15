@@ -46,12 +46,6 @@ ComponentThread::~ComponentThread()
    delete mutex;
 }
 
-const char*
-ComponentThread::getBaseTypeID()
-{
-    return "ComponentThread";
-}
-
 void 
 ComponentThread::lock()
 {

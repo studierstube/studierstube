@@ -42,8 +42,15 @@ class TiXmlElement;
 
 BEGIN_NAMESPACE_STB
 
-/**
-*	
+/**@ingroup kernel
+* A ComponentInfo object is used to store all relevant information about a component.
+* These are in particular:
+* @li: stb::string typeID ["Component"|"Application"|"ComponentThread"]
+* @li: stb::string name (component's name)
+* @li stb::string libName; (library name)
+* @li hModule libHandle; (used when component is loaded)
+* @ AVAILABILITY availability [ON_LOAD|ON_DEMAND]
+* @li std::map<stb::string,stb::string> parameter; (a map of component specific parameters)
 */
 class ComponentInfo
 {
@@ -58,33 +65,86 @@ public:
     *     The destructor.
     */
    ~ComponentInfo();
-   
-   void parseConfiguration(TiXmlElement* element);
-   
-   stb::string getName(){return name;}
-   
-   stb::string getLibName(){return libName;}
-   
-   void setHModule(hModule aLibHandle);
-   
+
+   /************************************************************************/
+   /* Supported availabilities of a component
+   /************************************************************************/
    enum AVAILABILITY{
        ON_LOAD=0,
        ON_DEMAND=1
    };
-   ComponentInfo::AVAILABILITY getAvailability();
 
-   void setAvailability(AVAILABILITY avl);
-
-   void setTypeID(stb::string type);
-
+   /**
+   * Reads an xml element to configure this ComponentInfo
+   * @li the elements value is <Component></Component>, <Application></Application>, or <ApplicationThread> </ApplicationThread>
+   * and it defines the stb::string typeID which is later used to identify the current component's base type.
+   * @li parameter lib  - defines the libraries name
+   * @li parameter name - defines the componets name
+   * @li parameter availability [ondemand|onload]
+   * @li Foreeach component specific parameter
+   *     key="aKey" value="aValue"
+   */
+   void readConfiguration(TiXmlElement* element);
+ 
+   /**
+   * Returns the components name
+   */
+   stb::string getName(){return name;}
+   
+   /**
+   * Return the components library name.
+   */
+   stb::string getLibName(){return libName;}
+   
+   /************************************************************************/
+   /* Returns the cCmponent's library handle
+   /************************************************************************/
    hModule getLibHandle(){return libHandle;}
 
-protected:	
+   /************************************************************************/
+   /* Sets the Component's library handle
+   /************************************************************************/
+   void setHModule(hModule aLibHandle);
+   
+   /************************************************************************/
+   /* Returns the Component's availability
+   /************************************************************************/
+   ComponentInfo::AVAILABILITY getAvailability();
+
+   /************************************************************************/
+   /* Sets the Component's availability
+   /************************************************************************/
+   void setAvailability(AVAILABILITY avl);
+
+protected:
+    /************************************************************************/
+    /* Component's typID                                                                     */
+    /************************************************************************/
    stb::string typeID;
+
+   /************************************************************************/
+   /* Component's name
+   /************************************************************************/
    stb::string name;
+
+   /************************************************************************/
+   /* Component's library name
+   /************************************************************************/
    stb::string libName;
+
+   /************************************************************************/
+   /* Component's library handle
+   /************************************************************************/
    hModule libHandle;
+
+   /************************************************************************/
+   /* Component's availability 
+   /************************************************************************/
    AVAILABILITY availability;
+
+   /************************************************************************/
+   /* Component's additional parameter
+   /************************************************************************/
    std::map<stb::string,stb::string> parameter;
 private:
 	

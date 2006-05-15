@@ -34,6 +34,7 @@
 #include <tinyxml/tinyxml.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentInfo.h>
+#include <stb/kernel/ComponentManager.h>
 BEGIN_NAMESPACE_STB
 
 //================Config===========
@@ -47,9 +48,10 @@ Config::~Config()
 
 /// parse the xml file
 bool
-Config::parseXML(stb::string filename)
-{   
-    Kernel::getInstance()->logDebug("Stb:: parsing " + filename + " ...\n");
+Config::readKernelConfig(stb::string filename)
+{ 
+    //FIXME: insert log message as soon as the logger is done
+    //Kernel::getInstance()->logDebug("Stb:: parsing " + filename + " ...\n");
 	TiXmlDocument* document = new TiXmlDocument();
 	
 	if(!document->LoadFile(filename.c_str()))
@@ -92,9 +94,8 @@ Config::parseXMLElement(TiXmlElement* element)
            )
 	{
 		ComponentInfo *compInfo=new ComponentInfo();
-		compInfo->setTypeID(element->Value());
-		compInfo->parseConfiguration(element);
-		Kernel::getInstance()->addComponent(compInfo);
+		compInfo->readConfiguration(element);
+        Kernel::getInstance()->getComponentManager()->addComponent(compInfo);
 	}
 
 	return true;

@@ -39,6 +39,10 @@
 
 BEGIN_NAMESPACE_STB
 
+/**@ingroup kernel
+*
+* 
+*/
 class  STB_API SoStbScene : public SoGroup
 {
    SO_NODE_HEADER(SoStbScene);

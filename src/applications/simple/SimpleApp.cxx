@@ -91,7 +91,6 @@ SimpleApp::setParameter(stb::string key, std::string value)
 bool 
 SimpleApp::init()
 {
-    stb::Kernel::getInstance()->log("SimpleApp::init\n");
     if(isInit)
         return true;
  
@@ -127,7 +126,7 @@ SimpleApp::init()
     SoInput myinput;
     if (!myinput.openFile(sceneFile.c_str())) {
 
-        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + sceneFile + "\n");
+//        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + sceneFile + "\n");
         SoInput::removeDirectory("./");
         return false;
     }
@@ -136,7 +135,7 @@ SimpleApp::init()
     SoInput::removeDirectory("./");
     if (root==NULL) 
     {
-        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + sceneFile + "\n");
+//        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + sceneFile + "\n");
         return false;
     }
     
@@ -156,8 +155,8 @@ SimpleApp::shutDown()
 
 void 
 SimpleApp::update()
-{
-	Kernel::getInstance()->logDebug("update simple app\n");
+{ 
+//	Kernel::getInstance()->logDebug("update simple app\n");
 }
 
 void 

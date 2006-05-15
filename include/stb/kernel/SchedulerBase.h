@@ -41,9 +41,12 @@ class SoTimerSensor;
 class TiXmlAttribute;
 
 BEGIN_NAMESPACE_STB
-/**
- *	
- */
+/**@ingroup kernel
+* SchedulerBase is the abstract base class for the different scheduler implementations. 
+* Derivatives from this class usually implement a scheduler for a specific operating system.
+* The used scheduler is defined through a typedef in the file 'Scheduler.h'
+* The Scheduler's main loop is based on coins main loop implementation which comes with the gui-binding.
+*/
 class SchedulerBase
 {
 public:
@@ -53,29 +56,90 @@ public:
     SchedulerBase();
 
     /**
-     *     The destructor.
+     *     The Destructor calls unschedule().
      */
     virtual ~SchedulerBase();
 
+    /**
+    * The schedulers initialization includes 
+    * @li load the used gui binding 
+    * @li init the gui binding
+    * @li set up either a timer sensor or an idle sensor
+    */
     virtual void init()=0;
+
+    /**
+    * Calls the gui binding's main loop.
+    /**/
     virtual void mainLoop()=0;
-    virtual void parseConfiguration(TiXmlAttribute* attribute);
+
+    /**
+    * Reads it's parameters from the kernel element's attributes. The kernel's config function calls scheduler->parseConfiguration(attribute); for each and every attribute in the kernel's xml.element.
+    *
+    * These are in particular:
+    * @li updateMode ["idle"|"timer"]
+    * @li updateRate float
+    /**/
+    virtual void readConfiguration(TiXmlAttribute* attribute);
     
+protected:	
+    /**
+    * Set up the sensor which will be used to update the kernel.
+    * schedule() calls either scheduleIdleSensor or scheduleTimerSensor()
+    /**/
     virtual void schedule();
+
+    /**
+    * remove the sensor which is used to update the kernel.
+    /**/
     virtual void unschedule();
+
+    /**
+    * The different schedule mods. 
+    /**/
     enum MODE {
         IDLE=0,
         TIMER=1
-    };	
-protected:	
-    void scheduleIdleSensor();
-    void scheduleTimerSensor();
+    };
+
+    /************************************************************************/
+    /* Set up and start the idle sensor 
+    /************************************************************************/
+    virtual void scheduleIdleSensor();
+
+    /************************************************************************/
+    /* Set up and start the timer sensor 
+    /************************************************************************/
+    virtual void scheduleTimerSensor();
+
+    /************************************************************************/
+    /* The idle sensor
+    /************************************************************************/
     SoIdleSensor *idle;
+
+    /************************************************************************/
+    /* The timer sensor
+    /************************************************************************/
     SoTimerSensor *timer;
+
+    /************************************************************************/
+    /* Flag to indicate whether the scheduler is started already or not
+    /************************************************************************/
     bool scheduled;
+
+    /************************************************************************/
+    /* Holds the configured schedule mode (currently either timer or idle)
+    /************************************************************************/
     MODE mode;
+
+    /************************************************************************/
+    /* The update rate for the timer sensor
+    /************************************************************************/
     float updateRate;
-    
+
+    /************************************************************************/
+    /* The library handle to the gui binding. hModule is defined in OS.h and implemented accordingly to the used operating system.
+    /************************************************************************/
     hModule libHandle;
 
 private:

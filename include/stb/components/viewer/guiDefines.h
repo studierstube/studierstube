@@ -33,6 +33,11 @@
 #ifndef _GUIDEFINES_H_
 #define _GUIDEFINES_H_
 
+
+#define USE_SOWIN 1
+
+
+
 #ifdef USE_SOQT
 
 #ifdef WIN32

@@ -74,14 +74,16 @@ SoTrackedDisplayControlMode::activate()
     stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-        stb::Kernel::getInstance()->log("failed to load event system\n");
+        //FIXME: insert log message as soon as the logger is done
+//        stb::Kernel::getInstance()->log("failed to load event system\n");
         return false;
     }
 
     tre=event->createSoTrakEngine();
     if(!tre)
     {
-        stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+        //FIXME: insert log message as soon as the logger is done
+//        stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
         return false;
     }
     tre->key.set1Value(0,displayTrackerKey.getValue());

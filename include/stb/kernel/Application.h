@@ -39,8 +39,9 @@
 
 BEGIN_NAMESPACE_STB
 
-/**
-*	
+/**@ingroup kernel
+*
+* 
 */
 class STB_API Application : public Component
 {
@@ -50,11 +51,21 @@ public:
 	*/
 	virtual ~Application();
 
+    /************************************************************************/
+    /* Updates the Application. update() is called by the ComponentManager during it's update.
+    /************************************************************************/
 	virtual void update();
 
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
     virtual void registerScene();
 
-    static const char* getBaseTypeID();
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
+    static const char* getBaseTypeID(){return "Application";};
+
 protected:	
     /**
     *     The Constructor	

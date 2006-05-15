@@ -43,8 +43,9 @@ class ComponentRetriever;
 class ComponentInfo;
 class Component;
 class Application;
-/**
-*	
+/**@ingroup kernel
+*
+* 
 */
 class STB_API ComponentManager
 {
@@ -59,22 +60,58 @@ public:
 	*/
 	~ComponentManager();
 
+    /************************************************************************/
+    /* Add a Component using it's ComponentInfo description object
+    /************************************************************************/
 	void addComponent(ComponentInfo* compInfo);
 
+    /************************************************************************/
+    /* Loads a specific Component, which is defined by it's name.
+     * if the Component is already loaded the function does only return a pointer a pointer to it.
+    /************************************************************************/
     Component* load(std::string compName);
 
-	///// Checks if new apps should be downloaded and started or if running apps should be stopped and destroyed.
+	/************************************************************************
+	* Updates the ComponentManager during the kernel's update traversal, 
+    * which will in turn update all currently the loaded applications. 
+	/************************************************************************/
 	void update(); 
     
 protected:
+    /************************************************************************/
+    /* List of all loaded Component's and ComopnentThread's - Notice: The Applications are stored in 'appList'
+    /************************************************************************/
 	std::vector<stb::Component*> compList;
+
+    /************************************************************************/
+    /* List of all Loaded Applications
+    /************************************************************************/
 	std::vector<stb::Application*> appList;
+
+    /************************************************************************/
+    /* List of all ComponentInfos which are not loaded yet                                                                     */
+    /************************************************************************/
     std::vector<stb::ComponentInfo*> demandList;
+
+    /************************************************************************/
+    /* This is a temporary list of Component's. A Component will be initialized only during the ComponentManagers
+     * update (which is trigger using either coin's idle or timer sensor). If Component is created before or after the update it will be stored in the initList until the next update call.
+    /************************************************************************/
     std::vector<stb::Component*> initList;
+
+    /************************************************************************/
+    /* The ComponentRetriever is used to create Component from a ComponentInfo.
+    /************************************************************************/
 	ComponentRetriever *compRetriever;
-	int appListSize;
-    int initListSize;
+
+    /************************************************************************/
+    /* Initializes a Component and stores it in either appList or compList.
+    /************************************************************************/
     bool initComponent(Component *comp);
+
+    /************************************************************************/
+    /* Checks if a Component is already in either the compList or the appList                                                                     */
+    /************************************************************************/
     stb::Component* isLoaded(std::string compName);
 
 private:

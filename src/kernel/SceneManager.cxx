@@ -42,7 +42,8 @@ SceneManager::SceneManager()
    root=new SoSeparator();
 
    sceneRoot=new SoSeparator();
-   trackRoot=new SoSeparator();
+   //place holder for 'SoOpenTrackerSource' (see event)
+   SoSeparator* trackRoot=new SoSeparator();
    displayRoot=new SoSeparator();
 
    //set up the scene graph
@@ -105,25 +106,9 @@ SceneManager::setDisplay(SoGroup *display)
     
     if(display->getNumChildren()>0)
     {
-        touchRoot=((SoGroup*)display)->getChild(0);
+        touchRoot=(SoNode*)displayRoot;
     }
 }
 
-void
-SceneManager::setTouchRoot(TOUCHROOT touchNode)
-{
-	switch(touchNode)
-	{
-	    case ROOT:
-		    touchRoot=root;
-		    break;
-	    case SCENE:
-		    touchRoot=sceneRoot;
-		    break;
-	    case DISPLAY:
-		    touchRoot=displayRoot;
-		    break;
-	}
-}
 
 END_NAMESPACE_STB

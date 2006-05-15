@@ -55,11 +55,7 @@ ComponentInfo::setHModule(hModule aLibHandle)
     libHandle = aLibHandle;
 }
 
-void 
-ComponentInfo::setTypeID(stb::string type)
-{
-    typeID=type;
-}
+
 
 ComponentInfo::AVAILABILITY 
 ComponentInfo::getAvailability()
@@ -74,11 +70,12 @@ ComponentInfo::setAvailability(AVAILABILITY avl)
 }
 
 void 
-ComponentInfo::parseConfiguration(TiXmlElement* element)
+ComponentInfo::readConfiguration(TiXmlElement* element)
 {
     const char  *_lib           = element->Attribute("lib"),
                 *_name          = element->Attribute("name"),
                 *_availability  =element->Attribute("availability");
+    typeID=element->Value();
     if(_lib)
         libName=_lib;
     if(_name)

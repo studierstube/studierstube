@@ -38,13 +38,11 @@
 
 BEGIN_NAMESPACE_STB
 
-// class Kernel;
-
-/**
-*	
-*/
 class ComponentInfo;
-
+/**@ingroup kernel
+*
+* 
+*/
 class STB_API Component
 {
 public:
@@ -53,32 +51,61 @@ public:
 	*/
 	virtual ~Component();
 
-	/// Called before the application is destructed.
+    /************************************************************************/
+    /* Called once during the ComponentManager's update function, right before the Component is added to the ComponentManager
+     * Override init() to retrieve parameters or initialize the Component itself or other Components through the ComponentManager
+    /************************************************************************/
 	virtual bool init() = 0;
 
-	/// Called before the application is destructed.
+	/************************************************************************/
+	/* Called before the Component is destructed.
+	/************************************************************************/
 	virtual void shutDown() = 0;
 
-    virtual void setParameter(stb::string key, std::string value);
 
+
+    /************************************************************************/
+    /* Set's the Component's info. object.
+    /************************************************************************/
     virtual void setComponentInfo(ComponentInfo* info);
 
+    /************************************************************************/
+    /* Calls setParameter for all Component specific parameters.
+    /************************************************************************/
     virtual void retrieveParameter();
 
+    /************************************************************************/
+    /* Returns the ComponentInfo object.
+    /************************************************************************/
     virtual ComponentInfo* getInfo(){return compInfo_;}
 
+    /************************************************************************/
+    /* Returns the Component's typeI, which is set using the xml.elements value.
+     * 
+    /************************************************************************/
     virtual stb::string getTypeID();
 
-    static const char* getBaseTypeID();
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
+    static const char* getBaseTypeID(){return "Component";}
+
 protected:	
     /**
     *     The Constructor	
     */
     Component();
 
+    /************************************************************************/
+    /* retrieves the component's parameters from the config. file
+    /************************************************************************/
+    virtual void setParameter(stb::string key, std::string value);
+
 	Kernel		*kernel_;
 	ComponentInfo	*compInfo_;
     bool isInit;
+
+
 private:
 	
 };// class 

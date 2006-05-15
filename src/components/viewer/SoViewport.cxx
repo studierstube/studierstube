@@ -52,7 +52,6 @@ SoViewport::initClass()
     SO_NODE_INIT_CLASS(SoViewport, SoNode, "SoNode");
 }
 
-
 SoViewport::SoViewport(void)
 {
 	SO_NODE_CONSTRUCTOR(SoViewport);

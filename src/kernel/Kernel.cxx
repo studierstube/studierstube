@@ -62,18 +62,15 @@ Kernel::Kernel()
 {
     ACE::init();
     SoDB::init();
-    // 
-    logMode=OFF;
-	logFile="kernelLog.txt";
-    //
+    //additional coin nodes
     SoStbScene::initClass();
-    config=new stb::Config();
+    //
     scheduler= new stb::Scheduler();
     sceneManager= new stb::SceneManager();
     componentManager= new stb::ComponentManager();
-
-    //////
-    kernel_config_file = "kernel.xml";
+    config=new stb::Config();
+    //
+    kernel_config_file = "kernel.xml"; //default kernel config
 }
 
 Kernel::~Kernel()
@@ -95,22 +92,13 @@ Kernel::getInstance()
     return instance;
 }
 
-stb::string
-Kernel::findConfigFile(stb::string cfg_file) {
-#ifdef LINUX
+stb::string 
+Kernel::getConfig(stb::string config)
+{
     using namespace std;
     ostringstream tmp;
-    tmp << base_dir << "/" << cfg_file;
+    tmp << base_dir << "/" << config;
     return tmp.str();
-#endif
-    
-    return cfg_file;
-}
-
-stb::string 
-Kernel::getKernelConfig(int , char**)
-{
-    return findConfigFile(kernel_config_file);
 }
 
 //
@@ -125,54 +113,27 @@ Kernel::start(int argc, char* argv[])
     
     // extract application base directory name as search path
     // only useful for linux
-#ifdef LINUX
     if (argc > 1) {
         base_dir = stb::string(argv[1]);
     } else {
         base_dir = ".";
     }
     std::cerr << "BASEDIR = " << base_dir << std::endl;
-#endif
+    ////////////////////////////////////////////////////////
+    stb::string kernelConfigFile=getConfig(kernel_config_file);
+    // read the kernel's configuration file
+    config->readKernelConfig(kernelConfigFile);
 
-    stb::string kernelConfigFile=getKernelConfig(argc,argv);
-    config->parseXML(kernelConfigFile);
     scheduler->init();
     scheduler->mainLoop();
 }
 
-//static
+//
 void 
 Kernel::stop()
 {
 }
 
-//////////////////////////////////////// LOGGING ////////////////////////
-void
-Kernel::log(stb::string nStr)
-{
-	//printf("%s",nStr.c_str());
-	logPrint(nStr);
-}
-
-void 
-Kernel::logDebug(stb::string nStr)
-{
-#ifdef _DEBUG
-	logPrint(nStr);
-#endif
-}
-
-void
-Kernel::logEx(const char* nStr, ...)
-{
-    char tmpString[1024]; 
-    va_list marker;
-
-    va_start(marker, nStr);
-    vsprintf(tmpString, nStr, marker);
-
-	logPrint(nStr);
-}
 ////////////////////////////////////////////////////////////////
 
 void
@@ -183,24 +144,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
     while(attribute) //////////// kernel's parameter
     {
         ///////////////// logMode /////////////////
-        if(!stb::stricasecmp(attribute->Name(),"logMode"))
-        {
-            if(!stb::stricasecmp(attribute->Value(),"file"))
-                logMode=FILE;		
-            else if(!stb::stricasecmp(attribute->Value(),"console"))
-                logMode=CONSOLE;
-            else if(!stb::stricasecmp(attribute->Value(),"off"))
-                logMode=OFF;
-        }
-        ///////////////// logFile /////////////////
-        else if(!stb::stricasecmp(attribute->Name(),"logFileName"))
-        {
-            logFile=attribute->Value();
-        }
-        else 
-        {
-            scheduler->parseConfiguration(attribute);
-        }
+        scheduler->readConfiguration(attribute);
 	    /////////////////// ------- /////////////////
 	    ////else if(!stricmp(attribute->Name( 00000000000000000000000000000000000000000000000000000000000000000000000),"----"))
 	    ////{		
@@ -217,11 +161,6 @@ Kernel::update( void * data, SoSensor * /*sensor*/)
 }
 
 
-void 
-Kernel::addComponent(ComponentInfo* compInfo)
-{
-    componentManager->addComponent(compInfo);
-}
 
 stb::SceneManager* 
 Kernel::getSceneManager()

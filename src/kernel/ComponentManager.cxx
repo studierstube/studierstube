@@ -31,6 +31,7 @@
 /* ======================================================================= */
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/Component.h>
+#include <stb/kernel/ComponentThread.h>
 #include <stb/kernel/Application.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/ComponentRetriever.h>
@@ -43,12 +44,6 @@ BEGIN_NAMESPACE_STB
 ComponentManager::ComponentManager()
 {
 	compRetriever=new stb::ComponentRetriever();
-
-#pragma message(">>> daniel2denis: do we really need this 'appListSize' ?")
-	appListSize=0;
-
-#pragma message(">>> daniel2denis: do we really need this 'initListSize' ?")
-    initListSize=0;
 }
 
 ComponentManager::~ComponentManager()
@@ -60,20 +55,19 @@ void
 ComponentManager::update()
 {
     // init all new components
-    if(initListSize>0)
+    if(initList.size()>0)
     {
-        for(int i=0;i<initListSize;i++)
+        for(int i=0;i<initList.size();i++)
         {
             Component* newComp=initList[i];
             if(!initComponent(newComp))
                 initList[i]=NULL;
         }
         initList.clear();
-        initListSize=0;
     }
 
     // update application list
-    for(int i=0;i<appListSize;i++)
+    for(int i=0;i<appList.size();i++)
     {
         appList[i]->update();
     }
@@ -89,9 +83,9 @@ ComponentManager::initComponent(Component *comp)
         if(id==Application::getBaseTypeID())
         {
             appList.push_back((Application*)comp);
-            appListSize++;
         }
-        else if(id==Component::getBaseTypeID())
+        else if(id==Component::getBaseTypeID()
+              ||id==ComponentThread::getBaseTypeID())
             compList.push_back(comp);
         return true;
     }
@@ -114,7 +108,6 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
                 return;
             }
             initList.push_back(newComp);
-            initListSize++;
             break;
     }
 }

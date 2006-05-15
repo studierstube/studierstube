@@ -60,4 +60,8 @@ extern "C"
 	executeStudierstube(int argc, char** argv);
 }
 
+/**
+* @defgroup kernel Kernel Classes
+*/
+
 #endif//

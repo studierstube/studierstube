@@ -93,7 +93,7 @@ SchedulerBase::schedule()
 }
 
 void 
-SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
+SchedulerBase::readConfiguration(TiXmlAttribute* attribute)
 {
 	if(!stb::stricasecmp(attribute->Name(),"updateMode"))
 	{
@@ -111,7 +111,8 @@ SchedulerBase::parseConfiguration(TiXmlAttribute* attribute)
 void
 SchedulerBase::scheduleIdleSensor()
 {
-    Kernel::getInstance()->logDebug("Info: kernel->schedule idle \n");
+    //Kernel::getInstance()->logDebug("Info: kernel->schedule idle \n");
+    // FIXME: insert log message as soon as the logger is done
 	idle= new SoIdleSensor();
 	idle->setFunction(Kernel::update);
 	idle->schedule();
@@ -120,7 +121,8 @@ SchedulerBase::scheduleIdleSensor()
 void
 SchedulerBase::scheduleTimerSensor()
 {
-	Kernel::getInstance()->logDebug("Info: kernel->schedule timer \n");
+	//Kernel::getInstance()->logDebug("Info: kernel->schedule timer \n");
+    //FIXME: insert log message as soon as the logger is done
 	timer=new SoTimerSensor();
 	timer->setFunction(Kernel::update);
 	timer->setInterval(updateRate);

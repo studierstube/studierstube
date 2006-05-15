@@ -43,6 +43,19 @@ class SoNode;
 
 
 BEGIN_NAMESPACE_STB
+/**@ingroup kernel
+* The SceneManager holds studierstube's main scene graph and implements functions to 
+* get parts of it and set specific nodes in designated subgraphs. 
+*    
+*              root(SoSeparator*)	
+*               |
+*       |--------------------------------|
+*    sceneRoot(SoSeparator*)	   displayRoot(SoSeparator*)	
+*       |                                |
+*  |-----------|-----|                 SoDisplay
+* trackRoot   
+*
+*/
 class STB_API SceneManager
 {
 public:
@@ -56,26 +69,58 @@ public:
 	*/
 	~SceneManager();
 
+    /************************************************************************/
+    /* Calls touch() on the node defined by the 'touchRoot' variable. 
+    /************************************************************************/
 	void update();
 
-	SoSeparator* getDisplayRoot();
+    /************************************************************************/
+    /* Adds display to the 'displayRoot' node. 
+     * Sets the 'touchRoot' pointer to point to the 'displayRoot' node.
+    /************************************************************************/
+    void setDisplay(SoGroup *display);
+
+    /************************************************************************/
+    /* Returns a pointer to all displays root nodeS
+    /************************************************************************/
+    SoSeparator* getDisplayRoot();
+
+    /************************************************************************/
+    /* Adds 'appRoot' to the applications sceneRoot node.
+    /************************************************************************/
+    void registerApp(SoSeparator *appRoot);
+
+    /************************************************************************/
+    /* Returns a pointer to the applications scene root node.
+    /************************************************************************/
     SoSeparator* getSceneRoot();
 
-    void setDisplay(SoGroup *display);
+    /************************************************************************/
+    /* Replaces the first child of the applications scene root node. 
+    /************************************************************************/
     void setTrackerSource(SoNode *otSource);
-    void registerApp(SoSeparator *appRoot);
+
 protected:	
+    /************************************************************************/
+    /* Studierstube's root node
+    /************************************************************************/
 	SoSeparator* root;
+    
+    /************************************************************************/
+    /* A pointer to the node which is 'touched' during an update. 
+    *  Default = root. 
+    /************************************************************************/
 	SoNode* touchRoot;
-	SoSeparator* trackRoot;
+
+    /************************************************************************/
+    /* A pointer to all the applications root node.
+    /************************************************************************/
 	SoSeparator* sceneRoot;
+
+    /************************************************************************/
+    /*  A pointer to all the SoDisplay's (see viewer) root node.
+    /************************************************************************/
 	SoSeparator* displayRoot;
-    enum TOUCHROOT{
-        ROOT=0,
-        SCENE=1,
-        DISPLAY=2
-    };
-    void setTouchRoot(TOUCHROOT touchNode);
 
 private:
 	

@@ -69,8 +69,9 @@ Event::~Event()
 /// Called before the application is destructed.
 bool 
 Event::init()
-{    
-    stb::Kernel::getInstance()->log("Event::init\n");
+{   
+    //FIXME: insert log message as soon as the logger is done      
+//    stb::Kernel::getInstance()->log("Event::init\n");
     if(isInit)
         return isInit;
     isInit=true;
@@ -100,7 +101,7 @@ Event::init()
 
     SoOpenTrackerSource *otSource=new SoOpenTrackerSource;
     otSource->ref();
-    otSource->configuration.setValue(stb::Kernel::getInstance()->findConfigFile(configFile).c_str());
+    otSource->configuration.setValue(stb::Kernel::getInstance()->getConfig(configFile).c_str());
 
 	// FIXME: This looks hardcoded instead of retrieved from the config file. 
 	// unless it is changed on runtime and this is only initialization. Mendez 20060315

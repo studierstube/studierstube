@@ -76,7 +76,7 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 	hModule libHandle;
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
-		logPrintE("ERROR: couldn't load" + libName + "\n");
+		logPrintE("ERROR: couldn't load " + libName + "\n");
         return NULL;
 	}
 	compInfo->setHModule(libHandle);

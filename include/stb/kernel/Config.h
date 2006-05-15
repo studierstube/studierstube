@@ -38,22 +38,36 @@ class TiXmlElement;
 #include <stb/base/string.h>
 
 BEGIN_NAMESPACE_STB
-
+class Kernel;
+/**@ingroup kernel
+* The Config class reads the kernel's configuration file and 'forwards' 
+* the xml-elements depending on their xml-tag to their appropriate object.
+* the config supports the following xml tags:
+* 
+*/
 class Config{
 public:
+    /************************************************************************/
+    /* The Constructor
+    /************************************************************************/
     Config();
 
+    /************************************************************************/
+    /* The Destructor
+    /************************************************************************/
     ~Config();
 
-    // parses the config file
-    bool parseXML(stb::string nFileName);
+    /*
+    * Read the Kernel's configuration file.
+    */
+    bool readKernelConfig(stb::string nFileName);
 
 protected:
     /*
-    *
+    * Parses an specific element in the kernels configuration. This function is called with each element in the kernel's configuration file as argument.
+    * Depending on the element's value, the readConfiguration() function for the specific element will be called.
     */
     bool parseXMLElement(TiXmlElement* element);
-
 };
 
 

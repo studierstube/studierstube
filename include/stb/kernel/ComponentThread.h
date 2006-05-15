@@ -38,8 +38,9 @@
 class ACE_Thread_Mutex;
 BEGIN_NAMESPACE_STB
 
-/**
-*	
+/**@ingroup kernel
+*
+* 
 */
 class STB_API ComponentThread : public Component
 {
@@ -55,40 +56,45 @@ public:
     * sure to call this method from your subclasses start method to start the
     * thread !*/
     virtual void start();    
+
     /**
-    * closes the module. In this implementation it stops the thread. Be sure
+    * Closes the module. In this implementation it stops the thread. Be sure
     * to call this method from your subclasses close method to stop the
     * thread !*/
     virtual void close();     
 
-    static const char* getBaseTypeID();
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
+    static const char* getBaseTypeID(){return "ComponentThread";}
+
 protected:	
     /**
     *     The Constructor	
     */
     ComponentThread();
 
-    /// handle to module specific thread. This is a little bit tricky as we
+    /// Handle to module specific thread. This is a little bit tricky as we
     /// don't use the ACE definition but the same type.
     void * threadHandle;
 
     /// Mutex to implement lock, unlock behavior
     ACE_Thread_Mutex * mutex;
 
-    /** enters a critical section. Use this method to protect your operations
+    /** Enters a critical section. Use this method to protect your operations
     * from another thread. This is not a recursive lock, do not call it
     * several times without unlocking !*/
     void lock();
-    /** leaves a critical section. Use this method to release the protection.
+    /** Leaves a critical section. Use this method to release the protection.
     */
     void unlock();
 
-    /** the work method for the module thread. This is executed by the new
+    /** The work method for the module thread. This is executed by the new
     * module thread. In this class it does nothing but subclasses should
     * override it to add their implementation. */
     virtual void run(){};    
 
-    /** static thread function passed to the actual thread. This calls
+    /** Static thread function passed to the actual thread. This calls
     * then run on the right instance. Do not use this yourself. */
     static void thread_func( void * data )
     {

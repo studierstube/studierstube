@@ -37,7 +37,7 @@ Application::Application()
 
 Application::~Application()
 {
-    printf("delete application");
+   
 }
 
 void 
@@ -51,8 +51,3 @@ Application::registerScene()
 {
 }
 
-const char*
-Application::getBaseTypeID()
-{
-    return "Application";
-}
