@@ -46,7 +46,6 @@
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoVideoBackground.h>
-#include <stb/components/viewer/SoVideoPlane.h>
 #include <stb/components/viewer/SoViewport.h>
 
 
@@ -111,7 +110,6 @@ Viewer::init()
 
     SoViewport::initClass();
     SoVideoBackground::initClass();
-    SoVideoPlane::initClass();
 
     //get viewer's parameter
     retrieveParameter();

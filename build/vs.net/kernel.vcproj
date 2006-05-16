@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
+				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)/include&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;STB_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -71,7 +71,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-D_WIN32_WINNT=0x0400"
-				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
+				AdditionalIncludeDirectories="&quot;$(TINYXMLROOT)/include&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(ACEROOT)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -129,7 +129,13 @@
 				RelativePath="..\..\include\stb\kernel\Kernel.h">
 			</File>
 			<File
+				RelativePath="..\..\include\stb\kernel\MessagesDefines.h">
+			</File>
+			<File
 				RelativePath="..\..\src\kernel\StbLogger.cpp">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\StbLogger.h">
 			</File>
 			<File
 				RelativePath="..\..\src\kernel\Studierstube.cxx">
@@ -159,6 +165,9 @@
 			<Filter
 				Name="Scheduler"
 				Filter="">
+				<File
+					RelativePath="..\..\include\stb\kernel\Scheduler.h">
+				</File>
 				<File
 					RelativePath="..\..\src\kernel\SchedulerBase.cxx">
 				</File>
@@ -237,12 +246,6 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
-			<File
-				RelativePath="..\..\include\stb\kernel\MessagesDefines.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\kernel\StbLogger.h">
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

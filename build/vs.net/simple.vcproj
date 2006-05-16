@@ -2,8 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="magicLens"
+	Name="simpleApp"
 	ProjectGUID="{95C6CB53-B671-49FB-8F14-B543C9C63098}"
+	RootNamespace="simpleApp"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -19,8 +20,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(GLEWROOT)\include&quot;;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -32,14 +33,14 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib opengl32.lib glew32.lib"
-				OutputFile="$(STB4ROOT)/bin/win32/magiclensd.dll"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/applications/simpled.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(GLEWROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="Debug/magiclensd.pdb"
+				ProgramDatabaseFile="Debug/simpled.pdb"
 				SubSystem="2"
-				ImportLibrary="$(STB4ROOT)/lib/win32/magiclensd.lib"
+				ImportLibrary="$(STB4ROOT)/lib/win32/applications/simpled.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -70,7 +71,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(GLEWROOT)\include&quot;;&quot;$(CG_INC_PATH)&quot;"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;STB_EXPORTS;COIN_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -81,16 +82,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkernel.lib coin2.lib opengl32.lib glew32.lib"
-				OutputFile="$(STB4ROOT)/bin/win32/magiclens.dll"
+				AdditionalDependencies="stbkernel.lib coin2.lib"
+				OutputFile="$(STB4ROOT)/bin/win32/applications/simple.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(CG_LIB_PATH)&quot;;&quot;$(GLEWROOT)/lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="Release/$(ProjectName).pdb"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(STB4ROOT)/lib/win32/magiclens.lib"
+				ImportLibrary="$(STB4ROOT)/lib/win32/applications/simple.lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -122,28 +123,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\..\src\components\magicLens\CgFboManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\MagicLens.cxx">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoMagicLens.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoMagicLensKit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoMagicScene.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoMagicSceneKit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoMagicStylesKit.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\components\magicLens\SoXRayKit.cpp">
+				RelativePath="..\..\..\src\applications\simple\SimpleApp.cxx">
 			</File>
 		</Filter>
 		<Filter
@@ -151,30 +131,12 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\..\include\stb\components\magicLens\CgFboManager.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\MagicLens.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoMagicLens.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoMagicLensKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoMagicScene.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoMagicSceneKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoMagicStylesKit.h">
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\magicLens\SoXRayKit.h">
+				RelativePath="..\..\..\include\stb\applications\simple\SimpleApp.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\bin\win32\applications\scene.iv">
+		</File>
 	</Files>
 	<Globals>
 		<Global
