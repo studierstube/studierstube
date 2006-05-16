@@ -177,8 +177,13 @@ void SoOpenTrackerSource::runTracker( void )
     {
         //assert(context);
         if (context) {
+#ifdef USE_OT_1_1#
+            context->pushStates();
+            context->pullStates();
+#else
             context->pushEvents();
             context->pullEvents();
+#endif
             if(context->stop() && !shouldStop.getValue()) shouldStop.setValue(TRUE);
          }
     }
@@ -200,10 +205,24 @@ public:
     };
 };
 
-void SoOpenTrackerSource::processEvent( const ot::Event * state, const NameStringMap * attributes )
+#ifdef USE_OT_1_1
+    void SoOpenTrackerSource::processEvent( const ot::State * state, const NameStringMap * attributes )
+#else
+    void SoOpenTrackerSource::processEvent( const ot::Event * state, const NameStringMap * attributes )
+#endif
 {
     SoInputEvent event(this);
 
+#ifdef USE_OT_1_1
+    // copy the state to the event using the EventSchema
+    EventSchema schema(event);
+    schema.position( state->position );
+    schema.orientation( state->orientation );
+    schema.confidence( state->confidence );
+    schema.time( state->time / 1000.0 );
+    for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
+        schema.button( i, !!(state->button & j) );
+#else
     // copy the OpenTracker event to the Inventor event using the EventSchema
     EventSchema schema(event);
     schema.position( state->getPosition() );
@@ -212,7 +231,7 @@ void SoOpenTrackerSource::processEvent( const ot::Event * state, const NameStrin
     schema.time( state->time / 1000.0 );
     for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
         schema.button( i, !!(state->getButton() & j) );
-
+#endif
     // copy attributes, if present
     if( attributes )
         std::for_each(attributes->begin(), attributes->end(), Setter(event));

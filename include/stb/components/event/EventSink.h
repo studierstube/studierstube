@@ -90,8 +90,11 @@ public:
      * @param generator reference to the EventGenerator object that
      *        notified the EventObserver.
      */
+#ifdef USE_OT_1_1
+    virtual void onEventGenerated( ot::State& event, ot::Node& generator);
+#else
     virtual void onEventGenerated( ot::Event& event, ot::Node& generator);
-
+#endif
     NameStringMap attributes;
 };
 

@@ -65,12 +65,14 @@ public:
         event.set("event.position", vec);
     };
 
+#ifdef USE_OT_1_1
+#else
         /// Sets the value of the "position" key (for OpenTracker-1.2)
     void position(const std::vector<float> & vec)
     {
         position(SbVec3f(&vec[0]));
     }
-
+#endif
 	/// Transforms the value of the "orientation" key to SbRotation and returns it
     const SbRotation orientation(void)
     {
@@ -82,13 +84,14 @@ public:
     {
         event.set("event.orientation", rot);
     };
-
+#ifdef USE_OT_1_1
+#else
 	/// Sets the value of the "orientation" key (for OpenTracker-1.2)
     void orientation(const std::vector<float> & rot)
     {
         event.set("event.orientation", SbRotation(&rot[0]));
     };
-
+#endif
 	/// Transforms the value of the "confidence" key to float and returns it
     float confidence(void)
     {

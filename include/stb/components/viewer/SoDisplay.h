@@ -48,14 +48,13 @@
 #include <stb/components/viewer/guiDefines.h>
 #include SOGUICOMPONENT_H
 #include <vector>
-    //	SoDisplay
+//	SoDisplay
 //=============
-// Fields:	* root (SoSeparator - the viewer's root node)
-//			* content (SoSeparator - the display's content)
-//			* stbCameraList (list of stbCameras used in the associated viewer) 
-
 class SoStudierstubeViewer;
-
+/************************************************************************/
+/* SoDisplay is the base class for a single viewer. 
+ * An SoDisplay is used to  
+/************************************************************************/
 class SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);
@@ -168,12 +167,24 @@ public:
      */
     void createViewer();
     
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
 	SoStudierstubeViewer* getViewer();
 
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
     static void exitViewer(void*, SoGuiComponent* viewer);
 
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
     bool find(SoNode *node);
 
+    /************************************************************************/
+    /*                                                                      */
+    /************************************************************************/
     SoPerspectiveCamera* getReferenceCamera();
 
  protected:

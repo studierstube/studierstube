@@ -60,7 +60,11 @@ public:
     /// station number
     int number;
     /// the state that is stored
+#ifdef USE_OT_1_1
+    ot::State state;
+#else
     ot::Event state;
+#endif
     /// a flag to indicate whether it was changed during processing
     bool changed;
 

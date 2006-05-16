@@ -101,7 +101,12 @@ protected:
     SoFieldSensor confidenceSensor;
 
     /// state used for OpenTracker event processing
-    ot::Event state;
+#ifdef USE_OT_1_1
+    ot::State state;
+#else
+   ot::Event state;
+#endif
+    
 
     /** constructor gets all the data and initializes the field sensors to the right callback functions
      * and data object as this.

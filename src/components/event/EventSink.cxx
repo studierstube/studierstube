@@ -51,8 +51,11 @@ int EventSink::isEventGenerator()
 {
     return 1;
 }
-
-void EventSink::onEventGenerated( ot::Event& event, ot::Node& )
+#ifdef USE_OT_1_1
+    void EventSink::onEventGenerated( ot::State& event, ot::Node& )
+#else
+    void EventSink::onEventGenerated( ot::Event& event, ot::Node& )
+#endif
 {
     parent->processEvent( &event, this );
     updateObservers( event );

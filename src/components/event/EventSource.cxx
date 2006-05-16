@@ -77,9 +77,15 @@ void EventSource::positionCB( void * data, SoSensor * sensor)
     EventSource * self = (EventSource *) data;
     self->state.timeStamp();
     SoSFVec3f * vector = (SoSFVec3f *)((SoFieldSensor *)sensor)->getAttachedField();
+#ifdef USE_OT_1_1
+    vector->getValue().getValue(self->state.position[0], 
+                                self->state.position[1], 
+                                self->state.position[2]);
+#else
     vector->getValue().getValue( self->state.getPosition()[0], 
                                  self->state.getPosition()[1], 
                                  self->state.getPosition()[2]);
+#endif
     self->changed = true;
 }
 
@@ -90,10 +96,17 @@ void EventSource::orientationCB( void * data, SoSensor * sensor)
     self->state.timeStamp();
     SoSFRotation * rotation = (SoSFRotation *)((SoFieldSensor *)sensor)->getAttachedField();
     // @todo check if the ordering of the quaternion pars is correct !!!
+#ifdef USE_OT_1_1
+    rotation->getValue().getValue(  self->state.orientation[0], 
+                                    self->state.orientation[1], 
+                                    self->state.orientation[2], 
+                                    self->state.orientation[3]);
+#else
     rotation->getValue().getValue( self->state.getOrientation()[0], 
                                    self->state.getOrientation()[1], 
                                    self->state.getOrientation()[2], 
                                    self->state.getOrientation()[3]);
+#endif
     self->changed = true;
 }
 
@@ -102,7 +115,11 @@ void EventSource::buttonCB( void * data, SoSensor * sensor)
     EventSource * self = (EventSource *) data;
     self->state.timeStamp();
     SoSFInt32 * int32 = (SoSFInt32 *)((SoFieldSensor *)sensor)->getAttachedField();
+#ifdef USE_OT_1_1
+    self->state.button = int32->getValue();
+#else
     self->state.setButton(int32->getValue());
+#endif
     self->changed = true;
 }
 
@@ -111,7 +128,11 @@ void EventSource::confidenceCB( void * data, SoSensor * sensor)
     EventSource * self = (EventSource *) data;
     self->state.timeStamp();
     SoSFFloat * floatValue = (SoSFFloat *)((SoFieldSensor *)sensor)->getAttachedField();
+#ifdef USE_OT_1_1
+    self->state.confidence = floatValue->getValue();
+#else
     self->state.setConfidence(floatValue->getValue());
+#endif
     self->changed = true;
 }
 

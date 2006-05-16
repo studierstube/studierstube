@@ -290,8 +290,13 @@ public:
     /// interface from the SoOpenTrackerSource node to process input events
     void handleEvent( SoHandleEventAction * action  );
 
+#ifdef USE_OT_1_1
+    void processEvent( const ot::State * event, const EventSink * sink );
+#else
     /// interface from EventSink nodes to process OpenTracker events
     void processEvent( const ot::Event * event, const EventSink * sink );
+#endif
+
 };
 
 #endif //__EVENTMODULE_H__
