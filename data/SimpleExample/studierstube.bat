@@ -1,1 +1,1 @@
-studierstubed.exe kernel.xml
+studierstubed.exe

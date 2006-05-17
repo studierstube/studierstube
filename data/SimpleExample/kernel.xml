@@ -1,6 +1,6 @@
 <studierstube>
   <kernel 
-      guibinding="sosimple"
+      guibinding="sowin"
       updateMode="timer"
       logMode="console"
       updateRate="0.03333"/>
@@ -20,7 +20,7 @@
   
   <Component  name="Viewer"
 	      availability="ondemand"	
-	      lib="stbviewer_simple">
+	      lib="stbviewer">
     <Param  key   ="configFile" 
 	    value ="viewer.iv" />	
   </Component>
