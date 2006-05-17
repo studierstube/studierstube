@@ -103,10 +103,10 @@ void
 SceneManager::setDisplay(SoGroup *display)
 {
     displayRoot->addChild(display);
-    
+   
     if(display->getNumChildren()>0)
     {
-        touchRoot=(SoNode*)displayRoot;
+         touchRoot=(SoNode*)display->getChild(0);
     }
 }
 
