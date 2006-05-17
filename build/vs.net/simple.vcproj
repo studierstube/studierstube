@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="simpleApp"
+	Name="simple"
 	ProjectGUID="{95C6CB53-B671-49FB-8F14-B543C9C63098}"
 	RootNamespace="simpleApp"
 	Keyword="Win32Proj">
