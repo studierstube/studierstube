@@ -86,7 +86,9 @@ SoExtrusionKit::SoExtrusionKit()
 	// counterclockwise order and that they could be concave
 	SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
 	shapeHints->vertexOrdering=SoShapeHints::COUNTERCLOCKWISE;
-	shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
+	//shapeHints->vertexOrdering=SoShapeHints::UNKNOWN_ORDERING;
+	shapeHints->faceType=SoShapeHints::CONVEX;
+	shapeHints->shapeType=SoShapeHints::SOLID;
 
 	this->setUpConnections(TRUE, TRUE);
 }
