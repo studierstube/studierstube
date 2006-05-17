@@ -9,6 +9,13 @@ SoSeparator
 {
 	SoTransform
 	{
+		# move the tracked cube a little bit away
+		# from the center where the camera is...
+		translation -1 -1 -6
+	}
+
+	SoTransform
+	{
 		translation = USE tr.translation
 		rotation = USE tr.rotation
 	}

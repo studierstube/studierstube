@@ -42,9 +42,8 @@
 #include <windows.h>
 
 BEGIN_NAMESPACE_STB
-/**@ingroup kernel
-*
-* 
+/**
+*	
 */
 class SchedulerWin32 : public SchedulerBase
 {
@@ -59,44 +58,26 @@ public:
     */
     virtual ~SchedulerWin32();
 
-    /************************************************************************/
-    /* Read the gui binding configuration on windows systems
-     * currently supported bindings:
-     * @li SoWin
-     * @li SoQt
-     * @li SoGL
-    /************************************************************************/
     virtual void readConfiguration(TiXmlAttribute* attribute);
 
-    /************************************************************************/
-    /* Loads and starts the current configured gui binding 
-    /************************************************************************/
     virtual void init();
 
-    /************************************************************************/
-    /* Starts the Scheduler's main loop by calling the gui bindings main loop.
-    *  notice: you need to call 'init()' before you can call 'mainLoop().
-    /************************************************************************/
     virtual void mainLoop();
 
-protected:	
-    //////////// supported gui bindings
     virtual enum GUI_BINDING {
         SOQT=0,
         SOWIN=1,
-        SOGL=2
+		    SOSIMPLE=2
     };
+    GUI_BINDING getCurrentGuiBinding(){return curGuiBinding;}
+protected:	
     GUI_BINDING curGuiBinding;
-
-    //////////// load functions for all supported gui bindings
     void loadSoQt();
     void loadSoWin();
-	void loadSoGL();
-
-    //////////// main loop functions for all supported gui bindings
+	void loadSoSimple();
     void mainLoopSoWin();
     void mainLoopSoQt();
-	void mainLoopSoGL();
+	void mainLoopSoSimple();
 
 private:
 	

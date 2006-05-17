@@ -34,8 +34,8 @@
 #define _GUIDEFINES_H_
 
 
-#define USE_SOWIN 1
-
+#pragma message(">>> daniel2dennis: this should not be hardcoded but rather in the project settings...")
+//#define USE_SOWIN 1
 
 
 #ifdef USE_SOQT
@@ -80,7 +80,7 @@
 #define SoGuiRenderArea SoWinRenderArea
 #define SoGuiExaminerViewer SoWinExaminerViewer
 
-#elif USE_SOGL
+/*#elif USE_SOGL
 
 #define SOGUICOMPONENT_H <stb/sogl/SoGLComponent.h>
 #define SOGUI_H <stb/sogl/SoGL.h>
@@ -92,9 +92,25 @@
 #define GuiWidget HWND
 #define SoGuiCursor SoGLCursor
 #define SoGuiViewer SoGLViewer
-#define SoGuiFullViewer SoGLViewer
+#define SoGuiFullViewer SoGLFullViewer
 #define SoGuiRenderArea SoGLRenderArea
-#define SoGuiExaminerViewer SoGLExaminerViewer
+#define SoGuiExaminerViewer SoGLExaminerViewer*/
+
+#elif USE_SOSIMPLE
+
+#define SOGUICOMPONENT_H <stb/sosimple/SoSimpleExaminerViewer.h>
+#define SOGUI_H <stb/sosimple/SoSimple.h>
+#define SOGUI_CURSOR_H <stb/sosimple/SoSimpleCursor.h>
+#define SOGUI_EXAMINERVIEWER_H <stb/sosimple/SoSimpleExaminerViewer.h>
+
+#define SoGui SoSimple
+#define SoGuiComponent SoSimpleComponent
+#define GuiWidget HWND
+#define SoGuiCursor SoSimpleCursor
+#define SoGuiViewer SoSimpleViewer
+#define SoGuiFullViewer SoSimpleFullViewer
+#define SoGuiRenderArea SoSimpleRenderArea
+#define SoGuiExaminerViewer SoSimpleExaminerViewer
 
 #else // no window binding defined
 

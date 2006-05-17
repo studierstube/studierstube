@@ -62,8 +62,8 @@ SchedulerWin32::readConfiguration(TiXmlAttribute* attribute)
             curGuiBinding=SchedulerWin32::SOWIN;		
         else if(!stb::stricasecmp(attribute->Value(),"SoQt"))
             curGuiBinding=SchedulerWin32::SOQT;	
-		else if(!stb::stricasecmp(attribute->Value(),"SoGL"))
-			curGuiBinding=SchedulerWin32::SOGL;	
+		else if(!stb::stricasecmp(attribute->Value(),"SoSimple"))
+			curGuiBinding=SchedulerWin32::SOSIMPLE;	
     }
     //else if()
     //{
@@ -98,8 +98,10 @@ SchedulerWin32::loadSoWin()
     soGuiInitFunc = (void (*)(const char *, const char*)) 
         GetProcAddress(libHandle,"?init@SoWin@@SAPAUHWND__@@PBD0@Z");
     if(soGuiInitFunc == NULL)
-        ; // FIXME: insert log message as sremoved log 
+	{
+        // FIXME: insert log message as sremoved log 
         //Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
+	}
 
     //call SoGui::init 
     (*soGuiInitFunc)("Studierstube","SoWin"); 
@@ -107,15 +109,15 @@ SchedulerWin32::loadSoWin()
 
 
 void 
-SchedulerWin32::loadSoGL()
+SchedulerWin32::loadSoSimple()
 {
-    // FIXME: insert log message as sremoved log 
-	//Kernel::getInstance()->logDebug("INFO: load SoGL\n");
-	//
+  // FIXME: insert log message as sremoved log 
+  //
+  //Kernel::getInstance()->logDebug("INFO: load SoSimple\n");
 #ifdef _DEBUG   
-	std::string libFileName="SoGLd.dll";
+	std::string libFileName="SoSimpled.dll";
 #else
-	std::string libFileName="SoGL.dll";
+	std::string libFileName="SoSimple.dll";
 #endif	
 
 	libHandle = LoadLibrary(libFileName.c_str());
@@ -127,13 +129,15 @@ SchedulerWin32::loadSoGL()
 	//get pointer 
 	void (*soGuiInitFunc)(const char *, const char*)=NULL;
 	soGuiInitFunc = (void (*)(const char *, const char*)) 
-		GetProcAddress(libHandle, "init");
+		GetProcAddress(libHandle, "SoSimple_init");
 	if(soGuiInitFunc == NULL)
-        ; // FIXME: insert log message as sremoved log 
+	{
+        // FIXME: insert log message as sremoved log 
 		//Kernel::getInstance()->logEx("STB_ERROR: could not find init() in %s",libFileName.c_str());
+	}
 
 	//call SoGui::init 
-	(*soGuiInitFunc)("Studierstube", "SoGL"); 
+	(*soGuiInitFunc)("Studierstube", "SoSimple"); 
 }
 
 
@@ -147,8 +151,8 @@ SchedulerWin32::init()
         case SOQT:
             loadSoQt();
             break;
-		case SOGL:
-			loadSoGL();
+		case SOSIMPLE:
+			loadSoSimple();
 			break;
     }
     schedule();
@@ -164,12 +168,16 @@ SchedulerWin32::mainLoopSoWin()
 }
 
 void
-SchedulerWin32::mainLoopSoGL()
+SchedulerWin32::mainLoopSoSimple()
 {
 	void (*mainLoopFunc)();
-	mainLoopFunc = (void (*)()) GetProcAddress(libHandle,"?mainLoop");
-	(*mainLoopFunc)();
-
+	mainLoopFunc = (void (*)()) GetProcAddress(libHandle,"SoSimple_mainLoop");
+	if(mainLoopFunc)
+		(*mainLoopFunc)();
+	else
+	{
+	//	Kernel::getInstance()->logDebug("Error: SoSimple_mainLoop not found in DLL.\n");
+	}
 }
 
 void 
@@ -193,8 +201,8 @@ SchedulerWin32::mainLoop()
         case SOQT:
             mainLoopSoQt();
             break;
-		case SOGL:
-			mainLoopSoGL();
+		case SOSIMPLE:
+			mainLoopSoSimple();
 			break;
     }
 }
