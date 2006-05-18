@@ -35,16 +35,16 @@
 
 /*
  Setup Messages 
-	- start with the prefix "SETUP_"
+	- start with the prefix "LOG_SETUP_"
 
  Info Messages 
-	- start with the prefix "INFO_"
+	- start with the prefix "LOG_INFO_"
 
  Warnings 
-	- start with the prefix "WARNING_"
+	- start with the prefix "LOG_WARNING_"
 
  Error Messages 
-	- start with the prefix "ERROR_"
+	- start with the prefix "LOG_ERROR_"
 
 */
 

@@ -73,7 +73,7 @@ ComponentThread::start()
         0
         )==-1)
     { 
-        logPrintE("Spawning thread.\n"); 
+        logPrintI("Spawning thread.\n"); 
     }
 
 }    

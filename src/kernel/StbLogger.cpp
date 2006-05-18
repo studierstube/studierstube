@@ -34,6 +34,10 @@
 
 BEGIN_NAMESPACE_STB
 
+/*
+ * These are extra definitions mainly for convenience, so users dont have to call
+ * an instance of the StbLogger singleton
+ */
 void logPrint(stb::string message)
 {
 	StbLogger::getInstance()->printMessage(message.c_str());
@@ -146,6 +150,10 @@ void logPrintEAbort(const char *errorMessage, ...)
 	StbLogger::getInstance()->printErrorAndAbort(tmpString);
 }
 
+/*
+ * These are the actual class methods implementations of StbLogger
+ */
+
 StbLogger*	StbLogger::instance=NULL;
 
 StbLogger::StbLogger()
@@ -167,42 +175,75 @@ StbLogger *StbLogger::getInstance()
 void StbLogger::printMessage(const char *message)
 {
 	// We should be using ACE here
-
-	printf("%s",message);
-
+	switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("%s",message); break;
+		default: break;
+	}
 }
 
 void StbLogger::printDebug(const char *debugMessage)
 {
 	// We should be using ACE here
-//#ifdef _DEBUG
-	printf("    >>>>>>>>>> %s",debugMessage);
-//#endif //_DEBUG
-
+#ifdef _DEBUG
+	switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("DEBUG: %s",debugMessage); break;
+		default: break;
+	}
+#endif //_DEBUG
 }
 
 void StbLogger::printSetup(const char *setupMessage)
 {
 	// We should be using ACE here
-	printf("SETUP: %s",setupMessage);
+		switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("SETUP: %s",setupMessage); break;
+		default: break;
+	}
 }
 
 void StbLogger::printInfo(const char *infoMessage)
 {
 	// We should be using ACE here
-	printf("INFO : %s",infoMessage);
+	switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("INFO : %s",infoMessage); break;
+		default: break;
+	}
 }
 
 void StbLogger::printWarning(const char *warningMessage)
 {
 	// We should be using ACE here
-	printf("WARN : %s",warningMessage);
+	switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("WARN : %s",warningMessage); break;
+		default: break;
+	}
 }
 
 void StbLogger::printErrorAndContinue(const char *errorMessage)
 {
 	// We should be using ACE here
-	printf("ERROR: %s",errorMessage);
+	switch (logMode)
+	{
+		case OFF: break;
+		case FILE: /*Do Something here*/ break;
+		case CONSOLE: printf("ERROR: %s",errorMessage); break;
+		default: break;
+	}
 }
 
 void StbLogger::printErrorAndAbort(const char *errorMessage)

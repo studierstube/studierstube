@@ -71,7 +71,7 @@ bool
 Event::init()
 {   
     //FIXME: insert log message as soon as the logger is done      
-//    stb::Kernel::getInstance()->log("Event::init\n");
+	logPrintS("Event Initialized\n");
     if(isInit)
         return isInit;
     isInit=true;

@@ -31,6 +31,7 @@
 /* ======================================================================= */
 
 #include <stb/components/viewer/controlmode/SoTrackedDisplayControlMode.h>
+
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/event/event.h>
@@ -74,16 +75,14 @@ SoTrackedDisplayControlMode::activate()
     stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-        //FIXME: insert log message as soon as the logger is done
-//        stb::Kernel::getInstance()->log("failed to load event system\n");
+		stb::logPrintE("failed to load event system\n");
         return false;
     }
 
     tre=event->createSoTrakEngine();
     if(!tre)
     {
-        //FIXME: insert log message as soon as the logger is done
-//        stb::Kernel::getInstance()->log("Error: SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+		stb::logPrintE("SoTrackedDisplayControlMode could not get an SoTrackEngine\n");
         return false;
     }
     tre->key.set1Value(0,displayTrackerKey.getValue());

@@ -164,7 +164,7 @@ ComponentManager::load(std::string compName)
         }
     }
 
-    logPrintE("Error: unable to find " + compName + "\n");
+    logPrintE("unable to find " + compName + "\n");
     return NULL;
 }
 

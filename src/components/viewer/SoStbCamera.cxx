@@ -125,8 +125,7 @@ SoStbCamera::activateControlMode()
 	if(controlMode.getValue())
 	{
 		if(!(SoCamera*)getAnyPart("camera",false,false,false)){
-            //FIXME: insert log message as soon as the logger is done      
-//            stb::Kernel::getInstance()->log("STB_ERROR: StbCameraControlMode: 'no camera found to control'\n ");
+			stb::logPrintE("StbCameraControlMode: 'no camera found to control'\n ");
 			return false;
 		}
 

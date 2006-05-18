@@ -42,35 +42,52 @@ BEGIN_NAMESPACE_STB
 #include "MessagesDefines.h"
 
 /*
-* Usage:  
-*		- logPrintE("File Not Found");
-*		- logPrintE(LOG_ERROR_FILE_NOT_FOUND);
-*		- logPrintE("File %s Not Found", filename);
-*
+ * Usage:  
+ *		- logPrintE("File Not Found");
+ *		- logPrintE(LOG_ERROR_FILE_NOT_FOUND);
+ *		- logPrintE("File %s Not Found", filename);
+ *
 */
+void STB_API logPrint(stb::string message);
+void STB_API logPrint(const char *message, ...);
+void STB_API logPrintD(stb::string debugMessage);
+void STB_API logPrintD(const char *debugMessage, ...);
+void STB_API logPrintS(stb::string setupMessage);
+void STB_API logPrintS(const char *setupMessage, ...);
+void STB_API logPrintI(stb::string infoMessage);
+void STB_API logPrintI(const char *infoMessage, ...);
+void STB_API logPrintW(stb::string warningMessage);
+void STB_API logPrintW(const char *warningMessage, ...);
+void STB_API logPrintE(stb::string errorMessage);
+void STB_API logPrintE(const char *errorMessage, ...);
+void STB_API logPrintEAbort(stb::string errorMessage);
+void STB_API logPrintEAbort(const char *errorMessage, ...);
 
-void logPrint(stb::string message);
-void logPrint(const char *message, ...);
-void logPrintD(stb::string debugMessage);
-void logPrintD(const char *debugMessage, ...);
-void logPrintS(stb::string setupMessage);
-void logPrintS(const char *setupMessage, ...);
-void logPrintI(stb::string infoMessage);
-void logPrintI(const char *infoMessage, ...);
-void logPrintW(stb::string warningMessage);
-void logPrintW(const char *warningMessage, ...);
-void logPrintE(stb::string errorMessage);
-void logPrintE(const char *errorMessage, ...);
-void logPrintEAbort(stb::string errorMessage);
-void logPrintEAbort(const char *errorMessage, ...);
+/*
+ * Enumerations
+ */
+enum LOG_MODE 
+{
+	OFF=0,
+	FILE=1,
+	CONSOLE=2
+};
 
 class STB_API StbLogger
 {
 public:
 
+	/// The instance retriever, this is a singleton
 	static StbLogger *getInstance();
 
+	/// The destructor
 	~StbLogger();
+
+	/// This hold the logging method
+	LOG_MODE logMode;
+
+	/// The Filename to log to
+	stb::string logFilename;
 
 	void printMessage(const char *message);
 	void printDebug(const char *debugMessage);
@@ -82,11 +99,11 @@ public:
 
 protected:
 
+	/// The instance
 	static StbLogger *instance;
 
+	/// The constructor
 	StbLogger();
-
-
 };
 
 END_NAMESPACE_STB

@@ -122,8 +122,7 @@ Viewer::init()
 
     SoInput myinput;
     if (!myinput.openFile(configFile.c_str())) {
-        //FIXME: insert log message as soon as the logger is done      
-//        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + configFile + "\n");
+		logPrintE("can not open file:" + configFile + "\n");
         SoInput::removeDirectory("./");
         return false;
     }
@@ -132,8 +131,7 @@ Viewer::init()
     SoInput::removeDirectory("./");
     if (fileRoot==NULL) 
     {
-        //FIXME: insert log message as soon as the logger is done
-//        stb::Kernel::getInstance()->log("STB_ERROR: problem reading file: " + configFile + "\n");
+		logPrintE("problem reading file: " + configFile + "\n");
         return false;
     }
     fileRoot->ref();
