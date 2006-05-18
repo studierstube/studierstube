@@ -1,19 +1,14 @@
 <studierstube>
-	<kernel 
-	    logMode="off" 
-		logFileName="kernelLog.txt" 
-		guibinding="sowin"
-		updateMode="timer"
-		updateRate="0.03333"/>
+	<kernel logMode="off" logFileName="kernelLog.txt" guibinding="sowin" updateMode="timer" updateRate="0.03333" />
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
     <Component  name="Event" availability="ondemand" lib="stbevent">
-		<Param key="configFile" value ="opentracker.xml"/>	
+		<Param key="configFile" value ="opentracker.xml" />	
 	</Component>
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
-	<Component name="Viewer" availability="ondemand" lib="stbviewer">
-	    <Param key="configFile" value="viewer.iv"/>
+	<Component name="Viewer" availability="ondemand" lib="stbviewer_win">
+	    <Param key="configFile" value="viewer.iv" />
 	</Component>
 	    
 	<!-- This is the Starlight Component. It is in charge of providing us with extra nodes with stb3 functionalities -->
@@ -22,14 +17,14 @@
 
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
 	<Component name="Video" availability="ondemand"	lib="stbvideo">
-	    <Param key="configFile" value="openvideo.xml"/>
+	    <Param key="configFile" value="openvideo.xml" />
 	</Component>
 	
 	<!-- This is the Application -->
     <Application name="SimpleApp" availability="onload" lib="stbapp_simple">
-                <Param key="sceneFile"  value ="scene.iv"/>
-                <Param key="needViewer" value ="true"/>
-                <Param key="needEvent"  value ="true"/>
+                <Param key="sceneFile"  value ="scene.iv" />
+                <Param key="needViewer" value ="true" />
+                <Param key="needEvent"  value ="true" />
     </Application>
 
 </studierstube>

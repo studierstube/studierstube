@@ -50,6 +50,39 @@
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
 
+
+#include <OpenTracker.h>
+
+
+// check if we actually have the correct OpenTracker version the users wants...
+//
+#ifdef USE_OT_1_1
+#  if defined(OPENTRACKER_VERSION_MAJOR) && defined(OPENTRACKER_VERSION_MINOR)
+#    if (OPENTRACKER_VERSION_MAJOR==1) && (OPENTRACKER_VERSION_MINOR==1)
+#      pragma message(">>> Building against OpenTracker version 1.1 - version check OK")
+#    else
+#      pragma message ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.1")
+#      error ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.1")
+#    endif
+#  else
+#    pragma message ("ERROR: Should build against OpenTracker 1.1, but found unknown OpenTracker version. Please update to latest OpenTracker version")
+#    error ("ERROR: Should build against OpenTracker 1.1, but found unknown OpenTracker version. Please update to latest OpenTracker version")
+#  endif
+#else
+#  if defined(OPENTRACKER_VERSION_MAJOR) && defined(OPENTRACKER_VERSION_MINOR)
+#    if (OPENTRACKER_VERSION_MAJOR==1) && (OPENTRACKER_VERSION_MINOR==2)
+#      pragma message(">>> Building against OpenTracker version 1.2 - version check OK")
+#    else
+#      pragma message ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.2")
+#      error ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.2")
+#    endif
+#  else
+#    pragma message ("ERROR: Should build against OpenTracker 1.2, but found unknown OpenTracker version. Please update to latest OpenTracker version")
+#    error ("ERROR: Should build against OpenTracker 1.2, but found unknown OpenTracker version. Please update to latest OpenTracker version")
+#  endif
+#endif
+
+
 class Starlight;
 
 CREATE_COMPONENT_FUNC(Event)

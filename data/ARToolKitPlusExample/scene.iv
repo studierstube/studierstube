@@ -13,6 +13,13 @@ SoSeparator
 		rotation = USE tr.rotation
 		scaleFactor 0.5 0.5 0.5
 	}
+	
+	SoTransform
+	{
+		# move the cube to sit ON the marker
+		# instead of IN the marker...
+		translation 0 0 0.5
+	}
 	SoCube
 	{}
 }
