@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(STB4ROOT)/src/gui&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOSIMPLE;_CRT_SECURE_NO_DEPRECATE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
