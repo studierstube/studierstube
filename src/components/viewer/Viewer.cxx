@@ -116,7 +116,7 @@ Viewer::init()
  
 #ifdef LINUX
     using namespace std;
-    SoInput::addDirectoryFirst(Kernel::getInstance()->base_dir.c_str());
+    SoInput::addDirectoryFirst(Kernel::getInstance()->getBaseDir().c_str());
 #endif
     SoInput::addDirectoryFirst("./");
 

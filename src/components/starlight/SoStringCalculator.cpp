@@ -264,7 +264,7 @@ bool SoStringCalculator::parseExpression(std::string exp,SbStringList *inputVar,
             return false;
         }
         if ((marker0=exp.find_first_not_of(" ",marker1+1))!=exp.npos &&
-            (marker1=exp.find_first_of(")",marker0+1))!= (int) exp.npos){
+            (marker1=exp.find_first_of(")",marker0+1))!= exp.npos){
             sscanf(exp.substr(marker0,marker1-marker0).c_str(),"%d",&id1);
         }
         else {

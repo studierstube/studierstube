@@ -111,7 +111,7 @@ void SoFactorRotation::computeFactorization( const SbRotation & rotation, SbRota
     const int W = 3;
     const float * rot = rotation.getValue();
     float * fac = (float *) factor.getValue();
-    float * rem = (float *) remainder.getValue();
+//     float * rem = (float *) remainder.getValue();
 
     // actually these three cases would not strictly be necessary with
     // the right kind of indexing functions... go knock yourself out !

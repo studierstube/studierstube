@@ -55,7 +55,7 @@ public:
     */
     ~SchedulerLinux();
 
-    virtual void parseConfiguration(TiXmlAttribute* attribute);
+    virtual void readConfiguration(TiXmlAttribute* attribute);
 
     virtual void init();
 

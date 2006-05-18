@@ -117,6 +117,12 @@ public:
     */  
     stb::ComponentManager* getComponentManager(){return componentManager;}
 
+    /*
+     * Returns the base_dir of the configuration path
+     */
+    stb::string
+    getBaseDir() const;
+
 protected:	
     ///////////////////// 
     /**

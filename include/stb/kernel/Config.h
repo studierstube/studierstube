@@ -47,14 +47,14 @@ class Kernel;
 */
 class Config{
 public:
-    /************************************************************************/
-    /* The Constructor
-    /************************************************************************/
+    /************************************************************************
+     * The Constructor
+     ************************************************************************/
     Config();
-
-    /************************************************************************/
-    /* The Destructor
-    /************************************************************************/
+    
+    /************************************************************************
+     * The Destructor
+     ************************************************************************/
     ~Config();
 
     /*
@@ -64,9 +64,9 @@ public:
 
 protected:
     /*
-    * Parses an specific element in the kernels configuration. This function is called with each element in the kernel's configuration file as argument.
-    * Depending on the element's value, the readConfiguration() function for the specific element will be called.
-    */
+     * Parses an specific element in the kernels configuration. This function is called with each element in the kernel's configuration file as argument.
+     * Depending on the element's value, the readConfiguration() function for the specific element will be called.
+     */
     bool parseXMLElement(TiXmlElement* element);
 };
 

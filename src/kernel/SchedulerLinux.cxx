@@ -32,6 +32,7 @@
 
 #include <stb/kernel/SchedulerLinux.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/StbLogger.h>
 
 #include <tinyxml.h>
 #include <iostream>
@@ -50,10 +51,10 @@ SchedulerLinux::~SchedulerLinux()
 }
 
 void
-SchedulerLinux::parseConfiguration(TiXmlAttribute* attribute)
+SchedulerLinux::readConfiguration(TiXmlAttribute* attribute)
 {
     using namespace std;
-
+    
     if (!strcasecmp(attribute->Name(),"guiBinding"))
     {
         if (!strcasecmp(attribute->Value(),"SoQt")) {
@@ -62,7 +63,7 @@ SchedulerLinux::parseConfiguration(TiXmlAttribute* attribute)
             cerr << "ERROR: unknown guiBinding " << attribute->Value() << ", using default (SoQt)" << endl;
         }
     }
-    SchedulerBase::parseConfiguration(attribute);
+    SchedulerBase::readConfiguration(attribute);
 }
 
 void 
@@ -71,13 +72,13 @@ SchedulerLinux::init()
 
     // no demangled function pointer available :-(
     stb::string initStr="_ZN4SoQt4initEPKcS1_";
-    
-    Kernel::getInstance()->logDebug("INFO: load SoQt\n");
+
+    logPrintI("INFO: load SoQt\n");
     stb::string libFileName = "SoQt";
 
     libHandle = os_LoadLibrary(libFileName.c_str());
     if (!libHandle){
-        Kernel::getInstance()->log("ERROR: could not load " + libFileName);
+        logPrintE("ERROR: could not load " + libFileName);
         return;
     }
 
@@ -104,7 +105,7 @@ SchedulerLinux::mainLoop()
     stb::string mainLoopStr="_ZN4SoQt8mainLoopEv"; 
 
     if(!libHandle){
-        Kernel::getInstance()->logDebug("Error: call soGui.init() before soGui.mainLoop. \n");
+        logPrintE("Error: call soGui.init() before soGui.mainLoop. \n");
         return;
     }
     

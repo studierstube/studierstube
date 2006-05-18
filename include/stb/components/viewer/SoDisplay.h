@@ -51,10 +51,10 @@
 //	SoDisplay
 //=============
 class SoStudierstubeViewer;
-/************************************************************************/
-/* SoDisplay is the base class for a single viewer. 
+/************************************************************************
+ * SoDisplay is the base class for a single viewer. 
  * An SoDisplay is used to  
-/************************************************************************/
+ ************************************************************************/
 class SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);

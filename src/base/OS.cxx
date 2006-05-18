@@ -85,7 +85,7 @@ os_LoadLibrary(stb::string fileName)
 /**
 */
 int*
-stb::os_GetProcAddress(hModule moduleHandle,const char*   procName)
+os_GetProcAddress(hModule moduleHandle,const char*   procName)
 {
 #ifdef WIN32
     return (int*)GetProcAddress(moduleHandle, procName);

@@ -154,7 +154,7 @@ Kernel::parseConfiguration(TiXmlElement* element)
 }
 
 void 
-Kernel::update( void * data, SoSensor * /*sensor*/)
+Kernel::update( void * /*data*/, SoSensor * /*sensor*/)
 {
     instance->sceneManager->update();
     instance->componentManager->update();
@@ -168,6 +168,10 @@ Kernel::getSceneManager()
     return sceneManager;
 }
 
+stb::string
+Kernel::getBaseDir() const {
+    return base_dir;
+}
 
 
 

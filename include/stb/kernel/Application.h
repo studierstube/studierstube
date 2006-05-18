@@ -51,9 +51,9 @@ public:
 	*/
 	virtual ~Application();
 
-    /************************************************************************/
-    /* Updates the Application. update() is called by the ComponentManager during it's update.
-    /************************************************************************/
+    /************************************************************************
+     * Updates the Application. update() is called by the ComponentManager during it's update.
+     ************************************************************************/
 	virtual void update();
 
     /************************************************************************/

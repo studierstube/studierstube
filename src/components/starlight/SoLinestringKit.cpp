@@ -129,7 +129,7 @@ SbBool SoLineStringKit::setUpConnections(SbBool onoff, SbBool doitalways)
     return !(connectionsSetUp = onoff);
 }
 
-void SoLineStringKit::verticesCB(void *data, SoSensor *sensor)
+void SoLineStringKit::verticesCB(void *data, SoSensor *)
 {
     SoLineStringKit *exkTmp= (SoLineStringKit *)data;
 	exkTmp->refresh();

@@ -177,7 +177,7 @@ void SoOpenTrackerSource::runTracker( void )
     {
         //assert(context);
         if (context) {
-#ifdef USE_OT_1_1#
+#ifdef USE_OT_1_1
             context->pushStates();
             context->pullStates();
 #else
