@@ -94,10 +94,10 @@
 
 #elif USE_SOSIMPLE
 
-#define SOGUICOMPONENT_H <stb/sosimple/SoSimpleExaminerViewer.h>
-#define SOGUI_H <stb/sosimple/SoSimple.h>
-#define SOGUI_CURSOR_H <stb/sosimple/SoSimpleCursor.h>
-#define SOGUI_EXAMINERVIEWER_H <stb/sosimple/SoSimpleExaminerViewer.h>
+#define SOGUICOMPONENT_H <SoSimple/SoSimpleExaminerViewer.h>
+#define SOGUI_H <SoSimple/SoSimple.h>
+#define SOGUI_CURSOR_H <SoSimple/SoSimpleCursor.h>
+#define SOGUI_EXAMINERVIEWER_H <SoSimple/SoSimpleExaminerViewer.h>
 
 #define SoGui SoSimple
 #define SoGuiComponent SoSimpleComponent
