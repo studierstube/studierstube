@@ -35,12 +35,15 @@ SoDisplay
 			SoStbCamera
 			{
 				controlMode SoDesktopControlMode{}
-				camera SoPerspectiveCamera{
-					nearDistance 0.1
+				camera SoOffAxisCamera
+				{
+					position 0.0148 -0.0124 -1.0000
+					size 0.7881 0.5935 
+					eyepointPosition 0 0 0
+					viewportMapping ADJUST_CAMERA
+					nearDistance 0.01
 					farDistance 100
-#					position 0 0 -4
-#					orientation 0 0 1 0.75
-				}   
+				}
 			}
 			SoStbScene{}  
 		}
