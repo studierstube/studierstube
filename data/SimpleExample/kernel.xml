@@ -20,7 +20,7 @@
   
   <Component  name="Viewer"
 	      availability="ondemand"	
-	      lib="stbviewer">
+	      lib="stbviewer_win">
     <Param  key   ="configFile" 
 	    value ="viewer.iv" />	
   </Component>

@@ -63,7 +63,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="coin2d.lib opengl32.lib"
 				OutputFile="$(OutDir)/stbviewer_simpled.dll"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"

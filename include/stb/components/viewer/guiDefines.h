@@ -34,10 +34,6 @@
 #define _GUIDEFINES_H_
 
 
-#pragma message(">>> daniel2dennis: this should not be hardcoded but rather in the project settings...")
-//#define USE_SOWIN 1
-
-
 #ifdef USE_SOQT
 
 #ifdef WIN32
