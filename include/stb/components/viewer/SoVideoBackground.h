@@ -33,7 +33,7 @@
 #ifndef _SOVIDEOBACKGROUND_H_
 #define _SOVIDEOBACKGROUND_H_
 
-
+#include <stb/components/viewer/guiDefines.h>
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/fields/SoSFString.h> 
 
