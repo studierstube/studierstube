@@ -356,9 +356,6 @@
 				RelativePath="..\..\include\stb\components\viewer\SoVideoBackground.h">
 			</File>
 			<File
-				RelativePath="..\..\include\stb\components\viewer\SoVideoPlane.h">
-			</File>
-			<File
 				RelativePath="..\..\include\stb\components\viewer\SoViewport.h">
 			</File>
 			<File
