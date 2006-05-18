@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleKeyboard.h>
+#include "SoSimpleKeyboard.h"
 #include <Inventor/events/SoKeyboardEvent.h>
 
 #include "KeyMapping.h"

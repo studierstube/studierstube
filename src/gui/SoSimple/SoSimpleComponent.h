@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the guiDefines.
+/**
 *
 * @author Daniel Wagner
 *
@@ -31,37 +31,54 @@
 /* ======================================================================= */
 
 
-#ifndef _SOSIMPLE_SOSIMPLE_H
-#define _SOSIMPLE_SOSIMPLE_H
+#ifndef _STB_SOSIMPLECOMPONENT_H_
+#define _STB_SOSIMPLECOMPONENT_H_
 
 
-#include "main.h"
-//#include "SoSimpleCursor.h"
-#include <stb/sosimple/SoSimple.h>
-
-#include <Inventor/SbVec2s.h>
-#include <Inventor/SbString.h>
+#include "SoSimpleObject.h"
+#include "SoSimpleCursor.h"
 
 
-class SOSIMPLE_API SoSimple {
+class SoSimpleComponent;
+typedef void SoSimpleComponentCB(void * user, SoSimpleComponent * component);
+
+
+/// Base class of SoSimpleExaminerViewer - does windowing
+class SOSIMPLE_API SoSimpleComponent : public SoSimpleObject
+{
+	SOSIMPLE_OBJECT_ABSTRACT_HEADER(SoSimpleComponent, SoSimpleObject);
+
 public:
-	static void init();
-	static void done();
+	SoSimpleComponent();
 
-	static void exitMainLoop();
+	virtual void hide();
+	virtual void show();
 
-	static void setWidgetSize(HWND const widget, const SbVec2s size);
-	static HWND getShellWidget(const HWND w);
-	static HWND getTopLevelWidget();
+	virtual SbBool isVisible();
 
-	static HWND createMainWindow(WNDPROC nWindowFunc);
+	void setSize(const SbVec2s size);
+	SbVec2s getSize(void) const;
 
-	static LRESULT onDestroy(HWND window, UINT message, WPARAM wparam, LPARAM lparam);
-	static LRESULT onQuit(HWND window, UINT message, WPARAM wparam, LPARAM lparam);
+	virtual void setTitle(const char * const title);
+	virtual const char * getTitle(void) const;
+
+	virtual void setComponentCursor(const SoSimpleCursor & cursor);
+
+	HWND getWidget(void) const;
+
+	HWND getShellWidget(void) const;
+
+	virtual void setWindowCloseCallback(SoSimpleComponentCB * const func, void * const user = NULL);
+
+	static void initClasses(void);
+
+protected:
+	HWND hWnd;
+	SbString title;
+
+	SoSimpleComponentCB * closeCB;
+	void * closeCBdata;
 };
 
 
-#define SOSIMPLE_STATIC_SOTYPE_INIT = SoType::badType()
-
-
-#endif //_SOSIMPLE_SOSIMPLE_H
+#endif //_STB_SOSIMPLECOMPONENT_H_

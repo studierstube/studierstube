@@ -31,38 +31,108 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleObject.h>
-#include <stb/SoSimple/SoSimpleComponent.h>
-#include <stb/SoSimple/SoSimpleDevice.h>
+#include "SoSimpleExaminerViewer.h"
+#include "PlatformTools.h"
 
 
-SoType SoSimpleObject::classTypeId SOSIMPLE_STATIC_SOTYPE_INIT;
+SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleComponent);
+
+
+SoSimpleComponent::SoSimpleComponent()
+{
+	closeCB = NULL;
+	closeCBdata = NULL;
+}
 
 
 void
-SoSimpleObject::initClass(void)
+SoSimpleComponent::hide()
 {
-  assert(SoSimpleObject::classTypeId == SoType::badType());
-  SoSimpleObject::classTypeId =
-    SoType::createType(SoType::badType(), "SoSimpleObject");
+	::ShowWindow(hWnd, SW_HIDE);
 }
+
+
+void
+SoSimpleComponent::show()
+{
+	::ShowWindow(hWnd, SW_SHOW);
+}
+
 
 SbBool
-SoSimpleObject::isOfType(SoType type) const
+SoSimpleComponent::isVisible()
 {
-  return this->getTypeId().isDerivedFrom(type);
+	return ::IsWindowVisible(hWnd);
 }
 
-SoType
-SoSimpleObject::getClassTypeId(void)
-{
-  return SoSimpleObject::classTypeId;
-}
 
 void
-SoSimpleObject::init(void)
+SoSimpleComponent::setSize(const SbVec2s size)
 {
-  SoSimpleObject::initClass();
-  SoSimpleComponent::initClasses();
-  SoSimpleDevice::initClasses();
+	SoSimple::setWidgetSize(hWnd, size);
+}
+
+
+SbVec2s
+SoSimpleComponent::getSize(void) const
+{
+	RECT rect;
+	::GetWindowRect(hWnd, & rect);
+	return SbVec2s((short)(rect.right - rect.left), (short)(rect.bottom - rect.top));
+}
+
+
+void
+SoSimpleComponent::setComponentCursor(const SoSimpleCursor & cursor)
+{
+	// ignored
+}
+
+
+void
+SoSimpleComponent::setTitle(const char * const nTitle)
+{
+	title = nTitle ? nTitle : "";
+
+	::SetWindowText(hWnd, CHAR_TO_NATIVE(title.getString()));
+}
+
+
+const char*
+SoSimpleComponent::getTitle(void) const
+{
+	return title.getString();
+}
+
+
+HWND
+SoSimpleComponent::getWidget(void) const
+{
+	return hWnd;
+}
+
+
+
+HWND
+SoSimpleComponent::getShellWidget(void) const
+{
+	return hWnd;
+}
+
+
+void
+SoSimpleComponent::setWindowCloseCallback(SoSimpleComponentCB * const func, void * const user)
+{
+	closeCB = func;
+	closeCBdata = user;
+}
+
+
+void
+SoSimpleComponent::initClasses(void)
+{
+	SoSimpleComponent::initClass();
+	SoSimpleViewer::initClass();
+	SoSimpleFullViewer::initClass();
+	SoSimpleExaminerViewer::initClass();
 }

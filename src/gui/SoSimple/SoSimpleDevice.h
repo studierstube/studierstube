@@ -3,7 +3,7 @@
 #define SOSIMPLE_DEVICE_H
 
 #include <Inventor/SbLinear.h>
-#include <stb/sosimple/SoSimpleObject.h>
+#include "SoSimpleObject.h"
 #include <windows.h>
 
 

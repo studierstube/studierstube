@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleCursor.h>
+#include "SoSimpleCursor.h"
 
 
 static SoSimpleCursor dummyCursor;

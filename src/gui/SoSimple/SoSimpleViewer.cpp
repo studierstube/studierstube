@@ -31,29 +31,13 @@
 /* ======================================================================= */
 
 
-#ifndef _STB_SOSIMPLEOBJECT_H_
-#define _STB_SOSIMPLEOBJECT_H_
-
-#include <stb/sosimple/SoSimple.h>
-
-#include <Inventor/SbBasic.h>
-#include <Inventor/SbString.h>
-#include <Inventor/SoType.h>
+#include "SoSimpleViewer.h"
 
 
-/// Base clase for object hierarchy
-class SOSIMPLE_API SoSimpleObject
+SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleViewer);
+
+
+SoSimpleViewer::SoSimpleViewer()
 {
-	static SoType classTypeId;
 
-public:
-	static void initClass(void);
-	static SoType getClassTypeId(void);
-	virtual SoType getTypeId(void) const = 0;
-	SbBool isOfType(SoType type) const;
-
-	static void init(void);
-};
-
-
-#endif //_STB_SOSIMPLEOBJECT_H_
+}

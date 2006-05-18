@@ -31,9 +31,9 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleExaminerViewer.h>
-#include <stb/SoSimple/SoSimpleMouse.h>
-#include <stb/SoSimple/SoSimpleKeyboard.h>
+#include "SoSimpleExaminerViewer.h"
+#include "SoSimpleMouse.h"
+#include "SoSimpleKeyboard.h"
 
 
 SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleExaminerViewer);

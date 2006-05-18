@@ -2,7 +2,7 @@
 #ifndef SOSIMPLE_MOUSE_H
 #define SOSIMPLE_MOUSE_H
 
-#include <stb/sosimple/SoSimpleDevice.h>
+#include "SoSimpleDevice.h"
 #include <Inventor/events/SoButtonEvent.h> 
 
 class SoMouseButtonEvent;

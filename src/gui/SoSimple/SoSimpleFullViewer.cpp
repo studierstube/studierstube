@@ -31,13 +31,13 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleViewer.h>
+#include "SoSimpleFullViewer.h"
 
 
-SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleViewer);
+SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleFullViewer);
 
 
-SoSimpleViewer::SoSimpleViewer()
+SoSimpleFullViewer::SoSimpleFullViewer()
 {
 
 }

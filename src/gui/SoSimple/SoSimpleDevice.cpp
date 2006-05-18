@@ -31,9 +31,9 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleDevice.h>
-#include <stb/SoSimple/SoSimpleKeyboard.h>
-#include <stb/SoSimple/SoSimpleMouse.h>
+#include "SoSimpleDevice.h"
+#include "SoSimpleKeyboard.h"
+#include "SoSimpleMouse.h"
 
 #include <Inventor/events/SoEvent.h>
 

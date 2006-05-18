@@ -186,91 +186,95 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\include\stb\sosimple\main.h"
+				RelativePath="..\..\src\gui\SoSimple\KeyMapping.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\PlatformTools.h"
+				RelativePath="..\..\src\gui\SoSimple\main.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimple.cpp"
+				RelativePath="..\..\src\gui\SoSimple\PlatformTools.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimple.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimple.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleComponent.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimple.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleComponent.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleComponent.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleCursor.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleComponent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleCursor.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleCursor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleDevice.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleCursor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleDevice.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleDevice.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleExaminerViewer.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleDevice.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleExaminerViewer.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleExaminerViewer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleFullViewer.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleExaminerViewer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleFullViewer.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleFullViewer.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleKeyboard.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleFullViewer.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleKeyboard.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleKeyboard.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleMouse.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleKeyboard.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleMouse.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleMouse.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleObject.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleMouse.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleObject.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleObject.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\sosimple\SoSimpleViewer.cpp"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleObject.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\include\stb\sosimple\SoSimpleViewer.h"
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleViewer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\gui\SoSimple\SoSimpleViewer.h"
 				>
 			</File>
 		</Filter>

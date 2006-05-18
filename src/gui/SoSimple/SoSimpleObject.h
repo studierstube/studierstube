@@ -31,29 +31,29 @@
 /* ======================================================================= */
 
 
-#ifndef _STB_SOSIMPLEFULLVIEWER_H_
-#define _STB_SOSIMPLEFULLVIEWER_H_
+#ifndef _STB_SOSIMPLEOBJECT_H_
+#define _STB_SOSIMPLEOBJECT_H_
+
+#include "SoSimple.h"
+
+#include <Inventor/SbBasic.h>
+#include <Inventor/SbString.h>
+#include <Inventor/SoType.h>
 
 
-#include <stb/sosimple/SoSimpleViewer.h>
-
-
-/// Dummy class that does nothing...
-class SOSIMPLE_API SoSimpleFullViewer : public SoSimpleViewer
+/// Base clase for object hierarchy
+class SOSIMPLE_API SoSimpleObject
 {
-	SOSIMPLE_OBJECT_HEADER(SoSimpleFullViewer, SoSimpleViewer);
+	static SoType classTypeId;
 
 public:
-	SoSimpleFullViewer();
+	static void initClass(void);
+	static SoType getClassTypeId(void);
+	virtual SoType getTypeId(void) const = 0;
+	SbBool isOfType(SoType type) const;
 
-	enum BuildFlag {
-		BUILD_NONE       = 0x00,
-		BUILD_DECORATION = 0x01,
-		BUILD_POPUP      = 0x02,
-		BUILD_ALL        = (BUILD_DECORATION | BUILD_POPUP)
-	};
-
+	static void init(void);
 };
 
 
-#endif //_STB_SOSIMPLEFULLVIEWER_H_
+#endif //_STB_SOSIMPLEOBJECT_H_

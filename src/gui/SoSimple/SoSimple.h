@@ -31,26 +31,36 @@
 /* ======================================================================= */
 
 
-#ifndef _STB_SOSIMPLEVIEWER_H_
-#define _STB_SOSIMPLEVIEWER_H_
+#ifndef _SOSIMPLE_SOSIMPLE_H
+#define _SOSIMPLE_SOSIMPLE_H
 
 
-#include <stb/sosimple/SoSimpleComponent.h>
+#include "main.h"
+#include "SoSimple.h"
+
+#include <Inventor/SbVec2s.h>
+#include <Inventor/SbString.h>
 
 
-/// Dummy class that does nothing...
-class SOSIMPLE_API SoSimpleViewer : public SoSimpleComponent
-{
-	SOSIMPLE_OBJECT_HEADER(SoSimpleViewer, SoSimpleComponent);
-
+class SOSIMPLE_API SoSimple {
 public:
-	SoSimpleViewer();
+	static void init();
+	static void done();
 
-	enum Type {
-		BROWSER,
-		EDITOR
-	};
+	static void exitMainLoop();
+
+	static void setWidgetSize(HWND const widget, const SbVec2s size);
+	static HWND getShellWidget(const HWND w);
+	static HWND getTopLevelWidget();
+
+	static HWND createMainWindow(WNDPROC nWindowFunc);
+
+	static LRESULT onDestroy(HWND window, UINT message, WPARAM wparam, LPARAM lparam);
+	static LRESULT onQuit(HWND window, UINT message, WPARAM wparam, LPARAM lparam);
 };
 
 
-#endif //_STB_SOSIMPLEVIEWER_H_
+#define SOSIMPLE_STATIC_SOTYPE_INIT = SoType::badType()
+
+
+#endif //_SOSIMPLE_SOSIMPLE_H

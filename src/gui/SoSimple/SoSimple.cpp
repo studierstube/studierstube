@@ -31,8 +31,8 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimple.h>
-#include <stb/SoSimple/SoSimpleObject.h>
+#include "SoSimple.h"
+#include "SoSimpleObject.h"
 
 #include <Inventor/errors/SoError.h>
 #include <Inventor/errors/SoDebugError.h> 

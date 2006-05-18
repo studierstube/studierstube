@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/**
+/** The header file for the guiDefines.
 *
 * @author Daniel Wagner
 *
@@ -31,54 +31,26 @@
 /* ======================================================================= */
 
 
-#ifndef _STB_SOSIMPLECOMPONENT_H_
-#define _STB_SOSIMPLECOMPONENT_H_
+#ifndef _STB_SOSIMPLEVIEWER_H_
+#define _STB_SOSIMPLEVIEWER_H_
 
 
-#include <stb/sosimple/SoSimpleObject.h>
-#include <stb/sosimple/SoSimpleCursor.h>
+#include "SoSimpleComponent.h"
 
 
-class SoSimpleComponent;
-typedef void SoSimpleComponentCB(void * user, SoSimpleComponent * component);
-
-
-/// Base class of SoSimpleExaminerViewer - does windowing
-class SOSIMPLE_API SoSimpleComponent : public SoSimpleObject
+/// Dummy class that does nothing...
+class SOSIMPLE_API SoSimpleViewer : public SoSimpleComponent
 {
-	SOSIMPLE_OBJECT_ABSTRACT_HEADER(SoSimpleComponent, SoSimpleObject);
+	SOSIMPLE_OBJECT_HEADER(SoSimpleViewer, SoSimpleComponent);
 
 public:
-	SoSimpleComponent();
+	SoSimpleViewer();
 
-	virtual void hide();
-	virtual void show();
-
-	virtual SbBool isVisible();
-
-	void setSize(const SbVec2s size);
-	SbVec2s getSize(void) const;
-
-	virtual void setTitle(const char * const title);
-	virtual const char * getTitle(void) const;
-
-	virtual void setComponentCursor(const SoSimpleCursor & cursor);
-
-	HWND getWidget(void) const;
-
-	HWND getShellWidget(void) const;
-
-	virtual void setWindowCloseCallback(SoSimpleComponentCB * const func, void * const user = NULL);
-
-	static void initClasses(void);
-
-protected:
-	HWND hWnd;
-	SbString title;
-
-	SoSimpleComponentCB * closeCB;
-	void * closeCBdata;
+	enum Type {
+		BROWSER,
+		EDITOR
+	};
 };
 
 
-#endif //_STB_SOSIMPLECOMPONENT_H_
+#endif //_STB_SOSIMPLEVIEWER_H_

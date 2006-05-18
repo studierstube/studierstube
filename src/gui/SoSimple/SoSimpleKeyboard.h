@@ -3,7 +3,7 @@
 #define SOSIMPLE_KEYBOARD_H
 
 
-#include <stb/sosimple/SoSimpleDevice.h>
+#include "SoSimpleDevice.h"
 
 
 class SoKeyboardEvent;

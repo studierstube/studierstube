@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleMouse.h>
+#include "SoSimpleMouse.h"
 #include <Inventor/events/SoLocation2Event.h>
 #include <Inventor/events/SoMouseButtonEvent.h>
 

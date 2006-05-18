@@ -34,9 +34,9 @@
 #ifndef _STB_SOSIMPLEEXAMINERVIEWER_H_
 #define _STB_SOSIMPLEEXAMINERVIEWER_H_
 
-#include <stb/sosimple/SoSimpleComponent.h>
-#include <stb/sosimple/SoSimpleFullViewer.h>
-#include <stb/sosimple/SoSimpleViewer.h>
+#include "SoSimpleComponent.h"
+#include "SoSimpleFullViewer.h"
+#include "SoSimpleViewer.h"
 
 #include <Inventor/SbColor.h>
 #include <Inventor/SoSceneManager.h>

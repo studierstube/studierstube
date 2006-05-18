@@ -31,13 +31,29 @@
 /* ======================================================================= */
 
 
-#include <stb/SoSimple/SoSimpleFullViewer.h>
+#ifndef _STB_SOSIMPLEFULLVIEWER_H_
+#define _STB_SOSIMPLEFULLVIEWER_H_
 
 
-SOSIMPLE_OBJECT_ABSTRACT_SOURCE(SoSimpleFullViewer);
+#include "SoSimpleViewer.h"
 
 
-SoSimpleFullViewer::SoSimpleFullViewer()
+/// Dummy class that does nothing...
+class SOSIMPLE_API SoSimpleFullViewer : public SoSimpleViewer
 {
+	SOSIMPLE_OBJECT_HEADER(SoSimpleFullViewer, SoSimpleViewer);
 
-}
+public:
+	SoSimpleFullViewer();
+
+	enum BuildFlag {
+		BUILD_NONE       = 0x00,
+		BUILD_DECORATION = 0x01,
+		BUILD_POPUP      = 0x02,
+		BUILD_ALL        = (BUILD_DECORATION | BUILD_POPUP)
+	};
+
+};
+
+
+#endif //_STB_SOSIMPLEFULLVIEWER_H_

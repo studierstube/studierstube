@@ -33,10 +33,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_simple", "viewer_simple.vcproj", "{498BB536-E76A-4F91-9213-DCC2A350EAAA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
-		{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA} = {D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}
 	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SoSimple", "SoSimple.vcproj", "{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,10 +73,6 @@ Global
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Debug|Win32.Build.0 = Debug|Win32
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Release|Win32.ActiveCfg = Release|Win32
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Release|Win32.Build.0 = Release|Win32
-		{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}.Debug|Win32.Build.0 = Debug|Win32
-		{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}.Release|Win32.ActiveCfg = Release|Win32
-		{D4F31BC7-0FFD-46A1-8209-B23A8132B6AA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
