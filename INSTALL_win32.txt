@@ -180,6 +180,9 @@ created: 11-04-2006
       viewer:
         COINROOT
         STB4ROOT
+	
+	proprocessor define: in include/stb/components/viewer/guidefines.h 
+		     #define HAVE_OPENVIDEO // compile SoOpenvideoBackground with openvideo support
         
       
    

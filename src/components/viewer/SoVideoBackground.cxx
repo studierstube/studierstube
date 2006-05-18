@@ -38,9 +38,10 @@
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/video/Video.h>
 
-#define ENABLE_GL_TEXTURE_2D_SINK
-#include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
-
+#ifdef HAVE_OPENVIDEO
+    #define ENABLE_GL_TEXTURE_2D_SINK
+    #include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
+#endif
 
 #ifdef WIN32
 	#include <windows.h>
@@ -85,6 +86,7 @@ SoVideoBackground::GLRender(SoGLRenderAction * /*action*/)
 bool
 SoVideoBackground::initVideoBackground()
 {
+#ifdef HAVE_OPENVIDEO
     SoDisplay* display=stb::Viewer::findSoDisplay(this);
     if(!display)
         return false;
@@ -102,12 +104,14 @@ SoVideoBackground::initVideoBackground()
         return true;
 
     stbViewer->setOVGLContext(video);
+#endif
     return false;
 }
 
 bool
 SoVideoBackground::blitOverlay() 
 {
+#ifdef HAVE_OPENVIDEO
     if(!ovStbSinkNode ) 
         return false;
 
@@ -154,6 +158,7 @@ SoVideoBackground::blitOverlay()
     glPopMatrix();
     //////////////////////
     video->release2DTextureSink(ovStbSinkNode);
+#endif
     return true;
 }
 

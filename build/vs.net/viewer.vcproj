@@ -338,9 +338,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\..\include\stb\components\viewer\configViewer.h">
-			</File>
-			<File
 				RelativePath="..\..\include\stb\components\viewer\guiDefines.h">
 			</File>
 			<File

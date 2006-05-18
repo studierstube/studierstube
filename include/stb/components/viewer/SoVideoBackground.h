@@ -78,7 +78,9 @@ protected:
 
    bool isInitialized;
    bool unableToInitialize;
+#ifdef HAVE_OPENVIDEO
    openvideo::GL_TEXTURE_2D_Sink* ovStbSinkNode;
+#endif
    stb::Video*  video;
   
 };
