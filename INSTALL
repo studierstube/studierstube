@@ -39,3 +39,8 @@ scons -c
 
 If you have any questions concerning the Linux build system for
 Studierstube 4.0, write to <breiting@icg.tu-graz.ac.at>.
+
+For general dependencies please also read INSTALL_win32.txt
+
+Have fun,
+Bernhard Reitinger

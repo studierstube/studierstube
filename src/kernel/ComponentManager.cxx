@@ -51,7 +51,7 @@ ComponentManager::~ComponentManager()
    delete compRetriever;
 }
 
-void 
+void
 ComponentManager::update()
 {
     // init all new components
@@ -89,11 +89,11 @@ ComponentManager::initComponent(Component *comp)
             compList.push_back(comp);
         return true;
     }
-    
+
     return false;
 }
 
-void 
+void
 ComponentManager::addComponent(ComponentInfo* compInfo)
 {
     switch(compInfo->getAvailability())
@@ -112,7 +112,7 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
     }
 }
 
-stb::Component* 
+stb::Component*
 ComponentManager::isLoaded(std::string compName)
 {
     using namespace std;
@@ -132,7 +132,7 @@ ComponentManager::isLoaded(std::string compName)
     return NULL;
 }
 
-stb::Component* 
+stb::Component*
 ComponentManager::load(std::string compName)
 {
     stb::Component* retComp=isLoaded(compName);
@@ -153,7 +153,7 @@ ComponentManager::load(std::string compName)
         }
 
     }
-    //search initList 
+    //search initList
     for(int i=0;i<(int)initList.size();i++)
     {
         if(initList[i]->getInfo()->getName()==compName)
