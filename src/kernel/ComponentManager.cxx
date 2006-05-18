@@ -57,7 +57,7 @@ ComponentManager::update()
     // init all new components
     if(initList.size()>0)
     {
-        for(int i=0;i<initList.size();i++)
+        for(int i=0;i<(int)initList.size();i++)
         {
             Component* newComp=initList[i];
             if(!initComponent(newComp))
@@ -67,7 +67,7 @@ ComponentManager::update()
     }
 
     // update application list
-    for(int i=0;i<appList.size();i++)
+    for(int i=0;i<(int)appList.size();i++)
     {
         appList[i]->update();
     }

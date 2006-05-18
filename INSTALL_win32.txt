@@ -65,6 +65,10 @@ created: 11-04-2006
           required for Studierstube 4.0 "MagicLens"
           http://glew.sourceforge.net/
 
+      - STB4COMP
+          Stb4 Components & Applications
+          Subversion repository:     
+          https://svn.icg.tu-graz.ac.at/svn/StbComponents/trunk/
 
 
 
@@ -72,28 +76,30 @@ created: 11-04-2006
   ----------------------
   
     
-                        | STB4 | OpenVideo | OpenTracker |
-    --------------------+------+-----------+-------------+
-     ACEROOT            |  x   |     x     |      x      |
-     ARTOOLKITROOT      |      |           |     (x)     |
-     ARTOOLKITPLUSROOT  |  x   |           |     (x) 1)  |
-     BOOSTROOT          |  x   |           |             |
-     COINROOT           |  x   |           |             |
-     GLUT (dll&header)  |      |     x     |             |
-     OPENVIDEOROOT      |  x   |     x     |     (x) 1)  |
-     OTROOT             |  x   |           |      x      |
-     STB4ROOT           |  x   |           |             |
-     TINYXMLROOT        |      |     x  2) |      x  2)  |
-     TINYXMLMODROOT     |  x   |    (x) 2) |     (x) 2)  |
-     VIDCAPTUREROOT     |  x   |     x     |             |
-     VIDEOWRAPPERROOT   |  x   |     x     |             |
-     XERCESCROOT        |      |           |     (x) 2)  |    
-    --------------------+------+-----------+-------------+
+                        | STB4 | OpenVideo | OpenTracker |Stb4Components|
+    --------------------+------+-----------+-------------+--------------+
+     ACEROOT            |  x   |     x     |      x      |              |
+     ARTOOLKITROOT      |      |           |     (x)     |              |
+     ARTOOLKITPLUSROOT  |  x   |           |     (x) 1)  |              |
+     BOOSTROOT          |  x   |           |             |              |
+     COINROOT           |  x   |           |             |              |
+     GLUT (dll&header)  |      |     x     |             |              |
+     OPENVIDEOROOT      |  x   |     x     |     (x) 1)  |              |
+     OTROOT             |  x   |           |      x      |              |
+     STB4ROOT           |  x   |           |             |              |
+     STB4COMPROOT       |      |           |             |      x       |
+     TINYXMLROOT        |      |     x  2) |      x  2)  |              |
+     TINYXMLMODROOT     |  x   |    (x) 2) |     (x) 2)  |              |
+     VIDCAPTUREROOT     |  x   |     x     |             |              |
+     VIDEOWRAPPERROOT   |  x   |     x     |             |              |
+     XERCESCROOT        |      |           |     (x) 2)  |              |
+    --------------------+------+-----------+-------------+--------------+
                         
-     Stb4 projects:     | MagicLens |
+     Stb4Components:    | MagicLens |
      -------------------+-----------+
      GLEW               |     x     |
      NVIDIA CG TOOLKIT  |     x     |
+     STB4COMPROOT       |     x     |
      -------------------+-----------+   
      
      
@@ -152,21 +158,15 @@ created: 11-04-2006
         OTROOT
         STB4ROOT
         
+        precompiler settings: USE_OT_1_1 for OpenTracker 1.1 support
+        
       kernel: 
         ACEROOT
         COINROOT
         TINYXMLROOT        
         STB4ROOT
       
-      magicLens:        
-        COINROOT
-        CG_INC_PATH
-        GLEWROOT
-        STB4ROOT
-        
-        Note: 
-          Requires Nvidia CG Toolkit (http://developer.nvidia.com/object/cg_toolkit.html)
-          and GLEW OpenGL Extension Wrangler Library (http://glew.sourceforge.net/)
+
         
         
       starlight:
@@ -235,6 +235,25 @@ created: 11-04-2006
         XERCESCROOT
       
     Note: Either TINYXMLMODROOT or XERCESROOT are required for parsing XML files with TinyXML or Xerces
+
+  
+   Studierstube Components:
+   ========================
+   
+     Subversion repository:     
+       https://svn.icg.tu-graz.ac.at/svn/StbComponents/trunk/
+   
+     Project: "MagicLens"
+     
+     Environment settings:
+        COINROOT
+        CG_INC_PATH
+        GLEWROOT
+        STB4ROOT
+        
+        Note: 
+          Requires Nvidia CG Toolkit (http://developer.nvidia.com/object/cg_toolkit.html)
+          and GLEW OpenGL Extension Wrangler Library (http://glew.sourceforge.net/)
 
 
 
