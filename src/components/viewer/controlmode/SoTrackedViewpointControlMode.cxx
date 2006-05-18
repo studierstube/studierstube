@@ -43,6 +43,9 @@
 #include <Inventor/nodes/SoTransform.h>
 #include <Inventor/engines/SoTransformVec3f.h> 
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoTrackedViewpointControlMode);
 
 //----------------------------------------------------------------------------
@@ -81,17 +84,17 @@ SoTrackedViewpointControlMode::activate()
 	if(stbCamera==NULL)
 		return false;
 
-    stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-		stb::logPrintE("failed to load event system\n");
+		logPrintE("failed to load event system\n");
         return false;
     }
 
     tre=event->createSoTrakEngine();
     if(!tre)
     {
-		stb::logPrintE("SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
+		logPrintE("SoTrackedDisplayControlMode could not get a SoTrackEngine\n");
         return false;
     }
     tre->key.set1Value(0,viewpointTrackerKey.getValue());
@@ -158,3 +161,5 @@ SoTrackedViewpointControlMode::connectHeadTrackerStep2(SoComposeMatrix *ctw)
         ((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
 	//stbCamera->getTransform()->translation.connectFrom(&te->point);
 }
+
+END_NAMESPACE_STB

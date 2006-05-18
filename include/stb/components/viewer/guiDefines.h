@@ -33,7 +33,7 @@
 #ifndef _GUIDEFINES_H_
 #define _GUIDEFINES_H_
 
-//#define HAVE_OPENVIDEO
+#define HAVE_OPENVIDEO
 
 #ifdef USE_SOQT
 

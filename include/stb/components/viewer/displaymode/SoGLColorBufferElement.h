@@ -36,8 +36,11 @@
 #include <Inventor/elements/SoElement.h>
 #include <Inventor/elements/SoSubElement.h>
 #include <Inventor/SbLinear.h> 
+#include <stb/base/macros.h>
 
 
+
+BEGIN_NAMESPACE_STB
 
 class  SoGLColorBufferElement : public SoElement 
 {   
@@ -84,5 +87,6 @@ inline bool SoGLColorBufferElement::operator!=( const SoGLColorBufferElement & a
     return !operator==(arg);
 }
 
+END_NAMESPACE_STB
 
 #endif // !_SOGLCOLORBUFFERELEMENT_H_

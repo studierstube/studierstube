@@ -36,7 +36,9 @@
 #include <Inventor/actions/SoGLRenderAction.h> 
 #include <Inventor/SbLinear.h>
 #include <Inventor/fields/SoSFVec2s.h> 
+#include <stb/base/macros.h>
 
+BEGIN_NAMESPACE_STB
 class SoViewport : public SoNode
 {
 SO_NODE_HEADER(SoViewport);
@@ -84,5 +86,7 @@ private:
 	SbBool changeViewportRegion;
 	
 };
+
+END_NAMESPACE_STB
 
 #endif

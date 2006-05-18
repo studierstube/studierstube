@@ -36,14 +36,15 @@
 #include <stb/components/viewer/guiDefines.h>
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/fields/SoSFString.h> 
+#include <stb/base/macros.h>
 
 namespace openvideo{
 class    GL_TEXTURE_2D_Sink;
 }
 
-namespace stb{
+
+BEGIN_NAMESPACE_STB
 class Video;
-}
 
 class  SoVideoBackground : public SoNode
 {
@@ -81,10 +82,11 @@ protected:
 #ifdef HAVE_OPENVIDEO
    openvideo::GL_TEXTURE_2D_Sink* ovStbSinkNode;
 #endif
-   stb::Video*  video;
+   Video*  video;
   
 };
 
+END_NAMESPACE_STB
 
 #endif //_SoVideoBackground_H_
 

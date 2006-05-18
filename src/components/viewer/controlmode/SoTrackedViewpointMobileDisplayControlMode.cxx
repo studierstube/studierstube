@@ -44,6 +44,9 @@
 #include <Inventor/engines/SoTransformVec3f.h> 
 
 
+BEGIN_NAMESPACE_STB
+
+
 
 SO_NODE_SOURCE(SoTrackedViewpointMobileDisplayControlMode);
 
@@ -84,10 +87,10 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
 		return false;
 
 
-    stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-		stb::logPrintE("failed to load event system\n");
+		logPrintE("failed to load event system\n");
         return false;
     }
 
@@ -95,7 +98,7 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
     trDisplay=event->createSoTrakEngine();
     if(!trHead || !trDisplay)
     {
-		stb::logPrintE("SoTrackedDisplayControlMode could not get an SoTrakEngine\n");
+		logPrintE("SoTrackedDisplayControlMode could not get an SoTrakEngine\n");
         return false;
     }
     trHead->key.set1Value(0,viewpointTrackerKey.getValue());
@@ -229,3 +232,5 @@ SoTrackedViewpointMobileDisplayControlMode::connectDisplayTrackerStep2(SoCompose
 	// connect positions to transformed offsets
 	((SoOffAxisCamera*)stbCamera->getCamera())->position.connectFrom(&tdo->point);		
 }
+
+END_NAMESPACE_STB

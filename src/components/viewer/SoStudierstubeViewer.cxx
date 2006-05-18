@@ -45,6 +45,9 @@
 #include <errno.h>
 
 
+BEGIN_NAMESPACE_STB
+
+
 //----------------------------------------------------------------------------
 // The constructor of the viewer.
 SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
@@ -281,7 +284,7 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 
 
 void 
-SoStudierstubeViewer::setOVGLContext(stb::Video* video)
+SoStudierstubeViewer::setOVGLContext(Video* video)
 {
     videoComponent=video;
     shareGLContextWithVideo=true;
@@ -443,3 +446,5 @@ SoStudierstubeViewer::printFrameRate(bool onOff)
 {
     this->showFrameRate=onOff;
 }   
+
+END_NAMESPACE_STB

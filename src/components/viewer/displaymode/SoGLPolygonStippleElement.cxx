@@ -38,6 +38,9 @@
 #include <Inventor/actions/SoGLRenderAction.h>
 #include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_ELEMENT_SOURCE(SoGLPolygonStippleElement);
 
 void SoGLPolygonStippleElement::initClass(void)
@@ -131,3 +134,5 @@ SoGLPolygonStippleElement::setMask(SoState * state,GLubyte *newMask)
         elem->updategl(MASK);
     }
 }
+
+END_NAMESPACE_STB

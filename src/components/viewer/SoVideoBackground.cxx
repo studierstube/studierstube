@@ -51,6 +51,9 @@
 #include <GL/gl.h>			
 #include <GL/glu.h>	
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoVideoBackground);
 
 
@@ -87,11 +90,11 @@ bool
 SoVideoBackground::initVideoBackground()
 {
 #ifdef HAVE_OPENVIDEO
-    SoDisplay* display=stb::Viewer::findSoDisplay(this);
+    SoDisplay* display=Viewer::findSoDisplay(this);
     if(!display)
         return false;
 
-    video=(stb::Video*)stb::Kernel::getInstance()->getComponentManager()->load("Video");
+    video=(Video*)Kernel::getInstance()->getComponentManager()->load("Video");
     if(!video)
         return false;       
     ovStbSinkNode=(openvideo::GL_TEXTURE_2D_Sink*)video->getOpenVideoNode(ovStbSink.getValue().getString());
@@ -161,4 +164,6 @@ SoVideoBackground::blitOverlay()
 #endif
     return true;
 }
+
+END_NAMESPACE_STB
 

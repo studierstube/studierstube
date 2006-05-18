@@ -40,7 +40,10 @@
 #include <Inventor/fields/SoSFRotation.h> 
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/base/macros.h>
 
+
+BEGIN_NAMESPACE_STB
 
 class SoDesktopControlMode : public SoStbCameraControlMode
 {
@@ -94,6 +97,7 @@ protected:
 };
 
 
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SODesktopControlMode_H_

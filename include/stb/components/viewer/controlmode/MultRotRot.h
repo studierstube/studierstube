@@ -36,6 +36,7 @@
 
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoMFRotation.h>
+#include <stb/base/macros.h>
 
 
 
@@ -44,6 +45,8 @@
  * @ingroup util
  */
 
+
+BEGIN_NAMESPACE_STB
 
 class  MultRotRot : public SoEngine {
 
@@ -74,6 +77,7 @@ private:
 };
 
 
+END_NAMESPACE_STB
 
 
 #endif

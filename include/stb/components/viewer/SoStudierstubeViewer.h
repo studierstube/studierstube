@@ -34,6 +34,7 @@
 #define _SOSTUDIERSTUBEVIEWER_H_
 
 #include <stb/components/viewer/guiDefines.h>
+#include <stb/base/macros.h>
 
 #include SOGUI_EXAMINERVIEWER_H
 #ifdef USE_SOQT
@@ -51,6 +52,8 @@
 #ifdef LINUX
 #include <GL/glx.h>
 #endif
+
+BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer : public SoGuiExaminerViewer
 {
@@ -127,7 +130,7 @@ public:
      */
     void setWindowPosSize(int x, int y, int width, int height);
 
-    void setOVGLContext(stb::Video* video);
+    void setOVGLContext(Video* video);
 
     bool isOVGLContext(){return isGLContextShared;}
 
@@ -151,7 +154,7 @@ protected:
 	bool shareGLContextWithVideo;
     bool isGLContextShared;
     
-    stb::Video* videoComponent;
+    Video* videoComponent;
 private:
 	/** Stores a flag to indicate if window decorations are activated */
     SbBool isWindowDecorationActive;
@@ -172,6 +175,7 @@ private:
     bool showCursor;
 };
 
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SOSTUDIERSTUBEVIEWER_H_

@@ -54,6 +54,8 @@
 
 
 
+BEGIN_NAMESPACE_STB
+
 SO_NODE_SOURCE(SoOffAxisCamera);
 
 
@@ -481,6 +483,8 @@ SoOffAxisCamera::rayPick(SoRayPickAction *action)
 }
 
 #endif  // __COIN__
+
+END_NAMESPACE_STB
 
 /* ===========================================================================
     End of SoOffAxisCamera.cxx

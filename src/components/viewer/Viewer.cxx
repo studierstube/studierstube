@@ -30,6 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 #include <stb/components/viewer/Viewer.h>
+#include <stb/base/macros.h>
 
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
@@ -63,11 +64,12 @@
 #include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 
-std::vector<SoDisplay*> stb::Viewer::displayList;
+BEGIN_NAMESPACE_STB
+
+std::vector<SoDisplay*> Viewer::displayList;
 
 CREATE_COMPONENT_FUNC(Viewer)
 
-BEGIN_NAMESPACE_STB
 
 Viewer::Viewer()
 {
@@ -84,7 +86,7 @@ bool
 Viewer::init()
 {
     //FIXME: insert log message as soon as the logger is done      
-//    stb::Kernel::getInstance()->logDebug("init Viewer\n");
+//    Kernel::getInstance()->logDebug("init Viewer\n");
 
     if(isInit)
         return true;
@@ -149,7 +151,7 @@ Viewer::init()
             SoDisplay *display =(SoDisplay *)paths[i]->getTail();
             // add content to display
             addSoDisplay(display);
-            stb::Kernel::getInstance()->getSceneManager()->setDisplay(display);
+            Kernel::getInstance()->getSceneManager()->setDisplay(display);
             // add display to kernel's scenemanager 
         }
     }
@@ -160,7 +162,7 @@ Viewer::init()
 }
 
 void 
-Viewer::setParameter(stb::string key, std::string value)
+Viewer::setParameter(string key, std::string value)
 {
     if(key=="configFile")
     {

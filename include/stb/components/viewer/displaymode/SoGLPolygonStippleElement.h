@@ -37,8 +37,11 @@
 #include <Inventor/elements/SoSubElement.h>
 #include <Inventor/SbLinear.h> 
 #include <GL/gl.h>
+#include <stb/base/macros.h>
 
 
+
+BEGIN_NAMESPACE_STB
 
 class SoGLPolygonStippleElement : public SoElement 
 {    
@@ -92,5 +95,6 @@ inline bool SoGLPolygonStippleElement::operator!=( const SoGLPolygonStippleEleme
     return !operator==(arg);
 }
 
+END_NAMESPACE_STB
 
 #endif //

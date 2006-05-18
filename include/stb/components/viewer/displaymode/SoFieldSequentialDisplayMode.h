@@ -34,6 +34,7 @@
 #define _SoFIELDSEQUENTIALDISPLAYMODE_H_
 
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
+#include <stb/base/macros.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -43,6 +44,8 @@
 #include <GL/gl.h>
 #include <Inventor/fields/SoSFBool.h> 
 #include <Inventor/fields/SoSFEnum.h> 
+
+BEGIN_NAMESPACE_STB
 
 class  SoFieldSequentialDisplayMode : public SoDisplayMode
 {
@@ -77,6 +80,7 @@ protected:
 	static bool isInit;
 };
 
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//

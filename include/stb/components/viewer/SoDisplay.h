@@ -48,13 +48,18 @@
 #include <stb/components/viewer/guiDefines.h>
 #include SOGUICOMPONENT_H
 #include <vector>
+#include <stb/base/macros.h>
+
 //	SoDisplay
 //=============
-class SoStudierstubeViewer;
 /************************************************************************
  * SoDisplay is the base class for a single viewer. 
  * An SoDisplay is used to  
  ************************************************************************/
+BEGIN_NAMESPACE_STB
+
+class SoStudierstubeViewer;
+
 class SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);
@@ -206,6 +211,8 @@ public:
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
     
  };
+
+ END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SODISPLAYKIT_H_

@@ -34,6 +34,9 @@
 #include <stb/components/viewer/controlmode/math2.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_ENGINE_SOURCE(MultRotRot);
 
 void
@@ -80,6 +83,8 @@ void MultRotRot::evaluate()
         }
     }
 }
+
+END_NAMESPACE_STB
 
 /* ===========================================================================
     End of MultRotRot.cxx

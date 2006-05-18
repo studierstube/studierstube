@@ -34,6 +34,7 @@
 #define _SoLINESEQUENTIALDISPLAYMODE_H_
 
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
+#include <stb/base/macros.h>
 
 #ifdef WIN32
 #include <windows.h>
@@ -43,6 +44,8 @@
 #include <Inventor/fields/SoSFBool.h> 
 #include <Inventor/fields/SoSFEnum.h> 
 
+
+BEGIN_NAMESPACE_STB
 
 class  SoLineSequentialDisplayMode : public SoDisplayMode
 {
@@ -69,6 +72,7 @@ protected:
    
 };
 
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SOLINESEQUENTIALDISPLAYMODE_H_

@@ -41,6 +41,9 @@
 
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_ELEMENT_SOURCE(SoGLColorBufferElement);
 
 void SoGLColorBufferElement::initClass(void)
@@ -124,3 +127,5 @@ SoGLColorBufferElement::setMask(SoState * state, SbVec4f newMask)
         elem->updategl();
     }
 }
+
+END_NAMESPACE_STB

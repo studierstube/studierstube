@@ -44,6 +44,9 @@
 
 #include <Inventor/actions/SoSearchAction.h>
 
+
+BEGIN_NAMESPACE_STB
+
 SO_NODE_SOURCE(SoDisplay);
 
 //----------------------------------------------------------------------------
@@ -113,8 +116,8 @@ SoDisplay::~SoDisplay()
 void 
 SoDisplay::exitViewer(void*, SoGuiComponent* viewer)
 {
-    SoDisplay* display=stb::Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
-    stb::Viewer::removeSoDisplay(display);
+    SoDisplay* display=Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
+    Viewer::removeSoDisplay(display);
 //    delete viewer;
 }
 
@@ -284,3 +287,5 @@ SoDisplay::find(SoNode *node)
     }  
     return true;
 }
+
+END_NAMESPACE_STB

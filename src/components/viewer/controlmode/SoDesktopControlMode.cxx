@@ -39,6 +39,9 @@
 #include <stb/kernel/Kernel.h>
 //----------------------------------------------------------------------------
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoDesktopControlMode);
 
 //----------------------------------------------------------------------------
@@ -73,7 +76,7 @@ SoDesktopControlMode::activate()
 	if(stbCamera==NULL)
 		return false;
 
-    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+    SoDisplay *dsp=Viewer::findSoDisplay(this);
     if(!dsp)
         return false;
 
@@ -86,3 +89,5 @@ SoDesktopControlMode::activate()
 
 	return true;
 }
+
+END_NAMESPACE_STB

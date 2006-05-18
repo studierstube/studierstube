@@ -36,13 +36,15 @@
 #include <stb/kernel/Component.h>
 
 #include <vector>
-class SoDisplay;
+
 class SoNode;
+
 BEGIN_NAMESPACE_STB
+class SoDisplay;
 /**
 *	
 */
-class Viewer : public stb::Component
+class Viewer : public Component
 {
 public:
     /**
@@ -59,13 +61,13 @@ public:
 	/// Called before the application is destructed.
 	virtual void shutDown();
     //
-    virtual void setParameter(stb::string key, std::string value);
+    virtual void setParameter(string key, std::string value);
 
     static SoDisplay* findSoDisplay(SoNode* node);
 
     static void removeSoDisplay(SoDisplay* disp);
 protected:	
-    stb::string configFile; 
+    string configFile; 
     static std::vector<SoDisplay*> displayList;
     void addSoDisplay(SoDisplay* disp);
 private:

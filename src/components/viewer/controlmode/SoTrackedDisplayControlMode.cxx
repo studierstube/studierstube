@@ -37,6 +37,9 @@
 #include <stb/components/event/event.h>
 #include <stb/components/event/SoTrakEngine.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoTrackedDisplayControlMode);
 
 //----------------------------------------------------------------------------
@@ -72,17 +75,17 @@ SoTrackedDisplayControlMode::activate()
     if(stbCamera==NULL)
 	return false;
     
-    stb::Event* event=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
     if(!event)
     {
-		stb::logPrintE("failed to load event system\n");
+		logPrintE("failed to load event system\n");
         return false;
     }
 
     tre=event->createSoTrakEngine();
     if(!tre)
     {
-		stb::logPrintE("SoTrackedDisplayControlMode could not get an SoTrackEngine\n");
+		logPrintE("SoTrackedDisplayControlMode could not get an SoTrackEngine\n");
         return false;
     }
     tre->key.set1Value(0,displayTrackerKey.getValue());
@@ -95,3 +98,5 @@ SoTrackedDisplayControlMode::activate()
 
     return true;
 }
+
+END_NAMESPACE_STB

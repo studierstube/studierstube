@@ -34,6 +34,7 @@
 #define _SOTRACKEDVIEWPOINTCONTROLMODE_H_
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/base/macros.h>
 
 
 #include <Inventor/fields/SoSFString.h>
@@ -41,6 +42,8 @@
 #include <Inventor/fields/SoSFVec3f.h> 
 
 class SoTrakEngine;
+
+BEGIN_NAMESPACE_STB
 
 class SoTrackedViewpointControlMode :
 	public SoStbCameraControlMode
@@ -74,6 +77,8 @@ protected:
     void connectHeadTracker(SoTrakEngine *tracker);
     SoTrakEngine* tre;
 };
+
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SOTRACKEDVIEWPOINTCONTROLMODE_H_

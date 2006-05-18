@@ -34,8 +34,12 @@
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 #include <Inventor/fields/SoSFString.h>
+#include <stb/base/macros.h>
 
 class SoTrakEngine;
+
+BEGIN_NAMESPACE_STB
+
 class  SoTrackedDisplayControlMode : public SoStbCameraControlMode
 {
 	SO_NODE_HEADER(SoTrackedDisplayControlMode);
@@ -62,6 +66,7 @@ private:
 };
 
 
+END_NAMESPACE_STB
 
 
 //----------------------------------------------------------------------------

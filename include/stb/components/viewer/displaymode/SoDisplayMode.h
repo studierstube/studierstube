@@ -35,7 +35,10 @@
 
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/actions/SoGLRenderAction.h> 
+#include <stb/base/macros.h>
 
+
+BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer;
 
@@ -65,6 +68,7 @@ protected:
     bool activated;
 };
 
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SODISPLAYMODE_H_

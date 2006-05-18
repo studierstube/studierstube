@@ -43,6 +43,8 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 
+BEGIN_NAMESPACE_STB
+
 bool SoFieldSequentialDisplayMode::isInit=false;
 bool SoFieldSequentialDisplayMode::isQuadBufferAvailable=false;
 
@@ -127,7 +129,7 @@ SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 bool 
 SoFieldSequentialDisplayMode::activate()
 {
-    SoDisplay *dsp=stb::Viewer::findSoDisplay(this);
+    SoDisplay *dsp=Viewer::findSoDisplay(this);
     if(!dsp){
         return false;
     }
@@ -136,3 +138,5 @@ SoFieldSequentialDisplayMode::activate()
 
     return true;
 }
+
+END_NAMESPACE_STB

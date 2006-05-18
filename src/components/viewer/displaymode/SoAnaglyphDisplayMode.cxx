@@ -39,6 +39,9 @@
 #include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoAnaglyphDisplayMode);
 
 //----------------------------------------------------------------------------
@@ -86,4 +89,6 @@ SoAnaglyphDisplayMode::GLRender(SoGLRenderAction *action)
 																lensColor.getValue()[2],
 																1.0));
 }
+
+END_NAMESPACE_STB
 

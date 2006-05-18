@@ -34,9 +34,12 @@
 #define _SOSTBCAMERACONTROLMODE_H_
 
 #include <Inventor/nodes/SoSubNode.h>
+#include <stb/base/macros.h>
 
 
 #include <stb/components/viewer/SoStbCamera.h>
+
+BEGIN_NAMESPACE_STB
 
 class SoStbCameraControlMode : public SoNode
 {
@@ -75,6 +78,7 @@ protected:
     bool activated;
 };
 
+END_NAMESPACE_STB
 
 
 //----------------------------------------------------------------------------

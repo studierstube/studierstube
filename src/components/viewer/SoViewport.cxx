@@ -43,6 +43,9 @@
 #include <GL/gl.h>
 
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoViewport);
 
 
@@ -112,3 +115,5 @@ SoViewport::readInstance(SoInput *in, unsigned short flags)
 
 	return true;
 }
+
+END_NAMESPACE_STB

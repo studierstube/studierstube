@@ -36,7 +36,9 @@
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/nodes/SoTransform.h>
+#include <stb/base/macros.h>
 
+BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer;
 class SoDisplay;
@@ -89,6 +91,8 @@ protected:
     bool activateControlMode();
 
 };
+
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SOSTBCAMERA_H_

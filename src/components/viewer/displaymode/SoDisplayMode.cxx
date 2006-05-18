@@ -33,6 +33,9 @@
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoDisplayMode);
 
 //----------------------------------------------------------------------------
@@ -75,6 +78,8 @@ SoDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 {
 	viewer=aViewer;
 }
+
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 //eof

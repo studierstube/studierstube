@@ -39,6 +39,9 @@
 
 #include <stb/components/viewer/displaymode/SoGLPolygonStippleElement.h>
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoLineSequentialDisplayMode);
 
 //----------------------------------------------------------------------------
@@ -155,6 +158,9 @@ SoLineSequentialDisplayMode::GLRender(SoGLRenderAction *action)
 
 	SoGLPolygonStippleElement::setEnable(action->getState(),true);
 }
+
+END_NAMESPACE_STB
+
 //----------------------------------------------------------------------------
 //eof
 

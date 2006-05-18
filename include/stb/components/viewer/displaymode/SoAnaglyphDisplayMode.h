@@ -37,6 +37,8 @@
 
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
 
+BEGIN_NAMESPACE_STB
+
 class  SoAnaglyphDisplayMode : public SoDisplayMode
 {
     SO_NODE_HEADER(SoAnaglyphDisplayMode);
@@ -65,7 +67,7 @@ protected:
 
 };
 
-
+END_NAMESPACE_STB
 
 //----------------------------------------------------------------------------
 #endif//_SOANAGLYPHDISPLAYMODE_H_

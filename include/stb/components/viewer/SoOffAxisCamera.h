@@ -38,6 +38,7 @@
 #include <Inventor/nodes/SoCamera.h>
 #include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoSFMatrix.h>
+#include <stb/base/macros.h>
 
 
 #ifdef WIN32
@@ -81,6 +82,8 @@ the camera will render like an SoPerspectiveCamera.
 @ingroup camera
 @ingroup core
 */
+
+BEGIN_NAMESPACE_STB
 
 class  SoOffAxisCamera : public SoCamera
 {
@@ -156,6 +159,8 @@ protected:
     virtual void doAction(SoAction *action);
 #endif // NOT __COIN__
 };
+
+END_NAMESPACE_STB
 
 #ifdef WIN32
 #include <SoWinEnterScope.h>

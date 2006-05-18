@@ -34,12 +34,17 @@
 #define _SOTRACKEDVIEWPOINTMOBILEDISPLAYCONTROLMODE_H_
 
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
+#include <stb/base/macros.h>
 
+#include <stb/base/macros.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/engines/SoCompose.h> 
 #include <Inventor/fields/SoSFVec3f.h> 
 
 class SoTrakEngine;
+
+BEGIN_NAMESPACE_STB
+
 class  SoTrackedViewpointMobileDisplayControlMode
 : public SoStbCameraControlMode
 {
@@ -89,7 +94,8 @@ private:
     SoTrakEngine* trHead;
     SoTrakEngine* trDisplay;
 };
-	
+
+END_NAMESPACE_STB	
 
 #endif//_SOTRACKEDVIEWPOINTMOBILEDISPLAYCONTROLMODE_H_
 

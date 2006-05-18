@@ -34,6 +34,9 @@
 
 //----------------------------------------------------------------------------
 
+BEGIN_NAMESPACE_STB
+
+
 SO_NODE_SOURCE(SoStbCameraControlMode);
 
 //----------------------------------------------------------------------------
@@ -76,4 +79,6 @@ SoStbCameraControlMode::setStbCamera(SoStbCamera *soStbCam)
 {
 	this->stbCamera=soStbCam;
 }
+
+END_NAMESPACE_STB
 

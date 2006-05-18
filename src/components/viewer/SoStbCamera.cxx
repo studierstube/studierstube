@@ -49,6 +49,8 @@
 #include <stb/kernel/SoStbScene.h>
 
 
+BEGIN_NAMESPACE_STB
+
 SO_KIT_SOURCE(SoStbCamera);
 
 //----------------------------------------------------------------------------
@@ -125,7 +127,7 @@ SoStbCamera::activateControlMode()
 	if(controlMode.getValue())
 	{
 		if(!(SoCamera*)getAnyPart("camera",false,false,false)){
-			stb::logPrintE("StbCameraControlMode: 'no camera found to control'\n ");
+			logPrintE("StbCameraControlMode: 'no camera found to control'\n ");
 			return false;
 		}
 
@@ -150,6 +152,8 @@ SoStbCamera::GLRender(SoGLRenderAction* action)
 
     SoBaseKit::GLRender(action);
 }
+
+END_NAMESPACE_STB
 
 //void 
 //SoStbCamera::setSoDisplay(SoDisplay *aDisplay)
