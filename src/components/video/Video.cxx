@@ -29,11 +29,15 @@
 * $Id: Video.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+
 #include <stb/components/video/Video.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/base/OS.h>
 #include <openvideo/Manager.h>
+
 #define ENABLE_GL_TEXTURE_2D_SINK
 #include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
+
 #include <GL/gl.h>			
 #include <GL/glu.h>	
 
@@ -107,7 +111,7 @@ Video::run()
      ovManager->deleteGLContext();
  }
 
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
 void 
 Video::setGLContext(HGLRC glContext,HDC dc)
 {
@@ -118,7 +122,7 @@ Video::setGLContext(HGLRC glContext,HDC dc)
 }
 #endif
 
-#ifdef LINUX
+#ifdef STB_IS_LINUX
 void 
 Video::setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp) {
     if(isGLContext)

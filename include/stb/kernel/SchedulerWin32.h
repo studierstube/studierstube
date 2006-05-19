@@ -30,7 +30,7 @@
 * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef LINUX
+#if !defined(LINUX) && !defined(STB_IS_LINUX)
 
 #ifndef _SCHEDULERWIN32_H_
 #define _SCHEDULERWIN32_H_
@@ -82,10 +82,14 @@ protected:
 private:
 	
 };// class 
+
 END_NAMESPACE_STB
+
 #endif//_SCHEDULERWIN32_H_
 
-#endif
+#endif  // !defined(LINUX) && !defined(STB_IS_LINUX)
+
+
 //========================================================================
 // End of SchedulerWin32.h 
 //========================================================================

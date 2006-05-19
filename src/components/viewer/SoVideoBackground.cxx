@@ -37,15 +37,16 @@
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/video/Video.h>
+#include <stb/base/OS.h>
 
 #ifdef HAVE_OPENVIDEO
-    #define ENABLE_GL_TEXTURE_2D_SINK
-    #include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
+#  define ENABLE_GL_TEXTURE_2D_SINK
+#  include <openvideo/nodes/GL_TEXTURE_2D_Sink.h>
 #endif
 
-#ifdef WIN32
-	#include <windows.h>
-	#define WIN32_LEAN_AND_MEAN
+#ifdef STB_IS_WINDOWS
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
 #endif
 
 #include <GL/gl.h>			

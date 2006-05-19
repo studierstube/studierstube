@@ -30,8 +30,10 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#ifdef WIN32
-#include <SoWinEnterScope.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <SoWinEnterScope.h>
 #endif
 
 #include <string.h>
@@ -39,8 +41,8 @@
 #include <Inventor/actions/SoHandleEventAction.h>
 #include <Inventor/events/SoKeyboardEvent.h>
 
-#ifdef WIN32
-#include <SoWinLeaveScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinLeaveScope.h>
 #endif
 
 #include <stb/components/starlight/SoKeyToggle.h>

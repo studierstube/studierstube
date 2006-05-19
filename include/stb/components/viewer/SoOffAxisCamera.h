@@ -39,10 +39,10 @@
 #include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoSFMatrix.h>
 #include <stb/base/macros.h>
+#include <stb/base/OS.h>
 
-
-#ifdef WIN32
-#include <SoWinLeaveScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinLeaveScope.h>
 #endif
 
 /**
@@ -162,8 +162,8 @@ protected:
 
 END_NAMESPACE_STB
 
-#ifdef WIN32
-#include <SoWinEnterScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinEnterScope.h>
 #endif
 
 #endif

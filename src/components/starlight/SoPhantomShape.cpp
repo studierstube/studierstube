@@ -30,17 +30,19 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef WIN32
-#include <SoWinEnterScope.h>
-#include <windows.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <SoWinEnterScope.h>
+#  include <windows.h>
 #endif
 
 #include <Inventor/actions/SoGLRenderAction.h>
 
 #include <GL/gl.h>
 
-#ifdef WIN32
-#include <SoWinLeaveScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinLeaveScope.h>
 #endif
 
 #include <stb/components/starlight/SoPhantomShape.h>

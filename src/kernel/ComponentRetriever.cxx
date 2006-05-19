@@ -31,6 +31,7 @@
 #include <stb/kernel/ComponentRetriever.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/base/OS.h>
 
 BEGIN_NAMESPACE_STB
 
@@ -56,7 +57,7 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
     stb::string libName=compInfo->getLibName();
 
 //FIX ME: we should remove the gui-binding from the kernel -denis
-//#ifdef WIN32
+//#ifdef STB_IS_WINDOWS
 //    if(libName=="stbviewer")
 //    {
 //        switch(stb::Kernel::getInstance()->scheduler->getCurrentGuiBinding())

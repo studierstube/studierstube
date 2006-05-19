@@ -45,7 +45,7 @@ BEGIN_NAMESPACE_STB
 hModule 
 os_LoadLibrary(stb::string fileName)
 {
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     using namespace std;
     ostringstream name;
     name  << fileName;
@@ -62,7 +62,7 @@ os_LoadLibrary(stb::string fileName)
     //}
 
     return LoadLibrary(name.str().c_str());
-#else //LINUX
+#else //!STB_IS_WINDOWS
     using namespace std;
     ostringstream name;
 
@@ -87,7 +87,7 @@ os_LoadLibrary(stb::string fileName)
 int*
 os_GetProcAddress(hModule moduleHandle,const char*   procName)
 {
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     return (int*)GetProcAddress(moduleHandle, procName);
 #else
     return (int*)dlsym(moduleHandle, procName);
@@ -97,7 +97,7 @@ os_GetProcAddress(hModule moduleHandle,const char*   procName)
 bool    
 os_FreeLibrary(hModule libHandle)
 {
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     if(FreeLibrary(libHandle))//if else to avoid warning C4800:forcing value to bool 'true' or 'false' 
 	return true;
     else 

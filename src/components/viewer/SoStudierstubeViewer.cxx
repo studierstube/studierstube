@@ -33,15 +33,17 @@
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/Viewer.h>
+#include <stb/base/OS.h>
 #include <Inventor/actions/SoGetPrimitiveCountAction.h>
+
 #include SOGUI_H
 #include SOGUI_CURSOR_H
 #ifdef USE_SOQT
-#include GuiWidget_H
+#  include GuiWidget_H
 #endif
+
 #include <iostream>
 #include <GL/gl.h>
-
 #include <errno.h>
 
 
@@ -61,11 +63,10 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);
-#ifdef WIN32    
+#ifdef STB_IS_WINDOWS
     curDC=NULL;
     curGLContext=NULL;
-#endif
-#ifdef LINUX
+#elif defined(STB_IS_LINUX)
     //drawable=NULL;
     dsp=NULL;
     ovGLContext=NULL;
@@ -296,7 +297,7 @@ SoStudierstubeViewer::redraw ()
     if(!isVideoGLContext)
     {
         this->glLockNormal(); // this makes the GL context "current"
-#ifdef WIN32       
+#ifdef STB_IS_WINDOWS
         curDC=wglGetCurrentDC();
         if(!curDC){
             printf("StbError: failed to get current dc \n ");
@@ -329,8 +330,7 @@ SoStudierstubeViewer::redraw ()
                 }
             }
         }   
-#endif
-#ifdef LINUX
+#elif defined(STB_IS_LINUX)
         GLXContext curContext= glXGetCurrentContext();	
         dsp=glXGetCurrentDisplay();
         drawable=glXGetCurrentDrawable();
@@ -400,10 +400,9 @@ SoStudierstubeViewer::redraw ()
     {
         isGLContextShared=true;
         this->glLockNormal(); // this makes the GL context "current"
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
         videoComponent->setGLContext(curGLContext,curDC);
-#endif
-#ifdef LINUX
+#elif defined(STB_IS_LINUX)
         videoComponent->setGLContext(drawable, ovGLContext, dsp);
 #endif
         this->glUnlockNormal();// this releases the GL contex	
@@ -412,14 +411,14 @@ SoStudierstubeViewer::redraw ()
 
 
     if(showFrameRate){
-    #if defined(WIN32)
+#if defined(STB_IS_WINDOWS)
         DWORD thisTime = GetTickCount();
         diffTime = (float)(thisTime-lastTime);
         if (diffTime>0) framerate=1000*(1/diffTime);
         lastTime=thisTime;
         printf("[Render = %3.1f] \n",framerate);
        
-    #endif
+#endif
      }
     if(showTriangleCount)
         printf("[triangleCount = %i] \n",this->countTriangles());

@@ -40,11 +40,17 @@
 
 #  define STB_IS_WINDOWS
 #  define STB_IS_WINCE
+#  if defined(_DEBUG) || defined(DEBUG)
+#    define STB_IS_DEBUG
+#  endif
 
 #elif defined(WIN32)
 
 #  define STB_IS_WINDOWS
 #  define STB_IS_WINXP
+#  if defined(_DEBUG) || defined(DEBUG)
+#    define STB_IS_DEBUG
+#  endif
 
 #elif defined(LINUX)
 

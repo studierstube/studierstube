@@ -35,11 +35,13 @@
 
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
 #include <stb/base/macros.h>
+#include <stb/base/OS.h>
 
-#ifdef WIN32
-#include <windows.h>
-#define WIN32_LEAN_AND_MEAN
+#ifdef STB_IS_WINDOWS
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
 #endif
+
 #include <GL/gl.h>
 #include <Inventor/fields/SoSFBool.h> 
 #include <Inventor/fields/SoSFEnum.h> 

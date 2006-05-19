@@ -30,6 +30,7 @@
 /* ======================================================================= */
 
 #include <stb/kernel/StbLogger.h>
+#include <stb/base/OS.h>
 #include <stdarg.h>
 
 BEGIN_NAMESPACE_STB
@@ -187,7 +188,7 @@ void StbLogger::printMessage(const char *message)
 void StbLogger::printDebug(const char *debugMessage)
 {
 	// We should be using ACE here
-#ifdef _DEBUG
+#ifdef STB_IS_DEBUG
 	switch (logMode)
 	{
 		case OFF: break;
@@ -195,7 +196,7 @@ void StbLogger::printDebug(const char *debugMessage)
 		case CONSOLE: printf("DEBUG: %s",debugMessage); break;
 		default: break;
 	}
-#endif //_DEBUG
+#endif // STB_IS_DEBUG
 }
 
 void StbLogger::printSetup(const char *setupMessage)

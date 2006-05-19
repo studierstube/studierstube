@@ -31,10 +31,11 @@
 /* ======================================================================= */
 
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
+#include <stb/base/OS.h>
 
-#ifdef WIN32
-#include <windows.h>
-#define WIN32_LEAN_AND_MEAN
+#ifdef STB_IS_WINDOWS
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
 #endif
 
 #include <stb/components/viewer/Viewer.h>
@@ -104,6 +105,9 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 void 
 SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 {
+#ifdef _IS_KLIMTES_
+	assert(false && "Not supported with OpenGL ES !!!");
+#else
     if(!activated)
     {
         activated=activate();
@@ -124,6 +128,7 @@ SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);//clear buffers
 		glFlush();//force execution of gl commands
 	}
+#endif
 }
 
 bool 

@@ -30,10 +30,13 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef WIN32
-#include <windows.h>
-#define WIN32_LEAN_AND_MEAN
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
 #endif
+
 #include <GL/gl.h>
 #include <iostream>
 

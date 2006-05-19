@@ -36,14 +36,14 @@
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/nodes/SoNode.h>
 #include <Inventor/fields/SoSFString.h>
+#include <stb/base/OS.h>
 
 #include "starlight.h"
 
-#ifdef WIN32
-    #include <windows.h>
-#endif
-#ifdef LINUX
-#include <ltdl.h>
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
+#elif defined(STB_IS_LINUX)
+#  include <ltdl.h>
 #endif
 
 
@@ -83,9 +83,9 @@ public:
     SbBool loadClass( const SbStringList & directories );
     SbBool loadClass(SbString classname, SbString filename);
 
-#if defined(WIN32)
+#if defined(STB_IS_WINDOWS)
     HINSTANCE getObjectHandle() { return objectHandle; };
-#else
+#elif defined(STB_IS_LINUX)
     void* getObjectHandle() { return objectHandle; };
 #endif
     
@@ -101,9 +101,9 @@ private:
 
     virtual ~SoClassLoader();
 
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     HINSTANCE objectHandle;
-#else
+#elif defined(STB_IS_LINUX)
     lt_dlhandle objectHandle;
 #endif
 

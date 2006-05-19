@@ -31,6 +31,7 @@
 #include <stb/kernel/ComponentThread.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/base/fixWin32Issues.h>
+#include <stb/base/OS.h>
 #include <ace/Thread.h>
 #include <ace/Synch.h>
 
@@ -83,11 +84,11 @@ ComponentThread::start()
 void 
 ComponentThread::close()
 {
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     ACE_Thread::join( (ACE_hthread_t*)threadHandle );
 #endif
 
-#ifdef LINUX
+#ifdef STB_IS_LINUX
     ACE_Thread::join( (ACE_hthread_t)threadHandle );
 #endif
 

@@ -23,9 +23,11 @@
   * PROJECT: Studierstube
   * ======================================================================== */ 
 
-#ifdef WIN32
-#include <windows.h>
-#include <math.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
+#  include <math.h>
 #endif
 
 #include <stb/components/starlight/SoEaseIn.h>

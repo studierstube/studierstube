@@ -31,7 +31,9 @@
 /* ======================================================================= */
 
 
-#ifndef LINUX
+#include <stb/base/OS.h>
+
+#ifndef STB_IS_LINUX
 
 
 #include <stb/kernel/SchedulerWin32.h>
@@ -81,7 +83,7 @@ SchedulerWin32::loadSoQt()
 void 
 SchedulerWin32::loadSoWin()
 {
-#ifdef _DEBUG   
+#ifdef STB_IS_DEBUG
     std::string libFileName="SoWin1d.dll";
 #else
     std::string libFileName="SoWin1.dll";
@@ -114,7 +116,7 @@ SchedulerWin32::loadSoSimple()
   // FIXME: insert log message as sremoved log 
   //
   //Kernel::getInstance()->logDebug("INFO: load SoSimple\n");
-#ifdef _DEBUG   
+#ifdef STB_IS_DEBUG
 	std::string libFileName="SoSimpled.dll";
 #else
 	std::string libFileName="SoSimple.dll";

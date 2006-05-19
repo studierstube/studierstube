@@ -33,12 +33,14 @@
 #ifndef _GUIDEFINES_H_
 #define _GUIDEFINES_H_
 
+#include <stb/base/OS.h>
+
 #define HAVE_OPENVIDEO
 
 #ifdef USE_SOQT
 
-#ifdef WIN32
-#define SOQT_DLL 1
+#ifdef STB_IS_WINDOWS
+#  define SOQT_DLL 1
 #endif
 
 #define GuiWidget_H <qwidget.h> 
@@ -59,8 +61,8 @@
 
 #elif USE_SOWIN
 
-#ifdef WIN32
-#define SOWIN_DLL 1
+#ifdef STB_IS_WINDOWS
+#  define SOWIN_DLL 1
 #endif
 
 #define SOGUICOMPONENT_H <Inventor/Win/SoWinComponent.h>
@@ -111,7 +113,7 @@
 
 #else // no window binding defined
 
-#pragma error("ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL")
+#  pragma error("ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL")
 
 #endif // end of windows bindings
 

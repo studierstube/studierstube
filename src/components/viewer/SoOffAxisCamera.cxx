@@ -31,9 +31,11 @@
   */
  /* ======================================================================== */
 
-#ifdef WIN32
-#include <SoWinEnterScope.h>
-#include <windows.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <SoWinEnterScope.h>
+#  include <windows.h>
 #endif
 
 #include <Inventor/elements/SoModelMatrixElement.h>
@@ -46,8 +48,8 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#ifdef WIN32
-#include <SoWinLeaveScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinLeaveScope.h>
 #endif
 
 #include <stb/components/viewer/SoOffAxisCamera.h>

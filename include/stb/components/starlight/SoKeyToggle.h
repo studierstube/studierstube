@@ -39,10 +39,11 @@
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <stb/base/OS.h>
 #include "starlight.h"
 
-#ifdef WIN32
-#include <SoWinLeaveScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinLeaveScope.h>
 #endif
 
 /**
@@ -104,8 +105,8 @@ private:
     virtual ~SoKeyToggle();
 };
 
-#ifdef WIN32
-#include <SoWinEnterScope.h>
+#ifdef STB_IS_WINDOWS
+#  include <SoWinEnterScope.h>
 #endif
 
 #endif //_SOKEYTOGGLE_H_

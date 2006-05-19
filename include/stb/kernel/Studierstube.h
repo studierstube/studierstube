@@ -33,16 +33,16 @@
 #ifndef _STUDIERSTUBE_H_
 #define _STUDIERSTUBE_H_
 
-#ifdef WIN32
- #pragma warning(disable:4251)
- #pragma warning(disable:4290)
- #ifdef STB_EXPORTS
-  #define STB_API __declspec(dllexport)
- #else
-  #define STB_API __declspec(dllimport)
- #endif
+#if defined(WIN32) || defined(_WIN32_WCE)
+#  pragma warning(disable:4251)
+#  pragma warning(disable:4290)
+#  ifdef STB_EXPORTS
+#    define STB_API __declspec(dllexport)
+#  else
+#    define STB_API __declspec(dllimport)
+#  endif
 #else
- #define STB_API 
+#  define STB_API 
 #endif
 
 

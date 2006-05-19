@@ -31,6 +31,7 @@
 /* ======================================================================= */
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/macros.h>
+#include <stb/base/OS.h>
 
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
@@ -116,7 +117,7 @@ Viewer::init()
     //get viewer's parameter
     retrieveParameter();
  
-#ifdef LINUX
+#ifdef STB_IS_LINUX
     using namespace std;
     SoInput::addDirectoryFirst(Kernel::getInstance()->getBaseDir().c_str());
 #endif

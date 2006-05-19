@@ -31,6 +31,8 @@
  /* ======================================================================= */
 
 #include <stb/components/starlight/SoMultiSwitchElement.h>
+#include <stb/base/OS.h>
+
 
 SO_ELEMENT_SOURCE(SoMultiSwitchElement);
 
@@ -52,7 +54,7 @@ void SoMultiSwitchElement::initClass()
 
 void SoMultiSwitchElement::print(FILE *fp) const
 {
-#ifdef _DEBUG
+#ifdef STB_IS_DEBUG
     SoReplacedElement::print(fp);
 #endif
 }

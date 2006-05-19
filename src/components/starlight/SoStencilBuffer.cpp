@@ -31,8 +31,10 @@
  * @file                                                                   */
 /* ======================================================================= */
 
-#ifdef WIN32
-#include <windows.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
 #endif
 
 #include <GL/gl.h>

@@ -32,6 +32,7 @@
 
 #ifndef _COMPONENT_H_
 #define _COMPONENT_H_
+#include <stb/base/OS.h>
 #include <stb/kernel/Studierstube.h>
 #include <stb/base/macros.h>
 #include <stb/base/string.h>
@@ -114,8 +115,8 @@ private:
 END_NAMESPACE_STB
 
 // this should be somewhere else, not here ! breiting, 15/02/2006
-#ifdef WIN32
-#define CREATE_COMPONENT_FUNC(CLASSNAME) \
+#ifdef STB_IS_WINDOWS
+#  define CREATE_COMPONENT_FUNC(CLASSNAME) \
 extern "C" {																						\
 \
 __declspec(dllexport) stb::CLASSNAME* createComponent()\
@@ -124,14 +125,14 @@ __declspec(dllexport) stb::CLASSNAME* createComponent()\
 }																									\
 \
 }
-#else  // Linux
-#define CREATE_COMPONENT_FUNC(CLASSNAME) \
+#else  // !STB_IS_WINDOWS
+#  define CREATE_COMPONENT_FUNC(CLASSNAME) \
 extern "C" { \
 stb::CLASSNAME* createComponent() \
 { \
     return new stb::CLASSNAME; \
 } \
 }
-#endif
+#endif // STB_IS_WINDOWS
 
 #endif//_COMPONENT_H_

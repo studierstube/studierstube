@@ -35,22 +35,22 @@
 
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/base/macros.h>
+#include <stb/base/OS.h>
 
 #include SOGUI_EXAMINERVIEWER_H
-#ifdef USE_SOQT
-    #include GuiWidget_H
-#endif
-#include <Inventor/nodes/SoDirectionalLight.h> 
 
+#ifdef USE_SOQT
+#  include GuiWidget_H
+#endif
+
+#include <Inventor/nodes/SoDirectionalLight.h> 
 #include <stb/components/video/Video.h>
 
-#ifdef WIN32
-    #include <windows.h>
-    #include <time.h>
-#endif
-
-#ifdef LINUX
-#include <GL/glx.h>
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
+#  include <time.h>
+#elif defined(STB_IS_LINUX)
+#  include <GL/glx.h>
 #endif
 
 BEGIN_NAMESPACE_STB
@@ -140,11 +140,10 @@ public:
 
     void printFrameRate(bool onOff);
 protected:
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     HGLRC curGLContext;
     HDC   curDC;
-#endif
-#ifdef LINUX
+#elif defined(STB_IS_LINUX)
     GLXDrawable drawable;
     Display* dsp;
     GLXContext ovGLContext;
@@ -165,7 +164,7 @@ private:
     bool showTriangleCount;
 
     bool showFrameRate;
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     DWORD thisTime;
     DWORD lastTime;
     float diffTime;

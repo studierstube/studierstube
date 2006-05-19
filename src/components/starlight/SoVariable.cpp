@@ -36,9 +36,10 @@
 #include <Inventor/errors/SoDebugError.h>
 
 #include <stb/components/starlight/SoVariable.h>
+#include <stb/base/OS.h>
 
-#ifndef WIN32
-#define _strdup strdup
+#ifndef STB_IS_WINDOWS
+#  define _strdup strdup
 #endif
 
 

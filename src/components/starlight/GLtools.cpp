@@ -29,9 +29,10 @@
 /* ======================================================================= */
 
 #include <cstdio>
+#include <stb/base/OS.h>
 
-#ifdef WIN32
-#include <windows.h>
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
 #endif
 
 #include <GL/gl.h>

@@ -36,6 +36,7 @@
 #include <Inventor/errors/SoDebugError.h>
 
 #include <stb/components/starlight/SoFanIn.h>
+#include <stb/base/OS.h>
 
 
 //cannot use this because of special handling of inputs/outputs...
@@ -146,7 +147,7 @@ void SoFanIn::setup(SoType inputType)
         else if DECIDE(MFVec4f)   
 #undef DECIDE
         else {
-#ifdef DEBUG
+#ifdef STB_IS_DEBUG
         SoDebugError::post("SoFanIn::setup", "Can't fan in field of type %s", inputType.getName().getString());
 #endif
         conversionCase = BAD_TYPE;
@@ -229,7 +230,7 @@ void SoFanIn::evaluate()
             break;
         default:
             // Something is seriously wrong:
-#ifdef DEBUG
+#ifdef STB_IS_DEBUG
             SoDebugError::post("SoFanIn::evaluate",
                 "conversionCase is %d!", conversionCase);
 #endif

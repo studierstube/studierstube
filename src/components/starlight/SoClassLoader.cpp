@@ -37,6 +37,7 @@
 #include <Inventor/errors/SoDebugError.h>
 
 #include <stb/components/starlight/SoClassLoader.h>
+#include <stb/base/OS.h>
 
 
 using namespace std;
@@ -60,7 +61,7 @@ SoClassLoader::SoClassLoader()
    SO_NODE_ADD_FIELD(className,(""));
    SO_NODE_ADD_FIELD(fileName,(""));
 
-#ifndef WIN32
+#ifndef STB_IS_WINDOWS
    // initialise libltdl
    if (lt_dlinit())
    {
@@ -143,9 +144,9 @@ SoClassLoader::linkDll(SbString filename)
 {
 
 // try to open the shared object
-#if defined(WIN32)
+#ifdef STB_IS_WINDOWS
    // windows is not handled by ldtld so add the extension
-#ifdef _DEBUG   
+#  ifdef STB_IS_DEBUG   
     // test with d.dll for debug version.
     SbString name = filename;
     name += "d.dll";
@@ -156,11 +157,11 @@ SoClassLoader::linkDll(SbString filename)
         name += ".dll";
         objectHandle = LoadLibrary(name.getString());
     }
-#else
+#  else //!STB_IS_DEBUG
     filename+=".dll";
     objectHandle = LoadLibrary(filename.getString());
-#endif // _DEBUG
-#else
+#  endif // STB_IS_DEBUG
+#elif defined(STB_IS_LINUX)
    objectHandle = lt_dlopenext(filename.getString());
 #endif
 
@@ -182,7 +183,7 @@ SbBool
 SoClassLoader::findEntryPoint(SbString classname)
 {
    
-#if defined(WIN32)
+#if defined(STB_IS_WINDOWS)
    SbString funcStr;
       
    funcStr+="?initClass@";
@@ -198,7 +199,7 @@ SoClassLoader::findEntryPoint(SbString classname)
 
   messageHandler = dlsym(objectHandle,"Stb_getMessage__GPviT2T1");
 */
-#else
+#elif defined(STB_IS_LINUX)
    ostringstream oss;
    oss << "_ZN" << string(classname.getString()).length() 
 	   << classname.getString() << "9" << "initClass" << "Ev";

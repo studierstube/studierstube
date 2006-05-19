@@ -35,10 +35,11 @@
 // #include "../tool/disable4786.h"
 #include <stb/components/event/EventSink.h>
 #include <stb/components/event/EventModule.h>
+#include <stb/base/OS.h>
 
 
-#ifdef WIN32
-#pragma warning(disable:4786)
+#ifdef STB_IS_WINDOWS
+#  pragma warning(disable:4786)
 #endif
 
 EventSink::EventSink( EventModule * parent_ ) :

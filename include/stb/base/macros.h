@@ -44,7 +44,7 @@
 #define   	_STB_MACROS_
 
 #define BEGIN_NAMESPACE_STB namespace stb {
-#define END_NAMESPACE_STB }; // namespace
+#define END_NAMESPACE_STB }; // end of namespace stb
 
 //! Define all functions in the gtl namespace
 namespace stb {}

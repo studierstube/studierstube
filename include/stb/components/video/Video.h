@@ -32,14 +32,15 @@
 
 #ifndef _VIDEO_H_
 #define _VIDEO_H_
-#include <stb/base/macros.h>
-#include <stb/kernel/ComponentThread.h>
-#ifdef WIN32
-#include <windows.h>
-#endif
 
-#ifdef LINUX
-#include <GL/glx.h>
+#include <stb/base/macros.h>
+#include <stb/base/OS.h>
+#include <stb/kernel/ComponentThread.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
+#elif defined(STB_IS_LINUX)
+#  include <GL/glx.h>
 #endif
 
 //#ifdef WIN32
@@ -81,10 +82,9 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
-#ifdef WIN32
+#ifdef STB_IS_WINDOWS
     virtual void setGLContext(HGLRC glContext,HDC dc);
-#endif
-#ifdef LINUX
+#elif defined(STB_IS_LINUX)
     virtual void setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp);
 #endif
 

@@ -31,15 +31,14 @@
 /* ======================================================================= */
 
  #include <stb/bootloader/KernelLoader.h>
+ #include <stb/base/OS.h>
 
 int 
 main(int argc,char* argv[])
 {
     stb::string libName="stbkernel";
-#ifdef WIN32
-    #ifdef DEBUG
-        libName="stbkerneld";
-    #endif
+#if defined(STB_IS_WINDOWS) && defined(STB_IS_DEBUG)
+    libName="stbkerneld";
 #endif
     const char execFunc[]="executeStudierstube";
     stb::KernelLoader loader;

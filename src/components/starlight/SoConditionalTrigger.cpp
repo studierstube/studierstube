@@ -23,8 +23,10 @@
   * PROJECT: Studierstube
   * ======================================================================== */ 
 
-#ifdef WIN32
-#include <windows.h>
+#include <stb/base/OS.h>
+
+#ifdef STB_IS_WINDOWS
+#  include <windows.h>
 #endif
 
 #include <Inventor/SoPath.h>
