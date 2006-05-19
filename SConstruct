@@ -2,6 +2,7 @@
 import os
 import sys
 import buildutils
+import re
 
 # Studierstube version.
 version='4.0'
@@ -68,14 +69,31 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     opentracker_include = opentracker_env.Dictionary()['CPPPATH']
     opentracker_lib = opentracker_env.Dictionary()['LIBS']
     opentracker_libpath = opentracker_env.Dictionary()['LIBPATH']
+    opentracker_version = os.popen('echo `opentracker-config --version`').read()
+    opentracker_version = opentracker_version.strip()
+
+    print "============================================================"
+    print "Checking OpenTracker version ... found " + opentracker_version
+    print "============================================================\n"
+
+    ot11_re = re.compile('^1\.1.*')
+    ot12_re = re.compile('^1\.2.*')
+    if ot11_re.match(opentracker_version):
+        defines += ['USE_OT_1_1']
+    elif ot12_re.match(opentracker_version):
+        defines += ['USE_OT_1_2']
+    else:
+        print "WARNING, OpenTracker version not supported!"
+
+        
     # Openvideo library information
-    openvideo_env.ParseConfig ('pkg-config --cflags --libs OpenVideo')
+    openvideo_env.ParseConfig ('pkg-config --silence-errors --cflags --libs OpenVideo')
     openvideo_cflags = openvideo_env.Dictionary()['CCFLAGS']
     openvideo_include = openvideo_env.Dictionary()['CPPPATH']
     openvideo_lib = openvideo_env.Dictionary()['LIBS']
     openvideo_libpath = openvideo_env.Dictionary()['LIBPATH']
     # Muddleware library information
-    muddleware_env.ParseConfig ('pkg-config --cflags --libs Muddleware_Client')
+    muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs MuddleClient')
     muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
     muddleware_include = muddleware_env.Dictionary()['CPPPATH']
     muddleware_lib = muddleware_env.Dictionary()['LIBS']
