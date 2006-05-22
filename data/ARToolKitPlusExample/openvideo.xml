@@ -3,24 +3,15 @@
 <openvideo scheduleMode="timer" updateRate="30">
 
 	<!-- In this example we receive video from VideoWrapper -->
-	<VideoWrapperSrc 
-		name="TSrc_1"
-		libId="vc"
-		formatId="RGB24"
-		cameraNum="0"
-		width="320"
-		height="240"
-		frameRate="30"
-		scale="1"
-		pixelformat="R8G8B8"> 
+	<DSVLSrc config-file="dsvl.xml" pixelformat="B8G8R8" flip-v="true"> 
 
 		<!-- This will open a glut window with the video provided by the sink -->
-		<GLUTSink name="glsink1" pixelformat="R8G8B8"/>
+		<!--	<GLUTSink name="glsink1" pixelformat="B8G8R8"/>  -->
 		<!-- This will deliver video to ARToolKitPlus -->
-		<VideoSink name="artoolkitPluSink" pixelformat="R8G8B8"/> 
+		<VideoSink name="Stb4VideoComponentSink" pixelformat="B8G8R8"/> 
 		<!-- This will create an OpenGL texture, necessary for video background in stb4 -->
-		<GL_TEXTURE_2D_Sink name="videoBackgroundSink" pixelformat="R8G8B8"/>
+		<GL_TEXTURE_2D_Sink name="videoBackgroundSink" pixelformat="B8G8R8"/>
 
-	</VideoWrapperSrc>
+	</DSVLSrc>
 
 </openvideo>

@@ -57,6 +57,7 @@ void SoOpenTrackerSource::initClass(void)
 
 SoOpenTrackerSource::SoOpenTrackerSource(void) :
     context(NULL),
+	artkpModule(NULL),
     eventHandler(NULL),
     runSensor(NULL)
 {
@@ -80,6 +81,8 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
     processSensor.setFunction( SoOpenTrackerSource::processChanged );
     processSensor.setData( this );
     processSensor.attach( &processing );
+
+	active.setValue(FALSE);
 
     // setup the timer sensor for running the show
     SoOpenTrackerSource::processChanged( this, NULL );
@@ -118,7 +121,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
         self->shouldStop.setValue(FALSE);
     }
     SbString configFile = self->configuration.getValue();
-   
+
     if(configFile.getLength() > 0)
     {
         self->context = new ot::Context(1);
@@ -129,6 +132,11 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 
         self->context->start();
         self->active.setValue(TRUE);
+
+		// try to find an ARToolKitPlusModule
+		// FIXME: maybe OpenTracker should rather have a generic video input interface for all its nodes...
+		//
+		self->artkpModule = reinterpret_cast<ot::ARToolKitPlusModule*>(self->context->getModule("ARToolKitPlusConfig"));
     }
 }
 
@@ -191,6 +199,9 @@ void SoOpenTrackerSource::runTracker( void )
 
 void SoOpenTrackerSource::handleEvent(SoHandleEventAction * action)
 {
+	if(!active.getValue())
+		return;
+
     assert(eventHandler);
     eventHandler->handleEvent(action);
 }

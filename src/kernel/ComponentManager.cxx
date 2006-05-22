@@ -78,6 +78,8 @@ ComponentManager::initComponent(Component *comp)
 {
     if(comp->init())
     {
+		connectComponents(comp);
+
         // add to applist or comp.list
         stb::string id=comp->getTypeID();
         if(id==Application::getBaseTypeID())
@@ -87,6 +89,7 @@ ComponentManager::initComponent(Component *comp)
         else if(id==Component::getBaseTypeID()
               ||id==ComponentThread::getBaseTypeID())
             compList.push_back(comp);
+
         return true;
     }
 
@@ -167,5 +170,47 @@ ComponentManager::load(std::string compName)
     logPrintE("unable to find " + compName + "\n");
     return NULL;
 }
+
+
+void
+ComponentManager::connectComponents(Component* component)
+{
+	size_t i;
+
+	// check if this component provides video
+	//
+	if(VideoProvider* videoProvider = component->getVideoProviderInterface())
+	{
+		// find all components that use video
+		//
+		for(i=0;i<compList.size();i++)
+			if(VideoUser* videoUser = compList[i]->getVideoUserInterface())
+				videoProvider->vp_registerVideoUser(videoUser);
+
+		// find all applications that use video
+		//
+		for(i=0;i<appList.size();i++)
+			if(VideoUser* videoUser = appList[i]->getVideoUserInterface())
+				videoProvider->vp_registerVideoUser(videoUser);
+	}
+
+	// check if this component uses video
+	//
+	if(VideoUser* videoUser = component->getVideoUserInterface())
+	{
+		// find all components that use video
+		//
+		for(i=0;i<compList.size();i++)
+			if(VideoProvider* videoProvider = compList[i]->getVideoProviderInterface())
+				videoProvider->vp_registerVideoUser(videoUser);
+
+		// find all applications that use video
+		//
+		for(i=0;i<appList.size();i++)
+			if(VideoProvider* videoProvider = appList[i]->getVideoProviderInterface())
+				videoProvider->vp_registerVideoUser(videoUser);
+	}
+}
+
 
 END_NAMESPACE_STB

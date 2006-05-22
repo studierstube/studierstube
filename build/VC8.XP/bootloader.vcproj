@@ -191,6 +191,10 @@
 				RelativePath="..\..\src\bootloader\main.cxx"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\base\OS.cxx"
+				>
+			</File>
 			<Filter
 				Name="Base"
 				>

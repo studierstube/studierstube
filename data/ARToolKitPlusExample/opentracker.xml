@@ -5,7 +5,7 @@
 		<!-- Here we place all the necessary configurations -->
 		<ARToolKitPlusConfig camera-parameter="quickcampro400.dat" marker-mode="idbased" border-width="0.125" treshold="auto" pose-estimator="cont" ov-config="openvideo.xml" ov-sink="artoolkitPluSink"/>
 		<ConsoleConfig headerline="Sample Tracking Input" interval="1"/>
-	    <EventConfig keyevents="on" mouseevents="on"/>
+	    <EventConfig keyevents="on" mouseevents="off"/>
 	</configuration>
 
 	<!-- With a console sink we send the output to the shell -->	

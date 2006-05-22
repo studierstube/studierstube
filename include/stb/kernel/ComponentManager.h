@@ -114,6 +114,9 @@ protected:
     ************************************************************************/
     stb::Component* isLoaded(std::string compName);
 
+
+	void connectComponents(Component* component);
+
 private:
 	
 };// class 

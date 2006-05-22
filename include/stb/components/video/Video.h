@@ -30,12 +30,17 @@
 * @file                                                                   */  
 /* ======================================================================= */  
 
+
 #ifndef _VIDEO_H_
 #define _VIDEO_H_
 
+
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
+#include <stb/base/datatypes.h>
 #include <stb/kernel/ComponentThread.h>
+#include <stb/kernel/VideoProvider.h>
+
 
 #ifdef STB_IS_WINDOWS
 #  include <windows.h>
@@ -43,16 +48,6 @@
 #  include <GL/glx.h>
 #endif
 
-//#ifdef WIN32
-//    #ifdef STBVIEWER_EXPORTS
-//        #define STBVIEWER_API __declspec(dllexport)
-//    #else
-//        #define STBVIEWER_API __declspec(dllimport)
-//    #endif
-//#endif
-//#ifdef LINUX
-//    #define STBVIEWER_API
-//#endif
 
 namespace openvideo{
     class Manager;
@@ -60,10 +55,15 @@ namespace openvideo{
 }
 
 BEGIN_NAMESPACE_STB
+
+
+class Stb4VideoSinkSubscriber;
+
+
 /**
 *	
 */
-class Video : public stb::ComponentThread
+class Video : public stb::ComponentThread, public stb::VideoProvider
 {
 public:
     /**
@@ -96,8 +96,23 @@ public:
     virtual void release2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
     virtual int getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink);
 
+
+	// Declare that this component is a video provider
+	virtual VideoProvider* getVideoProviderInterface()  {  return this;  }
+
+
+	/// Implement stb::VideoProvider interface
+	virtual void vp_registerVideoUser(VideoUser* videouser);
+	virtual void vp_unregisterVideoUser(VideoUser* videouser);
+
+
+	void setOVFormat(VIDEO_FRAME& format);
+
+	void setNewFrame(VIDEO_FRAME& format);
+
 protected:	
-    stb::string configFile; 
+    stb::string configFile,
+				ovSinkName;
 
     openvideo::Manager* ovManager;
 
@@ -106,8 +121,12 @@ protected:
     virtual void run();
 
 private:
-	
-};// class 
+	Stb4VideoSinkSubscriber*	videoSinkSubscriber;
+	VideoUserVector	videousers;
+
+	VIDEO_FRAME *video_format;
+};
+
 
 END_NAMESPACE_STB
 

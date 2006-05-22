@@ -34,8 +34,11 @@
 #define _COMPONENT_H_
 #include <stb/base/OS.h>
 #include <stb/kernel/Studierstube.h>
+#include <stb/kernel/VideoProvider.h>
+#include <stb/kernel/VideoUser.h>
 #include <stb/base/macros.h>
 #include <stb/base/string.h>
+
 
 BEGIN_NAMESPACE_STB
 
@@ -86,6 +89,15 @@ public:
      * 
      ************************************************************************/
     virtual stb::string getTypeID();
+
+
+	/// A component returns a non-NULL instance if it is delivering video data
+	virtual VideoProvider* getVideoProviderInterface()  {  return NULL;  }
+
+	/// A component returns a non-NULL instance if it requires video data
+	virtual VideoUser* getVideoUserInterface()  {  return NULL;  }
+
+
 
     /************************************************************************/
     /*                                                                      */

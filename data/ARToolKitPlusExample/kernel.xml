@@ -3,7 +3,7 @@
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
     <Component  name="Event" availability="ondemand" lib="stbevent">
-		<Param key="configFile" value ="opentracker.xml" />	
+      <Param key="configFile" value ="opentracker.xml" />
 	</Component>
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
@@ -18,8 +18,9 @@
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
 	<Component name="Video" availability="ondemand"	lib="stbvideo">
 	    <Param key="configFile" value="openvideo.xml" />
+	    <Param key="ovSinkName" value="Stb4VideoComponentSink" />
 	</Component>
-	
+
 	<!-- This is the Application -->
     <Application name="SimpleApp" availability="onload" lib="stbapp_simple">
                 <Param key="sceneFile"  value ="scene.iv" />

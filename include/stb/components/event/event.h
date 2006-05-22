@@ -44,6 +44,7 @@
 #define _EVENT_H_
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
+#include <stb/kernel/VideoUser.h>
 
 
 /**
@@ -64,7 +65,12 @@ class SoEventAction;
 
 
 BEGIN_NAMESPACE_STB
-class Event : public stb::Component
+
+
+class otImageGrabber;
+
+
+class Event : public stb::Component, public stb::VideoUser
 {
 public:
     /**
@@ -95,9 +101,21 @@ public:
     virtual SoEventRoot*            createSoEventRoot();
     virtual SoEventAction*          createSoEventAction();
 
+
+	// Declare that this component is a video user
+	virtual VideoUser* getVideoUserInterface()   {  return this;  }
+
+
+	/// Implement the stb::VideoUser interface
+    virtual void vu_init(const VIDEO_FRAME& frame);
+    virtual void vu_update(const VIDEO_FRAME& frame);
+
+
 protected:	
     stb::string configFile; 
 private:
+	SoOpenTrackerSource*	otSource;
+	otImageGrabber*			artkpGrabber;
 
 };// class 
 END_NAMESPACE_STB

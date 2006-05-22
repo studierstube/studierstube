@@ -102,6 +102,8 @@ int*    os_GetProcAddress(hModule moduleHandle,const char*   procName);
 
 bool    os_FreeLibrary(hModule libHandle);
 
+bool    os_correctModuleName(stb::string& fileName, bool nMakeDebug, bool nMakeES);
+
 
 END_NAMESPACE_STB
 

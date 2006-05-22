@@ -30,16 +30,19 @@
 * @file                                                                   */
 /* ======================================================================= */
 
- #include <stb/bootloader/KernelLoader.h>
- #include <stb/base/OS.h>
+#include <stb/bootloader/KernelLoader.h>
+#include <stb/base/OS.h>
+
 
 int 
 main(int argc,char* argv[])
 {
     stb::string libName="stbkernel";
-#if defined(STB_IS_WINDOWS) && defined(STB_IS_DEBUG)
-    libName="stbkerneld";
-#endif
+
+	// make sure we load debug version in case of debug build...
+	//
+	stb::os_correctModuleName(libName, true, true);
+
     const char execFunc[]="executeStudierstube";
     stb::KernelLoader loader;
     loader.setExecFuncName(execFunc);

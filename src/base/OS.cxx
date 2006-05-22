@@ -31,6 +31,7 @@
 /* ======================================================================= */
 
 #include <stb/base/OS.h>
+#include <gl/GL.h>
 #include <cstdio>
 #include <sstream>
 #include <iostream>
@@ -49,9 +50,9 @@ os_LoadLibrary(stb::string fileName)
     using namespace std;
     ostringstream name;
     name  << fileName;
-    #ifdef _DEBUG
-        name << "d";
-    #endif
+    //#ifdef _DEBUG
+    //    name << "d";
+    //#endif
         name <<".dll";
 
     //FILE* fp = fopen(name.str().c_str(), "rb");
@@ -61,7 +62,7 @@ os_LoadLibrary(stb::string fileName)
     //    return NULL;
     //}
 
-    return LoadLibrary(name.str().c_str());
+	return ::LoadLibrary(name.str().c_str());
 #else //!STB_IS_WINDOWS
     using namespace std;
     ostringstream name;
@@ -106,6 +107,37 @@ os_FreeLibrary(hModule libHandle)
     dlclose(libHandle);
     return true;
 #endif
+}
+
+
+bool
+os_correctModuleName(stb::string& fileName, bool nMakeDebug, bool nMakeES)
+{
+	//std::string baseName, ext;
+	//int dotPos=fileName.find_last_of('.');
+
+	//if(dotPos<1)
+	//	return false;
+
+	//baseName = fileName.substr(0, dotPos-1);
+	//ext = fileName.substr(dotPos+1, fileName.length());
+
+	//fileName = baseName;
+
+#if defined(_IS_KLIMTES_)
+	if(nMakeES)
+		fileName += "_es";
+#endif
+
+#if defined(STB_IS_WINDOWS) && defined(STB_IS_DEBUG)
+	if(nMakeDebug)
+		fileName += "d";
+#endif
+
+	//fileName += ".";
+	//fileName += ext;
+
+	return true;
 }
 
 

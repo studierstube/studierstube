@@ -39,6 +39,7 @@
 #include <stb/kernel/SchedulerWin32.h>
 #include <TinyXML/tinyxml.h>
 #include <stb/kernel/Kernel.h>
+#include <gl/GL.h>
 
 
 BEGIN_NAMESPACE_STB
@@ -83,11 +84,24 @@ SchedulerWin32::loadSoQt()
 void 
 SchedulerWin32::loadSoWin()
 {
-#ifdef STB_IS_DEBUG
-    std::string libFileName="SoWin1d.dll";
+/*#ifdef _IS_KLIMTES_
+#  ifdef STB_IS_DEBUG
+	std::string libFileName="SoWin1_esd.dll";
+#  else
+	std::string libFileName="SoWin1_es.dll";
+#  endif
 #else
+#  ifdef STB_IS_DEBUG
+    std::string libFileName="SoWin1d.dll";
+#  else
     std::string libFileName="SoWin1.dll";
-#endif	
+#  endif
+#endif //_IS_KLIMTES_*/
+
+	std::string libFileName="SoWin1";
+
+	os_correctModuleName(libFileName, true,true);
+	libFileName += ".dll";
 
     libHandle = LoadLibrary(libFileName.c_str());
     if (!libHandle){
@@ -116,11 +130,26 @@ SchedulerWin32::loadSoSimple()
   // FIXME: insert log message as sremoved log 
   //
   //Kernel::getInstance()->logDebug("INFO: load SoSimple\n");
-#ifdef STB_IS_DEBUG
-	std::string libFileName="SoSimpled.dll";
+
+/*#ifdef _IS_KLIMTES_
+#  ifdef STB_IS_DEBUG
+	std::string libFileName="SoSimple_esd.dll";
+#  else
+	std::string libFileName="SoSimple_es.dll";
+#  endif	
 #else
+#  ifdef STB_IS_DEBUG
+	std::string libFileName="SoSimpled.dll";
+#  else
 	std::string libFileName="SoSimple.dll";
-#endif	
+#  endif	
+#endif //_IS_KLIMTES_*/
+
+	std::string libFileName="SoSimple";
+
+	os_correctModuleName(libFileName, true,true);
+	libFileName += ".dll";
+
 
 	libHandle = LoadLibrary(libFileName.c_str());
 	if (!libHandle){
@@ -143,7 +172,7 @@ SchedulerWin32::loadSoSimple()
 }
 
 
-void 
+void
 SchedulerWin32::init()
 {
     switch(curGuiBinding){

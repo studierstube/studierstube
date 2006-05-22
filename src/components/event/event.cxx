@@ -52,6 +52,7 @@
 
 
 #include <OpenTracker.h>
+#include <input/ARToolKitPlusModule.h>
 
 
 // check if we actually have the correct OpenTracker version the users wants...
@@ -89,9 +90,52 @@ CREATE_COMPONENT_FUNC(Event)
 
 BEGIN_NAMESPACE_STB
 
+
+
+class otImageGrabber : public ot::ImageGrabber
+{
+public:
+	otImageGrabber(const VIDEO_FRAME& frame) : _sizeX(frame.width), _sizeY(frame.height), _pixels(NULL)
+	{
+		switch(frame.format)
+		{
+		case FORMAT_R8G8B8: _format = ot::ImageGrabber::RGB888; break;
+		case FORMAT_B8G8R8: _format = ot::ImageGrabber::BGR888; break;
+		case FORMAT_R8G8B8X8: _format = ot::ImageGrabber::RGBX8888; break;
+		case FORMAT_B8G8R8X8: _format = ot::ImageGrabber::BGRX8888; break;
+		case FORMAT_R5G6B5: _format = ot::ImageGrabber::RGB565; break;
+		case FORMAT_L8: _format = ot::ImageGrabber::LUM8; break;
+
+		default:
+			assert(false);
+			break;
+		}
+	}
+
+	bool grab(const unsigned char*& image, int& sizeX, int& sizeY, ot::ImageGrabber::FORMAT& format)
+	{
+		if(!_pixels)
+			return false;
+
+		image = _pixels;
+		sizeX = _sizeX;
+		sizeY = _sizeY;
+		format = _format;
+		return true;
+	}
+
+	unsigned char*				_pixels;
+	int							_sizeX,_sizeY;
+	ot::ImageGrabber::FORMAT	_format;
+};
+
+
+
 Event::Event()
 {
     configFile="";
+	otSource = NULL;
+	artkpGrabber = NULL;
 }
 
 Event::~Event()
@@ -132,7 +176,7 @@ Event::init()
 
 
 
-    SoOpenTrackerSource *otSource=new SoOpenTrackerSource;
+    otSource=new SoOpenTrackerSource;
     otSource->ref();
     otSource->configuration.setValue(stb::Kernel::getInstance()->getConfig(configFile).c_str());
 
@@ -234,7 +278,36 @@ Event::createSoEventAction()
     return new SoEventAction();
 }
 
+
+void
+Event::vu_init(const VIDEO_FRAME& frame)
+{
+	// we don't care about the initial pixel format for now...
+}
+
+
+void
+Event::vu_update(const VIDEO_FRAME& frame)
+{
+	assert(otSource);
+
+	if(ot::ARToolKitPlusModule* artkpModule = otSource->getARToolKitPlusModule())
+	{
+		if(artkpGrabber==NULL)
+		{
+			artkpGrabber = new otImageGrabber(frame);
+			artkpModule->registerImageGrabber(artkpGrabber);
+		}
+
+		artkpGrabber->_pixels = frame.buffer;
+		artkpModule->update();
+	}
+}
+
+
+
 END_NAMESPACE_STB
+
 //========================================================================
 // End of Event.cxx
 //========================================================================

@@ -218,9 +218,21 @@
 				RelativePath="..\..\src\kernel\TinyXML.cxx"
 				>
 			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\VideoProvider.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\VideoUser.h"
+				>
+			</File>
 			<Filter
 				Name="base"
 				>
+				<File
+					RelativePath="..\..\include\stb\base\datatypes.h"
+					>
+				</File>
 				<File
 					RelativePath="..\..\include\stb\base\macros.h"
 					>
