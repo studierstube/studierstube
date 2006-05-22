@@ -131,6 +131,9 @@
 				RelativePath="..\..\src\components\starlight\SoClassLoader.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoCommand.cxx">
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoConditionalTrigger.cpp">
 			</File>
 			<File
@@ -212,6 +215,9 @@
 				RelativePath="..\..\src\components\starlight\SoRoute.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoSetName.cxx">
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoSFFieldContainer.cpp">
 			</File>
 			<File
@@ -248,6 +254,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoClassLoader.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoCommand.h">
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoConditionalTrigger.h">
@@ -329,6 +338,9 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoRoute.h">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoSetName.h">
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoSFFieldContainer.h">

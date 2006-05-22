@@ -140,6 +140,7 @@ Event::init()
 	// unless it is changed on runtime and this is only initialization. Mendez 20060315
     otSource->processing=SoOpenTrackerSource::TIME;
     //otSource->processing=SoOpenTrackerSource::POLL;
+	//otSource->processing=SoOpenTrackerSource::IDLE;
     otSource->interval=SbTime(0.01f);
 
     stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);

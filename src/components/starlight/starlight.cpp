@@ -40,6 +40,9 @@
 #include <stb/components/starlight/SoLineStringKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
 
+#include <stb/components/starlight/SoCommand.h>
+#include <stb/components/starlight/SoSetName.h>
+
 
 
 
@@ -109,6 +112,9 @@ Starlight::init(void)
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
 	SoPhantomShape::initClass();
+	    
+	SoCommand::initClass();
+    SoSetName::initClass();
 
     return isInit;
 }
