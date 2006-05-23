@@ -123,7 +123,7 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath="..\..\src\applications\simple\SimpleApp.cxx">
+				RelativePath="..\..\src\applications\simple\StbAppSimple.cxx">
 			</File>
 		</Filter>
 		<Filter
@@ -131,7 +131,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\..\include\stb\applications\simple\SimpleApp.h">
+				RelativePath="..\..\src\applications\simple\StbAppSimple.h">
 			</File>
 		</Filter>
 	</Files>

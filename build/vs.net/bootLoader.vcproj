@@ -137,6 +137,9 @@
 					RelativePath="..\..\include\stb\base\macros.h">
 				</File>
 				<File
+					RelativePath="..\..\src\base\OS.cxx">
+				</File>
+				<File
 					RelativePath="..\..\src\base\string.cxx">
 				</File>
 				<File
