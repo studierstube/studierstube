@@ -48,11 +48,12 @@ class VideoUser;
 class VideoProvider
 {
 public:
-	virtual void vp_registerVideoUser(VideoUser* videouser) = 0;
+    virtual ~VideoProvider() {}
+    virtual void vp_registerVideoUser(VideoUser* videouser) = 0;
 
-	virtual void vp_unregisterVideoUser(VideoUser* videouser) = 0;
+    virtual void vp_unregisterVideoUser(VideoUser* videouser) = 0;
 
-	typedef std::vector<VideoUser*> VideoUserVector;
+    typedef std::vector<VideoUser*> VideoUserVector;
 };
 
 

@@ -46,15 +46,18 @@ BEGIN_NAMESPACE_STB
 class VideoUser
 {
 public:
-	/// Called before the first frame arrives.
-	/**
-	 *  The video frame setup is garantied to never change.
-	 */
-	virtual void vu_init(const VIDEO_FRAME& frame) = 0;
+    virtual ~VideoUser() {
+    }
+
+    /// Called before the first frame arrives.
+    /**
+     *  The video frame setup is garantied to never change.
+     */
+    virtual void vu_init(const VIDEO_FRAME& frame) = 0;
 
 
-	/// Called when a new video frame is available.
-	virtual void vu_update(const VIDEO_FRAME& frame) = 0;
+    /// Called when a new video frame is available.
+    virtual void vu_update(const VIDEO_FRAME& frame) = 0;
 };
 
 

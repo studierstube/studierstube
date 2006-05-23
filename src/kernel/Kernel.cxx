@@ -38,7 +38,7 @@
 #include <tinyxml/tinyxml.h>
 #include <stb/base/fixWin32Issues.h>
 #include <ace/ACE.h>
-#include <Inventor/SoDB.h> 
+#include <Inventor/SoDB.h>
 #include <Inventor/sensors/SoSensor.h>
 //
 #include <stb/kernel/Config.h>
@@ -83,7 +83,7 @@ Kernel::~Kernel()
 }
 
 //static
-Kernel* 
+Kernel*
 Kernel::getInstance()
 {
     if(instance == NULL)
@@ -92,7 +92,7 @@ Kernel::getInstance()
     return instance;
 }
 
-stb::string 
+stb::string
 Kernel::getConfig(stb::string config)
 {
     using namespace std;
@@ -102,7 +102,7 @@ Kernel::getConfig(stb::string config)
 }
 
 //
-void 
+void
 Kernel::start(int argc, char* argv[])
 {
     logPrint("*****************************************\n");
@@ -110,7 +110,7 @@ Kernel::start(int argc, char* argv[])
     logPrint("(C) ");logPrint(STUDIERSTUBE_YEAR_STRING);
     logPrint(" Graz University of Technology\n");
     logPrint("*****************************************\n\n");
-    
+
     // extract application base directory name as search path
     // only useful for linux
     if (argc > 1) {
@@ -118,7 +118,7 @@ Kernel::start(int argc, char* argv[])
     } else {
         base_dir = ".";
     }
-    std::cerr << "BASEDIR = " << base_dir << std::endl;
+    std::cerr << "Using configuration base directory name " << base_dir << std::endl;
     ////////////////////////////////////////////////////////
     stb::string kernelConfigFile=getConfig(kernel_config_file);
     // read the kernel's configuration file
@@ -138,7 +138,7 @@ Kernel::start(int argc, char* argv[])
 }
 
 //
-void 
+void
 Kernel::stop()
 {
 }
@@ -156,13 +156,13 @@ Kernel::parseConfiguration(TiXmlElement* element)
         scheduler->readConfiguration(attribute);
 	    /////////////////// ------- /////////////////
 	    ////else if(!stricmp(attribute->Name( 00000000000000000000000000000000000000000000000000000000000000000000000),"----"))
-	    ////{		
+	    ////{
 	    ////}
         attribute = attribute->Next();
     }
 }
 
-void 
+void
 Kernel::update( void * /*data*/, SoSensor * /*sensor*/)
 {
     instance->sceneManager->update();
@@ -171,7 +171,7 @@ Kernel::update( void * /*data*/, SoSensor * /*sensor*/)
 
 
 
-stb::SceneManager* 
+stb::SceneManager*
 Kernel::getSceneManager()
 {
     return sceneManager;

@@ -72,7 +72,7 @@
 #elif USE_SOSIMPLE
 #  include "../gui/SoSimple/public.h"
 #elif USE_SOQT
-
+#include <Inventor/Qt/SoQt.h>
 #else
 #  pragma error("unkown GUI binding")
 #endif
@@ -228,7 +228,7 @@ Viewer::gb_init(const char*appname)
 #elif USE_SOSIMPLE
 	SoSimple_init(appname, "SoSimple");
 #elif USE_SOQT
-
+	SoQt::init(appname, "SoQt");
 #endif
 }
 
@@ -241,7 +241,7 @@ Viewer::gb_mainloop()
 #elif USE_SOSIMPLE
 	SoSimple_mainLoop();
 #elif USE_SOQT
-
+	SoQt::mainLoop();
 #endif
 
 }

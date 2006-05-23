@@ -72,20 +72,6 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     opentracker_version = os.popen('echo `opentracker-config --version`').read()
     opentracker_version = opentracker_version.strip()
 
-    print "============================================================"
-    print "Checking OpenTracker version ... found " + opentracker_version
-    print "============================================================\n"
-
-    ot11_re = re.compile('^1\.1.*')
-    ot12_re = re.compile('^1\.2.*')
-    if ot11_re.match(opentracker_version):
-        defines += ['USE_OT_1_1']
-    elif ot12_re.match(opentracker_version):
-        defines += ['USE_OT_1_2']
-    else:
-        print "WARNING, OpenTracker version not supported!"
-
-        
     # Openvideo library information
     openvideo_env.ParseConfig ('pkg-config --silence-errors --cflags --libs OpenVideo')
     openvideo_cflags = openvideo_env.Dictionary()['CCFLAGS']
@@ -93,7 +79,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     openvideo_lib = openvideo_env.Dictionary()['LIBS']
     openvideo_libpath = openvideo_env.Dictionary()['LIBPATH']
     # Muddleware library information
-    muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs MuddleClient')
+    muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs XMLClient')
     muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
     muddleware_include = muddleware_env.Dictionary()['CPPPATH']
     muddleware_lib = muddleware_env.Dictionary()['LIBS']
@@ -276,20 +262,66 @@ user_options_dict = user_options_env.Dictionary()
 Help(user_options.GenerateHelpText(user_options_env))
 root_build_dir = user_options_dict['BUILD_DIR']
 
+print "\n"
+print "============================================================"
+print "=      Configuration options for Studierstube compile      ="
+print "============================================================"
+
+
+# ############################################################
+# OpenTracker
+
+print "OpenTracker version ... " + opentracker_version
+ot11_re = re.compile('^1\.1.*')
+ot12_re = re.compile('^1\.2.*')
+if ot11_re.match(opentracker_version):
+    defines += ['USE_OT_1_1']
+elif ot12_re.match(opentracker_version):
+    defines += ['USE_OT_1_2']
+else:
+    print "WARNING, OpenTracker version not supported!"
+
+
+# ############################################################
+# Muddleware
+
+if user_options_dict['ENABLE_MUDDLEWARE'] == 1:
+    print "Muddleware support ... yes"
+    defines += ['ENABLE_MUDDLEWARE']
+else:
+    print "Muddleware support ... no"
+
 if user_options_dict['USE_SOQT'] == 1:
     defines += ['USE_SOQT']
+
+# ############################################################
+# OpenVideo
+
+if user_options_dict['ENABLE_OPENVIDEO'] == 1:
+    print "OpenVideo support ... yes"
+else:
+    print "OpenVideo support ... no"
+
+# ############################################################
+# Debug/Release
 
 if user_options_dict['BUILD_BINARY'] == 'release':
 	cflags = extra_flags + release_flags + warn_flags
 	defines += ['NDEBUG']
+        print "Compile version ... release"
 else:
 	cflags = extra_flags + debug_flags + warn_flags
+	defines += ['_DEBUG']
+        print "Compile version ... debug"
+
+print "============================================================\n"
+
+if user_options_dict['USE_SOQT'] == 1:
+    defines += ['USE_SOQT']
 
 defines += user_options_dict['DEFINES']
 defines += ['LINUX']
-# Uncomment the following line if you want to have muddleware support
-if user_options_dict['ENABLE_MUDDLEWARE'] == 1:
-    defines += ['ENABLE_MUDDLEWARE']
+
 cflags += user_options_dict['CCFLAGS']
 cxxflags += user_options_dict['CXXFLAGS']
 

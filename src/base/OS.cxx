@@ -31,7 +31,7 @@
 /* ======================================================================= */
 
 #include <stb/base/OS.h>
-#include <gl/GL.h>
+#include <GL/gl.h>
 #include <cstdio>
 #include <sstream>
 #include <iostream>

@@ -52,7 +52,7 @@ protected:
 	~SoCommand(void);
 
 	virtual SbBool readInstance(SoInput *in, unsigned short flags);
-	virtual SbBool evaluateFieldValues()=NULL;
+	virtual SbBool evaluateFieldValues()=0;
 	
 	SoIdleSensor *idleSensor;
 	static uint32_t  priority;

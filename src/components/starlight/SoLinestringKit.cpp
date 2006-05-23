@@ -135,7 +135,7 @@ void SoLineStringKit::verticesCB(void *data, SoSensor *)
 	exkTmp->refresh();
 }
 
-void SoLineStringKit::widthCB(void *data, SoSensor *sensor)
+void SoLineStringKit::widthCB(void *data, SoSensor */*sensor*/)
 {
     SoLineStringKit *exkTmp= (SoLineStringKit *)data;
 	exkTmp->refresh();

@@ -1,6 +1,6 @@
 <studierstube>
 
-  <kernel guibinding="sowin" updateMode="timer" logMode="console" updateRate="0.03333"/>
+  <kernel updateMode="timer" logMode="console" updateRate="0.03333"/>
   
   <Component name="Event" availability="ondemand"	lib="stbevent">
     <Param key="configFile" value="opentracker.xml" />	
@@ -8,7 +8,7 @@
   
   <Component name="Starlight" availability="ondemand"	lib="stbstarlight" />
   
-  <Component name="Viewer" availability="ondemand" lib="stbviewer_win">
+  <Component name="Viewer" availability="onload" lib="stbviewer_qt">
     <Param key="configFile" value="viewer.iv" />
   </Component>
 

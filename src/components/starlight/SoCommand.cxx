@@ -76,7 +76,7 @@ SoCommand::schedule(SoSensorCB *  func,  void *data)
 }
 
 void 
-SoCommand::process(void *data,SoSensor* sensor)
+SoCommand::process(void *data,SoSensor* /*sensor*/)
 {
 	delete ((SoCommand*)data)->idleSensor;
 	((SoBase*)data)->unref();

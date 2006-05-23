@@ -46,12 +46,13 @@ BEGIN_NAMESPACE_STB
 class GUIBinder
 {
 public:
-	/// The GUIBinder implementation internally calls the init function of the GUI binding
-	virtual void gb_init(const char*appname) = 0;
+    virtual ~GUIBinder() {}
+    /// The GUIBinder implementation internally calls the init function of the GUI binding
+    virtual void gb_init(const char*appname) = 0;
 
 
-	/// The GUIBinder implementation internally calls the mainloop function of the GUI binding
-	virtual void gb_mainloop() = 0;
+    /// The GUIBinder implementation internally calls the mainloop function of the GUI binding
+    virtual void gb_mainloop() = 0;
 };
 
 
