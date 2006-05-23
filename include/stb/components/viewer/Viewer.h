@@ -32,7 +32,10 @@
 
 #ifndef _VIEWER_H_
 #define _VIEWER_H_
+
+
 #include <stb/base/macros.h>
+#include <stb/kernel/GUIBinder.h>
 #include <stb/kernel/Component.h>
 
 #include <vector>
@@ -44,7 +47,7 @@ class SoDisplay;
 /**
 *	
 */
-class Viewer : public Component
+class Viewer : public Component, public GUIBinder
 {
 public:
     /**
@@ -62,6 +65,15 @@ public:
 	virtual void shutDown();
     //
     virtual void setParameter(string key, std::string value);
+
+	/// Specify that this component implements the GUIBinder API
+	virtual GUIBinder* getGUIBinderInterface()  {  return this;  }
+
+
+	/// Implement the GUIBinder interface
+	virtual void gb_init(const char*appname);
+	virtual void gb_mainloop();
+
 
     static SoDisplay* findSoDisplay(SoNode* node);
 

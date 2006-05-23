@@ -1,5 +1,5 @@
 <studierstube>
-	<kernel logMode="off" logFileName="kernelLog.txt" guibinding="sowin" updateMode="timer" updateRate="0.03333" />
+	<kernel logMode="off" logFileName="kernelLog.txt" updateMode="timer" updateRate="0.03333" />
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
     <Component  name="Event" availability="ondemand" lib="stbevent">
@@ -7,10 +7,10 @@
 	</Component>
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
-	<Component name="Viewer" availability="ondemand" lib="stbviewer_win">
+	<Component name="Viewer" availability="onload" lib="stbviewer_simple">
 	    <Param key="configFile" value="viewer.iv" />
 	</Component>
-	    
+
 	<!-- This is the Starlight Component. It is in charge of providing us with extra nodes with stb3 functionalities -->
 	<Component name="Starlight" availability="ondemand" lib="stbstarlight">
 	</Component>

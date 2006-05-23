@@ -124,8 +124,17 @@ Kernel::start(int argc, char* argv[])
     // read the kernel's configuration file
     config->readKernelConfig(kernelConfigFile);
 
-    scheduler->init();
-    scheduler->mainLoop();
+	if(GUIBinder* guiBinder = componentManager->getGUIBinder())
+	{
+		scheduler->run(guiBinder);
+	}
+	else
+	{
+		logPrint("ERROR: no GUI-binding component loaded, cannot continue...\n\n");
+	}
+
+    //scheduler->init();
+    //scheduler->mainLoop();
 }
 
 //

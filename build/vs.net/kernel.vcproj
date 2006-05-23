@@ -132,6 +132,12 @@
 				RelativePath="..\..\include\stb\kernel\MessagesDefines.h">
 			</File>
 			<File
+				RelativePath="..\..\src\kernel\Scheduler.cxx">
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\Scheduler.h">
+			</File>
+			<File
 				RelativePath="..\..\src\kernel\StbLogger.cpp">
 			</File>
 			<File
@@ -163,25 +169,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\stb\base\string.h">
-				</File>
-			</Filter>
-			<Filter
-				Name="Scheduler"
-				Filter="">
-				<File
-					RelativePath="..\..\include\stb\kernel\Scheduler.h">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SchedulerBase.cxx">
-				</File>
-				<File
-					RelativePath="..\..\include\stb\kernel\SchedulerBase.h">
-				</File>
-				<File
-					RelativePath="..\..\src\kernel\SchedulerWin32.cxx">
-				</File>
-				<File
-					RelativePath="..\..\include\stb\kernel\SchedulerWin32.h">
 				</File>
 			</Filter>
 			<Filter

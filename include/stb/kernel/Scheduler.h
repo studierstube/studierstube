@@ -1,58 +1,148 @@
 /* ======================================================================== 
-* Copyright (C) 2005  Graz University of Technology  
-*  
-* This framework is free software; you can redistribute it and/or modify  
-* it under the terms of the GNU General Public License as published by  
-* the Free Software Foundation; either version 2 of the License, or  
-* (at your option) any later version.  
-* 
-* This framework is distributed in the hope that it will be useful,  
-* but WITHOUT ANY WARRANTY; without even the implied warranty of  
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
-* GNU General Public License for more details.  
-* 
-* You should have received a copy of the GNU General Public License  
-* along with this framework; if not, write to the Free Software  
-* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA  
-*  
-* For further information please contact Dieter Schmalstieg under  
-* <schmalstieg@icg.tu-graz.ac.at> or write to Dieter Schmalstieg,  
-* Graz University of Technology, Inffeldgasse 16a, A8010 Graz,  
-* Austria.  
-* ========================================================================  
-* PROJECT: Studierstube  
-* ======================================================================== */  
-/** The header file for the Scheduler class.  
-*  
-* @author Denis Kalkofen  
-*  
-* $Id: Scheduler.h 25 2005-11-28 16:11:59Z denis $  
-* @file                                                                   */  
+ * Copyright (C) 2005  Graz University of Technology  
+ *  
+ * This framework is free software; you can redistribute it and/or modify  
+ * it under the terms of the GNU General Public License as published by  
+ * the Free Software Foundation; either version 2 of the License, or  
+ * (at your option) any later version.  
+ * 
+ * This framework is distributed in the hope that it will be useful,  
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of  
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  
+ * GNU General Public License for more details.  
+ * 
+ * You should have received a copy of the GNU General Public License  
+ * along with this framework; if not, write to the Free Software  
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA  
+ *  
+ * For further information please contact Dieter Schmalstieg under  
+ * <schmalstieg@icg.tu-graz.ac.at> or write to Dieter Schmalstieg,  
+ * Graz University of Technology, Inffeldgasse 16a, A8010 Graz,  
+ * Austria.  
+ * ========================================================================  
+ * PROJECT: Studierstube  
+ * ======================================================================== */  
+/** The header file for the SchedulerBase class.  
+ *  
+ * @author Denis Kalkofen  
+ *  
+ * $Id: SchedulerBase.h 25 2005-11-28 16:11:59Z denis $  
+ * @file                                                                   */  
 /* ======================================================================= */  
 
-#ifndef _SCHEDULER_H_
-#define _SCHEDULER_H_
+#ifndef _OV_SCHEDULER_H_
+#define _OV_SCHEDULER_H_
+
+#include <stb/base/macros.h>
+#include <stb/base/OS.h>
+
+class SoIdleSensor;
+class SoTimerSensor;
+class TiXmlAttribute;
+
+BEGIN_NAMESPACE_STB
+
+
+class GUIBinder;
+
 
 /**@ingroup kernel
-* Scheduler is defined depending on the current operating system
+* The Scheduler's main loop is based on coins main loop implementation which comes with the gui-binding.
 */
+class Scheduler
+{
+public:
+    /**
+     *     The Constructor	
+     */
+    Scheduler();
 
-#ifdef WIN32
-    #include <stb/kernel/SchedulerWin32.h>
-    namespace stb{
-        typedef stb::SchedulerWin32 Scheduler;
-    }
-#else
-    #include <stb/kernel/SchedulerLinux.h>
-    namespace stb{
-        typedef stb::SchedulerLinux Scheduler;
-    }
-#endif
+    /**
+     *     The Destructor calls unschedule().
+     */
+    virtual ~Scheduler();
 
 
-#endif//_SCHEDULER_H_
+	/// Initializes and runs the GUI binding
+	virtual void run(GUIBinder* guiBinder);
+
+
+	 virtual void readConfiguration(TiXmlAttribute* attribute);
+
+
+protected:	
+    /**
+     * Set up the sensor which will be used to update the kernel.
+     * schedule() calls either scheduleIdleSensor or scheduleTimerSensor()
+     */
+    virtual void schedule();
+
+    /**
+     * remove the sensor which is used to update the kernel.
+     */
+    virtual void unschedule();
+    
+    /**
+     * The different schedule mods. 
+     */
+    enum MODE {
+        IDLE=0,
+        TIMER=1
+    };
+
+    /************************************************************************
+     * Set up and start the idle sensor 
+     ************************************************************************/
+    virtual void scheduleIdleSensor();
+
+    /************************************************************************
+     * Set up and start the timer sensor 
+     ************************************************************************/
+    virtual void scheduleTimerSensor();
+
+    /************************************************************************
+     * The idle sensor
+     ************************************************************************/
+    SoIdleSensor *idle;
+
+    /************************************************************************
+     * The timer sensor
+     ************************************************************************/
+    SoTimerSensor *timer;
+
+    /************************************************************************
+     * Flag to indicate whether the scheduler is started already or not
+     ************************************************************************/
+    bool scheduled;
+    
+    /************************************************************************
+     * Holds the configured schedule mode (currently either timer or idle)
+     ************************************************************************/
+    MODE mode;
+
+    /************************************************************************
+     * The update rate for the timer sensor
+     ************************************************************************/
+    float updateRate;
+
+    /************************************************************************
+     * The library handle to the gui binding. hModule is defined in OS.h and implemented accordingly to the used operating system.
+     ************************************************************************/
+    hModule libHandle;
+    
+private:
+
+};// class
+
+
+END_NAMESPACE_STB
+
+
+#endif//_OV_SCHEDULER_H_
+
+
 //========================================================================
-// End of Scheduler.h 
+// End of SchedulerBase.h 
 //========================================================================
 // Local Variables:
 // mode: c++

@@ -65,6 +65,19 @@
 #include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 
+
+
+#ifdef USE_SOWIN
+#include <Inventor/Win/SoWin.h>
+#elif USE_SOSIMPLE
+#  include "../gui/SoSimple/public.h"
+#elif USE_SOQT
+
+#else
+#  pragma error("unkown GUI binding")
+#endif
+
+
 BEGIN_NAMESPACE_STB
 
 std::vector<SoDisplay*> Viewer::displayList;
@@ -205,6 +218,35 @@ Viewer::shutDown()
 {
 
 }
+
+
+void
+Viewer::gb_init(const char*appname)
+{
+#ifdef USE_SOWIN
+	SoWin::init(appname, "SoWin");
+#elif USE_SOSIMPLE
+	SoSimple_init(appname, "SoSimple");
+#elif USE_SOQT
+
+#endif
+}
+
+
+void
+Viewer::gb_mainloop()
+{
+#ifdef USE_SOWIN
+	SoWin::mainLoop();
+#elif USE_SOSIMPLE
+	SoSimple_mainLoop();
+#elif USE_SOQT
+
+#endif
+
+}
+
+
 
 END_NAMESPACE_STB
 //========================================================================

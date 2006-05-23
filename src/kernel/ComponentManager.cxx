@@ -36,6 +36,9 @@
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/ComponentRetriever.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/GUIBinder.h>
+#include <stb/kernel/VideoProvider.h>
+#include <stb/kernel/VideoUser.h>
 
 #include <iostream>
 
@@ -43,6 +46,7 @@ BEGIN_NAMESPACE_STB
 
 ComponentManager::ComponentManager()
 {
+	guiBinder = NULL;
 	compRetriever=new stb::ComponentRetriever();
 }
 
@@ -104,13 +108,15 @@ ComponentManager::addComponent(ComponentInfo* compInfo)
         case ComponentInfo::ON_DEMAND:
             demandList.push_back(compInfo);
             break;
+
         case ComponentInfo::ON_LOAD:
-            Component* newComp=NULL;
-            newComp=(Component*)compRetriever->getComponent(compInfo);
-            if(!newComp){
-                return;
-            }
-            initList.push_back(newComp);
+            if(Component* newComp = compRetriever->getComponent(compInfo))
+			{
+				if(!guiBinder && newComp->getGUIBinderInterface())
+					guiBinder = newComp->getGUIBinderInterface();
+
+				initList.push_back(newComp);
+			}
             break;
     }
 }

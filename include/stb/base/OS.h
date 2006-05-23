@@ -108,6 +108,28 @@ bool    os_correctModuleName(stb::string& fileName, bool nMakeDebug, bool nMakeE
 END_NAMESPACE_STB
 
 
+#ifdef STB_IS_WINDOWS
+#  define CREATE_COMPONENT_FUNC(CLASSNAME) \
+	extern "C" {																						\
+	\
+	__declspec(dllexport) stb::CLASSNAME* createComponent()\
+{																									\
+	return new stb::CLASSNAME;																	\
+}																									\
+	\
+}
+#else  // !STB_IS_WINDOWS
+#  define CREATE_COMPONENT_FUNC(CLASSNAME) \
+	extern "C" { \
+	stb::CLASSNAME* createComponent() \
+{ \
+	return new stb::CLASSNAME; \
+} \
+}
+#endif // STB_IS_WINDOWS
+
+
+
 #endif //OS_H
 
 

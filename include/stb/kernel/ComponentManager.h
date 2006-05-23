@@ -38,11 +38,13 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Studierstube.h>
 
+
 BEGIN_NAMESPACE_STB
 class ComponentRetriever;
 class ComponentInfo;
 class Component;
 class Application;
+class GUIBinder;
 /**@ingroup kernel
  *
  * 
@@ -64,19 +66,23 @@ public:
      * Add a Component using it's ComponentInfo description object
      ************************************************************************/
     void addComponent(ComponentInfo* compInfo);
-    
+
     /************************************************************************
      * Loads a specific Component, which is defined by it's name.
      * if the Component is already loaded the function does only return a pointer a pointer to it.
      ************************************************************************/
     Component* load(std::string compName);
-    
+
     /************************************************************************
      * Updates the ComponentManager during the kernel's update traversal, 
      * which will in turn update all currently the loaded applications. 
      ************************************************************************/
     void update(); 
-    
+
+
+	/// Returns a GUI binding component - if one has been loaded to far
+	GUIBinder* getGUIBinder()  {  return guiBinder;  }
+
 protected:
     /************************************************************************
      * List of all loaded Component's and ComopnentThread's - Notice: The Applications are stored in 'appList'
@@ -103,7 +109,10 @@ protected:
      * The ComponentRetriever is used to create Component from a ComponentInfo.
      ************************************************************************/
     ComponentRetriever *compRetriever;
-    
+
+	/// One component loaded at startup has to implement the GUI binder interface
+	GUIBinder *guiBinder;
+
     /************************************************************************
      * Initializes a Component and stores it in either appList or compList.
      ************************************************************************/

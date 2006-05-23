@@ -22,24 +22,28 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SchedulerBase class.
+/** The header file for the Scheduler class.
 *
 * @author Denis Kalkofen
 *
-* $Id: SchedulerBase.cxx 25 2005-11-28 16:11:59Z denis $
+* $Id: Scheduler.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
-#include <stb/kernel/SchedulerBase.h>
+
+
+#include <stb/kernel/Scheduler.h>
 
 #include <tinyxml/tinyxml.h>
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/GUIBinder.h>
+
 
 BEGIN_NAMESPACE_STB
 
 
-SchedulerBase::SchedulerBase()
+Scheduler::Scheduler()
 {
 	mode=IDLE;
 	updateRate=0.0;
@@ -49,13 +53,24 @@ SchedulerBase::SchedulerBase()
 
 }
 
-SchedulerBase::~SchedulerBase()
+
+Scheduler::~Scheduler()
 {
 	unschedule();
 }
 
-void 
-SchedulerBase::unschedule()
+
+void
+Scheduler::run(GUIBinder* guiBinder)
+{
+	guiBinder->gb_init("Studierstube");
+	schedule();
+	guiBinder->gb_mainloop();
+}
+
+
+void
+Scheduler::unschedule()
 {
 	if(!scheduled)
 		return ;
@@ -74,8 +89,9 @@ SchedulerBase::unschedule()
 	scheduled=false;
 }
 
+
 void 
-SchedulerBase::schedule()
+Scheduler::schedule()
 {
 	if(scheduled)
 		return ;
@@ -92,8 +108,9 @@ SchedulerBase::schedule()
 	scheduled=true;
 }
 
+
 void 
-SchedulerBase::readConfiguration(TiXmlAttribute* attribute)
+Scheduler::readConfiguration(TiXmlAttribute* attribute)
 {
 	if(!stb::stricasecmp(attribute->Name(),"updateMode"))
 	{
@@ -108,8 +125,9 @@ SchedulerBase::readConfiguration(TiXmlAttribute* attribute)
 	}
 }
 
+
 void
-SchedulerBase::scheduleIdleSensor()
+Scheduler::scheduleIdleSensor()
 {
     //Kernel::getInstance()->logDebug("Info: kernel->schedule idle \n");
     // FIXME: insert log message as soon as the logger is done
@@ -118,8 +136,9 @@ SchedulerBase::scheduleIdleSensor()
 	idle->schedule();
 }
 
+
 void
-SchedulerBase::scheduleTimerSensor()
+Scheduler::scheduleTimerSensor()
 {
 	//Kernel::getInstance()->logDebug("Info: kernel->schedule timer \n");
     //FIXME: insert log message as soon as the logger is done
@@ -128,9 +147,13 @@ SchedulerBase::scheduleTimerSensor()
 	timer->setInterval(updateRate);
 	timer->schedule();
 }
+
+
 END_NAMESPACE_STB
+
+
 //========================================================================
-// End of SchedulerBase.cxx
+// End of Scheduler.cxx
 //========================================================================
 // Local Variables:
 // mode: c++

@@ -98,7 +98,8 @@ SimpleApp::init()
      //get viewer's parameter
      retrieveParameter();
 
-    
+#pragma message(">>> daniel2all: having the application to check for all components is not beautiful...")
+
     if(needViewer){
         Viewer* viewer=(Viewer*)(Kernel::getInstance()->getComponentManager()->load("Viewer"));
         if(!viewer)
