@@ -55,27 +55,31 @@ public:
     SoMFName key;
     SoMFString value;
 
-    SoSFVec3f       translationIn;  // input translation
-    SoSFRotation    rotationIn;     // input rotation
-    SoSFBool        buttonIn0;      // input button 0
-    SoSFBool        buttonIn1;      // input button 1
-    SoSFBool        buttonIn2;      // input button 2
-    SoSFBool        buttonIn3;      // input button 3
-    SoSFBool        buttonIn4;      // input button 4
-    SoSFBool        buttonIn5;      // input button 5
-    SoSFBool        buttonIn6;      // input button 6
-    SoSFBool        buttonIn7;      // input button 7
+	SoSFBool		buttonHisteresis;  // Flag to allow buttons to depend on their immediate history
+	
+	// Engine Input
+    SoSFVec3f       translationIn;     // input translation
+    SoSFRotation    rotationIn;        // input rotation
+    SoSFBool        buttonIn0;         // input button 0
+    SoSFBool        buttonIn1;         // input button 1
+    SoSFBool        buttonIn2;         // input button 2
+    SoSFBool        buttonIn3;         // input button 3
+    SoSFBool        buttonIn4;         // input button 4
+    SoSFBool        buttonIn5;         // input button 5
+    SoSFBool        buttonIn6;         // input button 6
+    SoSFBool        buttonIn7;         // input button 7
 
-    SoEngineOutput  translation;    // (SoSFVec3f) tracker translation
-    SoEngineOutput  rotation;       // (SoSFRotation) tracker rotation
-    SoEngineOutput  button0;        // (SoSFBool) tracker button 0 value
-    SoEngineOutput  button1;        // (SoSFBool) tracker button 1 value
-    SoEngineOutput  button2;        // (SoSFBool) tracker button 2 value
-    SoEngineOutput  button3;        // (SoSFBool) tracker button 3 value
-    SoEngineOutput  button4;        // (SoSFBool) tracker button 4 value
-    SoEngineOutput  button5;        // (SoSFBool) tracker button 5 value
-    SoEngineOutput  button6;        // (SoSFBool) tracker button 6 value
-    SoEngineOutput  button7;        // (SoSFBool) tracker button 7 value
+	// Engine Output
+    SoEngineOutput  translation;       // (SoSFVec3f) tracker translation
+    SoEngineOutput  rotation;          // (SoSFRotation) tracker rotation
+    SoEngineOutput  button0;           // (SoSFBool) tracker button 0 value
+    SoEngineOutput  button1;           // (SoSFBool) tracker button 1 value
+    SoEngineOutput  button2;           // (SoSFBool) tracker button 2 value
+    SoEngineOutput  button3;           // (SoSFBool) tracker button 3 value
+    SoEngineOutput  button4;           // (SoSFBool) tracker button 4 value
+    SoEngineOutput  button5;           // (SoSFBool) tracker button 5 value
+    SoEngineOutput  button6;           // (SoSFBool) tracker button 6 value
+    SoEngineOutput  button7;           // (SoSFBool) tracker button 7 value
 
     SoTrakEngine(void);
     static void initClass(void);
@@ -89,6 +93,30 @@ protected:
 
     EventAdapter<SoTrakEngine> *adapter;
     friend class EventAdapter<SoTrakEngine>;
+
+private:
+	// FIXME: Should probably go as static inside evaluate(). Mendez 20060523
+
+	// Used for histeresis
+	SbBool        buttonHistory0;      // history of button 0
+	SbBool        buttonHistory1;      // history of button 1
+	SbBool        buttonHistory2;      // history of button 2
+	SbBool        buttonHistory3;      // history of button 3
+	SbBool        buttonHistory4;      // history of button 4
+	SbBool        buttonHistory5;      // history of button 5
+	SbBool        buttonHistory6;      // history of button 6
+	SbBool        buttonHistory7;      // history of button 7
+
+	// Used for detecting button changes 
+	SbBool        buttonChange0;       // Change of button 0
+	SbBool        buttonChange1;       // Change of button 1
+	SbBool        buttonChange2;       // Change of button 2
+	SbBool        buttonChange3;       // Change of button 3
+	SbBool        buttonChange4;       // Change of button 4
+	SbBool        buttonChange5;       // Change of button 5
+	SbBool        buttonChange6;       // Change of button 6
+	SbBool        buttonChange7;       // Change of button 7
+
 };
 
 

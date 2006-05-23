@@ -51,7 +51,8 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_CONSTRUCTOR(SoTrakEngine);
 
     SO_ENGINE_ADD_INPUT(key,(""));
-    SO_ENGINE_ADD_INPUT(value,(""));
+	SO_ENGINE_ADD_INPUT(value,(""));
+	SO_ENGINE_ADD_INPUT(buttonHisteresis,(FALSE));
 	
     SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
     SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
@@ -74,6 +75,25 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_OUTPUT(button5, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button6, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button7, SoSFBool);
+
+	buttonHistory0=FALSE;
+	buttonHistory1=FALSE;
+	buttonHistory2=FALSE;
+	buttonHistory3=FALSE;
+	buttonHistory4=FALSE;
+	buttonHistory5=FALSE;
+	buttonHistory6=FALSE;
+	buttonHistory7=FALSE;
+
+	buttonChange0=TRUE;
+	buttonChange1=TRUE;
+	buttonChange2=TRUE;
+	buttonChange3=TRUE;
+	buttonChange4=TRUE;
+	buttonChange5=TRUE;
+	buttonChange6=TRUE;
+	buttonChange7=TRUE;
+
 }
 
 SoTrakEngine::~SoTrakEngine()
@@ -116,16 +136,36 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
 
 void SoTrakEngine::evaluate() 
 {
-    SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
-    SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
-    SO_ENGINE_OUTPUT(button0,SoSFBool,setValue(buttonIn0.getValue()));
-    SO_ENGINE_OUTPUT(button1,SoSFBool,setValue(buttonIn1.getValue()));
-    SO_ENGINE_OUTPUT(button2,SoSFBool,setValue(buttonIn2.getValue()));
-    SO_ENGINE_OUTPUT(button3,SoSFBool,setValue(buttonIn3.getValue()));
-    SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
-    SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
-    SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
-    SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
+	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
+	if (!buttonHisteresis.getValue())
+	{
+		SO_ENGINE_OUTPUT(button0,SoSFBool,setValue(buttonIn0.getValue()));
+		SO_ENGINE_OUTPUT(button1,SoSFBool,setValue(buttonIn1.getValue()));
+		SO_ENGINE_OUTPUT(button2,SoSFBool,setValue(buttonIn2.getValue()));
+		SO_ENGINE_OUTPUT(button3,SoSFBool,setValue(buttonIn3.getValue()));
+		SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
+		SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
+		SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
+		SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+	}
+	else
+	{
+		if ((buttonChange0==FALSE)&&(buttonIn0.getValue()==TRUE))
+		{
+			buttonHistory0=!buttonHistory0;
+			SO_ENGINE_OUTPUT(button0,SoSFBool,setValue(buttonHistory0));
+		}
+		buttonChange0=buttonIn0.getValue();
+
+		SO_ENGINE_OUTPUT(button1,SoSFBool,setValue(buttonIn1.getValue()));
+		SO_ENGINE_OUTPUT(button2,SoSFBool,setValue(buttonIn2.getValue()));
+		SO_ENGINE_OUTPUT(button3,SoSFBool,setValue(buttonIn3.getValue()));
+		SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
+		SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
+		SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
+		SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+	}
 }
 
 
