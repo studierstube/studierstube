@@ -42,6 +42,7 @@
 
 #ifndef _EVENT_H_
 #define _EVENT_H_
+
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 #include <stb/kernel/VideoUser.h>
@@ -65,9 +66,6 @@ class SoEventAction;
 
 
 BEGIN_NAMESPACE_STB
-
-
-class otImageGrabber;
 
 
 class Event : public stb::Component, public stb::VideoUser
@@ -115,11 +113,15 @@ protected:
     stb::string configFile; 
 private:
 	SoOpenTrackerSource*	otSource;
-	otImageGrabber*			artkpGrabber;
-
 };// class 
+
+
 END_NAMESPACE_STB
+
+
 #endif//_EVENT_H_
+
+
 //========================================================================
 // End of Event.h 
 //========================================================================

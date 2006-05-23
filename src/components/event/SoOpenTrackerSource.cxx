@@ -57,7 +57,7 @@ void SoOpenTrackerSource::initClass(void)
 
 SoOpenTrackerSource::SoOpenTrackerSource(void) :
     context(NULL),
-	artkpModule(NULL),
+	//artkpModule(NULL),
     eventHandler(NULL),
     runSensor(NULL)
 {
@@ -136,7 +136,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 		// try to find an ARToolKitPlusModule
 		// FIXME: maybe OpenTracker should rather have a generic video input interface for all its nodes...
 		//
-		self->artkpModule = reinterpret_cast<ot::ARToolKitPlusModule*>(self->context->getModule("ARToolKitPlusConfig"));
+		//self->artkpModule = reinterpret_cast<ot::ARToolKitPlusModule*>(self->context->getModule("ARToolKitPlusConfig"));
     }
 }
 

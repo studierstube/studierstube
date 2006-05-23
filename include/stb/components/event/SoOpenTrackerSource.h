@@ -47,7 +47,7 @@
 
 namespace ot {
 class Context;
-class ARToolKitPlusModule;
+//class ARToolKitPlusModule;
 #ifdef USE_OT_1_1
     class State;
 #else
@@ -83,7 +83,7 @@ public:
 
     ot::Context * getContext()  {  return context;  }
 
-	ot::ARToolKitPlusModule * getARToolKitPlusModule()  {  return artkpModule;  }
+	//ot::ARToolKitPlusModule * getARToolKitPlusModule()  {  return artkpModule;  }
 
 #ifdef USE_OT_1_1
    void processEvent( const ot::State * state, const NameStringMap * attributes = NULL );
@@ -98,7 +98,7 @@ protected:
     ot::Context * context;
 
 	// instance of the OpenTracker's ARToolKitPlus module (might be NULL)
-	ot::ARToolKitPlusModule * artkpModule;
+	//ot::ARToolKitPlusModule * artkpModule;
 
     /// interface to the OpenTracker graph
     EventModule * eventHandler;

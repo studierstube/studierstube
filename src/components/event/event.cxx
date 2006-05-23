@@ -31,6 +31,8 @@
   * $Id: event.cpp 44 2005-07-18 15:03:44Z bara $
   * @file                                                                   */
  /* ======================================================================= */
+
+
 #include <iostream>
 #include <stb/components/event/event.h>
 #include <stb/components/event/SoEventAction.h>
@@ -52,7 +54,7 @@
 
 
 #include <OpenTracker.h>
-#include <input/ARToolKitPlusModule.h>
+#include <core/Context.h>
 
 
 // check if we actually have the correct OpenTracker version the users wants...
@@ -92,56 +94,17 @@ BEGIN_NAMESPACE_STB
 
 
 
-class otImageGrabber : public ot::ImageGrabber
-{
-public:
-	otImageGrabber(const VIDEO_FRAME& frame) : _sizeX(frame.width), _sizeY(frame.height), _pixels(NULL)
-	{
-		switch(frame.format)
-		{
-		case FORMAT_R8G8B8: _format = ot::ImageGrabber::RGB888; break;
-		case FORMAT_B8G8R8: _format = ot::ImageGrabber::BGR888; break;
-		case FORMAT_R8G8B8X8: _format = ot::ImageGrabber::RGBX8888; break;
-		case FORMAT_B8G8R8X8: _format = ot::ImageGrabber::BGRX8888; break;
-		case FORMAT_R5G6B5: _format = ot::ImageGrabber::RGB565; break;
-		case FORMAT_L8: _format = ot::ImageGrabber::LUM8; break;
-
-		default:
-			assert(false);
-			break;
-		}
-	}
-
-	bool grab(const unsigned char*& image, int& sizeX, int& sizeY, ot::ImageGrabber::FORMAT& format)
-	{
-		if(!_pixels)
-			return false;
-
-		image = _pixels;
-		sizeX = _sizeX;
-		sizeY = _sizeY;
-		format = _format;
-		return true;
-	}
-
-	unsigned char*				_pixels;
-	int							_sizeX,_sizeY;
-	ot::ImageGrabber::FORMAT	_format;
-};
-
-
-
 Event::Event()
 {
     configFile="";
 	otSource = NULL;
-	artkpGrabber = NULL;
 }
 
 Event::~Event()
 {
     //nil
 }
+
 
 /// Called before the application is destructed.
 bool 
@@ -291,16 +254,13 @@ Event::vu_update(const VIDEO_FRAME& frame)
 {
 	assert(otSource);
 
-	if(ot::ARToolKitPlusModule* artkpModule = otSource->getARToolKitPlusModule())
+	if(ot::Context* context = otSource->getContext())
 	{
-		if(artkpGrabber==NULL)
-		{
-			artkpGrabber = new otImageGrabber(frame);
-			artkpModule->registerImageGrabber(artkpGrabber);
-		}
-
-		artkpGrabber->_pixels = frame.buffer;
-		artkpModule->update();
+		// OpenTracker's pixel-format was carefully chosen to be compatible to OpenVideo's.
+		// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
+		// simple cast here...
+		//
+		context->newVideoFrame(frame.buffer, frame.width, frame.height, static_cast<ot::PIXEL_FORMAT>(frame.format));
 	}
 }
 
