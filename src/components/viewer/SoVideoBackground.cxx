@@ -116,6 +116,7 @@ bool
 SoVideoBackground::blitOverlay() 
 {
 #ifdef HAVE_OPENVIDEO
+#ifndef _IS_KLIMTES_
     if(!ovStbSinkNode ) 
         return false;
 
@@ -162,7 +163,8 @@ SoVideoBackground::blitOverlay()
     glPopMatrix();
     //////////////////////
     video->release2DTextureSink(ovStbSinkNode);
-#endif
+#endif //STB_IS_WINCE
+#endif //HAVE_OPENVIDEO
     return true;
 }
 

@@ -77,24 +77,38 @@ public:
 	{
 		if(firstFrame)
 		{
-			frame.width = curState->width;
-			frame.height = curState->height;
-			frame.format = (PIXEL_FORMAT)curState->format;		// this works because Stb's pixel formats are compatible to OpenVideo's...
-			frame.buffer = curState->frame;
+			if(openvideo::Buffer* buffer = curState->getCurrentBuffer())
+			{
+				buffer->lock();
 
-			video->setOVFormat(frame);
-			firstFrame = false;
+				frame.width = curState->width;
+				frame.height = curState->height;
+				frame.format = (PIXEL_FORMAT)curState->format;		// this works because Stb's pixel formats are compatible to OpenVideo's...
+				frame.buffer = buffer->getPixels();
+
+				video->setOVFormat(frame);
+				firstFrame = false;
+
+				buffer->unlock();
+			}
 		}
 		else
 		{
-			// video format should never change...
-			//
-			assert(frame.width == curState->width);
-			assert(frame.height == curState->height);
-			assert(frame.format = (PIXEL_FORMAT)curState->format);
+			if(openvideo::Buffer* buffer = curState->getCurrentBuffer())
+			{
+				buffer->lock();
 
-			frame.buffer = curState->frame;
-			video->setNewFrame(frame);
+				// video format should never change...
+				//
+				assert(frame.width == curState->width);
+				assert(frame.height == curState->height);
+				assert(frame.format == (PIXEL_FORMAT)curState->format);
+
+				frame.buffer = buffer->getPixels();
+				video->setNewFrame(frame);
+
+				buffer->unlock();
+			}
 		}
 	}
 

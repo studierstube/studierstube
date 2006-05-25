@@ -55,9 +55,9 @@ struct VIDEO_FRAME
 		width = height = 0;
 	}
 
-	PIXEL_FORMAT	format;
-	int				width, height;
-	unsigned char*	buffer;
+	PIXEL_FORMAT			format;
+	int						width, height;
+	const unsigned char*	buffer;
 };
 
 
