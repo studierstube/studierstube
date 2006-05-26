@@ -15,19 +15,30 @@ created: 11-04-2006
         
     - ACE 5.4.7
         http://deuce.doc.wustl.edu/Download.html
-    - TinyXML 2.4.2 mod 
-        modified version of TinyXML 2.4.2
-        http://www.grinninglizard.com/tinyxml/
+                    
     - Coin  2.4.4
         http://www.coin3d.org
+        
+    - TinyXML 2.4.2 mod 
+        http://www.grinninglizard.com/tinyxml/
+        modified version of TinyXML 2.4.2
+        and TinyXPath Version 1.2.3
+        Subversion repository:
+          https://svn.icg.tu-graz.ac.at/svn/TinyXMLMod/trunk
+        
     - SoQt 1.3.0 
         http://www.coin3d.org
         
-    - OpenTracker 1.1.1
+    - OpenTracker 1.1.1        
         http://www.studierstube.org/opentracker
+        Subversion repository:
+          https://svn.icg.tu-graz.ac.at/svn/opentracker/trunk
         
     - OpenVideo
+        
         http://www.studierstube.org/openvideo
+        Subversion repository:
+          https://svn.icg.tu-graz.ac.at/svn/openvideo/trunk
         
     - boost 1.3.1.0 
         http://www.boost.org/
@@ -38,6 +49,7 @@ created: 11-04-2006
     - VidCapture
         modified version based on VidCapture 0.30
         required for OpenVideo
+        Subversion repository:
           https://svn.icg.tu-graz.ac.at/svn/OpenVideoMod/trunk/        
         non patched version:
           http://sourceforge.net/projects/vidcapture/
@@ -45,10 +57,15 @@ created: 11-04-2006
     - VideoWrapper 0.1
         modified version based on VideoWrapper 0.1
         required for OpenVideo
+        Subversion repository:
           https://svn.icg.tu-graz.ac.at/svn/OpenVideoMod/trunk/      
         non patched version:                
           http://sourceforge.net/projects/videowrapper/
     
+   - ARToolkitPuls
+        marker based tracking  
+        Subversion repository:
+          https://svn.icg.tu-graz.ac.at/svn/artoolkitplus/trunk
     
     
     Optional packages:
@@ -68,7 +85,7 @@ created: 11-04-2006
       - STB4COMP
           Stb4 Components & Applications
           Subversion repository:     
-          https://svn.icg.tu-graz.ac.at/svn/StbComponents/trunk/
+            https://svn.icg.tu-graz.ac.at/svn/StbComponents/trunk/
 
 
 
@@ -106,7 +123,7 @@ created: 11-04-2006
      x  ........... required
     (x) ........... optional
      1) ........... if OpenTracker is compiled with ARTOOLKITPLUS support OpenVideo is required
-     2) ........... parsing of XML files is either is done either using TinyXML or Xerxes
+     2) ........... for parsing XML files either TinyXML or Xerxes is used 
          
     STB4 .......... Studierstube 4.0   http://www.studierstube.org
     OpenTracker ... OpenTracker 1.1.1  http://www.studierstube.org/opentracker 
