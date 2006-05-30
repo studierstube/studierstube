@@ -36,7 +36,7 @@
 #include <stb/base/macros.h>
 #include <stb/base/string.h>
 #include <stb/kernel/Studierstube.h>
-
+#include <stb/kernel/KernelEventSubscriber.h>
 #include <stb/kernel/StbLogger.h>
 
 class TiXmlElement;
@@ -47,12 +47,19 @@ class SoSensor;
 /**
 *
 */
+
 BEGIN_NAMESPACE_STB
+
+
 class Config;
+class Component;
 class ComponentManager;
 class SceneManager;
 class ComponentInfo;
 class SoTrakEngineInterface;
+class Video;
+
+
 /**@ingroup kernel
 * The kernel implements the main object in the studierstube framework. 
 * The kernel is implemented using a singleton pattern and serves the following functionality;
@@ -120,8 +127,22 @@ public:
     /*
      * Returns the base_dir of the configuration path
      */
-    stb::string
-    getBaseDir() const;
+    stb::string getBaseDir() const;
+
+
+	/// Called by the StudierstubeViewer to notify the kernel that scene graph rendering will start right now
+	void preRenderCallback();
+
+
+	/// Called by the StudierstubeViewer to notify the kernel that scene graph rendering just finished
+	void postRenderCallback();
+
+
+	void registerForKernelEvents(KernelEventSubscriber* instance);
+
+
+	void unregisterFromKernelEvents(KernelEventSubscriber* instance);
+
 
 protected:	
     ///////////////////// 
@@ -170,6 +191,8 @@ protected:
     stb::string base_dir; // 
 
 
+	/// Vector of all instances subscribed for kernel events
+	KernelEventSubscriberVector	kernelEventSubscribers;
 };// class 
 
 END_NAMESPACE_STB

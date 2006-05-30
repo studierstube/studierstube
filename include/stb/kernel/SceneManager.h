@@ -100,6 +100,8 @@ public:
      ************************************************************************/
     void setTrackerSource(SoNode *otSource);
 
+	SoNode *getTrackerSource();
+
 protected:	
     /************************************************************************
      * Studierstube's root node

@@ -52,6 +52,10 @@
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
 
+#ifdef HAVE_OPENVIDEO
+#include <openvideo/State.h>
+#endif
+
 
 #include <OpenTracker.h>
 #include <core/Context.h>
@@ -83,6 +87,13 @@
 #    pragma message ("ERROR: Should build against OpenTracker 1.2, but found unknown OpenTracker version. Please update to latest OpenTracker version")
 #    error ("ERROR: Should build against OpenTracker 1.2, but found unknown OpenTracker version. Please update to latest OpenTracker version")
 #  endif
+#endif
+
+
+#ifdef HAVE_OPENVIDEO
+#  pragma message(">>> Creating event system with video input support")
+#else
+#  pragma message(">>> Creating event system without video input support")
 #endif
 
 
@@ -136,7 +147,6 @@ Event::init()
     SoInputEvent::initClass();
     SoEventRoot::initClass();
     SoEventAction::initClass();
-
 
 
     otSource=new SoOpenTrackerSource;
@@ -243,25 +253,34 @@ Event::createSoEventAction()
 
 
 void
-Event::vu_init(const VIDEO_FRAME& frame)
+Event::vu_init(const openvideo::Buffer& frame)
 {
-	// we don't care about the initial pixel format for now...
 }
 
 
 void
-Event::vu_update(const VIDEO_FRAME& frame)
+Event::vu_update(const openvideo::Buffer& frame)
 {
+#ifdef HAVE_OPENVIDEO
 	assert(otSource);
 
 	if(ot::Context* context = otSource->getContext())
 	{
-		// OpenTracker's pixel-format was carefully chosen to be compatible to OpenVideo's.
-		// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
-		// simple cast here...
+		static unsigned int updateCtr = 0;
+
+		// only update if this is a fresh video image!
 		//
-		context->newVideoFrame(frame.buffer, frame.width, frame.height, static_cast<ot::PIXEL_FORMAT>(frame.format));
+		if(frame.getUpdateCounter() != updateCtr)
+		{
+			// OpenTracker's pixel-format was carefully chosen to be compatible to OpenVideo's.
+			// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
+			// simple cast here...
+			//
+			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()));
+			updateCtr = frame.getUpdateCounter();
+		}
 	}
+#endif
 }
 
 

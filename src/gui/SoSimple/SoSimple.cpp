@@ -352,7 +352,7 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 	DWORD	style = WS_CAPTION | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_VISIBLE | WS_POPUPWINDOW,
 		exStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
 
-	int width = 320, height = 240;
+	int width = 640, height = 480;
 
 	adjustWindowSize(width,height, style, exStyle);
 

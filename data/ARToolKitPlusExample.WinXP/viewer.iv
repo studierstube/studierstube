@@ -5,19 +5,21 @@ SoDisplay
 	xoffset 0
 	yoffset 0
 	# and size of the viewer-window (in pixels)
-	width 705
-	height 540
+	width 640
+	height 480
 	
 	#headlight TRUE
 	#headlightIntensity 1.0
 	backgroundColor 0 0 0
-	transparencyType BLEND     
+	transparencyType BLEND
+	clearBackGround FALSE
 	#showMouse TRUE
 	windowBorder TRUE
 	#windowOnTop FALSE
 	#decoration TRUE
 	#stencilBuffer FALSE
-	
+	showFrameRate TRUE
+
 	useRefCamera TRUE
 
 	sceneGraph SoSeparator
@@ -29,22 +31,25 @@ SoDisplay
 				origin 0 0 
 				size 640 480
 			}
-			
-			SoVideoBackground { ovStbSink "videoBackgroundSink" }
-			
-			SoStbCamera
-			{
-				controlMode SoDesktopControlMode{}
-				camera SoOffAxisCamera
+
+			SoVideoBackground { ovStbSink "Stb4VideoSink" }
+
+			#SoStbCamera
+			#{
+				#controlMode SoDesktopControlMode{}
+				#camera 
+				SoOffAxisCamera
 				{
-					position 0.0148 -0.0124 -1.0000
-					size 0.7881 0.5935 
+					#position 0.0148 -0.0124 -1.0000
+					#size 0.7881 0.5935 
+					position 0.0093 -0.0138 -1.0000
+					size     1.1511 0.8827
 					eyepointPosition 0 0 0
 					viewportMapping ADJUST_CAMERA
 					nearDistance 0.01
 					farDistance 100
 				}
-			}
+			#}
 			SoStbScene{}  
 		}
 	} #sceneGraph SoSeparator

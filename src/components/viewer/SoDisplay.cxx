@@ -74,6 +74,7 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(headlight, (TRUE)); 
     SO_NODE_ADD_FIELD(headlightIntensity, (1.0f)); 
     SO_NODE_ADD_FIELD(backgroundColor, (0,0,0)); 
+	SO_NODE_ADD_FIELD(clearBackGround, (TRUE));
     SO_NODE_ADD_FIELD(showMouse, (TRUE));
     SO_NODE_ADD_FIELD(windowBorder, (TRUE));
     SO_NODE_ADD_FIELD(decoration, (TRUE));
@@ -229,6 +230,10 @@ SoDisplay::createViewer()
 
 	//background color 
 	viewer->setBackgroundColor(backgroundColor.getValue());
+
+	//clearing background on/off
+	viewer->setClearBeforeRender(clearBackGround.getValue());
+
 
 	// set mouse cursor
 	if( showMouse.getValue() == FALSE )

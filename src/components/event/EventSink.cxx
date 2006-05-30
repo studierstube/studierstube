@@ -42,16 +42,20 @@
 #  pragma warning(disable:4786)
 #endif
 
+
 EventSink::EventSink( EventModule * parent_ ) :
     parent( parent_ )
 {
     // TODO: walk through the attributes and set them on the event as meta data
 }
 
+
 int EventSink::isEventGenerator()
 {
     return 1;
 }
+
+
 #ifdef USE_OT_1_1
     void EventSink::onEventGenerated( ot::State& event, ot::Node& )
 #else

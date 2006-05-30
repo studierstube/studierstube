@@ -88,6 +88,14 @@ SoSimpleExaminerViewer::~SoSimpleExaminerViewer()
 }
 
 
+void
+SoSimpleExaminerViewer::setClearBeforeRender(SbBool enable, SbBool zbEnable)
+{
+	clear = enable;
+	clearZBuffer = zbEnable;
+}
+
+
 SbBool
 SoSimpleExaminerViewer::isDecoration()
 {

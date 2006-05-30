@@ -131,6 +131,10 @@ public:
 	of all possible transparencyTypes
     */
     SoSFEnum transparencyType;
+
+	/// if enabled the viewer will clear the background before rendering
+	SoSFBool clearBackGround;
+
     
     /** Specifies the color of the viewer's background. */
     SoSFColor backgroundColor;

@@ -91,6 +91,10 @@ public:
     void processEvent( const ot::Event * state, const NameStringMap * attributes = NULL );
 #endif
 
+	/// run a single iteration of the event loop
+	virtual void runTracker(void);
+
+
 protected:
     virtual ~SoOpenTrackerSource();
 
@@ -121,10 +125,9 @@ protected:
     /// processing callback used by various sensors
     static void runTrackerCB( void * data, SoSensor * sensor);
 
-    /// run a single iteration of the event loop
-    void runTracker(void);
-
     /// observe Events for the EventModule input handlers
     void handleEvent(SoHandleEventAction * action);
+
+	//void  doAction(SoAction*  action);
 };
 #endif //__SOOPENTRACKERSOURCE_H__

@@ -40,13 +40,14 @@
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/sensors/SoSensor.h>
-//
+
 #include <stb/kernel/Config.h>
 #include <stb/kernel/Scheduler.h>
 #include <stb/kernel/SceneManager.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/SoStbScene.h>
+#include <stb/components/event/SoOpenTrackerSource.h>
 
 #include <fstream>
 #include <sstream>
@@ -72,6 +73,7 @@ Kernel::Kernel()
     //
     kernel_config_file = "kernel.xml"; //default kernel config
 }
+
 
 Kernel::~Kernel()
 {
@@ -170,16 +172,72 @@ Kernel::update( void * /*data*/, SoSensor * /*sensor*/)
 }
 
 
-
 stb::SceneManager*
 Kernel::getSceneManager()
 {
     return sceneManager;
 }
 
+
 stb::string
-Kernel::getBaseDir() const {
+Kernel::getBaseDir() const
+{
     return base_dir;
+}
+
+
+void
+Kernel::preRenderCallback()
+{
+	//printf("pre-render\n");
+
+	// notify all registered KernelEventSubscribers that rendering is gonna happen now
+	//
+	for(KernelEventSubscriberVector::iterator it=kernelEventSubscribers.begin(); it!=kernelEventSubscribers.end(); it++)
+		(*it)->kes_beforeRender();
+
+	// make sure we get the latest opentracker data into Coin before rendering...
+	//
+	if(SoNode* trackerSource = sceneManager->getTrackerSource())
+		reinterpret_cast<SoOpenTrackerSource*>(trackerSource)->runTracker();
+}
+
+
+void
+Kernel::postRenderCallback()
+{
+	//printf("post-render\n");
+
+	// notify all registered KernelEventSubscribers that rendering just finished
+	//
+	for(KernelEventSubscriberVector::iterator it=kernelEventSubscribers.begin(); it!=kernelEventSubscribers.end(); it++)
+		(*it)->kes_afterRender();
+}
+
+
+void
+Kernel::registerForKernelEvents(KernelEventSubscriber* instance)
+{
+	if(!instance)
+		return;
+
+	for(KernelEventSubscriberVector::iterator it=kernelEventSubscribers.begin(); it!=kernelEventSubscribers.end(); it++)
+		if(*it == instance)
+			return;
+
+	kernelEventSubscribers.push_back(instance);
+}
+
+
+void
+Kernel::unregisterFromKernelEvents(KernelEventSubscriber* instance)
+{
+	for(KernelEventSubscriberVector::iterator it=kernelEventSubscribers.begin(); it!=kernelEventSubscribers.end(); it++)
+		if(*it == instance)
+		{
+			kernelEventSubscribers.erase(it);
+			return;
+		}
 }
 
 

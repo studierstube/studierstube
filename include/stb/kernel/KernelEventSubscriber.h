@@ -31,54 +31,35 @@
 /* ======================================================================= */  
 
 
-#ifndef _STB_VIDEOUSER_H_
-#define _STB_VIDEOUSER_H_
+#ifndef _STB_KERNELEVENTSUBSCRIBER_H_
+#define _STB_KERNELEVENTSUBSCRIBER_H_
 
-#include <stb/base/OS.h>
-#include <stb/kernel/Studierstube.h>
-#include <stb/base/macros.h>
-#include <stb/base/datatypes.h>
+
 #include <vector>
-
-
-namespace openvideo {
-	class Buffer;
-};
 
 
 BEGIN_NAMESPACE_STB
 
 
-class VideoUser
+/// Interface to 
+class KernelEventSubscriber
 {
 public:
-	enum UPDATE_MODE {
-		UPDATE_IMMEDIATELY = 1,
-		UPDATE_BEFORE_RENDER = 2
-	};
+	/// Virtual destructor to prevent warnings with GCC
+    virtual ~KernelEventSubscriber()  {}
 
-    virtual ~VideoUser()
-	{}
+    /// Called by the kernel just before scene graph rendering starts
+	virtual void kes_beforeRender()  {}
 
-    /// Called before the first frame arrives.
-    /**
-     *  The video frame setup is garantied to never change.
-     */
-	virtual void vu_init(const openvideo::Buffer& frame) = 0;
-
-
-    /// Called when a new video frame is available.
-    virtual void vu_update(const openvideo::Buffer& frame) = 0;
-
-
-	virtual UPDATE_MODE vu_getUpdateMode() const = 0;
+	/// Called by the kernel just after scene graph rendering ended
+	virtual void kes_afterRender()  {}
 };
 
 
-typedef std::vector<VideoUser*> VideoUserVector;
+typedef std::vector<KernelEventSubscriber*> KernelEventSubscriberVector;
 
 
 END_NAMESPACE_STB
 
 
-#endif//_STB_VIDEOUSER_H_
+#endif//_STB_KERNELEVENTSUBSCRIBER_H_

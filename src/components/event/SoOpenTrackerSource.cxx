@@ -181,6 +181,8 @@ void SoOpenTrackerSource::runTrackerCB( void * data, SoSensor * )
 
 void SoOpenTrackerSource::runTracker( void )
 {
+	//printf("SoOpenTrackerSource::runTracker\n");
+
     if(active.getValue())
     {
         //assert(context);
@@ -251,3 +253,10 @@ public:
     publish( &event );
 }
 
+
+/*void 
+SoOpenTrackerSource::doAction(SoAction*  action) 
+{
+	//printf("SoOpenTrackerSource::GLRender\n");
+	runTracker();
+}*/

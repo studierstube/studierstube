@@ -69,6 +69,8 @@ public:
 	virtual void setBackgroundColor(const SbColor & color);
 	virtual const SbColor & getBackgroundColor(void) const;
 
+	virtual void setClearBeforeRender(SbBool enable, SbBool zbEnable=TRUE);
+
 	virtual void setSceneGraph(SoNode * root);
 	virtual SoNode *getSceneGraph(void);
 

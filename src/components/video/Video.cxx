@@ -40,7 +40,7 @@
 // this assumes that OpenVideo was compiled
 // with these two options enabled...
 //
-#define ENABLE_GL_TEXTURE_2D_SINK
+//#define ENABLE_GL_TEXTURE_2D_SINK
 #define ENABLE_VIDEOSINK
 
 
@@ -75,43 +75,31 @@ public:
 
 	void update(openvideo::State* curState)
 	{
+		bufferSynchronizer.assign(curState->getCurrentBuffer());
+
 		if(firstFrame)
 		{
-			if(openvideo::Buffer* buffer = curState->getCurrentBuffer())
+			if(openvideo::Buffer* buffer = bufferSynchronizer.getLocked())
 			{
-				buffer->lock();
-
-				frame.width = curState->width;
-				frame.height = curState->height;
-				frame.format = (PIXEL_FORMAT)curState->format;		// this works because Stb's pixel formats are compatible to OpenVideo's...
-				frame.buffer = buffer->getPixels();
-
-				video->setOVFormat(frame);
-				firstFrame = false;
-
+				video->setVideoFormat(*buffer);
 				buffer->unlock();
+				firstFrame = false;
 			}
 		}
 		else
 		{
-			if(openvideo::Buffer* buffer = curState->getCurrentBuffer())
+			if(openvideo::Buffer* buffer = bufferSynchronizer.getLocked())
 			{
-				buffer->lock();
-
-				// video format should never change...
-				//
-				assert(frame.width == curState->width);
-				assert(frame.height == curState->height);
-				assert(frame.format == (PIXEL_FORMAT)curState->format);
-
-				frame.buffer = buffer->getPixels();
-				video->setNewFrame(frame);
-
+				video->setNewVideoFrame(*buffer);
 				buffer->unlock();
 			}
 		}
 	}
 
+
+	openvideo::Buffer* getCurrentFrameLocked()  {  return bufferSynchronizer.getLocked();  }
+
+	bool gotFirstFrame() const  {  return !firstFrame;  }
 
 	void initPixelFormats()
 	{
@@ -120,12 +108,13 @@ public:
 		pixelFormats.push_back(openvideo::FORMAT_R8G8B8X8);
 		pixelFormats.push_back(openvideo::FORMAT_B8G8R8X8);
 		pixelFormats.push_back(openvideo::FORMAT_L8);
+		pixelFormats.push_back(openvideo::FORMAT_R5G6B5);
 	}
 
 private:
 	Video* video;
 	bool firstFrame;
-	VIDEO_FRAME frame;
+	openvideo::BufferSynchronizer bufferSynchronizer;
 };
 
 
@@ -157,6 +146,11 @@ Video::init()
     isInit=true;
 
     retrieveParameter();
+
+	// register so we get the kes_beforeRender() event
+	//
+	stb::Kernel::getInstance()->registerForKernelEvents(this);
+
     start();
 
     return isInit;
@@ -191,6 +185,8 @@ Video::run()
     }
     ovManager->initTraversal();
 
+	// register with openvideo as the one and only video input in Studierstube
+	//
 	videoSinkSubscriber = new Stb4VideoSinkSubscriber(this);
 	if(openvideo::VideoSink* sink = reinterpret_cast<openvideo::VideoSink*>(ovManager->getNode(ovSinkName.c_str())))
 		sink->subscribe(videoSinkSubscriber);
@@ -200,6 +196,7 @@ Video::run()
     return;
 }
 
+/*
  void 
  Video::deleteGLContext()
  {
@@ -250,16 +247,30 @@ Video::getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink)
 {
        return textureSink->get_video_texture_id();
 }
+*/
 
 
 void
 Video::vp_registerVideoUser(VideoUser* videouser)
 {
-	for(VideoUserVector::iterator it=videousers.begin(); it!=videousers.end(); it++)
-		if(*it == videouser)
-			return;
+	switch(videouser->vu_getUpdateMode())
+	{
+	case VideoUser::UPDATE_IMMEDIATELY:
+		for(VideoUserVector::iterator it=videoUsersImmediate.begin(); it!=videoUsersImmediate.end(); it++)
+			if(*it == videouser)
+				return;
+		videoUsersImmediate.push_back(videouser);
+		break;
 
-	videousers.push_back(videouser);
+
+	case VideoUser::UPDATE_BEFORE_RENDER:
+		for(VideoUserVector::iterator it=videoUsersBeforeRender.begin(); it!=videoUsersBeforeRender.end(); it++)
+			if(*it == videouser)
+				return;
+		videoUsersBeforeRender.push_back(videouser);
+		break;
+	}
+
 
 	// if the format is already known tell it right now
 	// otherwise setOVFormat() will do this later on
@@ -271,33 +282,71 @@ Video::vp_registerVideoUser(VideoUser* videouser)
 void
 Video::vp_unregisterVideoUser(VideoUser* videouser)
 {
-	for(VideoUserVector::iterator it=videousers.begin(); it!=videousers.end(); it++)
+	for(VideoUserVector::iterator it=videoUsersImmediate.begin(); it!=videoUsersImmediate.end(); it++)
 		if(*it == videouser)
 		{
-			videousers.erase(it);
+			videoUsersImmediate.erase(it);
+			return;
+		}
+
+	for(VideoUserVector::iterator it=videoUsersBeforeRender.begin(); it!=videoUsersBeforeRender.end(); it++)
+		if(*it == videouser)
+		{
+			videoUsersBeforeRender.erase(it);
 			return;
 		}
 }
 
 
 void
-Video::setOVFormat(VIDEO_FRAME& format)
+Video::setVideoFormat(const openvideo::Buffer& format)
 {
-	video_format = new VIDEO_FRAME;
+	video_format = new openvideo::Buffer;
 	*video_format = format;
 
 	// tell all already registered video users about this format
 	//
-	for(VideoUserVector::iterator it=videousers.begin(); it!=videousers.end(); it++)
-		(*it)->vu_init(*video_format);
+	for(size_t i=0; i<videoUsersImmediate.size(); i++)
+		videoUsersImmediate[i]->vu_init(*video_format);
+
+	for(size_t i=0; i<videoUsersBeforeRender.size(); i++)
+		videoUsersBeforeRender[i]->vu_init(*video_format);
 }
 
 
 void
-Video::setNewFrame(VIDEO_FRAME& format)
+Video::kes_beforeRender()
 {
-	for(VideoUserVector::iterator it=videousers.begin(); it!=videousers.end(); it++)
-		(*it)->vu_update(*video_format);
+	if(!videoSinkSubscriber || !videoSinkSubscriber->gotFirstFrame())
+		return;
+
+	if(openvideo::Buffer* buffer = videoSinkSubscriber->getCurrentFrameLocked())
+	{
+		notifyVideoUsers(videoUsersBeforeRender, *buffer);
+		buffer->unlock();
+	}
+}
+
+
+void
+Video::setNewVideoFrame(const openvideo::Buffer& frame)
+{
+	notifyVideoUsers(videoUsersImmediate, frame);
+}
+
+
+void
+Video::notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame)
+{
+	for(size_t i=0; i<videoUsers.size(); i++)
+		videoUsers[i]->vu_update(frame);
+}
+
+
+const openvideo::Buffer*
+Video::getCurrentFrameLocked()
+{
+	return videoSinkSubscriber->getCurrentFrameLocked();
 }
 
 

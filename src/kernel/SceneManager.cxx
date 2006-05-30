@@ -96,6 +96,14 @@ void
 SceneManager::setTrackerSource(SoNode *otSource)
 {
     sceneRoot->replaceChild(0,otSource);
+	//displayRoot->addChild(otSource);
+}
+
+
+SoNode*
+SceneManager::getTrackerSource()
+{
+	return sceneRoot->getChild(0);
 }
 
 

@@ -36,24 +36,20 @@
 #include <stb/base/OS.h>
 #include <stb/kernel/Studierstube.h>
 #include <stb/base/macros.h>
-#include <vector>
+#include <stb/kernel/VideoUser.h>
 
 
 BEGIN_NAMESPACE_STB
-
-
-class VideoUser;
 
 
 class VideoProvider
 {
 public:
     virtual ~VideoProvider() {}
+
     virtual void vp_registerVideoUser(VideoUser* videouser) = 0;
 
     virtual void vp_unregisterVideoUser(VideoUser* videouser) = 0;
-
-    typedef std::vector<VideoUser*> VideoUserVector;
 };
 
 

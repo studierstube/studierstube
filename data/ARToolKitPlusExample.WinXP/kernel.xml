@@ -1,5 +1,5 @@
 <studierstube>
-	<kernel logMode="off" logFileName="kernelLog.txt" updateMode="timer" updateRate="0.03333" />
+	<kernel logMode="off" logFileName="kernelLog.txt" updateMode="timer" updateRate="0.02" />
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
     <Component  name="Event" availability="ondemand" lib="stbevent">
@@ -7,7 +7,7 @@
 	</Component>
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
-	<Component name="Viewer" availability="onload" lib="stbviewer_simple">
+	<Component name="Viewer" availability="onload" lib="stbviewer_win">
 	    <Param key="configFile" value="viewer.iv" />
 	</Component>
 
@@ -16,9 +16,9 @@
 	</Component>
 
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
-	<Component name="Video" availability="ondemand"	lib="stbvideo">
+	<Component name="Video" availability="onload"	lib="stbvideo">
 	    <Param key="configFile" value="openvideo.xml" />
-	    <Param key="ovSinkName" value="Stb4VideoComponentSink" />
+	    <Param key="ovSinkName" value="Stb4VideoSink" />
 	</Component>
 
 	<!-- This is the Application -->

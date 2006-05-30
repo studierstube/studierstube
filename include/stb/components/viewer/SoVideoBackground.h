@@ -37,17 +37,26 @@
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/fields/SoSFString.h> 
 #include <stb/base/macros.h>
+#include <stb/kernel/VideoUser.h>
+
 
 namespace openvideo{
-class    GL_TEXTURE_2D_Sink;
+  class VideoSink;
 }
 
 
 BEGIN_NAMESPACE_STB
-class Video;
 
-class  SoVideoBackground : public SoNode
+
+class Video;
+class VideoBackgroundSinkSubscriber;
+struct VideoBackgroundTexInfo;
+
+
+class  SoVideoBackground : public SoNode, public stb::VideoUser
 {
+friend class VideoBackgroundSinkSubscriber;
+
    SO_NODE_HEADER(SoVideoBackground);
 
   public:
@@ -57,13 +66,7 @@ class  SoVideoBackground : public SoNode
 
    virtual ~SoVideoBackground(){}
 
-   /** 
-    * initializes the video overlay to a given window size.
-    * @param width width of the window
-    * @param height height of the window
-    * @return TRUE if video background could be created.
-    */
-   bool initVideoBackground();
+   bool init();
 
    /**
     * blits the actual video image into the frame buffer. This needs to be
@@ -72,18 +75,28 @@ class  SoVideoBackground : public SoNode
     */
    bool blitOverlay();
 
+
+   virtual void vu_init(const openvideo::Buffer& frame);
+   virtual void vu_update(const openvideo::Buffer& frame);
+   virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
+
+
    SoSFString ovStbSink;
 
 protected:
    virtual void GLRender(SoGLRenderAction *action);
+   //bool createTexture();
+   bool createTexture(const openvideo::Buffer& buffer);
+   //void updateTexture();
+   void updateTexture(const openvideo::Buffer& buffer);
+   void drawTexture();
+   void blitIntoVideoMemory();
+   void drawVideoBackground();
 
-   bool isInitialized;
-   bool unableToInitialize;
-#ifdef HAVE_OPENVIDEO
-   openvideo::GL_TEXTURE_2D_Sink* ovStbSinkNode;
-#endif
-   Video*  video;
-  
+   //openvideo::VideoSink* videoSink;
+   //VideoBackgroundSinkSubscriber*	videoSinkSubscriber;
+   VideoBackgroundTexInfo*	texInfo;
+   bool						initialized;
 };
 
 END_NAMESPACE_STB

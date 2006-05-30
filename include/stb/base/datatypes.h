@@ -48,7 +48,7 @@ enum PIXEL_FORMAT
 };
 
 
-struct VIDEO_FRAME
+/*struct VIDEO_FRAME
 {
 	VIDEO_FRAME() : buffer(0)
 	{
@@ -58,7 +58,7 @@ struct VIDEO_FRAME
 	PIXEL_FORMAT			format;
 	int						width, height;
 	const unsigned char*	buffer;
-};
+};*/
 
 
 END_NAMESPACE_STB

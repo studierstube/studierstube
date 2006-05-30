@@ -105,8 +105,9 @@ public:
 
 
 	/// Implement the stb::VideoUser interface
-    virtual void vu_init(const VIDEO_FRAME& frame);
-    virtual void vu_update(const VIDEO_FRAME& frame);
+    virtual void vu_init(const openvideo::Buffer& frame);
+    virtual void vu_update(const openvideo::Buffer& frame);
+	virtual VideoUser::UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
 
 
 protected:	

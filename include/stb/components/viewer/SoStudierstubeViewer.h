@@ -130,16 +130,20 @@ public:
      */
     void setWindowPosSize(int x, int y, int width, int height);
 
-    void setOVGLContext(Video* video);
+    //void setOVGLContext(Video* video);
 
-    bool isOVGLContext(){return isGLContextShared;}
+    //bool isOVGLContext(){return isGLContextShared;}
 
     int countTriangles();
 
     void printTriangles(bool onOff);
 
     void printFrameRate(bool onOff);
+
 protected:
+	virtual void actualRedraw(void);
+
+
 #ifdef STB_IS_WINDOWS
     HGLRC curGLContext;
     HDC   curDC;
@@ -149,9 +153,9 @@ protected:
     GLXContext ovGLContext;
 #endif
 	void redraw ();
-    bool isVideoGLContext;
-	bool shareGLContextWithVideo;
-    bool isGLContextShared;
+    //bool isVideoGLContext;
+	//bool shareGLContextWithVideo;
+    //bool isGLContextShared;
     
     Video* videoComponent;
 private:
@@ -165,10 +169,7 @@ private:
 
     bool showFrameRate;
 #ifdef STB_IS_WINDOWS
-    DWORD thisTime;
-    DWORD lastTime;
-    float diffTime;
-    float framerate;
+    DWORD frameRateLastTime, frameRateCtr;
 #endif
 
     bool showCursor;

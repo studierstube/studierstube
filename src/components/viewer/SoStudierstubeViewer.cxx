@@ -34,6 +34,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/OS.h>
+#include <stb/Kernel/Kernel.h>
 #include <Inventor/actions/SoGetPrimitiveCountAction.h>
 
 #include SOGUI_H
@@ -57,12 +58,13 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 {
     isWindowDecorationActive=TRUE;
     headlight=NULL;
-    shareGLContextWithVideo=false;
+    //shareGLContextWithVideo=false;
     // SoGLRenderAction* renderAction = this->getGLRenderAction();
  //   renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
     this->setAlphaChannel(TRUE);
+/*
 #ifdef STB_IS_WINDOWS
     curDC=NULL;
     curGLContext=NULL;
@@ -73,8 +75,10 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 #endif
     isVideoGLContext=false;
     isGLContextShared=false;
+*/
     showTriangleCount=false;
     showFrameRate=false;
+	frameRateCtr = 0;
     showCursor=true;
 }
 
@@ -83,10 +87,10 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 // Destructor, does some clean up work.
 SoStudierstubeViewer::~SoStudierstubeViewer()
 {
-    if(isGLContextShared)
+    /*if(isGLContextShared)
     {
         videoComponent->deleteGLContext();
-    }
+    }*/
 }
 
 int 
@@ -284,140 +288,152 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 }
 
 
-void 
+/*void 
 SoStudierstubeViewer::setOVGLContext(Video* video)
 {
     videoComponent=video;
     shareGLContextWithVideo=true;
-}
+}*/
 
 void 
 SoStudierstubeViewer::redraw ()
 {
-    if(!isVideoGLContext)
-    {
-        this->glLockNormal(); // this makes the GL context "current"
+	///////////////////////////////////
+	//
+	// creation of 2nd context begin
+	//
+/*
+	if(!isVideoGLContext)
+	{
+		this->glLockNormal(); // this makes the GL context "current"
 #ifdef STB_IS_WINDOWS
-        curDC=wglGetCurrentDC();
-        if(!curDC){
-            printf("StbError: failed to get current dc \n ");
-        }
+		curDC=wglGetCurrentDC();
+		if(!curDC){
+			printf("StbError: failed to get current dc \n ");
+		}
 
-        HGLRC curStbContext=wglGetCurrentContext();
-        if(!curStbContext){
-            printf("StbError: failed to get current context \n");
-        }
+		HGLRC curStbContext=wglGetCurrentContext();
+		if(!curStbContext){
+			printf("StbError: failed to get current context \n");
+		}
 
 
-        if(curDC && curStbContext)
-        {
-            PIXELFORMATDESCRIPTOR pfd;
+		if(curDC && curStbContext)
+		{
+			PIXELFORMATDESCRIPTOR pfd;
 
-            DescribePixelFormat(curDC, 1, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
-            //ChoosePixelFormat(curDC, &pfd );
+			DescribePixelFormat(curDC, 1, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
+			//ChoosePixelFormat(curDC, &pfd );
 
-            curGLContext=wglCreateContext(curDC);	
-            if(!curGLContext)
-            {
-                printf("failed to create new opengl context \n");
-                printf("%s\n",GetLastError());
-            }
-            else{
-                if(!wglShareLists(curGLContext, curStbContext))
-                {
-                    printf("OV: failed to share opengl context \n");
-                    printf("%i\n",::GetLastError());
-                }
-            }
-        }   
+			curGLContext=wglCreateContext(curDC);	
+			if(!curGLContext)
+			{
+				printf("failed to create new opengl context \n");
+				printf("%s\n",GetLastError());
+			}
+			else{
+				if(!wglShareLists(curGLContext, curStbContext))
+				{
+					printf("OV: failed to share opengl context \n");
+					printf("%i\n",::GetLastError());
+				}
+			}
+		}   
 #elif defined(STB_IS_LINUX)
-        GLXContext curContext= glXGetCurrentContext();	
-        dsp=glXGetCurrentDisplay();
-        drawable=glXGetCurrentDrawable();
+		GLXContext curContext= glXGetCurrentContext();	
+		dsp=glXGetCurrentDisplay();
+		drawable=glXGetCurrentDrawable();
 
-        int major;
-        int minor;
-        glXQueryVersion(dsp,
-            &major,
-            &minor);
-        if(major<1 || minor <3 )
-        {
-            printf("StbError: need at least glx 1.3 to run openvideo");
-            printf(" - you're running glx version %i.%i\n",major,minor);
-        }
-        ovGLContext=NULL;
-        XVisualInfo* vis=NULL;
+		int major;
+		int minor;
+		glXQueryVersion(dsp,
+			&major,
+			&minor);
+		if(major<1 || minor <3 )
+		{
+			printf("StbError: need at least glx 1.3 to run openvideo");
+			printf(" - you're running glx version %i.%i\n",major,minor);
+		}
+		ovGLContext=NULL;
+		XVisualInfo* vis=NULL;
 
-        int configID;
-        glXQueryContext(dsp,
-            curContext,
-            GLX_FBCONFIG_ID,
-            &configID);
+		int configID;
+		glXQueryContext(dsp,
+			curContext,
+			GLX_FBCONFIG_ID,
+			&configID);
 
-        /////query screen /////////////////
-        int screen;
-        glXQueryContext(dsp,
-            curContext,
-            GLX_SCREEN,
-            &screen);
+		/////query screen /////////////////
+		int screen;
+		glXQueryContext(dsp,
+			curContext,
+			GLX_SCREEN,
+			&screen);
 
-        /////get FBConfig
-        int nelements;
-        GLXFBConfig  *fbConfigs=glXGetFBConfigs(dsp,
-            screen,
-            &nelements);
-        int value;
-        GLXFBConfig fbConfig;
-        for(int i=0;i<nelements;i++)
-        {
-            glXGetFBConfigAttrib(dsp,
-                fbConfigs[i],
-                GLX_FBCONFIG_ID,
-                &value);
-            if(value==configID){
-                fbConfig=fbConfigs[i];
-                break;
-            }
-        }
-        vis=glXGetVisualFromFBConfig(dsp,
-            fbConfig);
-        if(curContext
-            && dsp
-            && vis)
-        {
-            ovGLContext= glXCreateContext(dsp, 
-                vis,
-                curContext,
-                true);
-            if(!ovGLContext)
-                printf("failed to create openvideo's context\n");
-        }
+		/////get FBConfig
+		int nelements;
+		GLXFBConfig  *fbConfigs=glXGetFBConfigs(dsp,
+			screen,
+			&nelements);
+		int value;
+		GLXFBConfig fbConfig;
+		for(int i=0;i<nelements;i++)
+		{
+			glXGetFBConfigAttrib(dsp,
+				fbConfigs[i],
+				GLX_FBCONFIG_ID,
+				&value);
+			if(value==configID){
+				fbConfig=fbConfigs[i];
+				break;
+			}
+		}
+		vis=glXGetVisualFromFBConfig(dsp,
+			fbConfig);
+		if(curContext
+			&& dsp
+			&& vis)
+		{
+			ovGLContext= glXCreateContext(dsp, 
+				vis,
+				curContext,
+				true);
+			if(!ovGLContext)
+				printf("failed to create openvideo's context\n");
+		}
 #endif
-	    this->glUnlockNormal();// this releases the GL contex	
-        isVideoGLContext=true;
-    }
-    if(!isGLContextShared && shareGLContextWithVideo)
-    {
-        isGLContextShared=true;
-        this->glLockNormal(); // this makes the GL context "current"
+		this->glUnlockNormal();// this releases the GL contex	
+		isVideoGLContext=true;
+	}
+
+	if(!isGLContextShared && shareGLContextWithVideo)
+	{
+		isGLContextShared=true;
+		this->glLockNormal(); // this makes the GL context "current"
 #ifdef STB_IS_WINDOWS
-        videoComponent->setGLContext(curGLContext,curDC);
+		videoComponent->setGLContext(curGLContext,curDC);
 #elif defined(STB_IS_LINUX)
-        videoComponent->setGLContext(drawable, ovGLContext, dsp);
+		videoComponent->setGLContext(drawable, ovGLContext, dsp);
 #endif
-        this->glUnlockNormal();// this releases the GL contex	
-        
-    }
-
+		this->glUnlockNormal();// this releases the GL context
+	}
+*/
+	//
+	// creation of 2nd context end
+	//
+	///////////////////////////////////
 
     if(showFrameRate){
 #if defined(STB_IS_WINDOWS)
-        DWORD thisTime = GetTickCount();
-        diffTime = (float)(thisTime-lastTime);
-        if (diffTime>0) framerate=1000*(1/diffTime);
-        lastTime=thisTime;
-        printf("[Render = %3.1f] \n",framerate);
-       
+        DWORD thisTime = GetTickCount(), diffTime = thisTime-frameRateLastTime;
+		if(diffTime>1000 && frameRateCtr>0)		// only update every second
+		{
+			printf("[Render FPS: %3.1f] \n", frameRateCtr*1000.0f/diffTime);
+			frameRateLastTime = thisTime;
+			frameRateCtr = 0;
+		}
+		else
+			frameRateCtr++;
 #endif
      }
     if(showTriangleCount)
@@ -444,6 +460,25 @@ void
 SoStudierstubeViewer::printFrameRate(bool onOff)
 {
     this->showFrameRate=onOff;
-}   
+}
+
+
+void
+SoStudierstubeViewer::actualRedraw(void)
+{
+	//printf("pre-draw\n");
+	//reinterpret_cast<SoOpenTrackerSource*>(Kernel::getInstance()->getSceneManager()->getTrackerSource())->runTracker();
+
+	Kernel* kernel = Kernel::getInstance();
+	assert(kernel);
+
+	kernel->preRenderCallback();
+
+	SoGuiExaminerViewer::actualRedraw();
+	//printf("post-draw\n");
+
+	kernel->postRenderCallback();
+}
+
 
 END_NAMESPACE_STB

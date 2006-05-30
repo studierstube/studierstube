@@ -40,6 +40,7 @@
 #include <stb/base/datatypes.h>
 #include <stb/kernel/ComponentThread.h>
 #include <stb/kernel/VideoProvider.h>
+#include <stb/kernel/KernelEventSubscriber.h>
 
 
 #ifdef STB_IS_WINDOWS
@@ -51,7 +52,9 @@
 
 namespace openvideo{
     class Manager;
-    class GL_TEXTURE_2D_Sink;
+//    class GL_TEXTURE_2D_Sink;
+	class State;
+	class Buffer;
 }
 
 BEGIN_NAMESPACE_STB
@@ -63,7 +66,7 @@ class Stb4VideoSinkSubscriber;
 /**
 *	
 */
-class Video : public stb::ComponentThread, public stb::VideoProvider
+class Video : public stb::ComponentThread, public stb::VideoProvider, public stb::KernelEventSubscriber
 {
 public:
     /**
@@ -82,6 +85,7 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
+/*
 #ifdef STB_IS_WINDOWS
     virtual void setGLContext(HGLRC glContext,HDC dc);
 #elif defined(STB_IS_LINUX)
@@ -95,7 +99,7 @@ public:
     virtual void aquire2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
     virtual void release2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
     virtual int getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink);
-
+*/
 
 	// Declare that this component is a video provider
 	virtual VideoProvider* getVideoProviderInterface()  {  return this;  }
@@ -106,11 +110,26 @@ public:
 	virtual void vp_unregisterVideoUser(VideoUser* videouser);
 
 
-	void setOVFormat(VIDEO_FRAME& format);
+	/// Implement stb::KernelEventSubscriber interface
+	virtual void kes_beforeRender();
 
-	void setNewFrame(VIDEO_FRAME& format);
+
+	void setVideoFormat(const openvideo::Buffer& format);
+
+	void setNewVideoFrame(const openvideo::Buffer& format);
+
+	/// Returns a locked frame with the latest update from OpenVideo
+	/**
+	 *  Note: It is crucial that the caller of this method calls
+	 *        unlock() when it no longer uses this Buffer. Otherwise
+	 *        a leak happens!
+	 */
+	const openvideo::Buffer* getCurrentFrameLocked();
 
 protected:	
+	void notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame);
+
+
     stb::string configFile,
 				ovSinkName;
 
@@ -122,9 +141,12 @@ protected:
 
 private:
 	Stb4VideoSinkSubscriber*	videoSinkSubscriber;
-	VideoUserVector	videousers;
 
-	VIDEO_FRAME *video_format;
+	VideoUserVector	videoUsersImmediate, videoUsersBeforeRender;
+
+	openvideo::Buffer* video_format;
+
+	//VIDEO_FRAME *video_format;
 };
 
 
