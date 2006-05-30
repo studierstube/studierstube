@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8,00"
-	Name="kernel"
-	ProjectGUID="{42748253-9DEC-4BB4-9483-FDDA842B610B}"
-	RootNamespace="kernel"
+	Name="kernel_es"
+	ProjectGUID="{42748253-9DEC-4BB4-9483-FDDA842B61BB}"
+	RootNamespace="kernel_es"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -18,7 +18,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="../../bin/Win32"
-			IntermediateDirectory="kernel_debug"
+			IntermediateDirectory="kernel_es_debug"
 			ConfigurationType="2"
 			CharacterSet="2"
 			>
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS;TINYXML_MOD_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,8 +61,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Coin2d.lib aced.lib opengl32.lib"
-				OutputFile="$(OutDir)/stbkerneld.dll"
+				AdditionalDependencies="Coin2esd.lib aced.lib"
+				OutputFile="$(OutDir)/stbkernel_esd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib/Win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
@@ -99,7 +99,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="../../bin/Win32"
-			IntermediateDirectory="kernel_release"
+			IntermediateDirectory="kernel_es_release"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
@@ -140,8 +140,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Coin2.lib ace.lib opengl32.lib"
-				OutputFile="$(OutDir)/stbkernel.dll"
+				AdditionalDependencies="Coin2es.lib ace.lib"
+				OutputFile="$(OutDir)/stbkernel_es.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib/Win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;"
 				GenerateDebugInformation="true"
@@ -187,19 +187,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\include\stb\kernel\GUIBinder.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\kernel\Kernel.cxx"
 				>
 			</File>
 			<File
 				RelativePath="..\..\include\stb\kernel\Kernel.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\kernel\KernelEventSubscriber.h"
 				>
 			</File>
 			<File
@@ -234,21 +226,9 @@
 				RelativePath="..\..\src\kernel\TinyXML.cxx"
 				>
 			</File>
-			<File
-				RelativePath="..\..\include\stb\kernel\VideoProvider.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\kernel\VideoUser.h"
-				>
-			</File>
 			<Filter
 				Name="base"
 				>
-				<File
-					RelativePath="..\..\include\stb\base\datatypes.h"
-					>
-				</File>
 				<File
 					RelativePath="..\..\include\stb\base\macros.h"
 					>
