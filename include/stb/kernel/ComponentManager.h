@@ -30,26 +30,30 @@
  * @file                                                                   */  
 /* ======================================================================= */  
 
+
 #ifndef _COMPONENTMANAGER_H_
 #define _COMPONENTMANAGER_H_
-
-#include <vector>
 
 #include <stb/base/macros.h>
 #include <stb/kernel/Studierstube.h>
 
+#include <vector>
 
 BEGIN_NAMESPACE_STB
+
+
 class ComponentRetriever;
 class ComponentInfo;
 class Component;
 class Application;
 class GUIBinder;
+
+
 /**@ingroup kernel
  *
  * 
  */
-class STB_API ComponentManager
+class KERNEL_API ComponentManager
 {
 public:
     /**

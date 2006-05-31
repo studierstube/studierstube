@@ -41,7 +41,7 @@
 
 #include "starlight.h"
 
-class SoCommand : public SoNode
+class STARLIGHT_API SoCommand : public SoNode
 {
 	SO_NODE_ABSTRACT_HEADER(SoCommand);
 public:

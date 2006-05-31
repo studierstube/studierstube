@@ -30,19 +30,25 @@
 * @file                                                                   */  
 /* ======================================================================= */  
 
+
 #ifndef _COMPONENTTHREAD_H_
 #define _COMPONENTTHREAD_H_
 
 #include <stb/kernel/Component.h>
 #include <stb/base/macros.h>
+
+
 class ACE_Thread_Mutex;
+
+
 BEGIN_NAMESPACE_STB
+
 
 /**@ingroup kernel
 *
 * 
 */
-class STB_API ComponentThread : public Component
+class KERNEL_API ComponentThread : public Component
 {
 public:
 	/**
@@ -101,9 +107,8 @@ protected:
         ((ComponentThread *)data)->run();
     };
 
-
-	
 };// class 
+
 
 END_NAMESPACE_STB
 

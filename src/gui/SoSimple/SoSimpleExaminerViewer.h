@@ -96,7 +96,7 @@ public:
 	void processEvent(MSG * event);
 
 protected:
-	void actualRedraw();
+	virtual void actualRedraw();
 	void createGLContext(HWND window);
 	void setDevicesWindowSize(const SbVec2s size);
 

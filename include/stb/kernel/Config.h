@@ -29,6 +29,8 @@
 * $Id: Config.h 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+
+
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
@@ -38,7 +40,10 @@ class TiXmlElement;
 #include <stb/base/string.h>
 
 BEGIN_NAMESPACE_STB
+
 class Kernel;
+
+
 /**@ingroup kernel
 * The Config class reads the kernel's configuration file and 'forwards' 
 * the xml-elements depending on their xml-tag to their appropriate object.
@@ -71,6 +76,7 @@ protected:
 };
 
 
-
 END_NAMESPACE_STB
+
+
 #endif //

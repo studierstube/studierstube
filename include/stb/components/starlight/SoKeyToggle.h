@@ -75,7 +75,7 @@ SoKeyToggle {
  * @author Jan Prikryl, Gerhard Reitmayr
  * @ingroup starlight
  */
-class  SoKeyToggle : public SoNode {
+class STARLIGHT_API SoKeyToggle : public SoNode {
 
     SO_NODE_HEADER(SoKeyToggle);
 

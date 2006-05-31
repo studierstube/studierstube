@@ -47,7 +47,7 @@
 
 template <typename T> class EventAdapter;
 
-class  SoTrakEngine : public SoEngine
+class EVENT_API SoTrakEngine : public SoEngine
 {
     SO_ENGINE_HEADER(SoTrakEngine);
 

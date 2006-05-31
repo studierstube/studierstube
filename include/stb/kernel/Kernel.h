@@ -69,7 +69,7 @@ class Video;
 * 
 * To implement this functionality, the kernel uses the Scheduler(mainLoop), the SceneManager(scene graph management) and the ComponentManager (component management).
 */
-class STB_API Kernel
+class KERNEL_API Kernel
 {
 public:
     /**

@@ -30,16 +30,22 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+
 #ifndef SOVIEWPORT_H
 #define SOVIEWPORT_H
+
 #include <Inventor/nodes/SoSubNode.h>
 #include <Inventor/actions/SoGLRenderAction.h> 
 #include <Inventor/SbLinear.h>
 #include <Inventor/fields/SoSFVec2s.h> 
 #include <stb/base/macros.h>
+#include <stb/components/viewer/guiDefines.h>
+
 
 BEGIN_NAMESPACE_STB
-class SoViewport : public SoNode
+
+
+class VIEWER_API SoViewport : public SoNode
 {
 SO_NODE_HEADER(SoViewport);
 
@@ -87,6 +93,8 @@ private:
 	
 };
 
+
 END_NAMESPACE_STB
+
 
 #endif

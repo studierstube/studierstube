@@ -68,6 +68,7 @@ class Stb4VideoSinkSubscriber;
 */
 class Video : public stb::ComponentThread, public stb::VideoProvider, public stb::KernelEventSubscriber
 {
+friend class Stb4VideoSinkSubscriber;
 public:
     /**
     *     The Constructor	
@@ -85,22 +86,6 @@ public:
     //
     virtual void setParameter(stb::string key, std::string value);
 
-/*
-#ifdef STB_IS_WINDOWS
-    virtual void setGLContext(HGLRC glContext,HDC dc);
-#elif defined(STB_IS_LINUX)
-    virtual void setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp);
-#endif
-
-    virtual void deleteGLContext();
-    
-    virtual void* getOpenVideoNode(const char *nodeName);
-
-    virtual void aquire2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
-    virtual void release2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink);
-    virtual int getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink);
-*/
-
 	// Declare that this component is a video provider
 	virtual VideoProvider* getVideoProviderInterface()  {  return this;  }
 
@@ -114,19 +99,17 @@ public:
 	virtual void kes_beforeRender();
 
 
-	void setVideoFormat(const openvideo::Buffer& format);
-
-	void setNewVideoFrame(const openvideo::Buffer& format);
-
 	/// Returns a locked frame with the latest update from OpenVideo
 	/**
 	 *  Note: It is crucial that the caller of this method calls
 	 *        unlock() when it no longer uses this Buffer. Otherwise
 	 *        a leak happens!
 	 */
-	const openvideo::Buffer* getCurrentFrameLocked();
+	virtual const openvideo::Buffer* getCurrentFrameLocked();
 
-protected:	
+protected:
+	void setVideoFormat(const openvideo::Buffer& format);
+	void setNewVideoFrame(const openvideo::Buffer& format);
 	void notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame);
 
 
@@ -145,8 +128,6 @@ private:
 	VideoUserVector	videoUsersImmediate, videoUsersBeforeRender;
 
 	openvideo::Buffer* video_format;
-
-	//VIDEO_FRAME *video_format;
 };
 
 

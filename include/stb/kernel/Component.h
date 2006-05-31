@@ -48,11 +48,12 @@ class VideoProvider;
 class VideoUser;
 class GUIBinder;
 
+
 /**@ingroup kernel
  *
  * 
  */
-class STB_API Component
+class KERNEL_API Component
 {
 public:
     /**

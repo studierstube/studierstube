@@ -48,32 +48,33 @@ BEGIN_NAMESPACE_STB
  *		- logPrintE("File %s Not Found", filename);
  *
 */
-void STB_API logPrint(stb::string message);
-void STB_API logPrint(const char *message, ...);
-void STB_API logPrintD(stb::string debugMessage);
-void STB_API logPrintD(const char *debugMessage, ...);
-void STB_API logPrintS(stb::string setupMessage);
-void STB_API logPrintS(const char *setupMessage, ...);
-void STB_API logPrintI(stb::string infoMessage);
-void STB_API logPrintI(const char *infoMessage, ...);
-void STB_API logPrintW(stb::string warningMessage);
-void STB_API logPrintW(const char *warningMessage, ...);
-void STB_API logPrintE(stb::string errorMessage);
-void STB_API logPrintE(const char *errorMessage, ...);
-void STB_API logPrintEAbort(stb::string errorMessage);
-void STB_API logPrintEAbort(const char *errorMessage, ...);
+void KERNEL_API logPrint(stb::string message);
+void KERNEL_API logPrint(const char *message, ...);
+void KERNEL_API logPrintD(stb::string debugMessage);
+void KERNEL_API logPrintD(const char *debugMessage, ...);
+void KERNEL_API logPrintS(stb::string setupMessage);
+void KERNEL_API logPrintS(const char *setupMessage, ...);
+void KERNEL_API logPrintI(stb::string infoMessage);
+void KERNEL_API logPrintI(const char *infoMessage, ...);
+void KERNEL_API logPrintW(stb::string warningMessage);
+void KERNEL_API logPrintW(const char *warningMessage, ...);
+void KERNEL_API logPrintE(stb::string errorMessage);
+void KERNEL_API logPrintE(const char *errorMessage, ...);
+void KERNEL_API logPrintEAbort(stb::string errorMessage);
+void KERNEL_API logPrintEAbort(const char *errorMessage, ...);
 
 /*
  * Enumerations
  */
-enum LOG_MODE 
+enum LOG_MODE
 {
-	OFF=0,
-	FILE=1,
-	CONSOLE=2
+	MODE_OFF = 0,
+	MODE_FILE = 1,
+	MODE_CONSOLE = 2,
+	MODE_CALLBACK = 3
 };
 
-class STB_API StbLogger
+class KERNEL_API StbLogger
 {
 public:
 

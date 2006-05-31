@@ -33,16 +33,17 @@
 #ifndef _STUDIERSTUBE_H_
 #define _STUDIERSTUBE_H_
 
+
 #if defined(WIN32) || defined(_WIN32_WCE)
 #  pragma warning(disable:4251)
 #  pragma warning(disable:4290)
-#  ifdef STB_EXPORTS
-#    define STB_API __declspec(dllexport)
+#  ifdef KERNEL_EXPORTS
+#    define KERNEL_API __declspec(dllexport)
 #  else
-#    define STB_API __declspec(dllimport)
+#    define KERNEL_API __declspec(dllimport)
 #  endif
 #else
-#  define STB_API 
+#  define KERNEL_API
 #endif
 
 
@@ -56,8 +57,7 @@ namespace stb{
 //
 extern "C" 
 {
-	STB_API void
-	executeStudierstube(int argc, char** argv);
+	KERNEL_API void executeStudierstube(int argc, char** argv);
 }
 
 /**

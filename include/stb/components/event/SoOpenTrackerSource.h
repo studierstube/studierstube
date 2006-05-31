@@ -57,7 +57,7 @@ class Context;
 
 class EventModule;
 
-class  SoOpenTrackerSource : public SoEventSource
+class EVENT_API SoOpenTrackerSource : public SoEventSource
 {
     SO_NODE_HEADER( SoOpenTrackerSource );
 

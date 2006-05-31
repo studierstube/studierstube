@@ -35,6 +35,7 @@
 
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
+#include <stb/kernel/Studierstube.h>
 
 class SoIdleSensor;
 class SoTimerSensor;
@@ -49,7 +50,7 @@ class GUIBinder;
 /**@ingroup kernel
 * The Scheduler's main loop is based on coins main loop implementation which comes with the gui-binding.
 */
-class Scheduler
+class KERNEL_API Scheduler
 {
 public:
     /**

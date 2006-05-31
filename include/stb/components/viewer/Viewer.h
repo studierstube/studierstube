@@ -37,17 +37,22 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/GUIBinder.h>
 #include <stb/kernel/Component.h>
+#include <stb/components/viewer/guiDefines.h>
 
 #include <vector>
 
 class SoNode;
 
+
 BEGIN_NAMESPACE_STB
+
 class SoDisplay;
+
+
 /**
 *	
 */
-class Viewer : public Component, public GUIBinder
+class VIEWER_API Viewer : public Component, public GUIBinder
 {
 public:
     /**
@@ -85,8 +90,14 @@ protected:
 private:
 	
 };// class 
+
+
 END_NAMESPACE_STB
+
+
 #endif//_VIEWER_H_
+
+
 //========================================================================
 // End of Viewer.h 
 //========================================================================

@@ -46,6 +46,9 @@
 #  define ENABLE_VIDEOSINK
 #  include <openvideo/nodes/VideoSink.h>
 #  include <openvideo/nodes/VideoSinkSubscriber.h>
+#  include <openvideo/State.h>
+#else
+#  pragma message(">>> HAVE_OPENVIDEO not defined - video background will not be available!")
 #endif
 
 
@@ -54,7 +57,7 @@
 #  include <windows.h>
 #endif
 
-#include <GL/gl.h>			
+#include <GL/gl.h>
 #include <GL/glu.h>	
 
 BEGIN_NAMESPACE_STB
@@ -73,17 +76,19 @@ SoVideoBackground::initClass()
 }
 
 
-#ifdef STB_IS_WINDOWS
-#  ifdef STB_IS_DEBUG
-#    pragma message (">>> Linking against debug build of OpenVideo")
-#    pragma comment(lib,"openvideod.lib")
-#  else	
-#    pragma message (">>> Linking against release build of OpenVideo")
-#    pragma comment(lib,"openvideo.lib")
-#  endif
-#else //WIN32
+#ifdef HAVE_OPENVIDEO
+#  ifdef STB_IS_WINDOWS
+#    ifdef STB_IS_DEBUG
+#      pragma message (">>> Linking against debug build of OpenVideo")
+#      pragma comment(lib,"openvideod.lib")
+#    else	
+#      pragma message (">>> Linking against release build of OpenVideo")
+#      pragma comment(lib,"openvideo.lib")
+#    endif
+#  else //WIN32
 
-#endif
+#  endif //STB_IS_WINDOWS
+#endif //HAVE_OPENVIDEO
 
 
 // used to calculate best texture size
@@ -106,45 +111,6 @@ getNextPowerOfTwo(unsigned int nValue)
 	return 0;
 }
 
-/*
-#ifdef HAVE_OPENVIDEO
-class VideoBackgroundSinkSubscriber : public openvideo::VideoSinkSubscriber, public openvideo::BufferSynchronizer
-{
-public:
-	VideoBackgroundSinkSubscriber(SoVideoBackground* v) : videoback(v)
-	{
-		width = height = 0;
-	}
-
-	void update(openvideo::State* curState)
-	{
-		format = curState->format;
-		width = curState->width;
-		height = curState->height;
-
-		if(openvideo::Buffer* buffer = curState->getCurrentBuffer())
-			assign(buffer);
-	}
-
-
-	void initPixelFormats()
-	{
-		pixelFormats.push_back(openvideo::FORMAT_R8G8B8);
-		pixelFormats.push_back(openvideo::FORMAT_B8G8R8);
-		pixelFormats.push_back(openvideo::FORMAT_R8G8B8X8);
-		pixelFormats.push_back(openvideo::FORMAT_B8G8R8X8);
-		pixelFormats.push_back(openvideo::FORMAT_L8);
-		pixelFormats.push_back(openvideo::FORMAT_R5G6B5);
-	}
-
-	openvideo::PIXEL_FORMAT format;
-	int width,height;
-
-private:
-	SoVideoBackground* videoback;
-};
-#endif // HAVE_OPENVIDEO
-*/
 
 struct VideoBackgroundTexInfo
 {
@@ -162,74 +128,38 @@ struct VideoBackgroundTexInfo
 SoVideoBackground::SoVideoBackground()
 {
 	SO_NODE_CONSTRUCTOR(SoVideoBackground);
-	SO_NODE_ADD_FIELD(ovStbSink,("")); // default red
 
-	//videoSink = NULL;
-	//videoSinkSubscriber = NULL;
 	texInfo = NULL;
 	initialized = false;
+
+#ifdef _IS_KLIMTES_
+	bufferSynchronizer = new openvideo::BufferSynchronizer();
+#endif
 }
 
 
 void 
 SoVideoBackground::GLRender(SoGLRenderAction*)
 {
-//#pragma message(">>> daniel2all: dirty hack to call runTracker() every frame right before scene rendering")
-//#pragma message("                we should instead have SoOpenTrackerSource being traversed and call runTracker() itself...")
-//
-//	reinterpret_cast<SoOpenTrackerSource*>(Kernel::getInstance()->getSceneManager()->getTrackerSource())->runTracker();
-
-
-
-	//if(!videoSinkSubscriber)
 	if(!initialized)
 		initialized = init();
 
-	//drawVideoBackground();
-
-	//updateTexture();
-	//touch();
-
+#ifndef _IS_KLIMTES_
 	drawTexture();
+#else
+	blitIntoVideoMemory();
+#endif
 }
 
 
 bool
 SoVideoBackground::init()
 {
-/*#ifdef HAVE_OPENVIDEO
-    SoDisplay* display=Viewer::findSoDisplay(this);
-    if(!display)
-        return false;
-
-    if(Video* video = (Video*)Kernel::getInstance()->getComponentManager()->load("Video"))
-		videoSink = reinterpret_cast<openvideo::VideoSink*>(video->getOpenVideoNode(ovStbSink.getValue().getString()));
-	else
-		return false;
-
-	if(!videoSink)
-		return false;
-
-	if(videoSink->getTypeName()!="VideoSink")
-	{
-		logPrintE("SoVideoBackground:ERROR: expected type 'VideoSink' for sink named '%s' - found '%s'\n", ovStbSink.getValue().getString(), videoSink->getTypeName().c_str());
-		return false;
-	}
-
-	if(!videoSinkSubscriber)
-	{
-		videoSinkSubscriber = new VideoBackgroundSinkSubscriber(this);
-		videoSink->subscribe(videoSinkSubscriber);
-		return true;
-	}
-#endif // HAVE_OPENVIDEO*/
-
 	if(Video* video = (Video*)Kernel::getInstance()->getComponentManager()->load("Video"))
 	{
 		video->vp_registerVideoUser(this);
 		return true;
 	}
-
 
     return false;
 }
@@ -244,7 +174,13 @@ SoVideoBackground::vu_init(const openvideo::Buffer& frame)
 void
 SoVideoBackground::vu_update(const openvideo::Buffer& frame)
 {
+#ifdef HAVE_OPENVIDEO
+#  ifndef _IS_KLIMTES_
 	updateTexture(frame);
+#  else
+	bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
+#  endif
+#endif
 }
 
 
@@ -320,104 +256,17 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 		{
 			printf("checkGLErrors(): GL error: %s\n", gluErrorString(e));
 		}
+
+		touch();
 	}
 #endif // defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
 }
-
-
-/*bool
-SoVideoBackground::createTexture()
-{
-#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
-	if(!videoSinkSubscriber || videoSinkSubscriber->width==0 || videoSinkSubscriber->height==0)
-		return false;
-
-	openvideo::Buffer* buffer = videoSinkSubscriber->getLocked();
-	if(!buffer)
-		return false;
-
-	texInfo = new VideoBackgroundTexInfo;
-
-	if(!openvideo::PixelFormat::toOGL(videoSinkSubscriber->format, texInfo->format, texInfo->internalFormat))
-	{
-		buffer->unlock();
-		logPrintE("SoVideoBackground:ERROR: unsupported pixel-format\n");
-		return false;
-	}
-
-	texInfo->updateCtr = 0;
-	texInfo->imgWidth = videoSinkSubscriber->width;
-	texInfo->imgHeight = videoSinkSubscriber->height;
-	texInfo->texWidth = getNextPowerOfTwo(videoSinkSubscriber->width);
-	texInfo->texHeight = getNextPowerOfTwo(videoSinkSubscriber->height);
-
-	bool	flip_h = false, flip_v = true;
-	float	u_rt = texInfo->imgWidth / (float)texInfo->texWidth,
-			v_rt = texInfo->imgHeight / (float)texInfo->texHeight;
-
-	texInfo->u0 = (flip_h ? u_rt : 0   );
-	texInfo->u1 = (flip_h ?    0 : u_rt);
-	texInfo->v0 = (flip_v ? v_rt : 0   );
-	texInfo->v1 = (flip_v ?    0 : v_rt);
-
-	// Create the OpenGL texture
-	//
-	glEnable(GL_TEXTURE_2D);
-	glGenTextures(1, &texInfo->texID);
-	glBindTexture(GL_TEXTURE_2D, texInfo->texID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-	glTexImage2D(GL_TEXTURE_2D, 0, texInfo->internalFormat, texInfo->texWidth, texInfo->texHeight, 0, texInfo->format, GL_UNSIGNED_BYTE, NULL);
-	glDisable(GL_TEXTURE_2D);
-
-	buffer->unlock();
-	return true;
-#endif // defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
-
-	return false;
-}
-
-
-void
-SoVideoBackground::updateTexture()
-{
-#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
-	if(!texInfo)
-		if(!createTexture())
-			return;
-
-	if(openvideo::Buffer* buffer = videoSinkSubscriber->getLocked())
-	{
-		if(buffer->getUpdateCounter() != texInfo->updateCtr)
-		{
-			printf("tex: %d\n", buffer->getUpdateCounter());
-			texInfo->updateCtr = buffer->getUpdateCounter();
-
-			glEnable(GL_TEXTURE_2D);
-			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
-			glEnable(GL_TEXTURE_2D);
-			glBindTexture(GL_TEXTURE_2D, texInfo->texID);
-			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texInfo->imgWidth, texInfo->imgHeight, texInfo->format, GL_UNSIGNED_BYTE, (void*)buffer->getPixels());
-			glDisable(GL_TEXTURE_2D);
-
-			GLenum e;
-			while ((e = glGetError ()) != GL_NO_ERROR)
-			{
-				printf("checkGLErrors(): GL error: %s\n", gluErrorString(e));
-			}
-		}
-
-		buffer->unlock();
-	}
-#endif // defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
-}*/
 
 
 void
 SoVideoBackground::drawTexture()
 {
-#if !defined(_IS_KLIMTES_)
+#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
 	if(!texInfo)
 		return;
 
@@ -458,7 +307,7 @@ SoVideoBackground::drawTexture()
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-#endif // !defined(_IS_KLIMTES_)
+#endif // defined(HAVE_OPENVIDEO) !defined(_IS_KLIMTES_)
 }
 
 
@@ -466,45 +315,26 @@ void
 SoVideoBackground::blitIntoVideoMemory()
 {
 #if defined(HAVE_OPENVIDEO) && defined(_IS_KLIMTES_)
-	assert(videoSinkSubscriber);
-
-	int width = videoSinkSubscriber->width,
-		height = videoSinkSubscriber->height,
-		bytesPerPixel = openvideo::PixelFormat::getBitsPerPixel(videoSinkSubscriber->format) / 8;
-
-	if(width==0 || height==0)
-		return;
-
-	openvideo::Buffer* buffer = videoSinkSubscriber->getLocked();
-
-	if(!buffer)
-		return;
-
-	if(unsigned short* oglPixels = (unsigned short*)klesGetBufferPixels())
+	if(openvideo::Buffer* buffer = bufferSynchronizer->getLocked())
 	{
-		unsigned short* src = (unsigned short*)buffer->getPixels();
+		if(!buffer->getPixels())
+		{
+			buffer->unlock();
+			return;
+		}
 
-		int oglWidth = klesGetBufferWidth(),
-			oglHeight = klesGetBufferHeight();
+		if(unsigned short* oglPixels = (unsigned short*)klesGetBufferPixels())
+		{
+			int oglWidth = klesGetBufferWidth(),
+				oglHeight = klesGetBufferHeight();
 
-		if(oglWidth==width*2 && oglHeight==height*2)
-			scale_2x_WinXP(src, oglPixels, width,height);
+			if(oglWidth==buffer->getWidth()*2 && oglHeight==buffer->getHeight()*2)
+				scale_2x_WinXP((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
+		}
+
+		buffer->unlock();
 	}
-
-	buffer->unlock();
 #endif // defined(HAVE_OPENVIDEO) && defined(_IS_KLIMTES_)
-}
-
-
-void
-SoVideoBackground::drawVideoBackground()
-{
-/*#if !defined(_IS_KLIMTES_)
-	updateTexture();
-	drawTexture();
-#else
-	blitIntoVideoMemory();
-#endif*/
 }
 
 

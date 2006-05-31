@@ -43,6 +43,8 @@ class SoNode;
 
 
 BEGIN_NAMESPACE_STB
+
+
 /**@ingroup kernel
  * The SceneManager holds studierstube's main scene graph and implements functions to 
  * get parts of it and set specific nodes in designated subgraphs. 
@@ -56,7 +58,7 @@ BEGIN_NAMESPACE_STB
  * trackRoot   
  *
  */
-class STB_API SceneManager
+class KERNEL_API SceneManager
 {
 public:
     /**
@@ -127,8 +129,9 @@ protected:
 private:
 	
 };// class 
-END_NAMESPACE_STB
 
+
+END_NAMESPACE_STB
 
 
 #endif//_SCENEMANAGER_H_

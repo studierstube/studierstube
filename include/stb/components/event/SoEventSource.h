@@ -42,7 +42,7 @@
 
 class SoInputEvent;
 
-class  SoEventSource : public SoNode, public EventProducer
+class EVENT_API SoEventSource : public SoNode, public EventProducer
 {
     SO_NODE_ABSTRACT_HEADER( SoEventSource );
 

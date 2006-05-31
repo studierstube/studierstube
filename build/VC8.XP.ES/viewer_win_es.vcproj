@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -49,6 +49,7 @@
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4275"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -122,12 +123,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				DisableSpecificWarnings="4275"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"

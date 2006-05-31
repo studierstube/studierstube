@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS;TINYXML_MOD_DLL"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;KERNEL_EXPORTS;TINYXML_MOD_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -122,7 +122,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STB_EXPORTS;TINYXML_MOD_DLL"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;KERNEL_EXPORTS;TINYXML_MOD_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -187,11 +187,19 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\include\stb\kernel\GUIBinder.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\kernel\Kernel.cxx"
 				>
 			</File>
 			<File
 				RelativePath="..\..\include\stb\kernel\Kernel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\KernelEventSubscriber.h"
 				>
 			</File>
 			<File
@@ -224,6 +232,14 @@
 			</File>
 			<File
 				RelativePath="..\..\src\kernel\TinyXML.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\VideoProvider.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\VideoUser.h"
 				>
 			</File>
 			<Filter

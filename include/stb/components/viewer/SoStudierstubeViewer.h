@@ -55,7 +55,7 @@
 
 BEGIN_NAMESPACE_STB
 
-class SoStudierstubeViewer : public SoGuiExaminerViewer
+class VIEWER_API SoStudierstubeViewer : public SoGuiExaminerViewer
 {
 public:
    /** The constructor of the viewer:

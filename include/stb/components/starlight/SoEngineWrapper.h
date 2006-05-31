@@ -113,7 +113,7 @@ PROTO WrapperTest [
 @author Gerhard Reitmayr
 @ingroup util
 */
-class  SoEngineWrapper : public SoNodeEngine {
+class STARLIGHT_API SoEngineWrapper : public SoNodeEngine {
     
 	typedef SoNode inherited;
 

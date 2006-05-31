@@ -39,7 +39,7 @@
 #include "tools.h"
 #include "EventBus.h"
 
-class  BasicEventFilter :  public EventFilter
+class EVENT_API BasicEventFilter :  public EventFilter
 {
 public:
     BasicEventFilter(void);
@@ -55,7 +55,7 @@ protected:
 
 /// This class should be included in all those classes that 
 /// would like to be event aware
-template <typename T> class EventAdapter : public EventSubscriber
+template <typename T> class EVENT_API EventAdapter : public EventSubscriber
 {
 public:
 	/// Constructor, upon creation sets all its key value pairs and

@@ -48,7 +48,7 @@
 class SoEventAction;
 template <typename T> class EventAdapter;
 
-class  SoEventRoot : public SoBaseKit
+class EVENT_API SoEventRoot : public SoBaseKit
 {
     SO_KIT_HEADER( SoEventRoot );
 

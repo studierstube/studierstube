@@ -67,7 +67,7 @@
  * @author Gerhard Reitmayr
  * @ingroup context
  */
-class  SoContextMultiSwitch : public SoMultiSwitch
+class STARLIGHT_API SoContextMultiSwitch : public SoMultiSwitch
 {
     SO_NODE_HEADER(SoContextMultiSwitch);
 

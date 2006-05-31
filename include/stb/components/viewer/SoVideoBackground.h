@@ -38,10 +38,12 @@
 #include <Inventor/fields/SoSFString.h> 
 #include <stb/base/macros.h>
 #include <stb/kernel/VideoUser.h>
+#include <GL/gl.h>
 
 
 namespace openvideo{
   class VideoSink;
+  class BufferSynchronizer;
 }
 
 
@@ -53,7 +55,7 @@ class VideoBackgroundSinkSubscriber;
 struct VideoBackgroundTexInfo;
 
 
-class  SoVideoBackground : public SoNode, public stb::VideoUser
+class VIEWER_API SoVideoBackground : public SoNode, public stb::VideoUser
 {
 friend class VideoBackgroundSinkSubscriber;
 
@@ -68,35 +70,23 @@ friend class VideoBackgroundSinkSubscriber;
 
    bool init();
 
-   /**
-    * blits the actual video image into the frame buffer. This needs to be
-    * implemented to draw the actual video background. It is called for each
-    * frame and each viewer.
-    */
-   bool blitOverlay();
-
-
    virtual void vu_init(const openvideo::Buffer& frame);
    virtual void vu_update(const openvideo::Buffer& frame);
    virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
 
-
-   SoSFString ovStbSink;
-
 protected:
    virtual void GLRender(SoGLRenderAction *action);
-   //bool createTexture();
    bool createTexture(const openvideo::Buffer& buffer);
-   //void updateTexture();
    void updateTexture(const openvideo::Buffer& buffer);
    void drawTexture();
    void blitIntoVideoMemory();
-   void drawVideoBackground();
 
-   //openvideo::VideoSink* videoSink;
-   //VideoBackgroundSinkSubscriber*	videoSinkSubscriber;
    VideoBackgroundTexInfo*	texInfo;
    bool						initialized;
+
+#ifdef _IS_KLIMTES_
+   openvideo::BufferSynchronizer* bufferSynchronizer;
+#endif
 };
 
 END_NAMESPACE_STB

@@ -42,7 +42,7 @@
 class SoEventAction;
 
 /// An abstract class for creating Event aware separators
-class  SoEventSeparator : public SoSeparator
+class EVENT_API SoEventSeparator : public SoSeparator
 {
     SO_NODE_HEADER(SoEventSeparator);
 

@@ -46,7 +46,7 @@
 #include "SoCommand.h"
 #include "starlight.h"
 
-class SoSetName : public SoCommand {
+class STARLIGHT_API SoSetName : public SoCommand {
 	SO_NODE_HEADER(SoSetName);
  public:
 	SoSetName();

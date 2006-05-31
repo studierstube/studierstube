@@ -35,8 +35,12 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 
+
 BEGIN_NAMESPACE_STB
+
 class ComponentInfo;
+
+
 /**@ingroup kernel
 * The ComponentRetriever loads a Component using it's ComponentInfo object.
 */

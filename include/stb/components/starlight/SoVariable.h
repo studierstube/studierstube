@@ -97,7 +97,7 @@ Depending on its type various operations can be done on a variable:
 @author Istvan Barakonyi
 @ingroup util
 */
-class  SoVariable : public SoNode {
+class STARLIGHT_API SoVariable : public SoNode {
 
     SO_NODE_HEADER(SoVariable);
 

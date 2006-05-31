@@ -70,7 +70,7 @@ SoFanIn {
 @author Florian Ledermann, Gerhard Reitmayr
 @ingroup util
 */
-class  SoFanIn : public SoEngine {
+class STARLIGHT_API SoFanIn : public SoEngine {
     
     SO_ENGINE_HEADER(SoFanIn);
     

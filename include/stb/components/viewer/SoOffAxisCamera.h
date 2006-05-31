@@ -40,6 +40,7 @@
 #include <Inventor/fields/SoSFMatrix.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
+#include <stb/components/viewer/guiDefines.h>
 
 #ifdef STB_IS_WINDOWS
 #  include <SoWinLeaveScope.h>
@@ -85,7 +86,7 @@ the camera will render like an SoPerspectiveCamera.
 
 BEGIN_NAMESPACE_STB
 
-class  SoOffAxisCamera : public SoCamera
+class VIEWER_API SoOffAxisCamera : public SoCamera
 {
 	SO_NODE_HEADER(SoOffAxisCamera);
 

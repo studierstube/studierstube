@@ -97,7 +97,7 @@ SoStringMap {
  * @ingroup util
  * @author Gerhard Reitmayr
  */
-class  SoStringMap : public SoEngine  
+class STARLIGHT_API SoStringMap : public SoEngine  
 {
  SO_ENGINE_HEADER(SoStringMap);
 

@@ -76,7 +76,7 @@ SoFactorRotation {
  * @author Gerhard Reitmayr
  * @ingroup util
  */
-class  SoFactorRotation : public SoEngine  
+class STARLIGHT_API SoFactorRotation : public SoEngine  
 {
     SO_ENGINE_HEADER(SoFactorRotation);
 

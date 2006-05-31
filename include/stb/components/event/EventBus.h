@@ -41,12 +41,12 @@
 class SoInputEvent;
 class EventContext;
 
-class  EventProducer
+class EVENT_API EventProducer
 {
 };
 
 /// Subscriber class, will get filtered updates directly from the publisher
-class  EventSubscriber
+class EVENT_API EventSubscriber
 {
 public:
     virtual ~EventSubscriber(){}
@@ -54,14 +54,14 @@ public:
 };
 
 /// Filter class, in charge of accepting or rejecting events
-class  EventFilter 
+class EVENT_API EventFilter 
 {
 public: 
     virtual ~EventFilter(){}
     virtual bool accept( SoInputEvent * event ) = 0;
 };
 
-class  EventBus
+class EVENT_API EventBus
 {
 public:
 

@@ -53,7 +53,7 @@
 #include <stb/kernel/SceneManager.h>
 
 #ifdef HAVE_OPENVIDEO
-#include <openvideo/State.h>
+#  include <openvideo/State.h>
 #endif
 
 

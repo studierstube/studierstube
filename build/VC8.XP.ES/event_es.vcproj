@@ -40,8 +40,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(STB4ROOT)/include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_OT_1_1"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(STB4ROOT)/include&quot;;$(OPENVIDEOROOT)/include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_OT_1_1;EVENT_EXPORTS;HAVE_OPENVIDEO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -121,8 +121,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(STB4ROOT)/include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_OT_1_1"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(STB4ROOT)/include&quot;;$(OPENVIDEOROOT)/include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_OT_1_1;EVENT_EXPORTS;HAVE_OPENVIDEO"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"

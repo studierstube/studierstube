@@ -30,8 +30,25 @@
 * @file                                                                   */  
 /* ======================================================================= */  
 
+
 #ifndef _STARLIGHT_H_
 #define _STARLIGHT_H_
+
+
+#if defined(WIN32) || defined(_WIN32_WCE)
+#  pragma warning(disable:4251)
+#  pragma warning(disable:4290)
+#  ifdef STARLIGHT_EXPORTS
+#    define STARLIGHT_API __declspec(dllexport)
+#  else
+#    define STARLIGHT_API __declspec(dllimport)
+#  endif
+#else
+#  define STARLIGHT_API
+#endif
+
+
+
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 
@@ -63,7 +80,9 @@ class SoStringMap;
 class SoUse;
 class SoVariable;
 
+
 BEGIN_NAMESPACE_STB
+
 /**
 *	
 */
@@ -110,8 +129,13 @@ public:
     virtual SoUse*    createSoUse();
     virtual SoVariable*    createSoVariable();
 
-protected:	
+protected:
+
 private:
+
 };// class 
+
+
 END_NAMESPACE_STB
+
 #endif//_STARLIGHT_H_

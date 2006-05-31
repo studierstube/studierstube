@@ -29,18 +29,22 @@
  * $Id: ComponentInfo.h 25 2005-11-28 16:11:59Z denis $  
  * @file                                                                   */  
 /* ======================================================================= */  
+
 #ifndef _COMPONENTINFO_H_
 #define _COMPONENTINFO_H_
 
 #include <stb/base/OS.h>
 #include <stb/base/string.h>
 #include <stb/base/macros.h>
+#include <stb/kernel/Component.h>
 #include <map>
 
+
 class TiXmlElement;
-#include <stb/kernel/Component.h>
+
 
 BEGIN_NAMESPACE_STB
+
 
 /**@ingroup kernel
  * A ComponentInfo object is used to store all relevant information about a component.
@@ -52,7 +56,7 @@ BEGIN_NAMESPACE_STB
  * @ AVAILABILITY availability [ON_LOAD|ON_DEMAND]
  * @li std::map<stb::string,stb::string> parameter; (a map of component specific parameters)
  */
-class ComponentInfo
+class KERNEL_API ComponentInfo
 {
 public:
     friend class Component;

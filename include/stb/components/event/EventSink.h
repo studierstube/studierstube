@@ -60,7 +60,7 @@ class EventModule;
  * @author Gerhard Reitmayr
  * @ingroup tracking
  */
-class  EventSink : public ot::Node
+class EVENT_API EventSink : public ot::Node
 {
 
 public:

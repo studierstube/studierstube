@@ -115,28 +115,22 @@ Kernel::start(int argc, char* argv[])
 
     // extract application base directory name as search path
     // only useful for linux
-    if (argc > 1) {
+    if (argc > 1)
         base_dir = stb::string(argv[1]);
-    } else {
+    else
         base_dir = ".";
-    }
-    std::cerr << "Using configuration base directory name " << base_dir << std::endl;
+
+    logPrintI("Using configuration base directory name %s\n", base_dir.c_str());
     ////////////////////////////////////////////////////////
     stb::string kernelConfigFile=getConfig(kernel_config_file);
+
     // read the kernel's configuration file
     config->readKernelConfig(kernelConfigFile);
 
 	if(GUIBinder* guiBinder = componentManager->getGUIBinder())
-	{
 		scheduler->run(guiBinder);
-	}
 	else
-	{
-		logPrint("ERROR: no GUI-binding component loaded, cannot continue...\n\n");
-	}
-
-    //scheduler->init();
-    //scheduler->mainLoop();
+		logPrintE("No GUI-binding component loaded, cannot continue...\n\n");
 }
 
 //

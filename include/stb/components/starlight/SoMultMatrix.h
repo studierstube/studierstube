@@ -54,7 +54,7 @@
  * class has been uses with SoSeamKits that can be connected to an SoTrakEngine
  * @ingroup util
  */
-class  SoMultMatrix 
+class STARLIGHT_API SoMultMatrix 
 :
     public SoEngine 
 {

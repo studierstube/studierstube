@@ -159,6 +159,7 @@ StbLogger*	StbLogger::instance=NULL;
 
 StbLogger::StbLogger()
 {
+	logMode = MODE_CONSOLE;
 }
 
 StbLogger::~StbLogger()
@@ -178,10 +179,16 @@ void StbLogger::printMessage(const char *message)
 	// We should be using ACE here
 	switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("%s",message); break;
-		default: break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("%s",message);
+			break;
+		default:
+			break;
 	}
 }
 
@@ -191,10 +198,16 @@ void StbLogger::printDebug(const char *debugMessage)
 #ifdef STB_IS_DEBUG
 	switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("DEBUG: %s",debugMessage); break;
-		default: break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("DEBUG: %s",debugMessage);
+			break;
+		default:
+			break;
 	}
 #endif // STB_IS_DEBUG
 }
@@ -204,9 +217,14 @@ void StbLogger::printSetup(const char *setupMessage)
 	// We should be using ACE here
 		switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("SETUP: %s",setupMessage); break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("SETUP: %s",setupMessage);
+			break;
 		default: break;
 	}
 }
@@ -216,10 +234,16 @@ void StbLogger::printInfo(const char *infoMessage)
 	// We should be using ACE here
 	switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("INFO : %s",infoMessage); break;
-		default: break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("INFO : %s",infoMessage);
+			break;
+		default:
+			break;
 	}
 }
 
@@ -228,10 +252,16 @@ void StbLogger::printWarning(const char *warningMessage)
 	// We should be using ACE here
 	switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("WARN : %s",warningMessage); break;
-		default: break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("WARN : %s",warningMessage);
+			break;
+		default:
+			break;
 	}
 }
 
@@ -240,10 +270,16 @@ void StbLogger::printErrorAndContinue(const char *errorMessage)
 	// We should be using ACE here
 	switch (logMode)
 	{
-		case OFF: break;
-		case FILE: /*Do Something here*/ break;
-		case CONSOLE: printf("ERROR: %s",errorMessage); break;
-		default: break;
+		case MODE_OFF:
+			break;
+		case MODE_FILE:
+			/*Do Something here*/
+			break;
+		case MODE_CONSOLE:
+			printf("ERROR: %s",errorMessage);
+			break;
+		default:
+			break;
 	}
 }
 

@@ -48,7 +48,7 @@
  * @author Gerhard Reitmayr
  * @ingroup camera
  */
-class  SoGLStencilBufferElement : public SoElement {
+class STARLIGHT_API SoGLStencilBufferElement : public SoElement {
     typedef SoElement inherited;
     
     SO_ELEMENT_HEADER(SoGLStencilBufferElement);

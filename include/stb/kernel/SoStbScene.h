@@ -30,12 +30,15 @@
   * @file                                                                   */
  /* ======================================================================= */
 
-#ifndef _SoStbScene_H_
-#define _SoStbScene_H_
+
+#ifndef _SOSTBSCENE_H_
+#define _SOSTBSCENE_H_
+
 #include <stb/base/macros.h>
 #include <stb/kernel/Studierstube.h>
 
 #include <Inventor/nodes/SoGroup.h>
+
 
 BEGIN_NAMESPACE_STB
 
@@ -43,7 +46,7 @@ BEGIN_NAMESPACE_STB
 *
 * 
 */
-class  STB_API SoStbScene : public SoGroup
+class KERNEL_API SoStbScene : public SoGroup
 {
    SO_NODE_HEADER(SoStbScene);
 
@@ -53,10 +56,11 @@ public:
    SoStbScene();
 
    virtual ~SoStbScene(){}
-
-  
 };
 
+
 END_NAMESPACE_STB
-#endif //_SoStbScene_H_
+
+
+#endif //_SOSTBSCENE_H_
 

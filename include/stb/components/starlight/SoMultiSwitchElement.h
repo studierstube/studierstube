@@ -47,7 +47,7 @@
  * @author Gerhard Reitmayr
  * @ingroup util
  */
-class  SoMultiSwitchElement : public SoReplacedElement 
+class STARLIGHT_API SoMultiSwitchElement : public SoReplacedElement 
 {
     SO_ELEMENT_HEADER(SoMultiSwitchElement);
 

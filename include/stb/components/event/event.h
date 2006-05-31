@@ -43,6 +43,20 @@
 #ifndef _EVENT_H_
 #define _EVENT_H_
 
+
+#if defined(WIN32) || defined(_WIN32_WCE)
+#  pragma warning(disable:4251)
+#  pragma warning(disable:4290)
+#  ifdef EVENT_EXPORTS
+#    define EVENT_API __declspec(dllexport)
+#  else
+#    define EVENT_API __declspec(dllimport)
+#  endif
+#else
+#  define STARLIGHT_API
+#endif
+
+
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 #include <stb/kernel/VideoUser.h>

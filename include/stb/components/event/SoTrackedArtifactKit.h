@@ -62,7 +62,7 @@ turned on and off by a calling the showGeometry() method.
 
 class SoTrakEngine;
 
-class  SoTrackedArtifactKit : public SoBaseKit
+class EVENT_API SoTrackedArtifactKit : public SoBaseKit
 {
     SO_KIT_HEADER(SoTrackedArtifactKit);
     SO_KIT_CATALOG_ENTRY_HEADER(artifactRoot);

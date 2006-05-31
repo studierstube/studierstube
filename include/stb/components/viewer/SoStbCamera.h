@@ -37,13 +37,14 @@
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/nodes/SoTransform.h>
 #include <stb/base/macros.h>
+#include <stb/components/viewer/guiDefines.h>
 
 BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer;
 class SoDisplay;
 
-class SoStbCamera : public SoBaseKit
+class VIEWER_API SoStbCamera : public SoBaseKit
 {
 public:
     SO_KIT_HEADER(SoStbCamera);

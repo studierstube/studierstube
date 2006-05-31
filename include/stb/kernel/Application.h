@@ -37,13 +37,15 @@
 #include <stb/base/macros.h>
 #include <Inventor/nodes/SoSeparator.h>
 
+
 BEGIN_NAMESPACE_STB
+
 
 /**@ingroup kernel
 *
 * 
 */
-class STB_API Application : public Component
+class KERNEL_API Application : public Component
 {
 public:
 	/**
@@ -73,8 +75,8 @@ protected:
     Application();
 
 private:
-	
 };// class 
+
 
 END_NAMESPACE_STB
 

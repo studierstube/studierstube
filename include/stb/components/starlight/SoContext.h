@@ -69,7 +69,7 @@ SoContext {
  * @author Gerhard Reitmayr
  * @ingroup context
  */
-class  SoContext : public SoNode
+class STARLIGHT_API SoContext : public SoNode
 {
     SO_NODE_HEADER(SoContext);
 

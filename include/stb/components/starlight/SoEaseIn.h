@@ -36,7 +36,7 @@ A helper class for smooth animations. Converts float inputs in the range from 0.
 SoOneShot engine) to float values in the range form 0..1, applying a filter that smoothens the start
 and end velocity.
 */
-class  SoEaseIn : public SoEngine {
+class STARLIGHT_API SoEaseIn : public SoEngine {
 
    SO_ENGINE_HEADER(SoEaseIn);
 

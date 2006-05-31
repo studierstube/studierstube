@@ -42,7 +42,7 @@
  * we will use a standard well-known schema to describe event slots and types. To avoid confusion
  * this class encodes the used schema names and transforms it into something understandable by 
  * the IDE and the compilers... */
-class  EventSchema {
+class EVENT_API EventSchema {
 
 public:
     EventSchema( SoInputEvent & ev ) : event(ev)

@@ -38,9 +38,8 @@
 
 
 // this assumes that OpenVideo was compiled
-// with these two options enabled...
+// with the videosink option enabled...
 //
-//#define ENABLE_GL_TEXTURE_2D_SINK
 #define ENABLE_VIDEOSINK
 
 
@@ -195,59 +194,6 @@ Video::run()
 
     return;
 }
-
-/*
- void 
- Video::deleteGLContext()
- {
-     ovManager->deleteGLContext();
- }
-
-#ifdef STB_IS_WINDOWS
-void 
-Video::setGLContext(HGLRC glContext,HDC dc)
-{
-     if(isGLContext)
-        return;
-    isGLContext=true;
-    ovManager->setGLContext(glContext,dc);
-}
-#endif
-
-#ifdef STB_IS_LINUX
-void 
-Video::setGLContext(GLXDrawable drawable, GLXContext dc, Display* dsp) {
-    if(isGLContext)
-        return;
-    isGLContext=true;
-    ovManager->setGLContext(drawable, dc, dsp);
-}
-#endif
-
-void* 
-Video::getOpenVideoNode(const char *nodeName)
-{
-    return ovManager->getNode(nodeName);
-}
-
-void 
-Video::aquire2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink)
-{
-    textureSink->acquire();
-}
-
-void 
-Video::release2DTextureSink(openvideo::GL_TEXTURE_2D_Sink* textureSink)
-{
-    textureSink->release();
-}
-
-int
-Video::getTextureID(openvideo::GL_TEXTURE_2D_Sink* textureSink)
-{
-       return textureSink->get_video_texture_id();
-}
-*/
 
 
 void

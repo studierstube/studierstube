@@ -78,7 +78,7 @@ field value e.g. "ta = a+b(3,4)", "oa = ta (4,7)"
 @author Istvan Barakonyi
 @ingroup util
 */
-class  SoStringCalculator : public SoEngine
+class STARLIGHT_API SoStringCalculator : public SoEngine
 {
     SO_ENGINE_HEADER(SoStringCalculator);
 

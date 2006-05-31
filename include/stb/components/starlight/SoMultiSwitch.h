@@ -105,7 +105,7 @@ typedef SbBool SoMultiSwitchCB( void * userdata, SoMultiSwitch * switchNode,
  * @author Gerhard Reitmayr
  * @ingroup util
  */
-class  SoMultiSwitch : public SoGroup
+class STARLIGHT_API SoMultiSwitch : public SoGroup
 {
     SO_NODE_HEADER(SoMultiSwitch);
 

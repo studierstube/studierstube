@@ -64,7 +64,7 @@ The trigger field fires if the comparison changes from false to true - in this c
 the string set in token is copied to tokenOut - this is for using strings as triggers for other engines, e. g.
 to distinguish between various SoConditionalTriggers.
 */
-class  SoConditionalTrigger : public SoEngine {
+class STARLIGHT_API SoConditionalTrigger : public SoEngine {
 
    SO_ENGINE_HEADER(SoConditionalTrigger);
 

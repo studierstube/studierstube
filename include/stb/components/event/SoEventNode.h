@@ -44,7 +44,7 @@
 class SoEventAction;
 
 /// An abstract class for creating Event aware nodes
-class  SoEventNode : public SoNode
+class EVENT_API SoEventNode : public SoNode
 {
     SO_NODE_HEADER(SoEventNode);
 

@@ -60,7 +60,7 @@ BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer;
 
-class SoDisplay : public SoGroup
+class VIEWER_API SoDisplay : public SoGroup
 {
     SO_NODE_HEADER(SoDisplay);
 

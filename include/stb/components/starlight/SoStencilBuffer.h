@@ -76,7 +76,7 @@ SoStencilBuffer {
  * @author Gerhard Reitmayr
  * @ingroup camera
  */
-class  SoStencilBuffer : public SoNode {
+class STARLIGHT_API SoStencilBuffer : public SoNode {
     
     SO_NODE_HEADER(SoStencilBuffer);
     

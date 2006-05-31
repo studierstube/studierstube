@@ -53,7 +53,7 @@
  * @author Gerhard Reitmayr
  * @ingroup tracking
  */
-class  EventKeyboardSource : public ot::Node
+class EVENT_API EventKeyboardSource : public ot::Node
 {
 // Members
 public:
