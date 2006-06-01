@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;$(ACEROOT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STARLIGHT_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,10 +61,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib opengl32.lib glu32.lib"
+				AdditionalDependencies="coin2d.lib opengl32.lib glu32.lib aced.lib"
 				OutputFile="$(OutDir)/stbstarlightd.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;$(ACEROOT)/lib/win32"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
 				SubSystem="2"
@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;$(ACEROOT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STARLIGHT_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -140,10 +140,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib opengl32.lib glu32.lib"
+				AdditionalDependencies="coin2.lib opengl32.lib glu32.lib ace.lib"
 				OutputFile="$(OutDir)/stbstarlight.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;$(ACEROOT)/lib/win32"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
 				SubSystem="2"

@@ -30,13 +30,14 @@
  * @file                                                                   */
 /* ======================================================================= */
 
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/Studierstube.h>
 #include <stb/base/string.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <tinyxml/tinyxml.h>
-#include <stb/base/fixWin32Issues.h>
+#include <stb/base/fixWinXPIssues.h>
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h>
 #include <Inventor/sensors/SoSensor.h>

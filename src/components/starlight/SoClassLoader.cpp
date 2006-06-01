@@ -30,6 +30,7 @@
  * @file SoClassLoader.cxx                                                 */
 /* ======================================================================= */
 
+#include <stb/base/fixWinCEIssues.h>
 #include <iostream>
 #include <sstream>
 
@@ -38,6 +39,9 @@
 
 #include <stb/components/starlight/SoClassLoader.h>
 #include <stb/base/OS.h>
+#include <stb/base/fixWinXPIssues.h>
+
+#include <ace/OS.h>
 
 
 using namespace std;
@@ -150,16 +154,16 @@ SoClassLoader::linkDll(SbString filename)
     // test with d.dll for debug version.
     SbString name = filename;
     name += "d.dll";
-    objectHandle = LoadLibrary(name.getString());
+    objectHandle = LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(name.getString()));
     if( !objectHandle)
     {
         name = filename;
         name += ".dll";
-        objectHandle = LoadLibrary(name.getString());
+        objectHandle = LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(name.getString()));
     }
 #  else //!STB_IS_DEBUG
     filename+=".dll";
-    objectHandle = LoadLibrary(filename.getString());
+    objectHandle = LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(filename.getString()));
 #  endif // STB_IS_DEBUG
 #elif defined(STB_IS_LINUX)
    objectHandle = lt_dlopenext(filename.getString());
@@ -190,7 +194,7 @@ SoClassLoader::findEntryPoint(SbString classname)
    funcStr+=classname;
    funcStr+="@@SAXXZ";
 
-   initClassFunc = (void (*)()) GetProcAddress(objectHandle, funcStr.getString());
+   initClassFunc = (void (*)()) GetProcAddress(objectHandle, ACE_TEXT_CHAR_TO_TCHAR(funcStr.getString()));
 #elif defined(_SGI_SOURCE)
 /*
   initFunc = (void (*)(int, StbCommunicator *)) 

@@ -45,6 +45,7 @@
 #include <stb/components/event/EventKeyboardSource.h>
 #include <stb/components/event/EventMouseSource.h>
 #include <stb/components/event/SoOpenTrackerSource.h>
+#include <stb/kernel/StbLogger.h>
 
 
 using namespace std;
@@ -265,7 +266,7 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
             {
                 if( keySources.find( number ) != keySources.end()) 
                 {
-                    cout << "Already an StbKeyboardSource for station " << number << " defined." << endl;
+					stb::logPrintW("Already an StbKeyboardSource for station %d defined.\n", number);
                     return NULL;
                 }
                 EventKeyboardSource * source = new EventKeyboardSource( number );
@@ -273,7 +274,7 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
                 return source;
             } else
             {
-                cout << "StbKeyboardSource station number not in [0,9] : " << number << endl;
+				stb::logPrintW("StbKeyboardSource station number not in [0,9] : %d\n", number);
             }
         }
     } 
@@ -283,7 +284,7 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
         attributes.get("window", &window );
         if( mouseSources.find( window ) != mouseSources.end())
         {
-            cout << "Already a StbMouseSource for window " << window << " defined." << endl;
+			stb::logPrintW("Already an StbMouseSource for window %d defined.\n", window);
             return NULL;
         }
         EventMouseSource * source;

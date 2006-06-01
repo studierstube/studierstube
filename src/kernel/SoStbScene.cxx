@@ -30,6 +30,7 @@
   * @file                                                                   */
  /* ======================================================================= */
 
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/kernel/SoStbScene.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>

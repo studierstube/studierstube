@@ -31,6 +31,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/bootloader/KernelLoader.h>
 
 #include <iostream>
@@ -59,16 +61,18 @@ void KernelLoader::setExecFuncName(stb::string aFuncName)
 bool KernelLoader::runKernel(int argc, char* argv[]) 
 {
     using namespace std;
-
     ACE_DLL kernel_dll;
-    if (kernel_dll.open(libName.c_str())) {
+
+    if(kernel_dll.open(ACE_TEXT_CHAR_TO_TCHAR(libName.c_str())))
+	{
         ACE_DEBUG((LM_ERROR, "could not load %s library\n", libName.c_str()));
         return false;        
     }
 
     // get function pointer
     void (*startKernel)(int, char**);
-    startKernel = (void(*)(int, char**))kernel_dll.symbol(execFuncName.c_str());
+
+    startKernel = (void(*)(int, char**))kernel_dll.symbol(ACE_TEXT_CHAR_TO_TCHAR(execFuncName.c_str()));
 
     if (!startKernel) {
         ACE_DEBUG((LM_ERROR, "could not get entry point of %s\n", libName.c_str()));

@@ -30,6 +30,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/kernel/Studierstube.h>
 #include <stb/kernel/Kernel.h>
 

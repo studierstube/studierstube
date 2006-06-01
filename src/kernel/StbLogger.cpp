@@ -29,6 +29,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/kernel/StbLogger.h>
 #include <stb/base/OS.h>
 #include <stdarg.h>

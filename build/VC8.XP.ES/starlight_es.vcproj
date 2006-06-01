@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;$(ACEROOT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STARLIGHT_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;$(ACEROOT)"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;STARLIGHT_EXPORTS"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"

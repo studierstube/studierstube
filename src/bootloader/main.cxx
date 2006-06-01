@@ -34,6 +34,33 @@
 #include <stb/base/OS.h>
 
 
+#ifdef STB_IS_WINCE
+
+
+int WINAPI
+WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
+{
+	int argc = 1;
+	char* argv[] = { "bootloader.exe" };
+	stb::string libName="stbkernel";
+
+	// make sure we load debug version in case of debug build...
+	//
+	stb::os_correctModuleName(libName, true, true);
+
+	const char execFunc[]="executeStudierstube";
+	stb::KernelLoader loader;
+	loader.setExecFuncName(execFunc);
+	loader.setLibName(libName);
+	loader.runKernel(argc,argv);
+
+	return 0;
+}
+
+
+#else //STB_IS_WINCE
+
+
 int 
 main(int argc,char* argv[])
 {
@@ -51,3 +78,6 @@ main(int argc,char* argv[])
     
     return 0;
 }
+
+
+#endif //STB_IS_WINCE

@@ -18,7 +18,7 @@ BEGIN_NAMESPACE_STB
 
 int stricasecmp(const stb::string str1, const stb::string str2)
 {
-#ifdef WIN32
+#if defined(WIN32) || defined(_WIN32_WCE)
     return _stricmp(str1.c_str(),str2.c_str());
 #else //LINUX
     #include <strings.h>

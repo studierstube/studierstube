@@ -290,19 +290,19 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\..\x\src\kernel\Component.cxx"
+					RelativePath="..\..\src\kernel\Component.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\..\x\include\stb\kernel\Component.h"
+					RelativePath="..\..\include\stb\kernel\Component.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\..\x\src\kernel\ComponentThread.cxx"
+					RelativePath="..\..\src\kernel\ComponentThread.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\..\..\..\..\..\x\include\stb\kernel\ComponentThread.h"
+					RelativePath="..\..\include\stb\kernel\ComponentThread.h"
 					>
 				</File>
 			</Filter>

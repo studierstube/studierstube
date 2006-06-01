@@ -28,9 +28,11 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/kernel/ComponentThread.h>
 #include <stb/kernel/Kernel.h>
-#include <stb/base/fixWin32Issues.h>
+#include <stb/base/fixWinXPIssues.h>
 #include <stb/base/OS.h>
 #include <ace/Thread.h>
 #include <ace/Synch.h>

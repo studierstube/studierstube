@@ -45,7 +45,10 @@
 
 #include <iostream>
 #include <GL/gl.h>
-#include <errno.h>
+
+#ifndef STB_IS_WINCE
+#  include <errno.h>
+#endif
 
 
 BEGIN_NAMESPACE_STB
@@ -235,6 +238,7 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
 void
 SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
 {
+#ifndef STB_IS_WINCE
     char *ep = '\0';
     errno = 0;
 
@@ -285,6 +289,7 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
         SoGui::setWidgetSize(SoGui::getShellWidget(this->getWidget()), SbVec2s(width, height));
     else
         this->setSize(SbVec2s(width, height));
+#endif // STB_IS_WINCE
 }
 
 

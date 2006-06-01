@@ -102,7 +102,9 @@ SoSimple_mainLoop()
 		}
 		else
 		{
+#ifndef _WIN32_WCE
 			::WaitMessage();
+#endif //_WIN32_WCE
 		}
 	}
 
@@ -349,8 +351,13 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 
 	ATOM reg = ::RegisterClass(&windowclass);
 
+#ifdef _WIN32_WCE
+	DWORD	style = WS_VISIBLE | WS_POPUP,
+			exStyle = 0;
+#else
 	DWORD	style = WS_CAPTION | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_VISIBLE | WS_POPUPWINDOW,
-		exStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+			exStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+#endif
 
 	int width = 640, height = 480;
 

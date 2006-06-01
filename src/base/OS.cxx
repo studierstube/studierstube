@@ -30,7 +30,12 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+
+#include <stb/base/fixWinCEIssues.h>
 #include <stb/base/OS.h>
+#include <stb/base/fixWinXPIssues.h>
+#include <ace/OS.h>
+
 #include <GL/gl.h>
 #include <cstdio>
 #include <sstream>
@@ -62,7 +67,7 @@ os_LoadLibrary(stb::string fileName)
     //    return NULL;
     //}
 
-	return ::LoadLibrary(name.str().c_str());
+	return ::LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(name.str().c_str()));
 #else //!STB_IS_WINDOWS
     using namespace std;
     ostringstream name;
@@ -89,7 +94,7 @@ int*
 os_GetProcAddress(hModule moduleHandle,const char*   procName)
 {
 #ifdef STB_IS_WINDOWS
-    return (int*)GetProcAddress(moduleHandle, procName);
+    return (int*)GetProcAddress(moduleHandle, ACE_TEXT_CHAR_TO_TCHAR(procName));
 #else
     return (int*)dlsym(moduleHandle, procName);
 #endif
