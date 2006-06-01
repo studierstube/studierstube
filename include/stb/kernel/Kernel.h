@@ -138,10 +138,10 @@ public:
 	void postRenderCallback();
 
 
-	void registerForKernelEvents(KernelEventSubscriber* instance);
+	virtual void registerForKernelEvents(KernelEventSubscriber* instance);
 
 
-	void unregisterFromKernelEvents(KernelEventSubscriber* instance);
+	virtual void unregisterFromKernelEvents(KernelEventSubscriber* instance);
 
 
 protected:	

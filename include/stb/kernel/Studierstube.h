@@ -47,6 +47,19 @@
 #endif
 
 
+#if defined(WIN32) || defined(_WIN32_WCE)
+#  pragma warning(disable:4251)
+#  pragma warning(disable:4290)
+#  ifdef COMPONENT_EXPORTS
+#    define COMPONENT_API __declspec(dllexport)
+#  else
+#    define COMPONENT_API __declspec(dllimport)
+#  endif
+#else
+#  define COMPONENT_API
+#endif
+
+
 #define STUDIERSTUBE_VERSION_STRING "Studierstube v4.0"
 #define STUDIERSTUBE_YEAR_STRING "2006"
 

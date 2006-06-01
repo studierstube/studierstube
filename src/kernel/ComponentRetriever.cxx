@@ -76,6 +76,8 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 		return NULL;
 	hModule libHandle;
 	os_correctModuleName(libName, true,true);
+	logPrintI("loading component %s\n", libName.c_str());
+
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
 		logPrintE("couldn't load " + libName + "\n");

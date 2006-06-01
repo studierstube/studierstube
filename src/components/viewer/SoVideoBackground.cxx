@@ -76,21 +76,6 @@ SoVideoBackground::initClass()
 }
 
 
-#ifdef HAVE_OPENVIDEO
-#  ifdef STB_IS_WINDOWS
-#    ifdef STB_IS_DEBUG
-#      pragma message (">>> Linking against debug build of OpenVideo")
-#      pragma comment(lib,"openvideod.lib")
-#    else	
-#      pragma message (">>> Linking against release build of OpenVideo")
-#      pragma comment(lib,"openvideo.lib")
-#    endif
-#  else //WIN32
-
-#  endif //STB_IS_WINDOWS
-#endif //HAVE_OPENVIDEO
-
-
 // used to calculate best texture size
 static int
 getNextPowerOfTwo(unsigned int nValue)

@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				AdditionalIncludeDirectories="$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;KERNEL_EXPORTS;TINYXML_MOD_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -290,19 +290,19 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\Component.cxx"
+					RelativePath="..\..\..\..\..\..\x\src\kernel\Component.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\stb\kernel\Component.h"
+					RelativePath="..\..\..\..\..\..\x\include\stb\kernel\Component.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\kernel\ComponentThread.cxx"
+					RelativePath="..\..\..\..\..\..\x\src\kernel\ComponentThread.cxx"
 					>
 				</File>
 				<File
-					RelativePath="..\..\include\stb\kernel\ComponentThread.h"
+					RelativePath="..\..\..\..\..\..\x\include\stb\kernel\ComponentThread.h"
 					>
 				</File>
 			</Filter>

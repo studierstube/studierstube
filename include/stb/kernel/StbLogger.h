@@ -84,21 +84,17 @@ public:
 	/// The destructor
 	~StbLogger();
 
-	/// This hold the logging method
-	LOG_MODE logMode;
-
-	/// The Filename to log to
-	stb::string logFilename;
-
-	void printMessage(const char *message);
-	void printDebug(const char *debugMessage);
-	void printSetup(const char *setupMessage);
-	void printInfo(const char *infoMessage);
-	void printWarning(const char *warningMessage);
-	void printErrorAndContinue(const char *errorMessage);
-	void printErrorAndAbort(const char *errorMessage);
+	virtual void printMessage(const char *message);
+	virtual void printDebug(const char *debugMessage);
+	virtual void printSetup(const char *setupMessage);
+	virtual void printInfo(const char *infoMessage);
+	virtual void printWarning(const char *warningMessage);
+	virtual void printErrorAndContinue(const char *errorMessage);
+	virtual void printErrorAndAbort(const char *errorMessage);
 
 protected:
+	LOG_MODE logMode;
+
 
 	/// The instance
 	static StbLogger *instance;
