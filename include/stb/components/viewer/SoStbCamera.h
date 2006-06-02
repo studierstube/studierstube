@@ -37,7 +37,7 @@
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/nodes/SoTransform.h>
 #include <stb/base/macros.h>
-#include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/ViewerDefines.h>
 
 BEGIN_NAMESPACE_STB
 

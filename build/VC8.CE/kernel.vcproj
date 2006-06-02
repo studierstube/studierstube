@@ -67,14 +67,14 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="Coin2esd.lib ACEminid.lib"
-				OutputFile="$(OutDir)/kerneld.dll"
+				OutputFile="$(OutDir)/stbkerneld.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/kerneld.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbkerneld.pdb"
 				SubSystem="0"
-				ImportLibrary="$(OutDir)/kerneld.lib"
+				ImportLibrary="$(OutDir)/stbkerneld.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -93,7 +93,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -230,16 +230,16 @@
 				RegisterOutput="false"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="Coin2es.lib ACEmini.lib"
-				OutputFile="$(OutDir)/kernel.dll"
+				OutputFile="$(OutDir)/stbkernel.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/kernel.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbkernel.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/kernel.lib"
+				ImportLibrary="$(OutDir)/stbkernel.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

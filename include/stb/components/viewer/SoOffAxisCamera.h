@@ -40,7 +40,7 @@
 #include <Inventor/fields/SoSFMatrix.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
-#include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/ViewerDefines.h>
 
 #ifdef STB_IS_WINDOWS
 #  include <SoWinLeaveScope.h>

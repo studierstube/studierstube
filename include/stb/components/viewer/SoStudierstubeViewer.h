@@ -34,6 +34,7 @@
 #define _SOSTUDIERSTUBEVIEWER_H_
 
 #include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/ViewerDefines.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
 

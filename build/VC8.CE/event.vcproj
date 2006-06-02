@@ -69,16 +69,16 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2esd.lib opentrackerd.lib ACEminid.lib"
-				OutputFile="$(OutDir)/eventd.dll"
+				OutputFile="$(OutDir)/stbeventd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(TINYXMLMODROOT)/lib/WM2005;$(ACEROOT)/lib/WM2005;$(ARTOOLKITPLUSROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/eventd.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbeventd.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="1"
-				ImportLibrary="$(OutDir)/eventd.lib"
+				ImportLibrary="$(OutDir)/stbeventd.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -97,7 +97,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -235,17 +235,17 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2es.lib opentracker.lib ACEmini.lib"
-				OutputFile="$(OutDir)/event.dll"
+				OutputFile="$(OutDir)/stbevent.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(TINYXMLMODROOT)/lib/WM2005;$(ACEROOT)/lib/WM2005;$(ARTOOLKITPLUSROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/event.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbevent.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				LinkTimeCodeGeneration="1"
-				ImportLibrary="$(OutDir)/event.lib"
+				ImportLibrary="$(OutDir)/stbevent.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -69,17 +69,17 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2esd.lib klimtesd.lib ACEminid.lib"
-				OutputFile="$(OutDir)/starlightd.dll"
+				OutputFile="$(OutDir)/stbstarlightd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(KLIMTESROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(ACEROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/starlightd.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbstarlightd.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				LinkTimeCodeGeneration="1"
-				ImportLibrary="$(OutDir)/starlightd.lib"
+				ImportLibrary="$(OutDir)/stbstarlightd.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -98,7 +98,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -234,16 +234,16 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2es.lib klimtes.lib ACEmini.lib"
-				OutputFile="$(OutDir)/starlight.dll"
+				OutputFile="$(OutDir)/stbstarlight.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(KLIMTESROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(ACEROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/starlight.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbstarlight.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/starlight.lib"
+				ImportLibrary="$(OutDir)/stbstarlight.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

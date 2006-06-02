@@ -39,7 +39,7 @@
 #include <Inventor/SbLinear.h>
 #include <Inventor/fields/SoSFVec2s.h> 
 #include <stb/base/macros.h>
-#include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/ViewerDefines.h>
 
 
 BEGIN_NAMESPACE_STB

@@ -68,14 +68,14 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2esd.lib KlimtESd.lib openvideod.lib"
-				OutputFile="$(OutDir)/viewer_simpled.dll"
+				OutputFile="$(OutDir)/stbviewer_simpled.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/viewer_simpled.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbviewer_simpled.pdb"
 				SubSystem="0"
-				ImportLibrary="$(OutDir)/viewer_simpled.lib"
+				ImportLibrary="$(OutDir)/stbviewer_simpled.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -94,7 +94,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -231,16 +231,16 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2es.lib KlimtES.lib openvideo.lib"
-				OutputFile="$(OutDir)/viewer_simple.dll"
+				OutputFile="$(OutDir)/stbviewer_simple.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/viewer_simple.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbviewer_simple.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/viewer_simple.lib"
+				ImportLibrary="$(OutDir)/stbviewer_simple.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -513,20 +513,6 @@
 					<File
 						RelativePath="..\..\src\components\viewer\displaymode\SoGLColorBufferElement.cxx"
 						>
-						<FileConfiguration
-							Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-							/>
-						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\..\include\stb\components\viewer\displaymode\SoGLColorBufferElement.h"
@@ -549,20 +535,6 @@
 					<File
 						RelativePath="..\..\src\components\viewer\displaymode\SoGLPolygonStippleElement.cxx"
 						>
-						<FileConfiguration
-							Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-							>
-							<Tool
-								Name="VCCLCompilerTool"
-							/>
-						</FileConfiguration>
 					</File>
 					<File
 						RelativePath="..\..\include\stb\components\viewer\displaymode\SoGLPolygonStippleElement.h"

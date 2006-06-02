@@ -67,14 +67,14 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="openvideod.lib"
-				OutputFile="$(OutDir)/videod.dll"
+				OutputFile="$(OutDir)/stbvideod.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/videod.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbvideod.pdb"
 				SubSystem="0"
-				ImportLibrary="$(OutDir)/videod.lib"
+				ImportLibrary="$(OutDir)/stbvideod.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -93,7 +93,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -229,16 +229,16 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="openvideo.lib"
-				OutputFile="$(OutDir)/video.dll"
+				OutputFile="$(OutDir)/stbvideo.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/video.pdb"
+				ProgramDatabaseFile="$(OutDir)/stbvideo.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/video.lib"
+				ImportLibrary="$(OutDir)/stbvideo.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -52,7 +52,7 @@ using namespace stb;
 SimpleApp::SimpleApp()
 {
     using namespace std;
-    cerr << "Ctor simple app ..." << endl;
+    //cerr << "Ctor simple app ..." << endl;
    isInit=false;
    needEvent=false;
    needViewer=false;

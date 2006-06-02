@@ -37,7 +37,7 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/GUIBinder.h>
 #include <stb/kernel/Component.h>
-#include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/ViewerDefines.h>
 
 #include <vector>
 

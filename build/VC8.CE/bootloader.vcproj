@@ -67,12 +67,12 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="ACEminid.lib"
-				OutputFile="$(OutDir)/bootloaderd.exe"
+				OutputFile="$(OutDir)/studierstubed.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ACEROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/bootloaderd.pdb"
+				ProgramDatabaseFile="$(OutDir)/studierstubed.pdb"
 				SubSystem="0"
 			/>
 			<Tool
@@ -92,7 +92,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -227,12 +227,12 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="ACEmini.lib"
-				OutputFile="$(OutDir)/bootloader.exe"
+				OutputFile="$(OutDir)/studierstube.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ACEROOT)/lib/WM2005"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/bootloader.pdb"
+				ProgramDatabaseFile="$(OutDir)/studierstube.pdb"
 				SubSystem="0"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

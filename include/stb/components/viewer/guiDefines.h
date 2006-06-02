@@ -36,19 +36,6 @@
 #include <stb/base/OS.h>
 
 
-#if defined(WIN32) || defined(_WIN32_WCE)
-#  pragma warning(disable:4251)
-#  pragma warning(disable:4290)
-#  ifdef VIEWER_EXPORTS
-#    define VIEWER_API __declspec(dllexport)
-#  else
-#    define VIEWER_API __declspec(dllimport)
-#  endif
-#else
-#  define VIEWER_API
-#endif
-
-
 #ifdef USE_SOQT
 
 #ifdef STB_IS_WINDOWS

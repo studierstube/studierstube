@@ -49,6 +49,7 @@
 #include SOGUICOMPONENT_H
 #include <vector>
 #include <stb/base/macros.h>
+#include <stb/components/viewer/ViewerDefines.h>
 
 //	SoDisplay
 //=============

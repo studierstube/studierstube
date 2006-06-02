@@ -118,29 +118,20 @@ os_FreeLibrary(hModule libHandle)
 bool
 os_correctModuleName(stb::string& fileName, bool nMakeDebug, bool nMakeES)
 {
-	//std::string baseName, ext;
-	//int dotPos=fileName.find_last_of('.');
 
-	//if(dotPos<1)
-	//	return false;
-
-	//baseName = fileName.substr(0, dotPos-1);
-	//ext = fileName.substr(dotPos+1, fileName.length());
-
-	//fileName = baseName;
-
-#if defined(_IS_KLIMTES_)
+	// only WinXP uses '_es' to mark OpenGL ES version...
+	//
+#if defined(_IS_KLIMTES_) && defined(STB_IS_WINXP)
 	if(nMakeES)
 		fileName += "_es";
 #endif
 
+	// Windows debug DLLs are post-fixed with a 'd'
+	//
 #if defined(STB_IS_WINDOWS) && defined(STB_IS_DEBUG)
 	if(nMakeDebug)
 		fileName += "d";
 #endif
-
-	//fileName += ".";
-	//fileName += ext;
 
 	return true;
 }

@@ -40,8 +40,8 @@
 int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
-	int argc = 1;
-	char* argv[] = { "bootloader.exe" };
+	const int argc = 2;
+	char* argv[argc] = { "studierstube.exe", "/data" };
 	stb::string libName="stbkernel";
 
 	// make sure we load debug version in case of debug build...
