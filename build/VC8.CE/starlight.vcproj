@@ -23,6 +23,7 @@
 			IntermediateDirectory="starlight_debug"
 			ConfigurationType="2"
 			CharacterSet="1"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -43,6 +44,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;$(ACEROOT)"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;_USRDLL;STARLIGHT_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF;COIN_DLL;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
@@ -66,7 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="coin2esd.lib klimtesd.lib aced.lib"
+				AdditionalDependencies="coin2esd.lib klimtesd.lib ACEminid.lib"
 				OutputFile="$(OutDir)/starlightd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(KLIMTESROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(ACEROOT)/lib/WM2005"
@@ -74,6 +76,9 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/starlightd.pdb"
 				SubSystem="0"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				LinkTimeCodeGeneration="1"
 				ImportLibrary="$(OutDir)/starlightd.lib"
 			/>
 			<Tool
@@ -228,7 +233,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="coin2es.lib klimtes.lib ace.lib"
+				AdditionalDependencies="coin2es.lib klimtes.lib ACEmini.lib"
 				OutputFile="$(OutDir)/starlight.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(KLIMTESROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(ACEROOT)/lib/WM2005"

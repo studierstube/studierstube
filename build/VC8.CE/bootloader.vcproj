@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="aced.lib"
+				AdditionalDependencies="ACEminid.lib"
 				OutputFile="$(OutDir)/bootloaderd.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ACEROOT)/lib/WM2005"
@@ -226,7 +226,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="ace.lib"
+				AdditionalDependencies="ACEmini.lib"
 				OutputFile="$(OutDir)/bootloader.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="$(ACEROOT)/lib/WM2005"
