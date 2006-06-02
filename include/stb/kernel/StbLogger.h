@@ -82,7 +82,7 @@ public:
 	static StbLogger *getInstance();
 
 	/// The destructor
-	~StbLogger();
+	virtual ~StbLogger();
 
 	virtual void printMessage(const char *message);
 	virtual void printDebug(const char *debugMessage);

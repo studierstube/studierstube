@@ -298,6 +298,7 @@ if user_options_dict['USE_SOQT'] == 1:
 # OpenVideo
 
 if user_options_dict['ENABLE_OPENVIDEO'] == 1:
+    defines += ['HAVE_OPENVIDEO']
     print "OpenVideo support ... yes"
 else:
     print "OpenVideo support ... no"

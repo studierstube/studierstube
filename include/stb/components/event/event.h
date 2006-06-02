@@ -53,7 +53,7 @@
 #    define EVENT_API __declspec(dllimport)
 #  endif
 #else
-#  define STARLIGHT_API
+#  define EVENT_API
 #endif
 
 

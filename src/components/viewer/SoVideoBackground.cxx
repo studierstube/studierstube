@@ -151,7 +151,7 @@ SoVideoBackground::init()
 
 
 void
-SoVideoBackground::vu_init(const openvideo::Buffer& frame)
+SoVideoBackground::vu_init(const openvideo::Buffer& /*frame*/)
 {
 }
 

@@ -34,7 +34,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/OS.h>
-#include <stb/Kernel/Kernel.h>
+#include <stb/kernel/Kernel.h>
 #include <Inventor/actions/SoGetPrimitiveCountAction.h>
 
 #include SOGUI_H
@@ -57,7 +57,7 @@ BEGIN_NAMESPACE_STB
 //----------------------------------------------------------------------------
 // The constructor of the viewer.
 SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
-	SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
+SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
 {
     isWindowDecorationActive=TRUE;
     headlight=NULL;
@@ -81,7 +81,9 @@ SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
 */
     showTriangleCount=false;
     showFrameRate=false;
-	frameRateCtr = 0;
+#ifdef STB_IS_WINDOWS
+    frameRateCtr = 0;
+#endif
     showCursor=true;
 }
 

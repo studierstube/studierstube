@@ -82,7 +82,7 @@ public:
     /**
     *	The kernel's destructor.
     */
-    ~Kernel();
+    virtual ~Kernel();
 
     /**
     * Starts the kernel. 

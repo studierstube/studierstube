@@ -160,7 +160,7 @@ Video::setParameter(stb::string key, std::string value)
 {
     if(key=="configFile")
     {
-        configFile = value;
+        configFile = value;        
     }
     else if(key=="ovSinkName")
     {
@@ -179,7 +179,7 @@ Video::shutDown()
 void
 Video::run()
 {
-    if(!ovManager->parseConfiguration(configFile.c_str())){
+    if(!ovManager->parseConfiguration(stb::Kernel::getInstance()->getConfig(configFile).c_str())){
         return;
     }
     ovManager->initTraversal();
