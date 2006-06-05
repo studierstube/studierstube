@@ -109,6 +109,7 @@ Event::Event()
 {
     configFile="";
 	otSource = NULL;
+	vu_updateCtr = 0;
 }
 
 Event::~Event()
@@ -129,12 +130,15 @@ Event::init()
     //get viewer's parameter
     retrieveParameter();
 
+#ifndef STB_IS_WINCE
+	// FIXME: do we really need to load this? Daniel 20060605
     Starlight* starlight=(Starlight*)(stb::Kernel::getInstance()->getComponentManager()->load("Starlight"));
     if(!starlight)
     {
 		// FIXME: Error Message should be displayed here. Mendez 20060315
         return false;
     }
+#endif
 
     SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
@@ -266,18 +270,16 @@ Event::vu_update(const openvideo::Buffer& frame)
 
 	if(ot::Context* context = otSource->getContext())
 	{
-		static unsigned int updateCtr = 0;
-
 		// only update if this is a fresh video image!
 		//
-		if(frame.getUpdateCounter() != updateCtr)
+		//if(frame.getUpdateCounter() != vu_updateCtr)
 		{
 			// OpenTracker's pixel-format was carefully chosen to be compatible to OpenVideo's.
 			// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
 			// simple cast here...
 			//
 			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()));
-			updateCtr = frame.getUpdateCounter();
+			vu_updateCtr = frame.getUpdateCounter();
 		}
 	}
 #endif

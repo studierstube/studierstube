@@ -285,7 +285,11 @@ SoSimpleExaminerViewer::createGLContext(HWND window)
 		return;
 
 	if(!SetPixelFormat(hDC,PixelFormat,&pfd))		// Are We Able To Set The Pixel Format?
-		return;								
+		return;
+
+#ifdef STB_IS_WINCE
+	klesSetScreenOrientation(KLIMTES_SCREEN_90CW);
+#endif
 
 	if(!(hRC = wglCreateContext(hDC)))
 		return;

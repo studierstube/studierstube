@@ -128,6 +128,7 @@ protected:
     stb::string configFile; 
 private:
 	SoOpenTrackerSource*	otSource;
+	unsigned int			vu_updateCtr;
 };// class 
 
 

@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="coin2esd.lib opentrackerd.lib ACEminid.lib"
+				AdditionalDependencies="coin2esd.lib ACEminid.lib"
 				OutputFile="$(OutDir)/stbeventd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(TINYXMLMODROOT)/lib/WM2005;$(ACEROOT)/lib/WM2005;$(ARTOOLKITPLUSROOT)/lib/WM2005"
@@ -234,7 +234,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="coin2es.lib opentracker.lib ACEmini.lib"
+				AdditionalDependencies="coin2es.lib ACEmini.lib"
 				OutputFile="$(OutDir)/stbevent.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;$(TINYXMLMODROOT)/lib/WM2005;$(ACEROOT)/lib/WM2005;$(ARTOOLKITPLUSROOT)/lib/WM2005"

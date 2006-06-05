@@ -66,7 +66,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="openvideod.lib"
 				OutputFile="$(OutDir)/stbvideod.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;"
@@ -228,7 +227,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="openvideo.lib"
 				OutputFile="$(OutDir)/stbvideo.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;"

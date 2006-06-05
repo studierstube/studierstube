@@ -128,7 +128,9 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
         self->eventHandler = new EventModule(self);
         self->context->addModule( "EventConfig", *self->eventHandler );
         self->context->addFactory( *self->eventHandler );
-        self->context->parseConfiguration( configFile.getString() );
+
+		std::string configFileString = configFile.getString();
+        self->context->parseConfiguration( configFileString );
 
         self->context->start();
         self->active.setValue(TRUE);

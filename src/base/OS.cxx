@@ -40,6 +40,7 @@
 #include <cstdio>
 #include <sstream>
 #include <iostream>
+#include <assert.h>
 
 
 BEGIN_NAMESPACE_STB
@@ -52,13 +53,12 @@ hModule
 os_LoadLibrary(stb::string fileName)
 {
 #ifdef STB_IS_WINDOWS
-    using namespace std;
-    ostringstream name;
-    name  << fileName;
+    //ostringstream name;
+    //name  << fileName;
     //#ifdef _DEBUG
     //    name << "d";
     //#endif
-        name <<".dll";
+    //    name <<".dll";
 
     //FILE* fp = fopen(name.str().c_str(), "rb");
     //if(!fp)
@@ -67,7 +67,13 @@ os_LoadLibrary(stb::string fileName)
     //    return NULL;
     //}
 
-	return ::LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(name.str().c_str()));
+	std::string fName = fileName;
+	fName += ".dll";
+
+	const char* libNameStr = fName.c_str();
+	assert(libNameStr);
+
+	return ::LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(libNameStr));
 #else //!STB_IS_WINDOWS
     using namespace std;
     ostringstream name;

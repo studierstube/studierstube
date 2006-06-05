@@ -79,7 +79,7 @@ SoSimple_init(const char * appname, const char * classname)
 }
 
 
-SOSIMPLE_API void
+/*SOSIMPLE_API void
 SoSimple_mainLoop()
 {
 	MSG msg;
@@ -109,7 +109,35 @@ SoSimple_mainLoop()
 	}
 
 	SoSimple::done();
+}*/
+
+
+SOSIMPLE_API void
+SoSimple_mainLoop()
+{
+	MSG msg;
+
+	for(;;)
+	{
+		while(::PeekMessage( &msg, 0, 0, 0, PM_REMOVE ))
+		{
+			if (msg.message == WM_QUIT)
+			{
+				SoSimple::done();
+				return;
+			}
+			::TranslateMessage( &msg );
+			::DispatchMessage( &msg );
+		}
+
+		if(idleSensorId!=0)
+			doIdleTasks();
+	}
+
+	SoSimple::done();
+	return;
 }
+
 
 
 }; // extern "C"
@@ -379,6 +407,12 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 		DWORD err = ::GetLastError();
 		err = err;
 	}
+	else
+	{
+		::ShowWindow(gHWND, SW_SHOW);
+		::UpdateWindow(gHWND);
+	}
+
 	return gHWND;
 }
 

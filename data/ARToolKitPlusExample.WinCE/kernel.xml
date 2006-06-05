@@ -8,12 +8,12 @@
 
 	<!-- This is the Viewer Component. It is in charge of providing us with a Viewer window -->
 	<Component name="Viewer" availability="onload" lib="stbviewer_simple">
-	    <Param key="configFile" value="viewer.iv" />
+	    <Param key="configFile" value="/data/viewer.iv" />
 	</Component>
 
 	<!-- This is the Starlight Component. It is in charge of providing us with extra nodes with stb3 functionalities -->
-	<Component name="Starlight" availability="ondemand" lib="stbstarlight">
-	</Component>
+	<!-- <Component name="Starlight" availability="ondemand" lib="stbstarlight">
+	</Component> -->
 
 	<!-- This is the Video Component. It is in charge of providing us with Video Background in our scene -->
 	<Component name="Video" availability="onload"	lib="stbvideo">
@@ -23,7 +23,7 @@
 
 	<!-- This is the Application -->
     <Application name="SimpleApp" availability="onload" lib="stbapp_simple">
-                <Param key="sceneFile"  value ="scene.iv" />
+                <Param key="sceneFile"  value ="/data/scene.iv" />
                 <Param key="needViewer" value ="true" />
                 <Param key="needEvent"  value ="true" />
     </Application>

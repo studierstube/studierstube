@@ -58,12 +58,21 @@
 #endif
 
 #include <GL/gl.h>
-#include <GL/glu.h>	
+#include <GL/glu.h>
+
+#ifdef STB_IS_WINCE
+// load intrinsics for ARM instructions
+#include <Armintr.h>
+#else
+#define _PreLoad(x)
+#endif
+
 
 BEGIN_NAMESPACE_STB
 
 
 static void scale_2x_WinXP(const unsigned short *src, unsigned short *dst, int width, int height);
+static void scale_2x_WinCE(const unsigned short *src, unsigned short *dst, int width, int height);
 
 
 SO_NODE_SOURCE(SoVideoBackground);
@@ -313,8 +322,16 @@ SoVideoBackground::blitIntoVideoMemory()
 			int oglWidth = klesGetBufferWidth(),
 				oglHeight = klesGetBufferHeight();
 
+#if defined(STB_IS_WINXP)
 			if(oglWidth==buffer->getWidth()*2 && oglHeight==buffer->getHeight()*2)
 				scale_2x_WinXP((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
+#elif defined(STB_IS_WINCE)
+			if(oglWidth==buffer->getWidth()*2 && oglHeight==buffer->getHeight()*2)
+				scale_2x_WinCE((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
+#else
+			assert(false),
+#endif
+
 		}
 
 		buffer->unlock();
@@ -374,6 +391,88 @@ scale_2x_WinXP(const unsigned short *src, unsigned short *dst, int width, int he
 	}
 }
 
+
+static void
+scale_2x_WinCE(const unsigned short *src, unsigned short *dst, int width, int height)
+{
+	assert(width==320);
+
+#define IMG_WIDTH 320
+#define IMG_HEIGHT 240
+
+	unsigned int* dstI = (unsigned int*)dst;
+
+	for(int y=0; y<IMG_HEIGHT; y+=1)
+	{
+		// prefetch data for a line into cache
+		//
+		unsigned long *srcI0 = (unsigned long *)src, *srcI;
+		srcI = srcI0 + IMG_WIDTH/2 - 32;
+		while(srcI>=srcI0)
+		{
+			_PreLoad(srcI+0);
+			_PreLoad(srcI+8);
+			_PreLoad(srcI+16);
+			_PreLoad(srcI+24);
+			srcI -= 32;
+		}
+
+		// scale up a line
+		//
+		unsigned int *dstIEnd=dstI+IMG_WIDTH, c0,c1,c2,c3,c4,c5,c6,c7;
+
+		do
+		{
+			// read 8 pixels (16 bytes)
+			c0 = src[0];
+			c1 = src[1];
+			c2 = src[2];
+			c3 = src[3];
+			c4 = src[4];
+			c5 = src[5];
+			c6 = src[6];
+			c7 = src[7];
+
+			// double each pixel into two pixels
+			c0 = c0 | (c0<<16);
+			c1 = c1 | (c1<<16);
+			c2 = c2 | (c2<<16);
+			c3 = c3 | (c3<<16);
+			c4 = c4 | (c4<<16);
+			c5 = c5 | (c5<<16);
+			c6 = c6 | (c6<<16);
+			c7 = c7 | (c7<<16);
+
+			// write exactly one cache line (32 bytes)...
+			dstI[0] = c0;
+			dstI[1] = c1;
+			dstI[2] = c2;
+			dstI[3] = c3;
+			dstI[4] = c4;
+			dstI[5] = c5;
+			dstI[6] = c6;
+			dstI[7] = c7;
+
+			// write exactly one cache line (32 bytes)...
+			dstI[IMG_WIDTH+0] = c0;
+			dstI[IMG_WIDTH+1] = c1;
+			dstI[IMG_WIDTH+2] = c2;
+			dstI[IMG_WIDTH+3] = c3;
+			dstI[IMG_WIDTH+4] = c4;
+			dstI[IMG_WIDTH+5] = c5;
+			dstI[IMG_WIDTH+6] = c6;
+			dstI[IMG_WIDTH+7] = c7;
+
+			src+=8;
+			dstI+=8;
+		} while(dstI < dstIEnd);
+
+		dstI += IMG_WIDTH;
+	}
+
+#undef IMG_WIDTH
+#undef IMG_HEIGHT
+}
 
 
 END_NAMESPACE_STB

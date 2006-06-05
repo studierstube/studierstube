@@ -37,12 +37,39 @@
 #ifdef STB_IS_WINCE
 
 
+bool
+preloadModules()
+{
+	printf("INFO: preloading modules\n");
+
+	const char* libNames[] = { "TinyXML_Mod", "ACEmini", "opentracker", "libGLES_CM", "KlimtES", "coin2es", "openVideo", "SoSimple", "stbkernel", "stbevent", "stbvideo", "stbviewer_simple" };
+	bool libDebugs[] = {       true,          true,      true,          false,        true,      true,      true,        true,       true,        true,       true,       true,              };
+	const size_t numLibs = sizeof(libNames) / sizeof(const char*);
+
+	for(size_t i=0; i<numLibs; i++)
+	{
+		std::string libName = libNames[i];
+		stb::os_correctModuleName(libName, libDebugs[i], false);
+		if(!stb::os_LoadLibrary(libName))
+		{
+			printf("ERROR: failed to load module '%s'\n", libName.c_str());
+			return false;
+		}
+	}
+
+	printf("INFO: all modules preloaded correctly\n");
+	return true;
+}
+
 int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 	const int argc = 2;
 	char* argv[argc] = { "studierstube.exe", "/data" };
 	stb::string libName="stbkernel";
+
+	if(!preloadModules())
+		return -1;
 
 	// make sure we load debug version in case of debug build...
 	//
