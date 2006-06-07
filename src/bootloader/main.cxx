@@ -42,14 +42,15 @@ preloadModules()
 {
 	printf("INFO: preloading modules\n");
 
-	const char* libNames[] = { "TinyXML_Mod", "ACEmini", "opentracker", "libGLES_CM", "KlimtES", "coin2es", "openVideo", "SoSimple", "stbkernel", "stbevent", "stbvideo", "stbviewer_simple" };
-	bool libDebugs[] = {       true,          true,      true,          false,        true,      true,      true,        true,       true,        true,       true,       true,              };
+	const char* libNames[] = { "TinyXML_Mod", "ACEmini", "ARToolKitPlusDll", "opentracker", "libGLES_CM", "KlimtES", "coin2es", "openVideo", "SoSimple", "stbkernel", "stbevent", "stbvideo", "stbviewer_simple" };
+	bool libDebugs[] = {       true,          true,      false,              true,          false,        true,      true,      true,        true,       true,        true,       true,       true,              };
 	const size_t numLibs = sizeof(libNames) / sizeof(const char*);
 
 	for(size_t i=0; i<numLibs; i++)
 	{
 		std::string libName = libNames[i];
 		stb::os_correctModuleName(libName, libDebugs[i], false);
+		printf("trying to load module '%s'\n", libName.c_str());
 		if(!stb::os_LoadLibrary(libName))
 		{
 			printf("ERROR: failed to load module '%s'\n", libName.c_str());

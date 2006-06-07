@@ -1,5 +1,5 @@
 <studierstube>
-	<kernel logMode="off" logFileName="kernelLog.txt" updateMode="timer" updateRate="0.02" />
+	<kernel logMode="off" logFileName="kernelLog.txt" updateMode="manual" updateRate="0.05" />
 
 	<!-- This is the Event Component. It is in charge of providing us with Tracking data -->
     <Component  name="Event" availability="ondemand" lib="stbevent">
@@ -19,6 +19,7 @@
 	<Component name="Video" availability="onload"	lib="stbvideo">
 	    <Param key="configFile" value="openvideo.xml" />
 	    <Param key="ovSinkName" value="Stb4VideoSink" />
+	    <Param key="single-threaded" value="true" />
 	</Component>
 
 	<!-- This is the Application -->

@@ -208,7 +208,7 @@
 				Optimization="2"
 				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_WINDOWS;_USRDLL;SOSIMPLE_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -257,7 +257,7 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/"
+				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
