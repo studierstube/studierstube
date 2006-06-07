@@ -36,6 +36,7 @@
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
+#include <stb/kernel/Profiler.h>
 #include <stb/components/video/Video.h>
 #include <stb/base/OS.h>
 
@@ -71,8 +72,8 @@
 BEGIN_NAMESPACE_STB
 
 
-static void scale_2x_WinXP(const unsigned short *src, unsigned short *dst, int width, int height);
-static void scale_2x_WinCE(const unsigned short *src, unsigned short *dst, int width, int height);
+static void scale_2x_RGB555(const unsigned short *src, unsigned short *dst, int width, int height);
+static void scale_2x_RGB565(const unsigned short *src, unsigned short *dst, int width, int height);
 
 
 SO_NODE_SOURCE(SoVideoBackground);
@@ -228,6 +229,8 @@ SoVideoBackground::createTexture(const openvideo::Buffer& buffer)
 void
 SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 {
+	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
+
 #if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
 	if(!texInfo)
 		if(!createTexture(buffer))
@@ -260,6 +263,8 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 void
 SoVideoBackground::drawTexture()
 {
+	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
+
 #if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
 	if(!texInfo)
 		return;
@@ -308,6 +313,8 @@ SoVideoBackground::drawTexture()
 void
 SoVideoBackground::blitIntoVideoMemory()
 {
+	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
+
 #if defined(HAVE_OPENVIDEO) && defined(_IS_KLIMTES_)
 	if(openvideo::Buffer* buffer = bufferSynchronizer->getLocked())
 	{
@@ -322,16 +329,14 @@ SoVideoBackground::blitIntoVideoMemory()
 			int oglWidth = klesGetBufferWidth(),
 				oglHeight = klesGetBufferHeight();
 
-#if defined(STB_IS_WINXP)
 			if(oglWidth==buffer->getWidth()*2 && oglHeight==buffer->getHeight()*2)
-				scale_2x_WinXP((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
-#elif defined(STB_IS_WINCE)
-			if(oglWidth==buffer->getWidth()*2 && oglHeight==buffer->getHeight()*2)
-				scale_2x_WinCE((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
-#else
-			assert(false),
-#endif
-
+				scale_2x_RGB565((unsigned short*)buffer->getPixels(), oglPixels, buffer->getWidth(),buffer->getHeight());
+			else
+			{
+				// currently we only support 2x upscaling
+				// TODO: support no scaling (1x) at all...
+				assert(false);
+			}
 		}
 
 		buffer->unlock();
@@ -347,9 +352,9 @@ SoVideoBackground::blitIntoVideoMemory()
 //
 
 static void
-scale_2x_WinXP(const unsigned short *src, unsigned short *dst, int width, int height)
+scale_2x_RGB555(const unsigned short *src, unsigned short *dst, int width, int height)
 {
-	// WinXP 16-bits rendering uses 1555 with first bit unused
+	// Converts each pixel from RGR565 to RGB555 during blitting.
 	// We therefore need to shift the first two components one bit to the right
 	//
 
@@ -393,7 +398,7 @@ scale_2x_WinXP(const unsigned short *src, unsigned short *dst, int width, int he
 
 
 static void
-scale_2x_WinCE(const unsigned short *src, unsigned short *dst, int width, int height)
+scale_2x_RGB565(const unsigned short *src, unsigned short *dst, int width, int height)
 {
 	assert(width==320);
 

@@ -3,7 +3,7 @@
 <OpenTracker>
 	<configuration>
 		<!-- Here we place all the necessary configurations -->
-		<ARToolKitPlusConfig camera-parameter="QuickCamNotebookPro2.cal" undist-mode="lut" marker-mode="idbased" border-width="0.125" treshold="auto" pose-estimator="rpp" ov-config="openvideo.xml" ov-sink="artoolkitPluSink"/>
+		<ARToolKitPlusConfig camera-parameter="QuickCamNotebookPro2.cal" undist-mode="lut" marker-mode="idbased" border-width="0.125" treshold="auto" pose-estimator="std" ov-config="openvideo.xml" ov-sink="artoolkitPluSink"/>
     <EventConfig keyevents="on" mouseevents="off"/>
 	</configuration>
 

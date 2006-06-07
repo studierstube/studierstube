@@ -50,7 +50,7 @@ Scheduler::Scheduler()
 	scheduled=false;
     idle=NULL;
     timer=NULL;
-
+	guiBinder = NULL;
 }
 
 
@@ -61,8 +61,10 @@ Scheduler::~Scheduler()
 
 
 void
-Scheduler::run(GUIBinder* guiBinder)
+Scheduler::run(GUIBinder* gui_binder)
 {
+	guiBinder = gui_binder;
+
 	guiBinder->gb_init("Studierstube");
 	schedule();
 	guiBinder->gb_mainloop();
@@ -85,6 +87,9 @@ Scheduler::unschedule()
             timer->unschedule();
             delete timer;
 	        break;
+		case MANUAL:
+			unscheduleManualSensor();
+			break;
 	}
 	scheduled=false;
 }
@@ -104,6 +109,9 @@ Scheduler::schedule()
 	    case TIMER:
 		    scheduleTimerSensor();
 		    break;
+		case MANUAL:
+			scheduleManualSensor();
+			break;
 	}
 	scheduled=true;
 }
@@ -115,9 +123,11 @@ Scheduler::readConfiguration(TiXmlAttribute* attribute)
 	if(!stb::stricasecmp(attribute->Name(),"updateMode"))
 	{
 		if(!stb::stricasecmp(attribute->Value(),"idle"))
-			mode=IDLE;		
+			mode=IDLE;
 		else if(!stb::stricasecmp(attribute->Value(),"timer"))
-			mode=TIMER;		
+			mode=TIMER;
+		else if(!stb::stricasecmp(attribute->Value(),"manual"))
+			mode=MANUAL;
 	}
 	else if(!stb::stricasecmp(attribute->Name(),"updateRate"))
 	{
@@ -146,6 +156,21 @@ Scheduler::scheduleTimerSensor()
 	timer->setFunction(Kernel::update);
 	timer->setInterval(updateRate);
 	timer->schedule();
+}
+
+
+void
+Scheduler::scheduleManualSensor()
+{
+	guiBinder->gb_registerManualCallback(Kernel::update);
+}
+
+
+void
+Scheduler::unscheduleManualSensor()
+{
+	guiBinder->gb_registerManualCallback(NULL);
+
 }
 
 

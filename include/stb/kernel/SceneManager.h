@@ -126,6 +126,10 @@ protected:
      ************************************************************************/
     SoSeparator* displayRoot;
 
+
+	/// Parent for the (optional) tracker source instance
+	SoSeparator* trackersourceParent;
+
 private:
 	
 };// class 

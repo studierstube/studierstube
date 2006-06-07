@@ -42,23 +42,28 @@ SceneManager::SceneManager()
    root=new SoSeparator();
 
    sceneRoot=new SoSeparator();
-   //place holder for 'SoOpenTrackerSource' (see event)
-   SoSeparator* trackRoot=new SoSeparator();
+
+   //  parent for 'SoOpenTrackerSource' (see event)
+   trackersourceParent=new SoSeparator();
+
    displayRoot=new SoSeparator();
 
    //set up the scene graph
    //
    //              root
    //               |
-   //       |--------------------------------|
-   //    sceneRoot                        displayRoot	
-   //       |                                |
-   //  |-----------|-----|                 SoDisplay
-   // trackRoot   
+   //       |------------------------------------------|
+   //    sceneRoot                                 displayRoot	
+   //       |                                          |
+   //  |--------------------|---------|            SoDisplay
+   // trackRoot        app-graph  app-graph
+   //  |
+   // trackersource (optional)
    //
+
    root->ref();
    root->addChild(sceneRoot);
-   sceneRoot->addChild(trackRoot);
+   sceneRoot->addChild(trackersourceParent);
    root->addChild(displayRoot);
    touchRoot=root;
 }
@@ -95,15 +100,25 @@ SceneManager::getSceneRoot()
 void 
 SceneManager::setTrackerSource(SoNode *otSource)
 {
-    sceneRoot->replaceChild(0,otSource);
-	//displayRoot->addChild(otSource);
+	trackersourceParent->removeAllChildren();
+	trackersourceParent->addChild(otSource);
+
+    //sceneRoot->replaceChild(0,otSource);
 }
 
 
 SoNode*
 SceneManager::getTrackerSource()
 {
-	return sceneRoot->getChild(0);
+	if(trackersourceParent->getNumChildren()>0)
+	{
+		assert(trackersourceParent->getNumChildren()==1);
+		return trackersourceParent->getChild(0);
+	}
+
+	return NULL;
+
+	//return sceneRoot->getChild(0);
 }
 
 

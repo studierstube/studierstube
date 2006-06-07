@@ -114,6 +114,7 @@ public:
     */    
     static void update( void * data, SoSensor * sensor);
 
+
     /*
     * Returns the kernel's SceneManager object. 
     */  

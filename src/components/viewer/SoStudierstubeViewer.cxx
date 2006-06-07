@@ -35,6 +35,7 @@
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/OS.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/Profiler.h>
 #include <Inventor/actions/SoGetPrimitiveCountAction.h>
 
 #include SOGUI_H
@@ -305,137 +306,20 @@ SoStudierstubeViewer::setOVGLContext(Video* video)
 void 
 SoStudierstubeViewer::redraw ()
 {
-	///////////////////////////////////
-	//
-	// creation of 2nd context begin
-	//
-/*
-	if(!isVideoGLContext)
-	{
-		this->glLockNormal(); // this makes the GL context "current"
-#ifdef STB_IS_WINDOWS
-		curDC=wglGetCurrentDC();
-		if(!curDC){
-			printf("StbError: failed to get current dc \n ");
-		}
-
-		HGLRC curStbContext=wglGetCurrentContext();
-		if(!curStbContext){
-			printf("StbError: failed to get current context \n");
-		}
-
-
-		if(curDC && curStbContext)
-		{
-			PIXELFORMATDESCRIPTOR pfd;
-
-			DescribePixelFormat(curDC, 1, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
-			//ChoosePixelFormat(curDC, &pfd );
-
-			curGLContext=wglCreateContext(curDC);	
-			if(!curGLContext)
-			{
-				printf("failed to create new opengl context \n");
-				printf("%s\n",GetLastError());
-			}
-			else{
-				if(!wglShareLists(curGLContext, curStbContext))
-				{
-					printf("OV: failed to share opengl context \n");
-					printf("%i\n",::GetLastError());
-				}
-			}
-		}   
-#elif defined(STB_IS_LINUX)
-		GLXContext curContext= glXGetCurrentContext();	
-		dsp=glXGetCurrentDisplay();
-		drawable=glXGetCurrentDrawable();
-
-		int major;
-		int minor;
-		glXQueryVersion(dsp,
-			&major,
-			&minor);
-		if(major<1 || minor <3 )
-		{
-			printf("StbError: need at least glx 1.3 to run openvideo");
-			printf(" - you're running glx version %i.%i\n",major,minor);
-		}
-		ovGLContext=NULL;
-		XVisualInfo* vis=NULL;
-
-		int configID;
-		glXQueryContext(dsp,
-			curContext,
-			GLX_FBCONFIG_ID,
-			&configID);
-
-		/////query screen /////////////////
-		int screen;
-		glXQueryContext(dsp,
-			curContext,
-			GLX_SCREEN,
-			&screen);
-
-		/////get FBConfig
-		int nelements;
-		GLXFBConfig  *fbConfigs=glXGetFBConfigs(dsp,
-			screen,
-			&nelements);
-		int value;
-		GLXFBConfig fbConfig;
-		for(int i=0;i<nelements;i++)
-		{
-			glXGetFBConfigAttrib(dsp,
-				fbConfigs[i],
-				GLX_FBCONFIG_ID,
-				&value);
-			if(value==configID){
-				fbConfig=fbConfigs[i];
-				break;
-			}
-		}
-		vis=glXGetVisualFromFBConfig(dsp,
-			fbConfig);
-		if(curContext
-			&& dsp
-			&& vis)
-		{
-			ovGLContext= glXCreateContext(dsp, 
-				vis,
-				curContext,
-				true);
-			if(!ovGLContext)
-				printf("failed to create openvideo's context\n");
-		}
-#endif
-		this->glUnlockNormal();// this releases the GL contex	
-		isVideoGLContext=true;
-	}
-
-	if(!isGLContextShared && shareGLContextWithVideo)
-	{
-		isGLContextShared=true;
-		this->glLockNormal(); // this makes the GL context "current"
-#ifdef STB_IS_WINDOWS
-		videoComponent->setGLContext(curGLContext,curDC);
-#elif defined(STB_IS_LINUX)
-		videoComponent->setGLContext(drawable, ovGLContext, dsp);
-#endif
-		this->glUnlockNormal();// this releases the GL context
-	}
-*/
-	//
-	// creation of 2nd context end
-	//
-	///////////////////////////////////
-
     if(showFrameRate){
 #if defined(STB_IS_WINDOWS)
         DWORD thisTime = GetTickCount(), diffTime = thisTime-frameRateLastTime;
 		if(diffTime>1000 && frameRateCtr>0)		// only update every second
 		{
-			printf("[Render FPS: %3.1f] \n", frameRateCtr*1000.0f/diffTime);
+			//printf("[Render FPS: %3.1f] \n", frameRateCtr*1000.0f/diffTime);
+
+			std::string report;
+			Profiler::getInstance()->createReport(report, frameRateCtr);
+			printf("FPS: %.1f %s\n", frameRateCtr*1000.0f/diffTime, report.c_str());
+
+			Profiler::getInstance()->reset();
+
+
 			frameRateLastTime = thisTime;
 			frameRateCtr = 0;
 		}
@@ -481,8 +365,12 @@ SoStudierstubeViewer::actualRedraw(void)
 
 	kernel->preRenderCallback();
 
+	STB_PROFILER_MEASUREMENT_BEGIN(COIN_ACTUAL_REDRAW);
+
 	SoGuiExaminerViewer::actualRedraw();
 	//printf("post-draw\n");
+
+	STB_PROFILER_MEASUREMENT_END(COIN_ACTUAL_REDRAW);
 
 	kernel->postRenderCallback();
 }

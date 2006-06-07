@@ -112,6 +112,7 @@ protected:
 	void setNewVideoFrame(const openvideo::Buffer& format);
 	void notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame);
 
+	bool initOpenVideo();
 
     stb::string configFile,
 				ovSinkName;
@@ -119,6 +120,9 @@ protected:
     openvideo::Manager* ovManager;
 
     bool isGLContext;
+
+	bool runSingleThreaded;
+	bool ovInitialized;
 
     virtual void run();
 

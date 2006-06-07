@@ -46,6 +46,7 @@ class SOSIMPLE_API SoSimple {
 public:
 	static void init();
 	static void done();
+	static void doStbCallback();
 
 	static void exitMainLoop();
 

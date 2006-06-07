@@ -51,6 +51,7 @@
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/SceneManager.h>
+#include <stb/kernel/Profiler.h>
 
 #ifdef HAVE_OPENVIDEO
 #  include <openvideo/State.h>
@@ -268,11 +269,13 @@ Event::vu_update(const openvideo::Buffer& frame)
 #ifdef HAVE_OPENVIDEO
 	assert(otSource);
 
+	STB_PROFILER_AUTOMEASURE(OT_VIDEO_FEED)
+
 	if(ot::Context* context = otSource->getContext())
 	{
 		// only update if this is a fresh video image!
 		//
-		//if(frame.getUpdateCounter() != vu_updateCtr)
+		if(frame.getUpdateCounter() != vu_updateCtr)
 		{
 			// OpenTracker's pixel-format was carefully chosen to be compatible to OpenVideo's.
 			// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
@@ -282,6 +285,7 @@ Event::vu_update(const openvideo::Buffer& frame)
 			vu_updateCtr = frame.getUpdateCounter();
 		}
 	}
+
 #endif
 }
 

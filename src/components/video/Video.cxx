@@ -33,6 +33,7 @@
 #include <stb/components/video/Video.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/VideoUser.h>
+#include <stb/kernel/Profiler.h>
 #include <stb/base/OS.h>
 #include <openvideo/Manager.h>
 
@@ -122,6 +123,8 @@ Video::Video()
 {
    configFile="";
    isGLContext=false;
+   runSingleThreaded = false;
+   ovInitialized = false;
 
    videoSinkSubscriber = NULL;
    video_format = NULL;
@@ -150,7 +153,11 @@ Video::init()
 	//
 	stb::Kernel::getInstance()->registerForKernelEvents(this);
 
-    start();
+	if(runSingleThreaded)
+		initOpenVideo();
+	else
+		start();
+
 
     return isInit;
 }
@@ -166,6 +173,11 @@ Video::setParameter(stb::string key, std::string value)
     {
 		ovSinkName = value;
     }
+	else if(key=="single-threaded")
+	{
+		if(value=="true" || value=="TRUE")
+			runSingleThreaded = true;
+	}
 }
 
 /// Called before the application is destructed.
@@ -176,23 +188,34 @@ Video::shutDown()
 }
 
 
-void
-Video::run()
+bool
+Video::initOpenVideo()
 {
-    if(!ovManager->parseConfiguration(stb::Kernel::getInstance()->getConfig(configFile).c_str())){
-        return;
-    }
-    ovManager->initTraversal();
+	if(!ovManager->parseConfiguration(stb::Kernel::getInstance()->getConfig(configFile).c_str()))
+		return false;
+
+	ovManager->initTraversal();
 
 	// register with openvideo as the one and only video input in Studierstube
 	//
 	videoSinkSubscriber = new Stb4VideoSinkSubscriber(this);
 	if(openvideo::VideoSink* sink = reinterpret_cast<openvideo::VideoSink*>(ovManager->getNode(ovSinkName.c_str())))
 		sink->subscribe(videoSinkSubscriber);
+	else
+		return false;
+
+	ovInitialized = true;
+	return true;
+}
+
+
+void
+Video::run()
+{
+    if(!initOpenVideo())
+		return;
 
     ovManager->run();
-
-    return;
 }
 
 
@@ -263,6 +286,16 @@ Video::setVideoFormat(const openvideo::Buffer& format)
 void
 Video::kes_beforeRender()
 {
+	if(!ovInitialized)
+		return;
+
+	if(runSingleThreaded)
+	{
+		STB_PROFILER_AUTOMEASURE(OPEN_VIDEO);
+		assert(ovManager);
+		ovManager->updateSingleThreaded();
+	}
+
 	if(!videoSinkSubscriber || !videoSinkSubscriber->gotFirstFrame())
 		return;
 

@@ -88,7 +88,8 @@ protected:
      */
     enum MODE {
         IDLE=0,
-        TIMER=1
+        TIMER=1,
+		MANUAL=2
     };
 
     /************************************************************************
@@ -100,6 +101,11 @@ protected:
      * Set up and start the timer sensor 
      ************************************************************************/
     virtual void scheduleTimerSensor();
+
+
+	virtual void scheduleManualSensor();
+
+	virtual void unscheduleManualSensor();
 
     /************************************************************************
      * The idle sensor
@@ -132,6 +138,7 @@ protected:
     hModule libHandle;
     
 private:
+	GUIBinder* guiBinder;
 
 };// class
 

@@ -195,6 +195,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\VTune\app_simple_es.vpj"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

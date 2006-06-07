@@ -78,6 +78,7 @@ public:
 	/// Implement the GUIBinder interface
 	virtual void gb_init(const char*appname);
 	virtual void gb_mainloop();
+	virtual void gb_registerManualCallback(SoSensorCB* cb);
 
 
     static SoDisplay* findSoDisplay(SoNode* node);

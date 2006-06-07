@@ -376,6 +376,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\kernel\Profiler.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\kernel\Profiler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\kernel\Scheduler.cxx"
 				>
 			</File>

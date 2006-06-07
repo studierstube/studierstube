@@ -40,8 +40,11 @@
 
 extern "C" {
 
+typedef void (*ManualCallback)();
+
 SOSIMPLE_API HWND SoSimple_init(const char * appname, const char * classname);
 SOSIMPLE_API void SoSimple_mainLoop();
+SOSIMPLE_API void SoSimple_setCallback(SoSensorCB* cb);
 
 }; // extern "C"
 

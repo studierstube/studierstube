@@ -40,10 +40,15 @@
 #include <Inventor/SoInteraction.h> 
 #include <Inventor/SoDB.h>
 #include <Inventor/SbTime.h> 
+#include <Inventor/sensors/SoSensor.h>
 
 #include "PlatformTools.h"
 #include <TCHAR.h>
 
+
+#ifndef _WIN32_WCE
+//#define USE_ORIGINAL_MAINLOOP
+#endif
 
 static SbString gAppName, gClassName;
 static HWND gHWND = NULL;
@@ -53,6 +58,8 @@ static int idleSensorId = 0;
 static int delaySensorId = 0;
 
 static bool pipeErrorMessagesToConsole = true;
+
+static SoSensorCB* manualCallBack = NULL;
 
 
 static void doIdleTasks(void);
@@ -79,7 +86,18 @@ SoSimple_init(const char * appname, const char * classname)
 }
 
 
-/*SOSIMPLE_API void
+SOSIMPLE_API void
+SoSimple_setCallback(SoSensorCB* cb)
+{
+	manualCallBack = cb;
+}
+
+
+#ifdef USE_ORIGINAL_MAINLOOP
+
+#pragma message("SoSimple uses original mainloop")
+
+SOSIMPLE_API void
 SoSimple_mainLoop()
 {
 	MSG msg;
@@ -102,15 +120,16 @@ SoSimple_mainLoop()
 		}
 		else
 		{
-#ifndef _WIN32_WCE
 			::WaitMessage();
-#endif //_WIN32_WCE
 		}
 	}
 
 	SoSimple::done();
-}*/
+}
 
+#else
+
+#pragma message("SoSimple uses WinCE compatible mainloop")
 
 SOSIMPLE_API void
 SoSimple_mainLoop()
@@ -132,12 +151,15 @@ SoSimple_mainLoop()
 
 		if(idleSensorId!=0)
 			doIdleTasks();
+
+		SoSimple::doStbCallback();
 	}
 
 	SoSimple::done();
 	return;
 }
 
+#endif // USE_ORIGINAL_MAINLOOP
 
 
 }; // extern "C"
@@ -158,6 +180,14 @@ adjustWindowSize(int& nWidth, int& nHeight, DWORD nStyle, DWORD nExStyle)
 
 	nWidth = rect.right - rect.left;
 	nHeight = rect.bottom - rect.top;
+}
+
+
+void
+SoSimple::doStbCallback()
+{
+	if(manualCallBack)
+		(*manualCallBack)(NULL, NULL);
 }
 
 

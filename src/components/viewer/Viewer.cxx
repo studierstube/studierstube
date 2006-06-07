@@ -243,8 +243,20 @@ Viewer::gb_mainloop()
 #elif USE_SOQT
 	SoQt::mainLoop();
 #endif
+}
+
+
+void
+Viewer::gb_registerManualCallback(SoSensorCB* cb)
+{
+#ifdef USE_SOSIMPLE
+	SoSimple_setCallback(cb);
+#else
+	assert(false);
+#endif
 
 }
+
 
 
 
