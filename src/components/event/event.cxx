@@ -64,6 +64,7 @@
 
 // check if we actually have the correct OpenTracker version the users wants...
 //
+/*
 #ifdef USE_OT_1_1
 #  if defined(OPENTRACKER_VERSION_MAJOR) && defined(OPENTRACKER_VERSION_MINOR)
 #    if (OPENTRACKER_VERSION_MAJOR==1) && (OPENTRACKER_VERSION_MINOR==1)
@@ -89,6 +90,7 @@
 #    error ("ERROR: Should build against OpenTracker 1.2, but found unknown OpenTracker version. Please update to latest OpenTracker version")
 #  endif
 #endif
+*/
 
 
 #ifdef HAVE_OPENVIDEO

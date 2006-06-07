@@ -46,9 +46,9 @@
 
 
 #ifdef STB_PROFILING_ENABLED
-#  define STB_PROFILER_MEASUREMENT_BEGIN(MES_NAME) stb::Profiler::getInstance()->##MES_NAME->beginSection();
-#  define STB_PROFILER_MEASUREMENT_END(MES_NAME) stb::Profiler::getInstance()->##MES_NAME->endSection();
-#  define STB_PROFILER_AUTOMEASURE(MES_NAME) AutoMeasurement AUTO_##MES_NAME(stb::Profiler::getInstance()->##MES_NAME);
+#  define STB_PROFILER_MEASUREMENT_BEGIN(MES_NAME) stb::Profiler::getInstance()->MES_NAME->beginSection();
+#  define STB_PROFILER_MEASUREMENT_END(MES_NAME) stb::Profiler::getInstance()->MES_NAME->endSection();
+#  define STB_PROFILER_AUTOMEASURE(MES_NAME) AutoMeasurement AUTO_##MES_NAME(stb::Profiler::getInstance()->MES_NAME);
 #else
 #  define STB_PROFILER_MEASUREMENT_BEGIN(MES_NAME)
 #  define STB_PROFILER_MEASUREMENT_END(MES_NAME)
