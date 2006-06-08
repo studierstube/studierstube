@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../../bin/Win32"
+			OutputDirectory="$(STB4ROOT)/bin/Win32"
 			IntermediateDirectory="viewer_simple_debug"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -70,7 +70,7 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
 				SubSystem="2"
-				ImportLibrary="../../lib/Win32/$(TargetName).lib"
+				ImportLibrary="$(STB4ROOT)/lib/Win32/$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -100,7 +100,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../../bin/Win32"
+			OutputDirectory="$(STB4ROOT)/bin/Win32"
 			IntermediateDirectory="viewer_simple_release"
 			ConfigurationType="2"
 			CharacterSet="2"
@@ -152,7 +152,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="../../lib/Win32/$(TargetName).lib"
+				ImportLibrary="$(STB4ROOT)/lib/Win32/$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
