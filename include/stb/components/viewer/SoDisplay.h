@@ -165,8 +165,17 @@ public:
      * Default value is FALSE. */
     SoSFBool stencilBuffer;
     
+    /** Specifies whether to allow manipulation of objects on screen or
+    * to immediately receive keyboard and mouse events
+    * Default value is TRUE. */
+    SoSFBool isViewing;
+
+    /** Specifies whether to display the current frame rate
+    * Default value is FALSE. */
     SoSFBool showFrameRate;
 
+    /** Specifies whether to display the number of polygons being rendered
+    * Default value is FALSE. */
     SoSFBool showTriangleCount;
     //////////////////////////////////////
     ///////////// API ////////////////////

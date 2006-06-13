@@ -81,6 +81,7 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(windowOnTop, (FALSE));
     SO_NODE_ADD_FIELD(stencilBuffer, (FALSE));
     SO_NODE_ADD_FIELD(useRefCamera, (TRUE));
+    SO_NODE_ADD_FIELD(isViewing,(TRUE));
     SO_NODE_ADD_FIELD(showFrameRate,(FALSE));
     SO_NODE_ADD_FIELD(showTriangleCount,(FALSE));
 
@@ -241,6 +242,9 @@ SoDisplay::createViewer()
 		viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
         viewer->showMouse(false);
 	}
+
+	// Set the Viewing
+	viewer->setViewing(isViewing.getValue());
     
 	//////////////////////////////////////////
 	//// start StudierstubeViewer
