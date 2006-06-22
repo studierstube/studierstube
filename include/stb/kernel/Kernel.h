@@ -25,8 +25,9 @@
 /** The header file for the Kernel class.
 *
 * @author Denis Kalkofen
+* @author Michael Kalkusch
 *
-* $Id: Kernel.h 25 2005-11-28 16:11:59Z denis $
+* $Id: Kernel.h 2006-06-22 11:51:59Z kalkusch $
 * @file                                                                   */
 /* ======================================================================= */
 
@@ -105,6 +106,21 @@ public:
     stb::string getConfig(stb::string config);
 
     /*
+    * Returns the current config file as a combination of base_dir\config_file
+    */
+    stb::string getConfig() const;
+    	
+    /*
+    * Returns the current kernel xml config file without base_dir.
+    */
+    stb::string getConfigFile() const;
+    	
+    /*
+    * Sets the current XML kernel config file without  base_dir.
+    */
+    void setConfigFile( stb::string config );
+    	
+    /*
     *	Parses the <kernel> </kernel> element in a kernel.xml configuration.                                                                    
     */
     void parseConfiguration(TiXmlElement* root);
@@ -129,6 +145,12 @@ public:
      * Returns the base_dir of the configuration path
      */
     stb::string getBaseDir() const;
+    	
+    /*
+     * Sets the base_dir of the configuration path
+     */
+    void setBaseDir( stb::string path );
+
 
 
 	/// Called by the StudierstubeViewer to notify the kernel that scene graph rendering will start right now

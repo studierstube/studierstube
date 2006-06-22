@@ -25,8 +25,9 @@
 /** The cxx file for the StbKernel class.
  *
  * @author Denis Kalkofen
+ * @author Michael Kalkusch
  *
- * $Id: Kernel.cxx 25 2005-11-28 16:11:59Z denis $
+ * $Id: Kernel.cxx 2006-06-22 11:51:59Z kalkusch $
  * @file                                                                   */
 /* ======================================================================= */
 
@@ -97,10 +98,19 @@ Kernel::getInstance()
 
 stb::string
 Kernel::getConfig(stb::string config)
+{	  
+	  setConfigFile( config );
+	  return getConfig();
+}
+
+stb::string
+Kernel::getConfig() const
 {
+	 ///FIXME: correct parsing of config string!
+	  
     using namespace std;
     ostringstream tmp;
-    tmp << base_dir << "/" << config;
+    tmp << base_dir << "/" << kernel_config_file;
     return tmp.str();
 }
 
@@ -116,6 +126,8 @@ Kernel::start(int argc, char* argv[])
 
     // extract application base directory name as search path
     // only useful for linux
+    //
+    ///FIXME: correct parsing of config string!
     if (argc > 1)
         base_dir = stb::string(argv[1]);
     else
@@ -181,6 +193,23 @@ Kernel::getBaseDir() const
     return base_dir;
 }
 
+void 
+Kernel::setBaseDir( stb::string path ) 
+{
+	base_dir = path;
+}
+
+stb::string
+Kernel::getConfigFile() const
+{
+    return kernel_config_file;
+}
+
+void
+Kernel::setConfigFile( stb::string config )
+{
+    kernel_config_file = config;
+}
 
 void
 Kernel::preRenderCallback()
