@@ -80,7 +80,6 @@ class SoStringMap;
 class SoUse;
 class SoVariable;
 
-
 BEGIN_NAMESPACE_STB
 
 /**

@@ -267,6 +267,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoHiddenGroup.cxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoKeyToggle.cpp"
 				>
 			</File>
@@ -430,6 +434,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoGLStencilBufferElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoHiddenGroup.h"
 				>
 			</File>
 			<File

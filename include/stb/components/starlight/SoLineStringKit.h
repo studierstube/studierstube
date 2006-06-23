@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoExtrusionKit.
+/** The header file for the SoLineStringKit.
 *
 * @author Erick Mendez
 * @ingroup vidente

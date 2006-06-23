@@ -39,6 +39,7 @@
 #include <stb/components/starlight/SoExtrusionKit.h>
 #include <stb/components/starlight/SoLineStringKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
+#include <stb/components/starlight/SoHiddenGroup.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -111,7 +112,8 @@ Starlight::init(void)
 	SoPipeKit::initClass();
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();
-	SoPhantomShape::initClass();
+    SoPhantomShape::initClass();
+    SoHiddenGroup::initClass();
 	    
 	SoCommand::initClass();
     SoSetName::initClass();
@@ -180,8 +182,6 @@ Starlight::createSoFactorRotation()
 {
     return new SoFactorRotation;
 }
-
-
 
 SoFileSubgraph*    
 Starlight::createSoFileSubgraph()
@@ -273,6 +273,5 @@ Starlight::createSoVariable()
 {
     return new SoVariable;
 }
-
 
 END_NAMESPACE_STB
