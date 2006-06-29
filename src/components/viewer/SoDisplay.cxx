@@ -244,7 +244,8 @@ SoDisplay::createViewer()
 	}
 
 	// Set the Viewing
-	viewer->setViewing(isViewing.getValue());
+    if(!isViewing.getValue())
+	    viewer->setViewing(isViewing.getValue());
     
 	//////////////////////////////////////////
 	//// start StudierstubeViewer
