@@ -10,6 +10,7 @@ version='4.0'
 ace_env = Environment (ENV = os.environ)
 tinyxml_env = Environment (ENV = os.environ)
 coin_env = Environment (ENV = os.environ)
+qt_env = Environment (ENV = os.environ)
 soqt_env = Environment (ENV = os.environ)
 opentracker_env = Environment (ENV = os.environ)
 openvideo_env = Environment (ENV = os.environ)
@@ -57,6 +58,12 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386':
     coin_include = coin_env.Dictionary()['CPPPATH']
     coin_lib = coin_env.Dictionary()['LIBS']
     coin_libpath = coin_env.Dictionary()['LIBPATH']
+    # QT library information
+    qt_env.ParseConfig ('pkg-config --silence-errors --cflags --libs qt-mt')
+    qt_cflags = qt_env.Dictionary()['CCFLAGS']
+    qt_include = qt_env.Dictionary()['CPPPATH']
+    qt_lib = qt_env.Dictionary()['LIBS']
+    qt_libpath = qt_env.Dictionary()['LIBPATH']
     # Soqt library information
     soqt_env.ParseConfig ('soqt-config --cppflags --ldflags --libs')
     soqt_cflags = soqt_env.Dictionary()['CCFLAGS']
@@ -150,6 +157,12 @@ else:
 	config.write ("COIN_LIBPATH = %r\n"%(coin_libpath))
 	config.write ("COIN_LIBRARY = %r\n"%(coin_lib))
 
+        config.write ("\n# QT library.\n")
+        config.write ("QT_CFLAGS = %r\n"%(qt_cflags))
+	config.write ("QT_INCLUDE = %r\n"%(qt_include))
+	config.write ("QT_LIBPATH = %r\n"%(qt_libpath))
+	config.write ("QT_LIBRARY = %r\n"%(qt_lib))
+
         config.write ("\n# Soqt library.\n")
         config.write ("SOQT_CFLAGS = %r\n"%(soqt_cflags))
 	config.write ("SOQT_INCLUDE = %r\n"%(soqt_include))
@@ -219,6 +232,10 @@ user_options.AddOptions (
 		('COIN_INCLUDE', 'Include directory for COIN header files.'),
 		('COIN_LIBPATH', 'Library path where the COIN library is located.'),
 		('COIN_LIBRARY', 'COIN library name.'),
+		('QT_CFLAGS', 'Necessary CFLAGS when using QT functionality.'),
+		('QT_INCLUDE', 'Include directory for QT header files.'),
+		('QT_LIBPATH', 'Library path where the QT library is located.'),
+		('QT_LIBRARY', 'QT library name.'),
 		('SOQT_CFLAGS', 'Necessary CFLAGS when using SOQT functionality.'),
 		('SOQT_INCLUDE', 'Include directory for SOQT header files.'),
 		('SOQT_LIBPATH', 'Library path where the SOQT library is located.'),
@@ -274,10 +291,13 @@ print "============================================================"
 print "OpenTracker version ... " + opentracker_version
 ot11_re = re.compile('^1\.1.*')
 ot12_re = re.compile('^1\.2.*')
+ot13_re = re.compile('^1\.3.*')
 if ot11_re.match(opentracker_version):
     defines += ['USE_OT_1_1']
 elif ot12_re.match(opentracker_version):
     defines += ['USE_OT_1_2']
+elif ot13_re.match(opentracker_version):
+    defines += ['USE_OT_1_3']
 else:
     print "WARNING, OpenTracker version not supported!"
 
