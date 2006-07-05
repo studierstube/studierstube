@@ -76,14 +76,20 @@ os_LoadLibrary(stb::string fileName)
 	return ::LoadLibrary(ACE_TEXT_CHAR_TO_TCHAR(libNameStr));
 #else //!STB_IS_WINDOWS
     using namespace std;
-    ostringstream name;
+    stb::string pathName, libName;
+    stb::string::size_type pos = fileName.rfind('/');
 
-    name  << "lib" << fileName << ".so";
+    if(pos != stb::string::npos) {
+        ++pos;
+        pathName = fileName.substr(0, pos);
+        fileName = fileName.substr(pos, fileName.length() - pos);
+    }
 
-    cerr << "Dynamically loading >" << name.str() << "< ...";
+    libName = pathName + "lib" + fileName + ".so";
+    cerr << "Dynamically loading >" << libName << "< ...";
     
     // load the library
-    hModule p = dlopen(name.str().c_str(), RTLD_LAZY);
+    hModule p = dlopen(libName.c_str(), RTLD_LAZY);
     if (!p) {
         cerr << " failed: cannot load library: " << dlerror() << '\n';
         return 0;
