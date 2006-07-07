@@ -324,8 +324,11 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
 }
 
 // pushes new events into the graph
-
+#ifdef USE_OT_1_1
 void EventModule::pushState()
+#else
+void EventModule::pushEvent()
+#endif
 {
     float data[4], help[4];
 

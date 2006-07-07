@@ -285,7 +285,11 @@ public:
      * ConsoleSource nodes accordingly. This happens every cycle 
      * and all key presses recorded since are used.
      */
+#ifdef USE_OT_1_1
     virtual void pushState();
+#else
+    virtual void pushEvent();
+#endif
     
     /// interface from the SoOpenTrackerSource node to process input events
     void handleEvent( SoHandleEventAction * action  );
