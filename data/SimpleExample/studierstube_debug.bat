@@ -1,1 +1,3 @@
 studierstubed.exe
+
+pause

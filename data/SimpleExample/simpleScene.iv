@@ -11,7 +11,7 @@ SoSeparator
 	{
 		# move the tracked cube a little bit away
 		# from the center where the camera is...
-		translation -1 -1 -6
+		translation -1 -1 -10
 	}
 
 	SoTransform
@@ -20,4 +20,5 @@ SoSeparator
 		rotation = USE tr.rotation
 	}
 	SoCube {}
+	File { name "F:\ICG-Labs8\Studierstube\stbComponents\simplyMoving\data\SimplyMovingExample\media\models\prunk01\prunk_part.iv" }
 }

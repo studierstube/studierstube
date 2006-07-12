@@ -3,19 +3,19 @@
 <OpenTracker>
 	<configuration>
 		<!-- Here we place all the necessary configurations -->
-		<ARToolKitPlusConfig camera-parameter="QuickCamNotebookPro2.cal" undist-mode="lut" marker-mode="idbased" border-width="0.125" treshold="auto" pose-estimator="rpp" ov-config="openvideo.xml" ov-sink="artoolkitPluSink"/>
+		<ARToolKitPlusConfig camera-parameter="PointgreyFirefly.dat" undist-mode="lut" marker-mode="idbased" border-width="0.125" treshold="auto" pose-estimator="rpp" ov-config="openvideo.xml" ov-sink="artoolkitPluSink"/>
 		<ConsoleConfig headerline="Sample Tracking Input" interval="1" display="off" />
 	    <EventConfig keyevents="on" mouseevents="off"/>
 	</configuration>
 
 	<!-- With a console sink we send the output to the shell -->	
-	<ConsoleSink comment="ARTK+">
+	<ConsoleSink comment="ARTK+" active="on">
 		<!-- This sink is in charge of sending data to stb4 -->
 		<EventSink tracking="otTrack">
 			<!-- We add an extra tranformation -->
 			<EventTransform scale="1 1 1" rotationtype="euler" rotation="3.141592654 0 0" translation="0 0 0">
 				<!-- This source receives data from ARToolKit Plus -->
-				<ARToolKitPlusSource center="0 0" size="0.8 0.8" tag-id="200"/>
+				<ARToolKitPlusSource center="0 0" size="0.8 0.8" tag-id="30"/>
 			</EventTransform>
 		</EventSink>
 	</ConsoleSink>

@@ -323,6 +323,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoSpaceMouseKit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoStencilBuffer.cpp"
 				>
 			</File>
@@ -490,6 +494,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoSFFieldContainer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoSpaceMouseKit.h"
 				>
 			</File>
 			<File
