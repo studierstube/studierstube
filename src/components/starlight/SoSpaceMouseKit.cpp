@@ -25,8 +25,8 @@
 
 #include <stb/components/starlight/SoSpaceMouseKit.h>
 
-#include <inventor/actions/SoSearchAction.h>
-#include <inventor/actions/SoGetMatrixAction.h>
+#include <Inventor/actions/SoSearchAction.h>
+#include <Inventor/actions/SoGetMatrixAction.h>
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
 #include <stb/components/event/event.h>

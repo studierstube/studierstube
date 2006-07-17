@@ -18,7 +18,7 @@
 #include <Inventor/sensors/SoSensor.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 
-#include <stb/kernel/kernel.h>
+#include <stb/kernel/Kernel.h>
 //#include <stb/components/event/SoTrakEngine.h>
 
 // asssign button numbers
