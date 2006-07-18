@@ -10,9 +10,8 @@
 	<ConsoleSink comment="Test Source">
 		<!-- This sink is in charge of sending data to stb4 -->
 		<EventSink tracking="otTrack">
-			<!-- A test source generating mostly noise
-			<TestSource position="1 1 1" noise="0.5" frequency="10"/> -->
-			<ConsoleSource number="0"/>
+			<!-- A test source generating mostly noise -->
+			<TestSource position="1 1 1" noise="0.5" frequency="10"/> 
 		</EventSink>
 	</ConsoleSink>
 

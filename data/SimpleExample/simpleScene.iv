@@ -20,5 +20,4 @@ SoSeparator
 		rotation = USE tr.rotation
 	}
 	SoCube {}
-	File { name "F:\ICG-Labs8\Studierstube\stbComponents\simplyMoving\data\SimplyMovingExample\media\models\prunk01\prunk_part.iv" }
 }
