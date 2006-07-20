@@ -121,6 +121,70 @@ SoInputEvent::~SoInputEvent()
     producer = NULL;
 }
 
+void SoInputEvent::setbool( const SbName & name, const bool value ){
+    assert( data );
+	SbBool item(value);
+    (*data)[name] = item;	
+};
+
+void SoInputEvent::setchar( const SbName & name, const char item ){
+    assert( data );
+    (*data)[name] = item;	
+};
+void SoInputEvent::setschar( const SbName & name, const signed char item ){
+    assert( data );
+    (*data)[name] = item;	
+};
+void SoInputEvent::setuchar( const SbName & name, const unsigned char item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setint( const SbName & name, const int item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setlong( const SbName & name, const long item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setshort( const SbName & name, const short item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setuint( const SbName & name, const unsigned int item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setulong( const SbName & name, const unsigned long item ){
+    assert( data );
+    (*data)[name] = item;	
+};	
+void SoInputEvent::setushort( const SbName & name, const unsigned short item ){
+    assert( data );
+    (*data)[name] = item;	
+};
+
+void SoInputEvent::setstring(  const SbName & name, const char * item){
+	printf ("ADDING element %s, with value %s\n", name.getString(), item);
+	SbString str (item);
+	this->set(  name,  item )	;
+};
+
+
+
+void SoInputEvent::set( const SbName & name, const double item )
+{
+    assert( data );
+    (*data)[name] = item;
+}
+
+void SoInputEvent::set( const SbName & name, const std::vector<float> & item )
+{
+    assert( data );
+    (*data)[name] = item;
+}
+
+
 void SoInputEvent::set( const SbName & name, const SbVec3f & item )
 {
     assert( data );
@@ -191,6 +255,30 @@ const SbTime SoInputEvent::getSFTime( const SbName & name ) const throw(ElementN
 {
     assert( data );
     return data->get<SbTime>( name );
+}
+
+const int32_t SoInputEvent::getSFInt32( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get<int32_t>( name );
+}
+
+const uint32_t SoInputEvent::getSFUint32( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get<uint32_t>( name );
+}
+
+const short SoInputEvent::getSFShort( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get<short>( name );
+}
+
+const unsigned short SoInputEvent::getSFUshort( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get<unsigned short>( name );
 }
 
 const SbString SoInputEvent::getString( const SbName & name ) const

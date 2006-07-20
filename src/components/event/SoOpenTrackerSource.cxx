@@ -240,12 +240,28 @@ public:
 #else
     // copy the OpenTracker event to the Inventor event using the EventSchema
     EventSchema schema(event);
-    schema.position( state->getPosition() );
-    schema.orientation( state->getOrientation() );
-    schema.confidence( state->getConfidence() );
+	int attrcount = state->getSize();
+	std::string attrname;
+	for (int i = 0; i< attrcount; i++){
+		attrname = state->getAttributeName(i);
+		if (attrname == "position" )
+			schema.position( state->getPosition() );
+		else if (attrname == "orientation"  )
+			schema.orientation( state->getOrientation() );
+		else if (attrname == "confidence" )
+			schema.confidence( state->getConfidence() );
+		else if (attrname == "button")
+			for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
+				schema.button( i, !!(state->getButton() & j) );	
+		else {
+			// some multimodal attribute, which has to be added somehow to stb event
+			schema.multimodal(attrname, state);
+			
+		}
+	}
+    
     schema.time( state->time / 1000.0 );
-    for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
-        schema.button( i, !!(state->getButton() & j) );
+    
 #endif
     // copy attributes, if present
     if( attributes )
