@@ -80,10 +80,14 @@ ComponentManager::update()
 bool
 ComponentManager::initComponent(Component *comp)
 {
+    char padding[4];
     if(comp->init())
     {
-		connectComponents(comp);
+        if (comp->getInfo()->getName().size()<8) strcpy(padding,"\t\t\t");
+        else strcpy(padding,"\t\t");
+        logPrintS("Initializing component %s %s [ OK ]\n", comp->getInfo()->getName().c_str(), padding);
 
+		connectComponents(comp);
         // add to applist or comp.list
         stb::string id=comp->getTypeID();
         if(id==Application::getBaseTypeID())
@@ -97,6 +101,7 @@ ComponentManager::initComponent(Component *comp)
         return true;
     }
 
+    logPrintE("Couldn't initialize %s\n", comp->getInfo()->getName().c_str());
     return false;
 }
 
