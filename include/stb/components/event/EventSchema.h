@@ -37,6 +37,7 @@
 
 #include "event.h"
 #include "SoInputEvent.h"
+#include <OpenTracker.h>
 
 /** a purely inlined helper class to provide schema correct access to an SoInputEvent instance
  * we will use a standard well-known schema to describe event slots and types. To avoid confusion
@@ -142,7 +143,89 @@ public:
     };
 
     /// and so on for all other types as well
+	void multimodal(std::string name,  const ot::Event * ev){
 
+		std::string type = ev->getAttributeTypeName(name);
+		
+		if (type == "bool"){
+			bool dummy;
+			bool value = ev->getAttribute<bool>(&dummy, name);
+			event.setbool( ("event." + name).c_str() , value );	
+		}
+		else if (type == "char"){
+			char dummy;
+			char value = ev->getAttribute<char>(&dummy, name);
+			event.setchar( ("event." + name).c_str() , value );	
+		}
+		else if (type == "signed_char"){
+			signed char dummy;
+			signed char value = ev->getAttribute<signed char>(&dummy, name);
+			event.setschar( ("event." + name).c_str() , value );	
+		}
+		else if (type == "unsigned_char"){
+			unsigned char dummy;
+			unsigned char value = ev->getAttribute<unsigned char>(&dummy, name);
+			event.setuchar( ("event." + name).c_str() , value );	
+		}
+		else if (type == "int"){
+			int dummy;
+			int value = ev->getAttribute<int>(&dummy, name);
+			event.setint( ("event." + name).c_str() , value );	
+		}
+		else if (type == "long"){
+			long dummy;
+			long value = ev->getAttribute<long>(&dummy, name);
+			event.setlong( ("event." + name).c_str() , value );	
+		}
+		else if (type == "short"){
+			short dummy;
+			short value = ev->getAttribute<short>(&dummy, name);
+			event.setshort( ("event." + name).c_str() , value );	
+		}
+		else if (type ==  "unsigned_int"){
+			unsigned int dummy;
+			unsigned int value = ev->getAttribute<unsigned int>(&dummy, name);
+			event.setuint( ("event." + name).c_str() , value );	
+		}
+		else if (type ==  "unsigned_long"){
+			unsigned long dummy;
+			unsigned long value = ev->getAttribute<unsigned long>(&dummy, name);
+			event.setulong( ("event." + name).c_str() , value );	
+		}
+		else if (type == "unsigned_short"){
+			unsigned short dummy;
+			unsigned short value = ev->getAttribute<unsigned short>(&dummy, name);
+			event.setushort( ("event." + name).c_str() , value );	
+		}
+		else if  (type == "double"){
+			double dummy;
+			double value = ev->getAttribute<double>(&dummy, name);
+			event.set( ("event." + name).c_str() , value );	
+		}
+		else if (type ==  "long_double"){
+		}
+		else if (type ==  "float"){
+			float dummy;
+			float value = ev->getAttribute<float>(&dummy, name);
+			event.set( ("event." + name).c_str() , value );	
+		}
+		else if (type ==  "vector<float>"){
+			std::vector<float> dummy;
+			std::vector<float> value= ev->getAttribute< std::vector<float> >(&dummy, name);
+			event.set( ("event." + name).c_str() , value);
+		}
+		else if (type == "string"){
+			std::string dummy;
+			std::string value = ev->getAttribute<std::string>(&dummy, name);
+			event.setstring( ("event." + name).c_str() , value.c_str() );			
+		}
+		else{
+			std::string dummy;
+			std::string value = ev->getAttribute<std::string>(&dummy, name);
+			value = type + "::"+ value;
+			event.setstring( ("event." + name).c_str() , value.c_str() );
+		}
+	};
 protected:
     SoInputEvent & event;
 };

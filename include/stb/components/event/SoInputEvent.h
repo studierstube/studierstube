@@ -72,6 +72,19 @@ public:
     // all of these could be implemented inline and with template and overloading.
     // however, this would introduce dependencies on boost in this header file.
 
+	/* added to manage multimodal events from ot 1.3*/
+    void setbool( const SbName & name, const bool item );
+    void setchar( const SbName & name, const char item );
+	void setschar( const SbName & name, const signed char item );
+	void setuchar( const SbName & name, const unsigned char item );	
+	void setint( const SbName & name, const int item );	
+	void setlong( const SbName & name, const long item );	
+	void setshort( const SbName & name, const short item );	
+	void setuint( const SbName & name, const unsigned int item );	
+	void setulong( const SbName & name, const unsigned long item );	
+	void setushort( const SbName & name, const unsigned short item );
+	void setstring( const SbName & name, const char * );
+
     // void set( const SbName & name, const SbBool item );
     void set( const SbName & name, const int32_t item );
     void set( const SbName & name, const float item );
@@ -108,7 +121,10 @@ public:
     const float getSFFloat( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const SbBool getSFBool( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const SbTime  getSFTime( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
-
+	const int32_t getSFInt32( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
+	const uint32_t getSFUint32( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
+	const short getSFShort( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
+	const unsigned short getSFUshort( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const std::vector<SbVec3f> & getMFVec3f( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
 
     // provides an Open Inventor style representation of the entry with key name
