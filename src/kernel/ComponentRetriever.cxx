@@ -71,12 +71,17 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
 //#endif
 ///////////
 
+    char padding[4];
     Component* newComponent=NULL;
 	if(libName=="")
 		return NULL;
 	hModule libHandle;
 	os_correctModuleName(libName, true,true);
-	logPrintS("Loading component %s \t\t\t ", libName.c_str());
+
+    if (libName.size()<16) strcpy(padding,"\t\t\t");
+    else strcpy(padding,"\t\t");
+
+    logPrintS("Loading component %s %s ", libName.c_str(), padding);
 
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
