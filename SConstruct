@@ -18,10 +18,14 @@ muddleware_env = Environment (ENV = os.environ)
 env = Environment (ENV = os.environ)
 env.CacheDir(os.environ['HOME'] + '/.scache')
 
-if sys.platform == 'linux2' or sys.platform == 'linux-i386':
+if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == 'darwin':
+    print "System Platform: " + sys.platform
     config_file       = 'config.opts'
     root_build_dir    = 'build/linux'
     prefix            = '/usr/local'
+    if sys.platform == 'darwin':
+	root_build_dir 	= 'build/darwin'
+	prefix 		= '/opt/local'
     libdir            = prefix + '/lib'
     install_root_dir  = ''
     
