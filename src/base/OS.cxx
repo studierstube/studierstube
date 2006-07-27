@@ -36,7 +36,11 @@
 #include <stb/base/fixWinXPIssues.h>
 #include <ace/OS.h>
 
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 #include <cstdio>
 #include <sstream>
 #include <iostream>
