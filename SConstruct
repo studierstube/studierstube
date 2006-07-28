@@ -9,6 +9,7 @@ version='4.0'
 
 ace_env = Environment (ENV = os.environ)
 tinyxml_env = Environment (ENV = os.environ)
+tinyxmlmod_env = Environment (ENV = os.environ)
 coin_env = Environment (ENV = os.environ)
 qt_env = Environment (ENV = os.environ)
 soqt_env = Environment (ENV = os.environ)
@@ -51,11 +52,26 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     ace_lib = ace_env.Dictionary()['LIBS']
     ace_libpath = ace_env.Dictionary()['LIBPATH']
     # TinyXML library information
-    tinyxml_env.ParseConfig ('pkg-config --cflags --libs tinyxml')
+    if os.environ.has_key('TINYXMLROOT'):
+	tinyxml_env['PKG_CONFIG_PATH'] = os.environ['TINYXMLROOT'] + '/lib/pkgconfig'
+    havetxml = tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
     tinyxml_cflags = tinyxml_env.Dictionary()['CCFLAGS']
     tinyxml_include = tinyxml_env.Dictionary()['CPPPATH']
     tinyxml_lib = tinyxml_env.Dictionary()['LIBS']
     tinyxml_libpath = tinyxml_env.Dictionary()['LIBPATH']
+    # TinyXMLMod library information
+    if os.environ.has_key('TINYXMLMODROOT'):
+	tinyxmlmod_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig')
+	print tinyxmlmod_env
+    havetxmlm = tinyxmlmod_env.ParseConfig ('pkg-config --cflags --libs TinyXMLMod')
+    tinyxmlmod_cflags = tinyxmlmod_env.Dictionary()['CCFLAGS']
+    tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
+    tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
+    tinyxmlmod_libpath = tinyxmlmod_env.Dictionary()['LIBPATH']
+
+    if not havetxml and not havetxmlm:
+	print "Need either TinyXML or TinyXMLMod - none found"	
+
     # Coin library information
     coin_env.ParseConfig ('coin-config --ldflags --cxxflags --libs')
     coin_cflags = coin_env.Dictionary()['CCFLAGS']
@@ -154,6 +170,12 @@ else:
 	config.write ("TINYXML_INCLUDE = %r\n"%(tinyxml_include))
 	config.write ("TINYXML_LIBPATH = %r\n"%(tinyxml_libpath))
 	config.write ("TINYXML_LIBRARY = %r\n"%(tinyxml_lib))
+
+        config.write ("\n# TinyXMLMod library.\n")
+        config.write ("TINYXMLMOD_CFLAGS = %r\n"%(tinyxmlmod_cflags))
+	config.write ("TINYXMLMOD_INCLUDE = %r\n"%(tinyxmlmod_include))
+	config.write ("TINYXMLMOD_LIBPATH = %r\n"%(tinyxmlmod_libpath))
+	config.write ("TINYXMLMOD_LIBRARY = %r\n"%(tinyxmlmod_lib))
 
         config.write ("\n# Coin library.\n")
         config.write ("COIN_CFLAGS = %r\n"%(coin_cflags))
@@ -260,6 +282,10 @@ user_options.AddOptions (
 		('TINYXML_INCLUDE', 'Include directory for TINYXML header files.'),
 		('TINYXML_LIBPATH', 'Library path where the TINYXML library is located.'),
 		('TINYXML_LIBRARY', 'TINYXML library name.'),
+		('TINYXMLMOD_CFLAGS', 'Necessary CFLAGS when using TINYXMLMOD functionality.'),
+		('TINYXMLMOD_INCLUDE', 'Include directory for TINYXMLMOD header files.'),
+		('TINYXMLMOD_LIBPATH', 'Library path where the TINYXMLMOD library is located.'),
+		('TINYXMLMOD_LIBRARY', 'TINYXML library name.'),
 		('DEFINES', 'Extra Preprocessor defines.'),
 		('CCFLAGS', 'Extra C Compiler flags.'),
 		('CXXFLAGS','Extra C++ Compiler flags.'),
@@ -296,12 +322,15 @@ print "OpenTracker version ... " + opentracker_version
 ot11_re = re.compile('^1\.1.*')
 ot12_re = re.compile('^1\.2.*')
 ot13_re = re.compile('^1\.3.*')
+ot20_re = re.compile('^2\.0.*')
 if ot11_re.match(opentracker_version):
     defines += ['USE_OT_1_1']
 elif ot12_re.match(opentracker_version):
     defines += ['USE_OT_1_2']
 elif ot13_re.match(opentracker_version):
     defines += ['USE_OT_1_3']
+elif ot20_re.match(opentracker_version):
+    defines += ['USE_OT_2_0']
 else:
     print "WARNING, OpenTracker version not supported!"
 
