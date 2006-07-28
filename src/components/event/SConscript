@@ -27,6 +27,10 @@ event_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 event_env.Append (CPPPATH = user_options_dict['OPENTRACKER_INCLUDE'])
 event_env.Append (LIBPATH = user_options_dict['OPENTRACKER_LIBPATH'])
 event_env.Append (LIBS    = user_options_dict['OPENTRACKER_LIBRARY'])
+# BOOST
+event_env.Append (CPPPATH = user_options_dict['BOOST_INCLUDE'])
+event_env.Append (LIBPATH = user_options_dict['BOOST_LIBPATH'])
+event_env.Append (LIBS    = user_options_dict['BOOST_LIBRARY'])
 
 # Starlight
 event_env.Append (LIBS    = 'stbstarlight')

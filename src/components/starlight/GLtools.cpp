@@ -35,9 +35,13 @@
 #  include <windows.h>
 #endif
 
+#ifndef __APPLE__
 #include <GL/gl.h>
 #include <GL/glu.h>
-
+#else
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#endif
 #include <Inventor/errors/SoDebugError.h>
 
 char _checkGLErrors(char *file, int line)

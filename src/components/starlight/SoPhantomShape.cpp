@@ -39,7 +39,11 @@
 
 #include <Inventor/actions/SoGLRenderAction.h>
 
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 #ifdef STB_IS_WINDOWS
 #  include <SoWinLeaveScope.h>

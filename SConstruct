@@ -124,6 +124,14 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	print "Could not find OpenTracker, which is mandatory!"
 	Exit(1)
     
+    # BOOST library information
+    boost_cflags = []
+    boost_include = ''
+    boost_lib = ['boost']
+    boost_libpath = []
+    if sys.platform == 'darwin':
+	boost_libpath = ['/sw/lib']
+	boost_include = ['/sw/include']
 
     # Openvideo library information
     openvideo_env.ParseConfig ('pkg-config --silence-errors --cflags --libs OpenVideo')
@@ -226,6 +234,12 @@ else:
 	config.write ("OPENTRACKER_INCLUDE = %r\n"%(opentracker_include))
 	config.write ("OPENTRACKER_LIBPATH = %r\n"%(opentracker_libpath))
 	config.write ("OPENTRACKER_LIBRARY = %r\n"%(opentracker_lib))
+        
+	config.write ("\n# Boost library.\n")
+        config.write ("BOOST_CFLAGS = %r\n"%(boost_cflags))
+	config.write ("BOOST_INCLUDE = %r\n"%(boost_include))
+	config.write ("BOOST_LIBPATH = %r\n"%(boost_libpath))
+	config.write ("BOOST_LIBRARY = %r\n"%(boost_lib))
 
         config.write ("\n# OpenVideo library.\n")
         config.write ("OPENVIDEO_CFLAGS = %r\n"%(openvideo_cflags))
@@ -299,6 +313,10 @@ user_options.AddOptions (
 		('OPENTRACKER_INCLUDE', 'Include directory for OPENTRACKER header files.'),
 		('OPENTRACKER_LIBPATH', 'Library path where the OPENTRACKER library is located.'),
 		('OPENTRACKER_LIBRARY', 'OPENTRACKER library name.'),
+		('BOOST_CFLAGS', 'Necessary CFLAGS when using BOOST functionality.'),
+		('BOOST_INCLUDE', 'Include directory for BOOST header files.'),
+		('BOOST_LIBPATH', 'Library path where the BOOST library is located.'),
+		('BOOST_LIBRARY', 'BOOST library name.'),
 		('OPENVIDEO_CFLAGS', 'Necessary CFLAGS when using OPENVIDEO functionality.'),
 		('OPENVIDEO_INCLUDE', 'Include directory for OPENVIDEO header files.'),
 		('OPENVIDEO_LIBPATH', 'Library path where the OPENVIDEO library is located.'),
