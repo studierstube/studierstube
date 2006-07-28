@@ -138,6 +138,7 @@ void SoTrakEngine::evaluate()
 {
 	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
+
 	if (!buttonHisteresis.getValue())
 	{
 		SO_ENGINE_OUTPUT(button0,SoSFBool,setValue(buttonIn0.getValue()));

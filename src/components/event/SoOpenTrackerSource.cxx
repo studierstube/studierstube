@@ -38,11 +38,24 @@
 #include <Inventor/sensors/SoTimerSensor.h>
 
 #include <OpenTracker.h>
+#ifdef USE_OT_2_0
+#  include <core/Configurator.h>
+#endif USE_OT_2_0
 
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/EventModule.h>
 #include <stb/components/event/EventSchema.h>
 
+
+
+
+void SoOpenTrackerSource::createOTModule(ot::Context & context, void * data){
+	SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
+    self->eventHandler = new EventModule(self);
+	context.addModule( "EventConfig", *self->eventHandler );
+    context.addFactory( *self->eventHandler );
+
+}
 
 SO_NODE_SOURCE(SoOpenTrackerSource);
 
@@ -86,6 +99,13 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
 
     // setup the timer sensor for running the show
     SoOpenTrackerSource::processChanged( this, NULL );
+
+#ifdef USE_OT_2_0
+	// add initialization procedure to the opentracker Configurator,
+	// this allows opentracker to create the stb modules, whenever they are needed
+	ot::Configurator::addModuleInit("Studierstube", createOTModule, (void *)this);
+	ot::Configurator::instance() ->runConfigurationThread();
+#endif USE_OT_2_0
 }
 
 SoOpenTrackerSource::~SoOpenTrackerSource()
@@ -93,7 +113,9 @@ SoOpenTrackerSource::~SoOpenTrackerSource()
     if(context)
     {
         context->close();
+#ifndef USE_OT_2_0
         delete context;
+#endif //	
         active.setValue(FALSE);
         context = NULL;
         eventHandler = NULL;
@@ -124,17 +146,29 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 
     if(configFile.getLength() > 0)
     {
-        self->context = new ot::Context(1);
-        self->eventHandler = new EventModule(self);
-        self->context->addModule( "EventConfig", *self->eventHandler );
-        self->context->addFactory( *self->eventHandler );
+#ifdef USE_OT_2_0
+	ot::Configurator * conf = ot::Configurator::instance();
+	std::string configFileString = configFile.getString();
+	conf->changeConfiguration(configFileString);
 
-		std::string configFileString = configFile.getString();
+	self->context = & conf->getContext();		
+
+#else  //USE_OT_2_0
+        self->context = new ot::Context(1);
+	
+	createOTModule(*(self->context),  self);
+
+	std::string configFileString = configFile.getString();
         self->context->parseConfiguration( configFileString );
 
-        self->context->start();
-        self->active.setValue(TRUE);
 
+#endif // USE_OT_2_0
+
+
+		self->context->start();
+
+        self->active.setValue(TRUE);
+	
 		// try to find an ARToolKitPlusModule
 		// FIXME: maybe OpenTracker should rather have a generic video input interface for all its nodes...
 		//
@@ -189,14 +223,21 @@ void SoOpenTrackerSource::runTracker( void )
     {
         //assert(context);
         if (context) {
+			
 #ifdef USE_OT_1_1
             context->pushStates();
             context->pullStates();
+			int stopflag= context->stop();
+#elif USE_OT_2_0
+
+
+			int stopflag = context->loopOnce();
 #else
             context->pushEvents();
             context->pullEvents();
+			int stopflag= context->stop();
 #endif
-            if(context->stop() && !shouldStop.getValue()) shouldStop.setValue(TRUE);
+            if(stopflag && !shouldStop.getValue()) shouldStop.setValue(TRUE);
          }
     }
 }
