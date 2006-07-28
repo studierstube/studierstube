@@ -33,7 +33,11 @@
 
 #include <stb/kernel/Scheduler.h>
 
+#ifndef USE_TINYXMLMOD
 #include <tinyxml/tinyxml.h>
+#else
+#include <TinyXML/tinyxml.h>
+#endif
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 #include <stb/kernel/Kernel.h>

@@ -30,8 +30,11 @@
 
 
 #include <stb/kernel/Config.h>
-
+#ifndef USE_TINYXMLMOD
 #include <tinyxml/tinyxml.h>
+#else
+#include <TinyXML/tinyxml.h>
+#endif
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/ComponentManager.h>

@@ -138,7 +138,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     muddleware_lib = muddleware_env.Dictionary()['LIBS']
     muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
 
-    build_example_app = 'false'
+    build_example_app = 'true'
     enable_openvideo = 'false'
     enable_muddleware = 'false'
 else:
@@ -278,7 +278,7 @@ user_options.AddOptions (
 					'true')),
 		(BoolOption ('USE_TINYXMLMOD',
 					'Set to 1 to use TinyXMLMod instead of TinyXML (disabled by default).',
-					'false')),
+					'true')),
 		('ACE_CFLAGS', 'Necessary CFLAGS when using ACE functionality.'),
 		('ACE_INCLUDE', 'Include directory for ACE header files.'),
 		('ACE_LIBPATH', 'Library path where the ACE library is located.'),
@@ -324,7 +324,7 @@ user_options.AddOptions (
                 ('IGNORE_FILTER', 'Specify the ignore filter for excluding source files'),
 		(BoolOption ('BUILD_EXAMPLE_APP',
 					'Set to 1 to build the example application.',
-					'false')),
+					'true')),
 		(BoolOption ('ENABLE_OPENVIDEO',
 					'Set to 1 to use the OpenVideo library.',
 					'false')),

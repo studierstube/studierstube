@@ -31,8 +31,11 @@
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/Kernel.h>
 
+#ifndef USE_TINYXMLMOD
 #include <tinyxml/tinyxml.h>
-
+#else
+#include <TinyXML/tinyxml.h>
+#endif
 
 BEGIN_NAMESPACE_STB
 

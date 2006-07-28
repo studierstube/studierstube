@@ -31,8 +31,11 @@
 /* ======================================================================= */
 
 
-#  include <tinyxml/tinyxml.h>
-
+#ifndef USE_TINYXMLMOD
+#include <tinyxml/tinyxml.h>
+#else
+#include <TinyXML/tinyxml.h>
+#endif
 #  if defined(TINYXML_MOD)
 
 //   this is the modified TinyXML version modified by Daniel Wagner called TinyXML_Mod.

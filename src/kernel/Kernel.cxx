@@ -37,7 +37,11 @@
 #include <stb/base/string.h>
 #include <stdarg.h>
 #include <stdio.h>
+#ifndef USE_TINYXMLMOD
 #include <tinyxml/tinyxml.h>
+#else
+#include <TinyXML/tinyxml.h>
+#endif
 #include <stb/base/fixWinXPIssues.h>
 #include <ace/ACE.h>
 #include <Inventor/SoDB.h>
