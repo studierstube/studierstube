@@ -42,6 +42,7 @@
 #include <Inventor/fields/SoSFRotation.h>
 #include <Inventor/fields/SoMFName.h>
 #include <Inventor/fields/SoMFString.h>
+#include <Inventor/fields/SoSFString.h>
 
 #include "SoInputEvent.h"
 
@@ -68,7 +69,7 @@ public:
     SoSFBool        buttonIn5;         // input button 5
     SoSFBool        buttonIn6;         // input button 6
     SoSFBool        buttonIn7;         // input button 7
-
+	
 	// Engine Output
     SoEngineOutput  translation;       // (SoSFVec3f) tracker translation
     SoEngineOutput  rotation;          // (SoSFRotation) tracker rotation
@@ -80,6 +81,7 @@ public:
     SoEngineOutput  button5;           // (SoSFBool) tracker button 5 value
     SoEngineOutput  button6;           // (SoSFBool) tracker button 6 value
     SoEngineOutput  button7;           // (SoSFBool) tracker button 7 value
+	
 
     SoTrakEngine(void);
     static void initClass(void);
