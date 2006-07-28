@@ -54,6 +54,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     # TinyXML library information
     if os.environ.has_key('TINYXMLROOT'):
 	tinyxml_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLROOT'] + '/lib/pkgconfig'
+	tinyxml_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLROOT'] + '/lib/pkgconfig')
     tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
     tinyxml_cflags = tinyxml_env.Dictionary()['CCFLAGS']
     tinyxml_include = tinyxml_env.Dictionary()['CPPPATH']
@@ -63,18 +64,17 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     if os.environ.has_key('TINYXMLMODROOT'):
 	tinyxmlmod_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig'
 	tinyxmlmod_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig')
-    tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=/Users/bornik/Documents/software/TinyXMLMod/trunk/lib/pkgconfig pkg-config --cflags --libs TinyXMLMod')
+    tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=' + os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig' + ' pkg-config --cflags --libs TinyXMLMod')
     tinyxmlmod_cflags = tinyxmlmod_env.Dictionary()['CCFLAGS']
     tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
     tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
     tinyxmlmod_libpath = tinyxmlmod_env.Dictionary()['LIBPATH']
 
-    if tinyxmlmod_lib == '' and tinyxml_lib == '':
+    if tinyxmlmod_lib == [] and tinyxml_lib == []:
 	print "Need either TinyXML or TinyXMLMod - none found"	
-	print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
-	print tinyxmlmod_env['ENV']['PATH']
-	print tinyxmlmod_libpath
-	print havetxmlm
+	#print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
+	#print tinyxmlmod_env['ENV']['PATH']
+	#print tinyxmlmod_libpath
 	Exit(1)
 
     # Coin library information
@@ -96,15 +96,27 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     soqt_lib = soqt_env.Dictionary()['LIBS']
     soqt_libpath = soqt_env.Dictionary()['LIBPATH']
     # Opentracker library information
-    opentracker_env.ParseConfig ('opentracker-config --cppflags --libs')
-    if opentracker_env.Dictionary().keys == []:
-	opentracker_env.ParseConfig ('pkg-config --cflags --libs ot')
+    #print os.environ['OTROOT'] + '/lib/pkgconfig'
+    if os.environ.has_key('OTROOT'):
+	opentracker_env['ENV']['PKG_CONFIG_PATH'] = os.environ['OTROOT'] + '/lib/pkgconfig'
+	opentracker_env.Append(PKG_CONFIG_PATH = os.environ['OTROOT'] + '/lib/pkgconfig')
+    opentracker_env.ParseConfig ('PKG_CONFIG_PATH=' + os.environ['OTROOT'] + '/lib/pkgconfig' + ' pkg-config --cflags --libs ot')
+    opentracker_version = os.popen('PKG_CONFIG_PATH=' + os.environ['OTROOT'] + '/lib/pkgconfig' + ' pkg-config --modversion ot').read()
+    opentracker_version = opentracker_version.strip()
+    if opentracker_env.Dictionary()['LIBS'] == []:
+	opentracker_env.ParseConfig ('opentracker-config --cppflags --libs')
+	opentracker_version = os.popen('echo `opentracker-config --version`').read()
+	opentracker_version = opentracker_version.strip()
+
     opentracker_cflags = opentracker_env.Dictionary()['CCFLAGS']
     opentracker_include = opentracker_env.Dictionary()['CPPPATH']
     opentracker_lib = opentracker_env.Dictionary()['LIBS']
     opentracker_libpath = opentracker_env.Dictionary()['LIBPATH']
-    opentracker_version = os.popen('echo `opentracker-config --version`').read()
-    opentracker_version = opentracker_version.strip()
+    
+    if opentracker_lib == []:
+	print "Could not find OpenTracker, which is mandatory!"
+	Exit(1)
+    
 
     # Openvideo library information
     openvideo_env.ParseConfig ('pkg-config --silence-errors --cflags --libs OpenVideo')
