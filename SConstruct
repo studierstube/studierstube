@@ -97,7 +97,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     soqt_libpath = soqt_env.Dictionary()['LIBPATH']
     # Opentracker library information
     #print os.environ['OTROOT'] + '/lib/pkgconfig'
-    ot_pkgcfpath = ''
+    ot_pkgcfgpath = ''
     if os.environ.has_key('OTROOT'):
 	ot_pkgcfgpath = os.environ['OTROOT'] + '/lib/pkgconfig'
 	opentracker_env['ENV']['PKG_CONFIG_PATH'] = ot_pkgcfgpath
