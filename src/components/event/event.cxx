@@ -86,7 +86,7 @@
 #    endif
 #  else
 #    pragma message ("ERROR: Should build against OpenTracker 1.3, but found unknown OpenTracker version. Please update to latest OpenTracker version")
-#    error ("ERROR: Should build against OpenTracker 1.3, but found unknown OpenTracker version. Please update to latest OpenTracker version")
+//#    error ("ERROR: Should build against OpenTracker 1.3, but found unknown OpenTracker version. Please update to latest OpenTracker version")
 #  endif
 #endif
 

@@ -76,6 +76,11 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	#print tinyxmlmod_env['ENV']['PATH']
 	#print tinyxmlmod_libpath
 	Exit(1)
+    elif tinyxml_lib == []:
+	print "INFO: Only have modified TinyXML."
+    elif tinyxmlmod_lib ==[]:
+	print "INFO: Only have original TinyXML."
+	
 
     # Coin library information
     coin_env.ParseConfig ('coin-config --ldflags --cxxflags --libs')
@@ -133,7 +138,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     muddleware_lib = muddleware_env.Dictionary()['LIBS']
     muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
 
-    build_example_app = 'true'
+    build_example_app = 'false'
     enable_openvideo = 'false'
     enable_muddleware = 'false'
 else:
@@ -271,6 +276,9 @@ user_options.AddOptions (
 		(BoolOption ('USE_SOQT',
 					'Set to 1 to use SoQt (default).',
 					'true')),
+		(BoolOption ('USE_TINYXMLMOD',
+					'Set to 1 to use TinyXMLMod instead of TinyXML (disabled by default).',
+					'false')),
 		('ACE_CFLAGS', 'Necessary CFLAGS when using ACE functionality.'),
 		('ACE_INCLUDE', 'Include directory for ACE header files.'),
 		('ACE_LIBPATH', 'Library path where the ACE library is located.'),
@@ -316,7 +324,7 @@ user_options.AddOptions (
                 ('IGNORE_FILTER', 'Specify the ignore filter for excluding source files'),
 		(BoolOption ('BUILD_EXAMPLE_APP',
 					'Set to 1 to build the example application.',
-					'true')),
+					'false')),
 		(BoolOption ('ENABLE_OPENVIDEO',
 					'Set to 1 to use the OpenVideo library.',
 					'false')),
@@ -367,6 +375,9 @@ else:
 
 if user_options_dict['USE_SOQT'] == 1:
     defines += ['USE_SOQT']
+
+if user_options_dict['USE_TINYXMLMOD']:
+    defines += ['USE_TINYXMLMOD']
 
 # ############################################################
 # OpenVideo
