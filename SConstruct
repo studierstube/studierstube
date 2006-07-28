@@ -97,11 +97,13 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     soqt_libpath = soqt_env.Dictionary()['LIBPATH']
     # Opentracker library information
     #print os.environ['OTROOT'] + '/lib/pkgconfig'
+    ot_pkgcfpath = ''
     if os.environ.has_key('OTROOT'):
-	opentracker_env['ENV']['PKG_CONFIG_PATH'] = os.environ['OTROOT'] + '/lib/pkgconfig'
-	opentracker_env.Append(PKG_CONFIG_PATH = os.environ['OTROOT'] + '/lib/pkgconfig')
-    opentracker_env.ParseConfig ('PKG_CONFIG_PATH=' + os.environ['OTROOT'] + '/lib/pkgconfig' + ' pkg-config --cflags --libs ot')
-    opentracker_version = os.popen('PKG_CONFIG_PATH=' + os.environ['OTROOT'] + '/lib/pkgconfig' + ' pkg-config --modversion ot').read()
+	ot_pkgcfgpath = os.environ['OTROOT'] + '/lib/pkgconfig'
+	opentracker_env['ENV']['PKG_CONFIG_PATH'] = ot_pkgcfgpath
+	opentracker_env.Append(PKG_CONFIG_PATH = ot_pkgcfgpath)
+    opentracker_env.ParseConfig ('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --cflags --libs ot')
+    opentracker_version = os.popen('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --modversion ot').read()
     opentracker_version = opentracker_version.strip()
     if opentracker_env.Dictionary()['LIBS'] == []:
 	opentracker_env.ParseConfig ('opentracker-config --cppflags --libs')
