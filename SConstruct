@@ -53,26 +53,29 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     ace_libpath = ace_env.Dictionary()['LIBPATH']
     # TinyXML library information
     if os.environ.has_key('TINYXMLROOT'):
-	tinyxml_env['PKG_CONFIG_PATH'] = os.environ['TINYXMLROOT'] + '/lib/pkgconfig'
-    havetxml = tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
+	tinyxml_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLROOT'] + '/lib/pkgconfig'
+    tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
     tinyxml_cflags = tinyxml_env.Dictionary()['CCFLAGS']
     tinyxml_include = tinyxml_env.Dictionary()['CPPPATH']
     tinyxml_lib = tinyxml_env.Dictionary()['LIBS']
     tinyxml_libpath = tinyxml_env.Dictionary()['LIBPATH']
     # TinyXMLMod library information
     if os.environ.has_key('TINYXMLMODROOT'):
+	tinyxmlmod_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig'
 	tinyxmlmod_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig')
-    havetxmlm = tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=' + 
-					   os.environ['TINYXMLMODROOT'] + 
-					   '/lib/pkgconfig' + 
-					   ' pkg-config --cflags --libs TinyXMLMod')
+    tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=/Users/bornik/Documents/software/TinyXMLMod/trunk/lib/pkgconfig pkg-config --cflags --libs TinyXMLMod')
     tinyxmlmod_cflags = tinyxmlmod_env.Dictionary()['CCFLAGS']
     tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
     tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
     tinyxmlmod_libpath = tinyxmlmod_env.Dictionary()['LIBPATH']
 
-    if not havetxml and not havetxmlm:
+    if tinyxmlmod_lib == '' and tinyxml_lib == '':
 	print "Need either TinyXML or TinyXMLMod - none found"	
+	print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
+	print tinyxmlmod_env['ENV']['PATH']
+	print tinyxmlmod_libpath
+	print havetxmlm
+	Exit(1)
 
     # Coin library information
     coin_env.ParseConfig ('coin-config --ldflags --cxxflags --libs')
@@ -94,6 +97,8 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     soqt_libpath = soqt_env.Dictionary()['LIBPATH']
     # Opentracker library information
     opentracker_env.ParseConfig ('opentracker-config --cppflags --libs')
+    if opentracker_env.Dictionary().keys == []:
+	opentracker_env.ParseConfig ('pkg-config --cflags --libs ot')
     opentracker_cflags = opentracker_env.Dictionary()['CCFLAGS']
     opentracker_include = opentracker_env.Dictionary()['CPPPATH']
     opentracker_lib = opentracker_env.Dictionary()['LIBS']
