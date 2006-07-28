@@ -62,8 +62,10 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     # TinyXMLMod library information
     if os.environ.has_key('TINYXMLMODROOT'):
 	tinyxmlmod_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig')
-	print tinyxmlmod_env
-    havetxmlm = tinyxmlmod_env.ParseConfig ('pkg-config --cflags --libs TinyXMLMod')
+    havetxmlm = tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=' + 
+					   os.environ['TINYXMLMODROOT'] + 
+					   '/lib/pkgconfig' + 
+					   ' pkg-config --cflags --libs TinyXMLMod')
     tinyxmlmod_cflags = tinyxmlmod_env.Dictionary()['CCFLAGS']
     tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
     tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
