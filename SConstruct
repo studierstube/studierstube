@@ -134,7 +134,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     # BOOST library information
     boost_cflags = []
     boost_include = ''
-    boost_lib = ['boost']
+    boost_lib = []
     boost_libpath = []
     if sys.platform == 'darwin':
 	boost_libpath = ['/sw/lib']
