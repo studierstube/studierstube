@@ -83,11 +83,18 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	
 
     # Coin library information
-    coin_env.ParseConfig ('coin-config --ldflags --cxxflags --libs')
+    print coin_env['ENV']['PATH']
+    coin_env.ParseConfig ('coin-config --cppflags --ldflags --libs ')
     coin_cflags = coin_env.Dictionary()['CCFLAGS']
     coin_include = coin_env.Dictionary()['CPPPATH']
     coin_lib = coin_env.Dictionary()['LIBS']
     coin_libpath = coin_env.Dictionary()['LIBPATH']
+    print coin_cflags
+    print coin_include
+    print coin_lib
+    print coin_libpath
+    print coin_env.Dictionary()
+    Exit(1)
     # QT library information
     qt_env.ParseConfig ('pkg-config --silence-errors --cflags --libs qt-mt')
     qt_cflags = qt_env.Dictionary()['CCFLAGS']
