@@ -3,6 +3,7 @@ import os
 import sys
 import buildutils
 import re
+import string
 
 # Studierstube version.
 version='4.0'
@@ -83,24 +84,30 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	
 
     # Coin library information
-    print coin_env['ENV']['PATH']
     coin_env.ParseConfig ('coin-config --cppflags --ldflags --libs ')
     coin_cflags = coin_env.Dictionary()['CCFLAGS']
     coin_include = coin_env.Dictionary()['CPPPATH']
     coin_lib = coin_env.Dictionary()['LIBS']
     coin_libpath = coin_env.Dictionary()['LIBPATH']
-    print coin_cflags
-    print coin_include
-    print coin_lib
-    print coin_libpath
-    print coin_env.Dictionary()
-    Exit(1)
+    coin_ldflags = []
+    if sys.platform == 'darwin':
+	coin_include = [string.strip(os.popen('coin-config --includedir').read())]
+	coin_ldflags = Split(string.strip(os.popen('coin-config --ldflags').read()))
+    #print coin_cflags
+    #print coin_include
+    #print coin_ldflags
+    #print coin_lib
+    #print coin_libpath
+    #print coin_env.Dictionary()
+    #Exit(1)
     # QT library information
     qt_env.ParseConfig ('pkg-config --silence-errors --cflags --libs qt-mt')
     qt_cflags = qt_env.Dictionary()['CCFLAGS']
     qt_include = qt_env.Dictionary()['CPPPATH']
     qt_lib = qt_env.Dictionary()['LIBS']
     qt_libpath = qt_env.Dictionary()['LIBPATH']
+    if sys.platform == 'darwin':
+	qt_include = ['/opt/local/qt4/include']
     # Soqt library information
     soqt_env.ParseConfig ('soqt-config --cppflags --ldflags --libs')
     soqt_cflags = soqt_env.Dictionary()['CCFLAGS']
@@ -221,6 +228,7 @@ else:
         config.write ("\n# Coin library.\n")
         config.write ("COIN_CFLAGS = %r\n"%(coin_cflags))
 	config.write ("COIN_INCLUDE = %r\n"%(coin_include))
+	config.write ("COIN_LDFLAGS = %r\n"%(coin_ldflags))
 	config.write ("COIN_LIBPATH = %r\n"%(coin_libpath))
 	config.write ("COIN_LIBRARY = %r\n"%(coin_lib))
 
@@ -306,6 +314,7 @@ user_options.AddOptions (
 		('ACE_LIBRARY', 'ACE library name.'),
 		('COIN_CFLAGS', 'Necessary CFLAGS when using COIN functionality.'),
 		('COIN_INCLUDE', 'Include directory for COIN header files.'),
+		('COIN_LDFLAGS', 'Options for linking with COIN.'),
 		('COIN_LIBPATH', 'Library path where the COIN library is located.'),
 		('COIN_LIBRARY', 'COIN library name.'),
 		('QT_CFLAGS', 'Necessary CFLAGS when using QT functionality.'),

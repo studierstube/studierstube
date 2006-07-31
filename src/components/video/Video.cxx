@@ -51,9 +51,13 @@
 
 
 #include <assert.h>
+#ifndef __APPLE__
 #include <GL/gl.h>			
 #include <GL/glu.h>	
-
+#else
+#include <OpenGL/gl.h>			
+#include <OpenGL/glu.h>	
+#endif
 
 CREATE_COMPONENT_FUNC(Video)
 

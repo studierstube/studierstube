@@ -23,6 +23,12 @@ event_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 event_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 event_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 event_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+if sys.platform == 'darwin':
+	lfs = user_options_dict['COIN_LDFLAGS'] + ['-Wl,-undefined,dynamic_lookup']
+	event_env.Append (LINKFLAGS = lfs)
+else:
+	event_env.Append (LINKFLAGS = user_options_dict['COIN_LDFLAGS'])
+
 # OPENTRACKER
 event_env.Append (CPPPATH = user_options_dict['OPENTRACKER_INCLUDE'])
 event_env.Append (LIBPATH = user_options_dict['OPENTRACKER_LIBPATH'])

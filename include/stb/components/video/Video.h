@@ -46,7 +46,9 @@
 #ifdef STB_IS_WINDOWS
 #  include <windows.h>
 #elif defined(STB_IS_LINUX)
+#ifndef __APPLE__
 #  include <GL/glx.h>
+#endif
 #endif
 
 

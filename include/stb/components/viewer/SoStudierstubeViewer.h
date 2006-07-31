@@ -51,7 +51,9 @@
 #  include <windows.h>
 #  include <time.h>
 #elif defined(STB_IS_LINUX)
+#ifndef __APPLE__
 #  include <GL/glx.h>
+#endif
 #endif
 
 BEGIN_NAMESPACE_STB
@@ -149,9 +151,13 @@ protected:
     HGLRC curGLContext;
     HDC   curDC;
 #elif defined(STB_IS_LINUX)
+#ifndef __APPLE__
     GLXDrawable drawable;
     Display* dsp;
     GLXContext ovGLContext;
+#else
+    AGLDrawable drawable;
+    AGLContext ovGLContext;
 #endif
 	void redraw ();
     //bool isVideoGLContext;

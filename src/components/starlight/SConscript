@@ -23,6 +23,11 @@ starlight_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 starlight_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 starlight_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 starlight_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
+if sys.platform == 'darwin':
+	lfs = user_options_dict['COIN_LDFLAGS'] + ['-Wl,-undefined,dynamic_lookup']
+	starlight_env.Append (LINKFLAGS = lfs)
+else:
+	starlight_env.Append (LINKFLAGS = user_options_dict['COIN_LDFLAGS'])
 
 starlight = starlight_env.SharedLibrary (target='#'+user_options_dict['BUILD_DIR']+'/lib/stbstarlight', source=source_files)
 env.Alias(target = ['install'], source = starlight_env.Install(user_options_dict['INSTALL_ROOT_DIR'] + os.sep + user_options_dict['LIBDIR'], starlight))
