@@ -159,6 +159,7 @@ protected:
     AGLDrawable drawable;
     AGLContext ovGLContext;
 #endif
+#endif
 	void redraw ();
     //bool isVideoGLContext;
 	//bool shareGLContextWithVideo;
