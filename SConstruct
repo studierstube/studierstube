@@ -37,7 +37,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     extra_flags = ['-pipe']
     cxxflags = []
     defines = []
-    warn_flags = ['-Wall', '-W']
+    warn_flags = ['-Wall']
     source_filter = '\.cxx$|\.cpp$'
     include_filter = '\.h$'
     ignore_filter = '/ignore/|/ignore$|\.scon|\.svn|\.#|bak|~$|SConscript'
@@ -47,7 +47,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     opengl_libpath = ['/usr/lib', '/usr/X11R6/lib']
     opengl_include = ['/usr/include', '/usr/X11R6/include']
     # ACE library information
-    ace_env.ParseConfig ('pkg-config --cflags --libs ACE')
+    ace_env.ParseConfig ('pkg-config --silence-errors --cflags --libs ACE')
     ace_cflags = ace_env.Dictionary()['CCFLAGS']
     ace_include = ace_env.Dictionary()['CPPPATH']
     ace_lib = ace_env.Dictionary()['LIBS']
@@ -121,8 +121,8 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	ot_pkgcfgpath = os.environ['OTROOT'] + '/lib/pkgconfig'
 	opentracker_env['ENV']['PKG_CONFIG_PATH'] = ot_pkgcfgpath
 	opentracker_env.Append(PKG_CONFIG_PATH = ot_pkgcfgpath)
-    opentracker_env.ParseConfig ('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --cflags --libs ot')
-    opentracker_version = os.popen('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --modversion ot').read()
+    opentracker_env.ParseConfig ('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --silence-errors --cflags --libs ot')
+    opentracker_version = os.popen('PKG_CONFIG_PATH=' + ot_pkgcfgpath + ' pkg-config --silence-errors --modversion ot').read()
     opentracker_version = opentracker_version.strip()
     if opentracker_env.Dictionary()['LIBS'] == []:
 	opentracker_env.ParseConfig ('opentracker-config --cppflags --libs')

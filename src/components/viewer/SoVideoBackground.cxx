@@ -238,7 +238,7 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 
 	if(buffer.getUpdateCounter() != texInfo->updateCtr)
 	{
-		//printf("tex-update: %d\n", buffer.getUpdateCounter());
+// 		printf("tex-update: %d\n", buffer.getUpdateCounter());
 		texInfo->updateCtr = buffer.getUpdateCounter();
 
 		glEnable(GL_TEXTURE_2D);
