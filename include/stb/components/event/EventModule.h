@@ -35,7 +35,11 @@
 #ifndef __EVENTMODULE_H__
 #define __EVENTMODULE_H__
 
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#endif
 #include "event.h"
 
 class SoHandleEventAction;

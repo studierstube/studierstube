@@ -58,9 +58,13 @@
 #endif
 
 
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
 #include <core/Context.h>
-
+#else
+#include <OpenTracker/OpenTracker.h>
+#include <OpenTracker/core/Context.h>
+#endif
 
 // check if we actually have the correct OpenTracker version the users wants...
 //
@@ -79,9 +83,13 @@
 #else
 #  if defined(OPENTRACKER_VERSION_MAJOR) && defined(OPENTRACKER_VERSION_MINOR)
 #    if (OPENTRACKER_VERSION_MAJOR==1) && (OPENTRACKER_VERSION_MINOR==3)
-#      pragma message(">>> Building against OpenTracker version 1.3 - version check OK")
+#      ifdef WIN32
+#        pragma message(">>> Building against OpenTracker version 1.3 - version check OK")
+#      endif
 #    else
-#      pragma message ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.3")
+#      ifdef WIN32
+#        pragma message ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.3")
+#      endif
 #      error ("ERROR: Wrong OpenTracker version. This is not OpenTracker 1.3")
 #    endif
 #  else
@@ -91,13 +99,13 @@
 #endif
 
 
-
+#ifdef WIN32
 #ifdef HAVE_OPENVIDEO
 #  pragma message(">>> Creating event system with video input support")
 #else
 #  pragma message(">>> Creating event system without video input support")
 #endif
-
+#endif
 
 class Starlight;
 

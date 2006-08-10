@@ -37,9 +37,11 @@
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
-#ifdef USE_OT_2_0
-#  include <core/Configurator.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#include <OpenTracker/core/Configurator.h>
 #endif USE_OT_2_0
 
 #include <stb/components/event/SoOpenTrackerSource.h>

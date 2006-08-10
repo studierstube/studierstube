@@ -37,7 +37,11 @@
 
 #include "event.h"
 #include "SoInputEvent.h"
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#endif
 
 /** a purely inlined helper class to provide schema correct access to an SoInputEvent instance
  * we will use a standard well-known schema to describe event slots and types. To avoid confusion

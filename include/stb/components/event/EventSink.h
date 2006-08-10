@@ -35,7 +35,11 @@
 #ifndef __EVENTSINK_H__
 #define __EVENTSINK_H__
 
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#endif
 
 #include <stb/components/event/SoInputEvent.h>
 #include <stb/components/event/event.h>

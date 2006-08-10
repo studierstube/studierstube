@@ -35,7 +35,11 @@
 #ifndef __EVENTMOUSESOURCE_H__
 #define __EVENTMOUSESOURCE_H__
 
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#endif
 #include <stb/components/event/event.h>
 
 

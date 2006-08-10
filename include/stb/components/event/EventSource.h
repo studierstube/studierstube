@@ -37,7 +37,11 @@
 
 #include <string>
 #include <Inventor/sensors/SoFieldSensor.h>
+#ifndef USE_OT_2_0
 #include <OpenTracker.h>
+#else
+#include <OpenTracker/OpenTracker.h>
+#endif
 #include <stb/components/event/event.h>
 
 
