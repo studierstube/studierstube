@@ -25,12 +25,12 @@
  * PROJECT: Studierstube
  * ======================================================================== */
 /** source file for SoInputEvent type
-  *
-  * @author   Gerhard Reitmayr
-  *
-  * $Id: SoInputEvent.cpp 52 2006-02-02 20:14:26Z bara $
-  * @file                                                                   */
- /* ======================================================================= */
+ *
+ * @author   Gerhard Reitmayr
+ *
+ * $Id: SoInputEvent.cpp 52 2006-02-02 20:14:26Z bara $
+ * @file                                                                   */
+/* ======================================================================= */
 
 #include <map>
 #include <boost/any.hpp>
@@ -107,7 +107,7 @@ void SoInputEvent::initClass(void)
 
 SoInputEvent::SoInputEvent(/*EventContext * myContext,*/ EventProducer * prod)
 {
-//  context = myContext;
+    //  context = myContext;
     data = new EventData();
     producer=prod;
 }
@@ -117,13 +117,13 @@ SoInputEvent::~SoInputEvent()
     assert( data );
     delete data;
     data = NULL;
-//  context = NULL;
+    //  context = NULL;
     producer = NULL;
 }
 
 void SoInputEvent::setbool( const SbName & name, const bool value ){
     assert( data );
-	SbBool item(value);
+    SbBool item(value);
     (*data)[name] = item;	
 };
 
@@ -165,9 +165,9 @@ void SoInputEvent::setushort( const SbName & name, const unsigned short item ){
 };
 
 void SoInputEvent::setstring(  const SbName & name, const char * item){
-	printf ("ADDING element %s, with value %s\n", name.getString(), item);
-	SbString str (item);
-	this->set(  name,  item )	;
+    printf ("ADDING element %s, with value %s\n", name.getString(), item);
+    SbString str (item);
+    this->set(  name,  item )	;
 };
 
 
@@ -245,6 +245,12 @@ const float SoInputEvent::getSFFloat( const SbName & name ) const throw(ElementN
     return data->get<float>( name );
 }
 
+const double SoInputEvent::getSFDouble( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get<double>( name );
+}
+
 const SbBool SoInputEvent::getSFBool( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
 {
     assert( data );
@@ -299,6 +305,19 @@ const SbString SoInputEvent::getString( const SbName & name ) const
     return "";
 }
 
+const void SoInputEvent::getKeys(std::vector<SbString> &keys) const
+{
+    assert( data );
+
+    keys.clear();
+    typedef EventData::DataMap::iterator data_iterator;
+
+    for (data_iterator i=data->data.begin(); i!=data->data.end(); i++)
+    {
+        keys.push_back((*i).first.getString());
+    }
+}
+
 const SbBool SoInputEvent::containsKey( const SbName & name ) const
 {
     assert( data );
@@ -312,25 +331,39 @@ const SbBool SoInputEvent::isOfType( const SbName & name, const std::type_info &
 }
 
 /*
-const SbString & SoInputEvent::getContext( const SbName & key ) const
-{
-    assert( context );
-    return context->get(key);
-}
+  const SbString & SoInputEvent::getContext( const SbName & key ) const
+  {
+  assert( context );
+  return context->get(key);
+  }
 
-const SbBool SoInputEvent::containsKeyContext( const SbName & key ) const
-{
-    assert( context );
-    return context->containsKey(key);
-}
+  const SbBool SoInputEvent::containsKeyContext( const SbName & key ) const
+  {
+  assert( context );
+  return context->containsKey(key);
+  }
 */
 
 SoInputEvent & SoInputEvent::operator =( SoInputEvent & other )
 {
     *((SoEvent *)this) = (SoEvent)other;
     *data = *other.data;
-//  context = other.context;
+    //  context = other.context;
     producer = other.producer;
 
     return *this;
 }
+
+
+//----------------------------------------------------------------------
+// End of SoInputEvent.h
+//----------------------------------------------------------------------
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//----------------------------------------------------------------------

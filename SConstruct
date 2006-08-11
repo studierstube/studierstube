@@ -65,7 +65,7 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     if os.environ.has_key('TINYXMLMODROOT'):
 	tinyxmlmod_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig'
 	tinyxmlmod_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig')
-    tinyxmlmod_env.ParseConfig('PKG_CONFIG_PATH=' + os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig' + ' pkg-config --cflags --libs TinyXMLMod')
+    tinyxmlmod_env.ParseConfig('pkg-config --silence-errors --cflags --libs TinyXMLMod')
     tinyxmlmod_cflags = tinyxmlmod_env.Dictionary()['CCFLAGS']
     tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
     tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
