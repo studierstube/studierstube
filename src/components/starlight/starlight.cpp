@@ -41,6 +41,7 @@
 #include <stb/components/starlight/SoLineStringKit.h>
 #include <stb/components/starlight/SoPhantomShape.h>
 #include <stb/components/starlight/SoHiddenGroup.h>
+#include <stb/components/starlight/SoFileEnv.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -94,7 +95,7 @@ Starlight::init(void)
     SoFileSubgraph::initClass();
     SoFrameBuffer::initClass();
     SoGLFrameBufferElement::initClass();
-    SoGLStencilBufferElement::initClass();
+    //SoGLStencilBufferElement::initClass();
     SoKeyToggle::initClass();
     SoMultiSwitchElement::initClass();
     SoMultiSwitch::initClass();
@@ -116,6 +117,7 @@ Starlight::init(void)
 	SoLineStringKit::initClass();
     SoPhantomShape::initClass();
     SoHiddenGroup::initClass();
+    SoFileEnv::initClass();
 	    
 	SoCommand::initClass();
     SoSetName::initClass();

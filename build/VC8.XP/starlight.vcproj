@@ -251,6 +251,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoFileEnv.cxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoFileSubgraph.cpp"
 				>
 			</File>
@@ -422,6 +426,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoFanIn.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoFileEnv.h"
 				>
 			</File>
 			<File
