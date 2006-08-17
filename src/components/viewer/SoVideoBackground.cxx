@@ -49,7 +49,9 @@
 #  include <openvideo/nodes/VideoSinkSubscriber.h>
 #  include <openvideo/State.h>
 #else
-#  pragma message(">>> HAVE_OPENVIDEO not defined - video background will not be available!")
+#  ifdef WIN32
+#    pragma message(">>> HAVE_OPENVIDEO not defined - video background will not be available!")
+#  endif
 #endif
 
 

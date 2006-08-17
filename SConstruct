@@ -307,7 +307,7 @@ user_options.AddOptions (
 					'true')),
 		(BoolOption ('USE_TINYXMLMOD',
 					'Set to 1 to use TinyXMLMod instead of TinyXML (disabled by default).',
-					'true')),
+					'false')),
 		('ACE_CFLAGS', 'Necessary CFLAGS when using ACE functionality.'),
 		('ACE_INCLUDE', 'Include directory for ACE header files.'),
 		('ACE_LIBPATH', 'Library path where the ACE library is located.'),

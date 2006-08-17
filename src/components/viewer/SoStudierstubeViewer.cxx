@@ -187,9 +187,13 @@ SoStudierstubeViewer::setWindowOnTop(SbBool on)
 {
     if (on) {
 #ifdef USE_SOQT
+#if (QT_VERSION > 0x040000)
+	std::cerr << "QT4 version to be implemented ..." << std::endl;
+#else
         this->getParentWidget()->reparent(this->getParentWidget()->parentWidget(), 
                                           Qt::WStyle_Customize| Qt::WStyle_StaysOnTop,
                                           this->getParentWidget()->pos(), TRUE);
+#endif
 #endif
     }
 }
@@ -208,9 +212,13 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
         if (on) {
             
 #ifdef USE_SOQT
+#if (QT_VERSION > 0x040000)
+	std::cerr << "QT4 version to be implemented ..." << std::endl;
+#else
         this->getParentWidget()->reparent(this->getParentWidget()->parentWidget(), 
                                 Qt::WStyle_Customize|Qt::WStyle_NormalBorder,
                                 this->getParentWidget()->pos(), TRUE);
+#endif
 #elif USE_SOWIN
             SetActiveWindow(this->getParentWidget());
             SetWindowLong(this->getParentWidget(), GWL_STYLE,
@@ -222,9 +230,13 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
         else {
 
 #ifdef USE_SOQT
+#if (QT_VERSION > 0x040000)
+	std::cerr << "QT4 version to be implemented ..." << std::endl;
+#else
             this->getParentWidget()->reparent(this->getParentWidget()->parentWidget(), 
                                               Qt::WStyle_Customize|Qt::WStyle_NoBorder,
                                               this->getParentWidget()->pos());
+#endif
 #elif USE_SOWIN
             SetActiveWindow(this->getParentWidget());
             SetWindowLong(this->getParentWidget(), GWL_STYLE,
