@@ -77,6 +77,7 @@ class SoEventSource;
 class SoInputEvent;
 class SoEventRoot;
 class SoEventAction;
+class EventBus;
 
 
 BEGIN_NAMESPACE_STB
@@ -112,6 +113,8 @@ public:
     virtual SoInputEvent*           createSoInputEvent();
     virtual SoEventRoot*            createSoEventRoot();
     virtual SoEventAction*          createSoEventAction();
+
+    virtual EventBus&               getEventBus();
 
 
 	// Declare that this component is a video user

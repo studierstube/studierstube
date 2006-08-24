@@ -118,7 +118,7 @@ struct VideoBackgroundTexInfo
 	int imgWidth,imgHeight;
 	int texWidth,texHeight;
 	float u0,v0, u1,v1;
-	unsigned int updateCtr;
+    unsigned int updateCtr;
 };
 
 

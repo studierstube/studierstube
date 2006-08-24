@@ -46,6 +46,7 @@
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <stb/components/event/SoTrakEngine.h>
+#include <stb/components/event/EventBus.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/starlight/starlight.h>
 #include <stb/kernel/Kernel.h>
@@ -263,6 +264,12 @@ SoEventAction*
 Event::createSoEventAction()
 {
     return new SoEventAction();
+}
+
+EventBus& 
+Event::getEventBus()
+{
+    return EventBus::getSingleton();
 }
 
 
