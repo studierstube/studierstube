@@ -122,7 +122,7 @@ SoImageCapture::vu_init(const openvideo::Buffer& frame)
 {
     _image = s_image_create(frame.getWidth(), 
                             frame.getHeight(), 
-                            4 /* components */, NULL);
+                            3 /* components */, NULL);
     
     if (!_image)
         logPrintE("Cannot allocate simage memory ...\n");
@@ -136,13 +136,14 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
 
 #ifdef HAVE_OPENVIDEO
 
+	const int components = 3;
     if (_pressed != capture.getValue())
     {
         if (_pressed)
         {
             int w = frame.getWidth();
             int h = frame.getHeight();
-            int sz = w*h*4;
+            int sz = w*h*components;
             unsigned char* buf;
             
             // image come vertically flipped !
@@ -152,10 +153,10 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
             {
                 buf = new unsigned char[sz];
                 
-                int j=sz-w*4;
-                for (int i=0; i<sz-w*4; i+=w*4, j-=w*4)
+                int j=sz-w*components;
+                for (int i=0; i<sz-w*components; i+=w*components, j-=w*components)
                 {
-                    memcpy(buf+i, frame.getPixels()+j, w*4);
+                    memcpy(buf+i, frame.getPixels()+j, w*components);
                 }
                 
             }
@@ -165,7 +166,7 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
             }
             
             if (_image)
-                s_image_set(_image, w, h, 4,
+                s_image_set(_image, w, h, components,
                             buf, 1 /* copy data */);
             
             if (writeLocal.getValue())

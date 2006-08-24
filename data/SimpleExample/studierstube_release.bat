@@ -1,1 +1,2 @@
 studierstube.exe
+pause
