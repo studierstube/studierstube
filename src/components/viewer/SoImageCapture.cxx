@@ -73,6 +73,9 @@ BEGIN_NAMESPACE_STB
 
 SO_NODE_SOURCE(SoImageCapture);
 
+
+void bgr2rgb(unsigned char* out, const unsigned char* in, unsigned int n);
+
 void
 SoImageCapture::initClass()
 { 
@@ -141,13 +144,15 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
     {
         if (_pressed)
         {
-            int w = frame.getWidth();
+using namespace std;
+			cerr << "Input Format = " << openvideo::PixelFormat::FormatToString(frame.getFormat()) << endl;
+            cerr << "Size = " << frame.getWidth() << " " << frame.getHeight() << endl;
+			int w = frame.getWidth();
             int h = frame.getHeight();
             int sz = w*h*components;
             unsigned char* buf;
             
-            // image come vertically flipped !
-            // FIXME: should be configurable
+            // image comes flipped, and must therefore be flipped
             bool flipv = true;
             if (flipv)
             {
@@ -164,6 +169,9 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
             {
                 buf = (unsigned char*)frame.getPixels();
             }
+
+			//s_image_set_component_order(_image, SIMAGE_ORDER_RGB);
+
             
             if (_image)
                 s_image_set(_image, w, h, components,
