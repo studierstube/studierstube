@@ -246,6 +246,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\viewer\SoWindowHandling.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\viewer\SoWindowHandling.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\viewer\Viewer.cxx"
 				>
 			</File>
