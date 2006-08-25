@@ -74,6 +74,12 @@ Scheduler::run(GUIBinder* gui_binder)
 	guiBinder->gb_mainloop();
 }
 
+void
+Scheduler::stop(GUIBinder* gui_binder)
+{
+    guiBinder = gui_binder;
+    guiBinder->gb_exitMainLoop();
+}
 
 void
 Scheduler::unschedule()
@@ -143,8 +149,7 @@ Scheduler::readConfiguration(TiXmlAttribute* attribute)
 void
 Scheduler::scheduleIdleSensor()
 {
-    //Kernel::getInstance()->logDebug("Info: kernel->schedule idle \n");
-    // FIXME: insert log message as soon as the logger is done
+    stb::logPrintD("Info: kernel->schedule idle \n");
 	idle= new SoIdleSensor();
 	idle->setFunction(Kernel::update);
 	idle->schedule();
@@ -154,8 +159,7 @@ Scheduler::scheduleIdleSensor()
 void
 Scheduler::scheduleTimerSensor()
 {
-	//Kernel::getInstance()->logDebug("Info: kernel->schedule timer \n");
-    //FIXME: insert log message as soon as the logger is done
+	stb::logPrintD("Info: kernel->schedule timer \n");
 	timer=new SoTimerSensor();
 	timer->setFunction(Kernel::update);
 	timer->setInterval(updateRate);

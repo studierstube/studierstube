@@ -67,6 +67,8 @@ public:
 	/// Initializes and runs the GUI binding
 	virtual void run(GUIBinder* guiBinder);
 
+    /// Stops the GUI binding
+    virtual void stop(GUIBinder* guiBinder);
 
 	 virtual void readConfiguration(TiXmlAttribute* attribute);
 

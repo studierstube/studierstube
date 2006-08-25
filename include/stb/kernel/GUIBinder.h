@@ -55,6 +55,8 @@ public:
     /// The GUIBinder implementation internally calls the mainloop function of the GUI binding
     virtual void gb_mainloop() = 0;
 
+    /// The GUIBinder implementation internally calls the exitMainLoop function of the GUI binding
+    virtual void gb_exitMainLoop() = 0;
 
 	virtual void gb_registerManualCallback(SoSensorCB* cb) = 0;
 };

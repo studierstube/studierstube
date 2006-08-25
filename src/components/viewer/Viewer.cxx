@@ -66,6 +66,7 @@
 #include <stb/components/viewer/displaymode/SoLineSequentialDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
 
+#include <stb/components/viewer/SoWindowHandling.h>
 
 
 #ifdef USE_SOWIN
@@ -100,8 +101,7 @@ Viewer::~Viewer()
 bool 
 Viewer::init()
 {
-    //FIXME: insert log message as soon as the logger is done      
-//    Kernel::getInstance()->logDebug("init Viewer\n");
+    stb::logPrintD("init Viewer\n");
 
     if(isInit)
         return true;
@@ -128,6 +128,8 @@ Viewer::init()
     SoViewport::initClass();
     SoVideoBackground::initClass();
     SoImageCapture::initClass();
+
+    SoWindowHandling::initClass();
 
     //get viewer's parameter
     retrieveParameter();
@@ -244,6 +246,20 @@ Viewer::gb_mainloop()
 	SoSimple_mainLoop();
 #elif USE_SOQT
 	SoQt::mainLoop();
+#endif
+}
+
+void
+Viewer::gb_exitMainLoop()
+{
+#ifdef USE_SOWIN
+    SoWin::done();
+    SoWin::exitMainLoop();
+#elif USE_SOSIMPLE
+    // Errrr....
+#elif USE_SOQT
+    SoQt::done();
+    SoQt::exitMainLoop();
 #endif
 }
 

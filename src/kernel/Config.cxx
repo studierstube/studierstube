@@ -53,8 +53,7 @@ Config::~Config()
 bool
 Config::readKernelConfig(stb::string filename)
 { 
-    //FIXME: insert log message as soon as the logger is done
-    //Kernel::getInstance()->logDebug("Stb:: parsing " + filename + " ...\n");
+    stb::logPrintD("Stb:: parsing " + filename + " ...\n");
 	TiXmlDocument* document = new TiXmlDocument();
 	
 	if(!document->LoadFile(filename.c_str()))

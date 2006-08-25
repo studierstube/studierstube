@@ -133,7 +133,6 @@ Event::~Event()
 bool 
 Event::init()
 {   
-    //FIXME: insert log message as soon as the logger is done      
 	logPrintS("Event Initialized\n");
     if(isInit)
         return isInit;
