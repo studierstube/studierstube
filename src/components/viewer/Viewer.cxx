@@ -191,6 +191,12 @@ Viewer::setParameter(string key, std::string value)
     //}
 }
 
+SoImageCapture*
+Viewer::createSoImageCapture()
+{
+    return new SoImageCapture();
+}
+
 void
 Viewer::addSoDisplay(SoDisplay* dsp)
 {

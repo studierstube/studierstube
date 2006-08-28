@@ -43,14 +43,10 @@
 #include <stb/kernel/SceneManager.h>
 
 #ifdef HAVE_OPENVIDEO
-#  define ENABLE_VIDEOSINK
-#  include <openvideo/nodes/VideoSink.h>
-#  include <openvideo/nodes/VideoSinkSubscriber.h>
-#  include <openvideo/State.h>
-#else
-#  pragma message(">>> HAVE_OPENVIDEO not defined - video background will not be available!")
-#endif
-
+#define ENABLE_VIDEOSINK
+#include <openvideo/nodes/VideoSink.h>
+#include <openvideo/nodes/VideoSinkSubscriber.h>
+#include <openvideo/State.h>
 
 #ifdef STB_IS_WINDOWS
 #  define WIN32_LEAN_AND_MEAN
@@ -88,7 +84,6 @@ SoImageCapture::SoImageCapture() : _pressed(false), _image(NULL), _nr(0)
     _initialized = false;
 
     SO_NODE_ADD_FIELD(capture, (false));
-    SO_NODE_ADD_FIELD(writeLocal, (true));
     SO_NODE_ADD_FIELD(path, (""));
     SO_NODE_ADD_FIELD(prefix, ("capture"));
 }
@@ -125,7 +120,7 @@ SoImageCapture::vu_init(const openvideo::Buffer& frame)
 {
     _image = s_image_create(frame.getWidth(), 
                             frame.getHeight(), 
-                            3 /* components */, NULL);
+                            openvideo::PixelFormat::getBitsPerPixel(frame.getFormat())/8 /* components */, NULL);
     
     if (!_image)
         logPrintE("Cannot allocate simage memory ...\n");
@@ -136,18 +131,13 @@ SoImageCapture::vu_init(const openvideo::Buffer& frame)
 void
 SoImageCapture::vu_update(const openvideo::Buffer& frame)
 {
-
-#ifdef HAVE_OPENVIDEO
-
-	const int components = 3;
+    int components = openvideo::PixelFormat::getBitsPerPixel(frame.getFormat())/8;
     if (_pressed != capture.getValue())
     {
         if (_pressed)
         {
-using namespace std;
-			cerr << "Input Format = " << openvideo::PixelFormat::FormatToString(frame.getFormat()) << endl;
-            cerr << "Size = " << frame.getWidth() << " " << frame.getHeight() << endl;
-			int w = frame.getWidth();
+            logPrintI("Capture ...\n");
+            int w = frame.getWidth();
             int h = frame.getHeight();
             int sz = w*h*components;
             unsigned char* buf;
@@ -177,20 +167,48 @@ using namespace std;
                 s_image_set(_image, w, h, components,
                             buf, 1 /* copy data */);
             
-            if (writeLocal.getValue())
+            char fname[256];
+            sprintf(fname, "%s%s%s_%03d.jpg",path.getValue().getString(), OS_SEP, prefix.getValue().getString(), _nr++);
+            s_image_save(fname, _image, NULL);
+            
+            // notify subscribers
+            for (ListenerVector::iterator it=_subscriber.begin(); it!=_subscriber.end(); it++)
             {
-                char fname[256];
-                sprintf(fname, "%s%s%s_%03d.jpg",path.getValue().getString(), OS_SEP, prefix.getValue().getString(), _nr++);
-                s_image_save(fname, _image, NULL);
+                (*it)->newImage(fname);
             }
         }
         _pressed = capture.getValue();
     }
-    
-#endif
+}
+
+void 
+SoImageCapture::registerListener(ImageCaptureListener *listener)
+{
+
+    for (ListenerVector::iterator it=_subscriber.begin(); it != _subscriber.end(); it++)
+    {
+        if (*it == listener)
+            return;
+    }
+    _subscriber.push_back(listener);
+}
+
+void 
+SoImageCapture::unregisterListener(ImageCaptureListener *listener)
+{
+    for (ListenerVector::iterator it=_subscriber.begin(); it != _subscriber.end(); it++)
+    {
+        if (*it == listener)
+        {
+            _subscriber.erase(it);
+            return;
+        }
+    }
 }
 
 END_NAMESPACE_STB
+
+#endif  // HAVE_OPENVIDEO
 
 //----------------------------------------------------------------------
 // End of SoImageCapture.h

@@ -45,6 +45,8 @@
 // Requires simage for storing jpg images
 #include <simage.h>
 
+#ifdef HAVE_OPENVIDEO
+
 namespace openvideo{
     class VideoSink;
     class BufferSynchronizer;
@@ -52,6 +54,14 @@ namespace openvideo{
 
 
 BEGIN_NAMESPACE_STB
+
+// Interface for capture callback
+class ImageCaptureListener
+{
+public:
+    virtual ~ImageCaptureListener() {}
+    virtual void newImage(const char *fname) = 0;
+};
 
 
 class Video;
@@ -61,7 +71,11 @@ struct VideoBackgroundTexInfo;
 /**
  * \brief This class takes the video background stream and captures
  * the current frame if capturing is triggered by "capture". The
- * easiest way is to conntect the field to a SoTrakEngine (e.g. EventKeyboardSource).
+ * easiest way is to conntect the field to a SoTrakEngine
+ * (e.g. EventKeyboardSource).
+ *
+ * Currently, a jpg is written locally and subscribers get the path to
+ * that image
  */
 
 class VIEWER_API SoImageCapture : public SoNode, public stb::VideoUser
@@ -71,6 +85,9 @@ class VIEWER_API SoImageCapture : public SoNode, public stb::VideoUser
     SO_NODE_HEADER(SoImageCapture);
 
 public:
+
+    typedef std::vector<ImageCaptureListener*> ListenerVector;
+
     static void initClass();
 
     SoImageCapture();
@@ -86,9 +103,13 @@ public:
 
     void GLRender(SoGLRenderAction*);
 
+    /// methods for image listeners who can register for new image
+    /// notification
+    void registerListener(ImageCaptureListener *listener);
+    void unregisterListener(ImageCaptureListener *listener);
+
     // public attributes
     SoSFBool capture;
-    SoSFBool writeLocal;
     SoSFString path;
     SoSFString prefix;
 
@@ -97,9 +118,16 @@ protected:
     bool _pressed;
     s_image *_image;
     int _nr;
+
+    // vector storing listener
+    ListenerVector _subscriber;
 };
 
 END_NAMESPACE_STB
+
+#else
+# pragma "Please set HAVE_OPENVIDEO if you include SoImageCapture.h"
+#endif // HAVE_OPENVIDEO
 
 #endif //_SoImageCapture_H_
 

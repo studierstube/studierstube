@@ -39,6 +39,8 @@
 #include <stb/kernel/Component.h>
 #include <stb/components/viewer/ViewerDefines.h>
 
+#include <stb/components/viewer/SoImageCapture.h>
+
 #include <vector>
 
 class SoNode;
@@ -70,6 +72,10 @@ public:
 	virtual void shutDown();
     //
     virtual void setParameter(string key, std::string value);
+
+    // creator methods
+    virtual SoImageCapture*           createSoImageCapture();
+    
 
 	/// Specify that this component implements the GUIBinder API
 	virtual GUIBinder* getGUIBinderInterface()  {  return this;  }
