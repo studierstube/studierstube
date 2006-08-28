@@ -79,9 +79,10 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
 	Exit(1)
     elif tinyxml_lib == []:
 	print "INFO: Only have modified TinyXML."
+        use_tinyxmlmod = 'true'
     elif tinyxmlmod_lib ==[]:
 	print "INFO: Only have original TinyXML."
-	
+	use_tinyxmlmod = 'false'
 
     # Coin library information
     coin_env.ParseConfig ('coin-config --cppflags --ldflags --libs ')
@@ -153,6 +154,12 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     openvideo_include = openvideo_env.Dictionary()['CPPPATH']
     openvideo_lib = openvideo_env.Dictionary()['LIBS']
     openvideo_libpath = openvideo_env.Dictionary()['LIBPATH']
+
+    if openvideo_lib == []:
+        enable_openvideo = 'false'
+    else:
+        enable_openvideo = 'true'
+        
     # Muddleware library information
     muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs XMLClient')
     muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
@@ -161,7 +168,6 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
 
     build_example_app = 'true'
-    enable_openvideo = 'false'
     enable_muddleware = 'false'
 else:
     print "Other platforms not supported by scons!"
@@ -206,6 +212,7 @@ else:
         #config.write ("USE_FMOD = %r\n"%(use_fmod))
 
         config.write ("USE_SOQT = %r\n"%(use_soqt))
+        config.write ("USE_TINYXMLMOD = %r\n"%(use_tinyxmlmod))
         
         config.write ("\n# ACE library.\n")
         config.write ("ACE_CFLAGS = %r\n"%(ace_cflags))
@@ -306,7 +313,7 @@ user_options.AddOptions (
 					'Set to 1 to use SoQt (default).',
 					'true')),
 		(BoolOption ('USE_TINYXMLMOD',
-					'Set to 1 to use TinyXMLMod instead of TinyXML (disabled by default).',
+					'Set to 1 to use TinyXMLMod instead of TinyXML.',
 					'false')),
 		('ACE_CFLAGS', 'Necessary CFLAGS when using ACE functionality.'),
 		('ACE_INCLUDE', 'Include directory for ACE header files.'),
@@ -410,7 +417,7 @@ else:
 if user_options_dict['USE_SOQT'] == 1:
     defines += ['USE_SOQT']
 
-if user_options_dict['USE_TINYXMLMOD']:
+if user_options_dict['USE_TINYXMLMOD'] == 1:
     defines += ['USE_TINYXMLMOD']
 
 # ############################################################
