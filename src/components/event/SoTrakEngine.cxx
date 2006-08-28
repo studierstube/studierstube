@@ -115,18 +115,25 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
     if (event){
 
 		/// FIXME: Why is the schema not used here? Mendez 20060315
-        SbVec3f pos=event->getSFVec3f("event.position");
-        SbRotation rot=event->getSFRotation("event.orientation");
+		if (event->containsKey("event.position")){
+			SbVec3f pos=event->getSFVec3f("event.position");
+			translationIn.setValue(pos);
+		}
+		if (event->containsKey("event.orientation")){
+			SbRotation rot=event->getSFRotation("event.orientation");
+			rotationIn.setValue(rot);
+		}
 
-        translationIn.setValue(pos);
-        rotationIn.setValue(rot);
+        
         for (int i=0;i<8;i++){
             char fieldName[255],buttonEventName[255];
             sprintf(fieldName,"buttonIn%d",i);
             SoSFBool *field=(SoSFBool*)(this->getField(fieldName));
             if (field){
                 sprintf(buttonEventName,"event.button.%d",i);
-                field->setValue(event->getSFBool(buttonEventName));
+				if (event->containsKey(buttonEventName)){
+					field->setValue(event->getSFBool(buttonEventName));
+				}
             }
         }
 
