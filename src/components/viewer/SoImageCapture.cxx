@@ -65,6 +65,7 @@
 
 #include <iostream>
 
+
 BEGIN_NAMESPACE_STB
 
 SO_NODE_SOURCE(SoImageCapture);

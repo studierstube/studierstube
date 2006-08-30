@@ -56,7 +56,7 @@ namespace openvideo{
 BEGIN_NAMESPACE_STB
 
 // Interface for capture callback
-class ImageCaptureListener
+class VIEWER_API ImageCaptureListener
 {
 public:
     virtual ~ImageCaptureListener() {}

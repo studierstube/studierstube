@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO;SIMAGE_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib"
+				AdditionalDependencies="coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib simage1d.lib"
 				OutputFile="$(OutDir)/stbviewer_wind.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;$(OPENVIDEOROOT)/lib/Win32"
@@ -203,6 +203,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\viewer\SoImageCapture.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\viewer\SoImageCapture.h"
 				>
 			</File>
 			<File
@@ -374,10 +378,6 @@
 				</Filter>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath="..\..\include\stb\components\viewer\SoImageCapture.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
