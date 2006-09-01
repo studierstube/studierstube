@@ -65,7 +65,6 @@
 
 #include <iostream>
 
-
 BEGIN_NAMESPACE_STB
 
 SO_NODE_SOURCE(SoImageCapture);
@@ -85,7 +84,7 @@ SoImageCapture::SoImageCapture() : _pressed(false), _image(NULL), _nr(0)
     _initialized = false;
 
     SO_NODE_ADD_FIELD(capture, (false));
-    SO_NODE_ADD_FIELD(path, (""));
+    SO_NODE_ADD_FIELD(path, ("."));
     SO_NODE_ADD_FIELD(prefix, ("capture"));
 }
 
@@ -153,6 +152,18 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
                 for (int i=0; i<sz-w*components; i+=w*components, j-=w*components)
                 {
                     memcpy(buf+i, frame.getPixels()+j, w*components);
+
+#ifdef STB_IS_WINDOWS
+					// BGR --> RGB (only required for windows)
+					unsigned char tmp;
+					for (int j=0; j<w*components-2; j+=3)
+					{
+						tmp = buf[i+j];
+						buf[i+j] = buf[i+j+2];
+						buf[i+j+2] = tmp;
+
+					}
+#endif
                 }
                 
             }
@@ -161,8 +172,11 @@ SoImageCapture::vu_update(const openvideo::Buffer& frame)
                 buf = (unsigned char*)frame.getPixels();
             }
 
-			//s_image_set_component_order(_image, SIMAGE_ORDER_RGB);
-
+#if 0
+			FILE* fp = fopen("hugo.raw", "wb");
+			fwrite(buf, sz, 1, fp);
+			fclose(fp);
+#endif
             
             if (_image)
                 s_image_set(_image, w, h, components,
