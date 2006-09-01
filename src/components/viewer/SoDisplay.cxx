@@ -298,6 +298,21 @@ SoDisplay::find(SoNode *node)
     return true;
 }
 
+SoNode*
+SoDisplay::findType(const SoType type)
+{
+	SoSearchAction sAction;
+	sAction.reset();
+	sAction.SoSearchAction::setType(type);
+	sAction.setSearchingAll(TRUE);
+	sAction.apply((SoSeparator*)displayRoot);
+	SoPath *path = sAction.getPath();
+	if(path!=NULL){
+		return sAction.getNode();
+	}  
+	return false;
+}
+
 END_NAMESPACE_STB
 
 //----------------------------------------------------------------------

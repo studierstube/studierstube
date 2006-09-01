@@ -19,7 +19,6 @@
 #include <Inventor/sensors/SoFieldSensor.h>
 
 #include <stb/kernel/Kernel.h>
-//#include <stb/components/event/SoTrakEngine.h>
 
 // asssign button numbers
 #define OTCOM_NONE				0
@@ -27,15 +26,15 @@
 #define OTCOM_RESETROTATION		2
 #define OTCOM_TOGGLE_ROTATECAMERAAXIS  3
 
-class SoSpaceMouseKit : public SoBaseKit{
-	SO_KIT_HEADER(SoSpaceMouseKit);
+class SoGoGoDeviceKit : public SoBaseKit{
+	SO_KIT_HEADER(SoGoGoDeviceKit);
 
 	// PARTS
     SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
 	SO_KIT_CATALOG_ENTRY_HEADER(geometry);
 
 public:
-	SoSpaceMouseKit(void);
+	SoGoGoDeviceKit(void);
 	static void initClass(void);
 	// FIELDS
 	SoSFString shape;		// the .iv File with the Cursor geometry
@@ -52,7 +51,7 @@ public:
 //	SoSFString pickedObject;
 
 	// send to OpenTracker
-	SoSFInt32 otcButton;
+	SoSFInt32 gogoButton;
 	//SoSFVec3f weightFactor;
 	SoSFFloat weightFactorPos;
 	SoSFFloat weightFactorRot;
@@ -62,12 +61,9 @@ public:
 	SoSFString cursorValue;
 
 protected:	
-	virtual ~SoSpaceMouseKit(void);
+	virtual ~SoGoGoDeviceKit(void);
 	virtual void handleEvent( SoHandleEventAction *action);
 	SbBool setUpConnections(SbBool onOff, SbBool doitalways);
-
-	// Internal tracker engine object receive tracking events
-	//SoTrakEngine *cursorEvents;
 
 private:
 ////////// Field Sensors

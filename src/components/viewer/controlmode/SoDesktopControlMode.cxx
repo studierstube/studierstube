@@ -35,6 +35,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h> 
 #include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoOffAxisZoomCamera.h>
 #include <stb/components/viewer/controlmode/MultRotRot.h>
 #include <stb/kernel/Kernel.h>
 //----------------------------------------------------------------------------

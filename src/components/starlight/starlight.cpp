@@ -34,7 +34,7 @@
 #include <stb/components/starlight/SoStringMap.h>
 #include <stb/components/starlight/SoUse.h>
 #include <stb/components/starlight/SoVariable.h>
-#include <stb/components/starlight/SoSpaceMouseKit.h>
+#include <stb/components/starlight/SoGoGoDeviceKit.h>
 #include <stb/components/starlight/SoPipeKit.h>
 #include <stb/components/starlight/SoExtrusionKit.h>
 #include <stb/components/starlight/SoLineStringKit.h>
@@ -109,7 +109,7 @@ Starlight::init(void)
     SoStringMap::initClass();
     SoUse::initClass();
 	SoVariable::initClass();
-	SoSpaceMouseKit::initClass();
+	SoGoGoDeviceKit::initClass();
 	SoPipeKit::initClass();
 	SoExtrusionKit::initClass();
 	SoLineStringKit::initClass();

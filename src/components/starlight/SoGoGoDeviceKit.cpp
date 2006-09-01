@@ -22,8 +22,11 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-
-#include <stb/components/starlight/SoSpaceMouseKit.h>
+//////////////////////////////////////////////////////////////////////////////
+/////////////////////// todo: integrate event adapter for receiving ot events
+///////////////////////       integrate all extra attributes & cleanup kit structure
+//////////////////////////////////////////////////////////////////////////////
+#include <stb/components/starlight/SoGoGoDeviceKit.h>
 
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/actions/SoGetMatrixAction.h>
@@ -31,13 +34,13 @@
 #include <stb/kernel/SceneManager.h>
 #include <stb/components/event/event.h>
 
-SO_KIT_SOURCE(SoSpaceMouseKit);
+SO_KIT_SOURCE(SoGoGoDeviceKit);
 
-void SoSpaceMouseKit::initClass(void){
-	SO_KIT_INIT_CLASS(SoSpaceMouseKit, SoBaseKit, "BaseKit");
+void SoGoGoDeviceKit::initClass(void){
+	SO_KIT_INIT_CLASS(SoGoGoDeviceKit, SoBaseKit, "BaseKit");
 }
-SoSpaceMouseKit::SoSpaceMouseKit(void){
-	SO_KIT_CONSTRUCTOR(SoSpaceMouseKit);
+SoGoGoDeviceKit::SoGoGoDeviceKit(void){
+	SO_KIT_CONSTRUCTOR(SoGoGoDeviceKit);
 
 // Set up Fields
 	SO_KIT_ADD_FIELD(shape, (""));
@@ -55,7 +58,7 @@ SoSpaceMouseKit::SoSpaceMouseKit(void){
 
 //	SO_KIT_ADD_FIELD(translationField, (0.0f, 0.0f, 0.0f));
 //	SO_KIT_ADD_FIELD(rotationField, (0.0f, 0.0f, 0.0f, 1.0f));
-	SO_KIT_ADD_FIELD(otcButton, (0));
+	SO_KIT_ADD_FIELD(gogoButton, (0));
 //	SO_KIT_ADD_FIELD(confidenceField, (1.0f));
 
 	SO_KIT_ADD_FIELD(cursorKey,(""));
@@ -67,21 +70,21 @@ SoSpaceMouseKit::SoSpaceMouseKit(void){
 	SO_KIT_INIT_INSTANCE();
 
 	// instantiate Sensors
-	this->shapeSensor = new SoFieldSensor(SoSpaceMouseKit::shapeFM, this);
+	this->shapeSensor = new SoFieldSensor(SoGoGoDeviceKit::shapeFM, this);
 	this->shapeSensor->setPriority(0); // immediate sensor
-	this->resetPosSensor = new SoFieldSensor(SoSpaceMouseKit::resetPosFM, this);
+	this->resetPosSensor = new SoFieldSensor(SoGoGoDeviceKit::resetPosFM, this);
 	this->resetPosSensor->setPriority(0); // immediate sensor
-	this->resetRotSensor = new SoFieldSensor(SoSpaceMouseKit::resetRotFM, this);
+	this->resetRotSensor = new SoFieldSensor(SoGoGoDeviceKit::resetRotFM, this);
 	this->resetRotSensor->setPriority(0); // immediate sensor
-	//this->storePosSensor = new SoFieldSensor(SoSpaceMouseKit::storePosFM, this);
+	//this->storePosSensor = new SoFieldSensor(SoGoGoDeviceKit::storePosFM, this);
 	//this->storePosSensor->setPriority(0); // immediate sensor
-	//this->recallPosSensor = new SoFieldSensor(SoSpaceMouseKit::recallPosFM, this);
+	//this->recallPosSensor = new SoFieldSensor(SoGoGoDeviceKit::recallPosFM, this);
 	//this->recallPosSensor->setPriority(0); // immediate sensor
-	//this->measureAdvSensor = new SoFieldSensor(SoSpaceMouseKit::measureAdvFM, this);
+	//this->measureAdvSensor = new SoFieldSensor(SoGoGoDeviceKit::measureAdvFM, this);
 	//this->measureAdvSensor->setPriority(0); // immediate sensor
-	//this->measureBackSensor = new SoFieldSensor(SoSpaceMouseKit::measureBackFM, this);
+	//this->measureBackSensor = new SoFieldSensor(SoGoGoDeviceKit::measureBackFM, this);
 	//this->measureBackSensor->setPriority(0); // immediate sensor
-	this->rotACASensor = new SoFieldSensor(SoSpaceMouseKit::rotACAFM, this);
+	this->rotACASensor = new SoFieldSensor(SoGoGoDeviceKit::rotACAFM, this);
 	//this->rotACASensor->setPriority(0); // immediate sensor
 
 	measureState = 0;
@@ -90,7 +93,7 @@ SoSpaceMouseKit::SoSpaceMouseKit(void){
 	setUpConnections(TRUE, TRUE);
 }
 
-SoSpaceMouseKit::~SoSpaceMouseKit(void) {
+SoGoGoDeviceKit::~SoGoGoDeviceKit(void) {
 	delete this->shapeSensor;
 	delete this->resetPosSensor;
 	delete this->resetRotSensor;
@@ -101,12 +104,12 @@ SoSpaceMouseKit::~SoSpaceMouseKit(void) {
 	delete this->rotACASensor;
 }
 
-void SoSpaceMouseKit::handleEvent( SoHandleEventAction * action ) {
+void SoGoGoDeviceKit::handleEvent( SoHandleEventAction * action ) {
 	const SoEvent *event = action->getEvent();
 }
 
 // SetupConnections
-SbBool SoSpaceMouseKit::setUpConnections(SbBool onOff, SbBool doItAlways = 0) {
+SbBool SoGoGoDeviceKit::setUpConnections(SbBool onOff, SbBool doItAlways = 0) {
 
 	if (!doItAlways && connectionsSetUp == onOff)
 		return onOff;
@@ -141,12 +144,7 @@ SbBool SoSpaceMouseKit::setUpConnections(SbBool onOff, SbBool doItAlways = 0) {
 		if (this->rotACASensor->getAttachedField() != &this->toggleRotationAxis)
 			this->rotACASensor->attach(& this->toggleRotationAxis);
 
-		// 
-		//Event* event=(Event*)(Kernel::getInstance()->getComponentManager()->load("Event"));
-		//cursorEvents = event->createSoTrakEngine();
-		//cursorEvents->key.connectFrom(&cursorKey);
-		//cursorEvents->value.connectFrom(&cursorValue);
-		/////////////////////////////////////////////////////////// to do - not implemented yet ...
+		/////////////////////////////////////////////////////////// 
 		//cursorEvents->getAttribute("float", "scalingFactor");
 		//cursorEvents->getAttribute("float", "cursorDistance");
 		//mover->translation.connectFrom(&tracker->translation);
@@ -180,23 +178,21 @@ SbBool SoSpaceMouseKit::setUpConnections(SbBool onOff, SbBool doItAlways = 0) {
 }
 
 // Callback for the field sensor.
-void SoSpaceMouseKit::shapeFM(void * userdata, SoSensor * sensor) 
+void SoGoGoDeviceKit::shapeFM(void * userdata, SoSensor * sensor) 
 {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	//if (sensor==NULL) return;
 	me->loadGeometry();
 }
 
-void SoSpaceMouseKit::loadGeometry() 
+void SoGoGoDeviceKit::loadGeometry() 
 {
     const char *geomfile;
 	SoSeparator *geom;
-
-    //stb::Kernel::getInstance()->log("[SoSpaceMouseKit]: update Cursor geometry: ");  
-    //stb::Kernel::getInstance()->log(shape.getValue().getString());
    	
 	geomfile = shape.getValue().getString();
-	if (*geomfile == 0) {	// don't try to load an empty file
+	// don't try to load an empty file
+	if (*geomfile == 0) {	
 		return;
 	}
     // read geometry into the geometry part
@@ -204,117 +200,77 @@ void SoSpaceMouseKit::loadGeometry()
     SoInput myinput;
 	if (!myinput.openFile(geomfile)) 
 	{
-		//stb::Kernel::getInstance()->logDebug("[SoSpaceMouseKit]: can not open file:");
         SoInput::removeDirectory("./");
         return;
     }
 	geom = SoDB::readAll(&myinput);
     myinput.closeFile();
     SoInput::removeDirectory("./");
-    if (geom == NULL) 
-    {
-        //stb::Kernel::getInstance()->log("[SoSpaceMouseKit]: problem reading file: ");
-		//stb::Kernel::getInstance()->log(geomfile);
-	    //stb::Kernel::getInstance()->log("\n");
-        return;
-    }
+    if (geom == NULL) return;
 	setPart("geometry", geom);
 }
 
+// Callback for the field sensor.
+void SoGoGoDeviceKit::resetPosFM(void * userdata, SoSensor * sensor) 
+{
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
+	if (sensor == NULL)
+		return;
+	me->gogoButton = OTCOM_RESETPOSITION;
+}
 
 // Callback for the field sensor.
-void SoSpaceMouseKit::resetPosFM(void * userdata, SoSensor * sensor) 
+void SoGoGoDeviceKit::resetRotFM(void * userdata, SoSensor * sensor) 
 {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	if (sensor == NULL)
 		return;
-	me->otcButton = OTCOM_RESETPOSITION;
-}
-// Callback for the field sensor.
-void SoSpaceMouseKit::resetRotFM(void * userdata, SoSensor * sensor) 
-{
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
-	if (sensor == NULL)
-		return;
-	me->otcButton = OTCOM_RESETROTATION;
+	me->gogoButton = OTCOM_RESETROTATION;
 }
 
 /*
 // TODO: implement store and recall functions
 
 // Callback for the field sensor.
-void SoSpaceMouseKit::storePosFM(void * userdata, SoSensor * sensor) {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+void SoGoGoDeviceKit::storePosFM(void * userdata, SoSensor * sensor) {
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	if (sensor == NULL)
 		return;
 }
 // Callback for the field sensor.
-void SoSpaceMouseKit::recallPosFM(void * userdata, SoSensor * sensor) {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+void SoGoGoDeviceKit::recallPosFM(void * userdata, SoSensor * sensor) {
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	if (sensor == NULL)
 		return;
 }
 
 */
 
-/*
-  Distance measuring:
-  STATES:
-  0 - none
-  1 - located first point (draw line from this point to mouse cursor)
-  2 - located second point (line/distance still present - next state is 0)
-   
-*/
-
 // Callback for the field sensor.
-void SoSpaceMouseKit::measureAdvFM(void * userdata, SoSensor * sensor) 
+void SoGoGoDeviceKit::measureAdvFM(void * userdata, SoSensor * sensor) 
 {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	printf ("#### MEASURE ADVANCE ####\n");
 	if (sensor == NULL)
 		return;
-
 	SbVec3f *pos = me->calculateWorldPosition();
 	printf ("GOT POSITION: %.02f %.02f %.02f", pos[0], pos[1], pos[2]);
 
 	me->measureState = (me->measureState+1)%3;
-
-	//measureStateMachine();
 }
 
 // Callback for the field sensor.
-
-void SoSpaceMouseKit::measureBackFM(void * userdata, SoSensor * sensor) 
+void SoGoGoDeviceKit::measureBackFM(void * userdata, SoSensor * sensor) 
 {
-	SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
 	if (sensor == NULL)
 		return;
-
  	//me->measureState = (me->measureState-1)%3;   
-
 	//measureStateMachine();
 }
 
-/*
-void measureStateMachine() {
-	switch (measureState) {
-		case 0:
-		break;
-
-		case 1:
-		break;
-
-		case 2:
-		break;
-	}
-}
-*/
-
-// 
-// This function calculates the absolute World Position of the SpaceMouseKit
-// 
-	
-SbVec3f *SoSpaceMouseKit::calculateWorldPosition() 
+// This function calculates the absolute World Position of the GoGoDeviceKit	
+SbVec3f *SoGoGoDeviceKit::calculateWorldPosition() 
 {
 	SbVec3f *translation = new SbVec3f();
 	SoSearchAction * searchaction = new SoSearchAction;
@@ -341,10 +297,9 @@ SbVec3f *SoSpaceMouseKit::calculateWorldPosition()
 	return translation;
 }
 
-
-void SoSpaceMouseKit::rotACAFM(void *userdata, SoSensor * sensor) {
-  SoSpaceMouseKit *me = (SoSpaceMouseKit *)userdata;
+void SoGoGoDeviceKit::rotACAFM(void *userdata, SoSensor * sensor) {
+  SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
   if (sensor == NULL)
 	  return;
-  me->otcButton = OTCOM_TOGGLE_ROTATECAMERAAXIS;
+  me->gogoButton = OTCOM_TOGGLE_ROTATECAMERAAXIS;
 }

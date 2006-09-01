@@ -271,6 +271,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoGoGoDeviceKit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoHiddenGroup.cxx"
 				>
 			</File>
@@ -324,10 +328,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoSFFieldContainer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoSpaceMouseKit.cpp"
 				>
 			</File>
 			<File
@@ -449,6 +449,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoGoGoDeviceKit.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoHiddenGroup.h"
 				>
 			</File>
@@ -502,10 +506,6 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoSFFieldContainer.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoSpaceMouseKit.h"
 				>
 			</File>
 			<File

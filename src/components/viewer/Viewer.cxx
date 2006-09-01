@@ -47,6 +47,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoOffAxisZoomCamera.h>
 #include <stb/components/viewer/SoVideoBackground.h>
 #include <stb/components/viewer/SoImageCapture.h>
 #include <stb/components/viewer/SoViewport.h>
@@ -109,6 +110,7 @@ Viewer::init()
     // init coin stuff
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
+	SoOffAxisZoomCamera::initClass();
     SoStbCamera::initClass();
     SoStbCameraControlMode::initClass();
     MultRotRot::initClass();
