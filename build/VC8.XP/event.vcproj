@@ -251,6 +251,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\event\SoMultimodalEngine.cxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\event\SoOpenTrackerSource.cxx"
 				>
 			</File>
@@ -338,6 +342,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\event\SoInputEvent.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\event\SoMultimodalEngine.h"
 				>
 			</File>
 			<File

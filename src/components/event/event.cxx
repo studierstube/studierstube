@@ -46,6 +46,7 @@
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <stb/components/event/SoTrakEngine.h>
+#include <stb/components/event/SoMultimodalEngine.h>
 #include <stb/components/event/EventBus.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/starlight/starlight.h>
@@ -149,7 +150,7 @@ Event::init()
         return false;
     }
 #endif
-
+	SoMultimodalEngine::initClass();
     SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
     SoOpenTrackerSource::initClass();

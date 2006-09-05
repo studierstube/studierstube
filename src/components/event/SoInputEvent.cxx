@@ -165,7 +165,7 @@ void SoInputEvent::setushort( const SbName & name, const unsigned short item ){
 };
 
 void SoInputEvent::setstring(  const SbName & name, const char * item){
-    printf ("ADDING element %s, with value %s\n", name.getString(), item);
+    //printf ("ADDING element %s, with value %s\n", name.getString(), item);
     SbString str (item);
     this->set(  name,  item )	;
 };

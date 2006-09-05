@@ -141,7 +141,7 @@
 				AdditionalDependencies="ace.lib"
 				OutputFile="$(OutDir)\studierstube.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(ACEROOT)/lib/win32&quot;"
+				AdditionalLibraryDirectories="&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(TargetDir)$(TargetName).pdb"
 				SubSystem="1"

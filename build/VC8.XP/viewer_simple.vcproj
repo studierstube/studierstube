@@ -124,7 +124,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(STB4ROOT)/src/gui&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOSIMPLE;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;SIMAGE_DLL;USE_SOSIMPLE;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"

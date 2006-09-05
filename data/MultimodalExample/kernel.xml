@@ -1,0 +1,21 @@
+<studierstube>
+
+  <kernel updateMode="timer" logMode="console" updateRate="0.03333"/>
+  
+  <Component name="Event" availability="ondemand"	lib="stbevent">
+    <Param key="configFile" value="opentracker.xml" />	
+  </Component>
+  
+  <Component name="Starlight" availability="ondemand"	lib="stbstarlight" />
+  
+  <Component name="Viewer" availability="onload" lib="stbviewer_win">
+    <Param key="configFile" value="viewer.iv" />
+  </Component>
+
+  <Application name="SimpleApp" availability="onload" lib="stbapp_simple">     
+    <Param key="sceneFile"  value="simpleScene.iv" />	
+    <Param key="needViewer" value="true" />	
+    <Param key="needEvent"  value="true" />	
+  </Application>
+  
+</studierstube>
