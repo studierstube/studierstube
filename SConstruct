@@ -20,7 +20,7 @@ muddleware_env = Environment (ENV = os.environ)
 env = Environment (ENV = os.environ)
 env.CacheDir(os.environ['HOME'] + '/.scache')
 
-if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == 'darwin':
+if sys.platform.startswith('linux') or sys.platform == 'darwin':
     print "System Platform: " + sys.platform
     config_file       = 'config.opts'
     root_build_dir    = 'build/linux'
@@ -56,11 +56,15 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     if os.environ.has_key('TINYXMLROOT'):
 	tinyxml_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLROOT'] + '/lib/pkgconfig'
 	tinyxml_env.Append(PKG_CONFIG_PATH = os.environ['TINYXMLROOT'] + '/lib/pkgconfig')
-    tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
-    tinyxml_cflags = tinyxml_env.Dictionary()['CCFLAGS']
-    tinyxml_include = tinyxml_env.Dictionary()['CPPPATH']
-    tinyxml_lib = tinyxml_env.Dictionary()['LIBS']
-    tinyxml_libpath = tinyxml_env.Dictionary()['LIBPATH']
+    try:
+        tinyxml_env.ParseConfig ('pkg-config --silence-errors --cflags --libs tinyxml')
+        tinyxml_cflags = tinyxml_env.Dictionary()['CCFLAGS']
+        tinyxml_include = tinyxml_env.Dictionary()['CPPPATH']
+        tinyxml_lib = tinyxml_env.Dictionary()['LIBS']
+        tinyxml_libpath = tinyxml_env.Dictionary()['LIBPATH']
+    except OSError:
+        print "Unable to obtain package information for TinyXML"
+        tinyxml_lib = []
     # TinyXMLMod library information
     if os.environ.has_key('TINYXMLMODROOT'):
 	tinyxmlmod_env['ENV']['PKG_CONFIG_PATH'] = os.environ['TINYXMLMODROOT'] + '/lib/pkgconfig'
@@ -70,7 +74,6 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     tinyxmlmod_include = tinyxmlmod_env.Dictionary()['CPPPATH']
     tinyxmlmod_lib = tinyxmlmod_env.Dictionary()['LIBS']
     tinyxmlmod_libpath = tinyxmlmod_env.Dictionary()['LIBPATH']
-
     if tinyxmlmod_lib == [] and tinyxml_lib == []:
 	print "Need either TinyXML or TinyXMLMod - none found"	
 	#print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
@@ -83,6 +86,10 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
     elif tinyxmlmod_lib ==[]:
 	print "INFO: Only have original TinyXML."
 	use_tinyxmlmod = 'false'
+    if (tinyxml_lib != [] and tinyxmlmod_lib != []):
+        print "INFO: Both original and modified TinyXML packages are present."
+        print "INFO: Taking modified version..."
+        use_tinyxmlmod = 'true'
 
     # Coin library information
     coin_env.ParseConfig ('coin-config --cppflags --ldflags --libs ')
@@ -161,11 +168,14 @@ if sys.platform == 'linux2' or sys.platform == 'linux-i386' or sys.platform == '
         enable_openvideo = 'true'
         
     # Muddleware library information
-    muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs XMLClient')
-    muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
-    muddleware_include = muddleware_env.Dictionary()['CPPPATH']
-    muddleware_lib = muddleware_env.Dictionary()['LIBS']
-    muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
+    try:
+        muddleware_env.ParseConfig ('pkg-config --silence-errors --cflags --libs XMLClient')
+        muddleware_cflags = muddleware_env.Dictionary()['CCFLAGS']
+        muddleware_include = muddleware_env.Dictionary()['CPPPATH']
+        muddleware_lib = muddleware_env.Dictionary()['LIBS']
+        muddleware_libpath = muddleware_env.Dictionary()['LIBPATH']
+    except OSError:
+        print "Unable to obtain package information for XMLClient"
 
     build_example_app = 'true'
     enable_muddleware = 'false'
@@ -221,10 +231,13 @@ else:
 	config.write ("ACE_LIBRARY = %r\n"%(ace_lib))
 
         config.write ("\n# TinyXML library.\n")
-        config.write ("TINYXML_CFLAGS = %r\n"%(tinyxml_cflags))
-	config.write ("TINYXML_INCLUDE = %r\n"%(tinyxml_include))
-	config.write ("TINYXML_LIBPATH = %r\n"%(tinyxml_libpath))
-	config.write ("TINYXML_LIBRARY = %r\n"%(tinyxml_lib))
+        try:
+            config.write ("TINYXML_CFLAGS = %r\n"%(tinyxml_cflags))
+            config.write ("TINYXML_INCLUDE = %r\n"%(tinyxml_include))
+            config.write ("TINYXML_LIBPATH = %r\n"%(tinyxml_libpath))
+            config.write ("TINYXML_LIBRARY = %r\n"%(tinyxml_lib))
+        except NameError:
+            pass
 
         config.write ("\n# TinyXMLMod library.\n")
         config.write ("TINYXMLMOD_CFLAGS = %r\n"%(tinyxmlmod_cflags))
@@ -270,10 +283,13 @@ else:
 	config.write ("OPENVIDEO_LIBRARY = %r\n"%(openvideo_lib))
 
         config.write ("\n# Muddleware library.\n")
-        config.write ("MUDDLEWARE_CFLAGS = %r\n"%(muddleware_cflags))
-	config.write ("MUDDLEWARE_INCLUDE = %r\n"%(muddleware_include))
-	config.write ("MUDDLEWARE_LIBPATH = %r\n"%(muddleware_libpath))
-	config.write ("MUDDLEWARE_LIBRARY = %r\n"%(muddleware_lib))
+        try:
+            config.write ("MUDDLEWARE_CFLAGS = %r\n"%(muddleware_cflags))
+            config.write ("MUDDLEWARE_INCLUDE = %r\n"%(muddleware_include))
+            config.write ("MUDDLEWARE_LIBPATH = %r\n"%(muddleware_libpath))
+            config.write ("MUDDLEWARE_LIBRARY = %r\n"%(muddleware_lib))
+        except NameError:
+            pass
 
 	config.write ("OPENGL_INCLUDE = %r\n"%(opengl_include))
 	config.write ("OPENGL_LIBPATH = %r\n"%(opengl_libpath))

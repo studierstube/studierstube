@@ -64,7 +64,7 @@ class EVENT_API SoOpenTrackerSource : public SoEventSource
 public:
     SoOpenTrackerSource(void);
     static void initClass(void);
-	static void createOTModule(ot::Context & newctx, void * data);
+	static void createOTModule(ot::Context * newctx, void * data);
 
     /// name of the configuration file used
     SoSFString configuration;

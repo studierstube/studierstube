@@ -51,11 +51,11 @@
 
 
 
-void SoOpenTrackerSource::createOTModule(ot::Context & context, void * data){
+void SoOpenTrackerSource::createOTModule(ot::Context * context, void * data){
 	SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
     self->eventHandler = new EventModule(self);
-	context.addModule( "EventConfig", *self->eventHandler );
-    context.addFactory( *self->eventHandler );
+	context->addModule( "EventConfig", *self->eventHandler );
+    context->addFactory( *self->eventHandler );
 
 }
 
@@ -105,7 +105,7 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
 #ifdef USE_OT_2_0
 	// add initialization procedure to the opentracker Configurator,
 	// this allows opentracker to create the stb modules, whenever they are needed
-	ot::Configurator::addModuleInit("Studierstube", createOTModule, (void *)this);
+        ot::Configurator::addModuleInit("Studierstube", createOTModule, (void *)this);
 	ot::Configurator::instance() ->runConfigurationThread();
 #endif USE_OT_2_0
 }

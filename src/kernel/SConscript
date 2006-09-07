@@ -22,13 +22,19 @@ kernel_env.Append (CPPPATH = user_options_dict['ACE_INCLUDE'])
 kernel_env.Append (LIBPATH = user_options_dict['ACE_LIBPATH'])
 kernel_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 # TinyXMLMod
-kernel_env.Append (CPPPATH = user_options_dict['TINYXMLMOD_INCLUDE'])
-kernel_env.Append (LIBPATH = user_options_dict['TINYXMLMOD_LIBPATH'])
-kernel_env.Append (LIBS    = user_options_dict['TINYXMLMOD_LIBRARY'])
+try:
+    kernel_env.Append (CPPPATH = user_options_dict['TINYXMLMOD_INCLUDE'])
+    kernel_env.Append (LIBPATH = user_options_dict['TINYXMLMOD_LIBPATH'])
+    kernel_env.Append (LIBS    = user_options_dict['TINYXMLMOD_LIBRARY'])
+except KeyError:
+    pass
 # TinyXML
-kernel_env.Append (CPPPATH = user_options_dict['TINYXML_INCLUDE'])
-kernel_env.Append (LIBPATH = user_options_dict['TINYXML_LIBPATH'])
-kernel_env.Append (LIBS    = user_options_dict['TINYXML_LIBRARY'])
+try:
+    kernel_env.Append (CPPPATH = user_options_dict['TINYXML_INCLUDE'])
+    kernel_env.Append (LIBPATH = user_options_dict['TINYXML_LIBPATH'])
+    kernel_env.Append (LIBS    = user_options_dict['TINYXML_LIBRARY'])
+except KeyError:
+    pass
 # Coin
 kernel_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 kernel_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])

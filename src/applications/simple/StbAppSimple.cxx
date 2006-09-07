@@ -72,18 +72,22 @@ SimpleApp::setParameter(stb::string key, std::string value)
     if(key=="sceneFile")
     {
         sceneFile=value;
+	std::cerr << "sceneFile = " << sceneFile << std::endl;
     }
    else if(key=="needEvent" && value=="true")
    {
         needEvent=true;
+	std::cerr << "needEvent = " << needEvent << std::endl;
    }
    else if(key=="needViewer" && value=="true")
    {
         needViewer=true;
+	std::cerr << "needViewer = " << needViewer << std::endl;
    }
    else if(key=="needStarlight" && value=="true")
    {
         needStarlight=true;
+	std::cerr << "needStarlight = " << needStarlight << std::endl;
    }
 }
 
@@ -92,6 +96,7 @@ SimpleApp::setParameter(stb::string key, std::string value)
 bool 
 SimpleApp::init()
 {
+  std::cerr << "init" << std::endl;
     if(isInit)
         return true;
  
@@ -128,7 +133,8 @@ SimpleApp::init()
     SoInput myinput;
     if (!myinput.openFile(sceneFile.c_str())) {
 
-//        stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + sceneFile + "\n");
+      //stb::Kernel::getInstance()->log("STB_ERROR: can not open file:" + sceneFile + "\n");
+      std::cerr << "problem opening file..." << std::endl;
         SoInput::removeDirectory("./");
         return false;
     }
