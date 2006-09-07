@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <openvideo scheduleMode="idle" updateRate="30">
-	<ImageSrc pixelformat="R5G6B5" width="320" height="240" image0="data/image0.jpg" >
+	<SpectecSrc pixelformat="R5G6B5">
 		<VideoSink name="Stb4VideoSink" pixelformat="R5G6B5"/>
-	</ImageSrc>
+	</SpectecSrc>
 </openvideo>

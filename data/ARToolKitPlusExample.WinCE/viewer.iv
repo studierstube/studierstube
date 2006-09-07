@@ -1,4 +1,5 @@
 #Inventor V2.1 ascii
+
 SoDisplay 
 {
 	# Specify position (upper-left corner)
@@ -8,7 +9,7 @@ SoDisplay
 	width 640
 	height 480
 	
-	#headlight TRUE
+	headlight TRUE
 	#headlightIntensity 1.0
 	backgroundColor 0 0 0
 	transparencyType BLEND
@@ -22,36 +23,21 @@ SoDisplay
 
 	useRefCamera TRUE
 
-	sceneGraph SoSeparator
-	{
-		SoSeparator
-		{
-			SoViewport 
-			{
-				origin 0 0 
-				size 640 480
-			}
-
+	sceneGraph SoSeparator {
+	
 			SoVideoBackground {}
 
-			#SoStbCamera
-			#{
-				#controlMode SoDesktopControlMode{}
-				#camera 
-				SoOffAxisCamera
-				{
-					#position 0.0148 -0.0124 -1.0000
-					#size 0.7881 0.5935 
+			SoOffAxisCamera {
 					position 0.0093 -0.0138 -1.0000
 					size     1.1511 0.8827
 					eyepointPosition 0 0 0
 					viewportMapping ADJUST_CAMERA
 					nearDistance 0.01
 					farDistance 100
-				}
-			#}
+			}
+			
 			SoStbScene{}  
-		}
+			
 	} #sceneGraph SoSeparator
 	
 }#SoDisplay
