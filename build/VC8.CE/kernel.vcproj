@@ -4,11 +4,15 @@
 	Version="8,00"
 	Name="kernel"
 	ProjectGUID="{2E1A7578-9CBC-4326-AE5A-41D7C89C84BF}"
+	RootNamespace="kernel"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
 		<Platform
 			Name="Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+		/>
+		<Platform
+			Name="Pocket PC 2003 (ARMV4)"
 		/>
 		<Platform
 			Name="Windows Mobile 5.0 Smartphone SDK (ARMV4I)"
@@ -19,7 +23,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="../../bin/WM2005"
+			OutputDirectory="../../lib/WM2005"
 			IntermediateDirectory="kernel_debug"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -43,7 +47,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINESROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;_USRDLL;KERNEL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;TINYXML_MOD_DLL;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF"
 				MinimalRebuild="true"
 				RuntimeLibrary="3"
@@ -69,7 +73,7 @@
 				AdditionalDependencies="Coin2esd.lib ACEminid.lib"
 				OutputFile="$(OutDir)/stbkerneld.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINESROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/stbkerneld.pdb"
@@ -93,7 +97,264 @@
 			/>
 			<DeploymentTool
 				ForceDirty="-1"
-				RemoteDirectory="/Stb4"
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\stb4"
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Pocket PC 2003 (ARMV4)"
+			OutputDirectory="../../lib/WM2003"
+			IntermediateDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="0"
+				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINESROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;DEBUG;_WINDOWS;_USRDLL;KERNEL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;TINYXML_MOD_DLL;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF"
+				MinimalRebuild="true"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES)"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions=" /subsystem:windowsce,4.20 /machine:ARM /ARMPADCODE"
+				AdditionalDependencies="Coin2esd.lib ACEminid.lib Ccrtrtti.lib"
+				OutputFile="../../bin/WM2003/stbkerneld.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2003&quot;;&quot;$(COINESROOT)/lib/WM2003&quot;;&quot;$(ACEROOT)/lib/WM2003&quot;"
+				DelayLoadDLLs="$(NOINHERIT)"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)/stbkerneld.pdb"
+				SubSystem="0"
+				ImportLibrary="$(OutDir)/stbkerneld.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
+			OutputDirectory="../../lib/WM2005"
+			IntermediateDirectory="kernel_release"
+			ConfigurationType="2"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINESROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;_WINDOWS;_USRDLL;KERNEL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;TINYXML_MOD_DLL;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES)"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				RegisterOutput="false"
+				AdditionalOptions=" /subsystem:windowsce,5.01"
+				AdditionalDependencies="Coin2es.lib KlimtES.lib ACEmini.lib"
+				OutputFile="../../bin/WM2005/stbkernel.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINESROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
+				DelayLoadDLLs="$(NOINHERIT)"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)/stbkernel.pdb"
+				SubSystem="0"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(OutDir)/stbkernel.lib"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory="%CSIDL_PROGRAM_FILES%\stb4"
+				RegisterOutput="0"
+				AdditionalFiles=""
+			/>
+			<DebuggerTool
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Pocket PC 2003 (ARMV4)"
+			OutputDirectory="../../lib/WM2003"
+			IntermediateDirectory="Pocket PC 2003 (ARMV4)\$(ConfigurationName)"
+			ConfigurationType="2"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="1"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				ExecutionBucket="7"
+				Optimization="2"
+				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINESROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;_WINDOWS;_USRDLL;KERNEL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;TINYXML_MOD_DLL;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES)"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				RegisterOutput="false"
+				AdditionalOptions=" /subsystem:windowsce,4.20 /machine:ARM /ARMPADCODE"
+				AdditionalDependencies="Coin2es.lib ACEmini.lib Ccrtrtti.lib"
+				OutputFile="../../bin/WM2003/stbkernel.dll"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2003&quot;;&quot;$(COINESROOT)/lib/WM2003&quot;;&quot;$(ACEROOT)/lib/WM2003&quot;"
+				DelayLoadDLLs="$(NOINHERIT)"
+				GenerateDebugInformation="true"
+				ProgramDatabaseFile="$(OutDir)/stbkernel.pdb"
+				SubSystem="0"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				ImportLibrary="$(OutDir)/stbkernel.lib"
+				TargetMachine="0"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCCodeSignTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+			<DeploymentTool
+				ForceDirty="-1"
+				RemoteDirectory=""
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
@@ -174,91 +435,6 @@
 			<DeploymentTool
 				ForceDirty="-1"
 				RemoteDirectory=""
-				RegisterOutput="0"
-				AdditionalFiles=""
-			/>
-			<DebuggerTool
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Windows Mobile 5.0 Pocket PC SDK (ARMV4I)"
-			OutputDirectory="../../bin/WM2005"
-			IntermediateDirectory="kernel_release"
-			ConfigurationType="2"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				ExecutionBucket="7"
-				Optimization="2"
-				AdditionalIncludeDirectories="$(LIBCEROOT)/include.VC8;$(KLIMTESROOT)/include;&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(TINYXMLROOT)&quot;"
-				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE=$(CEVER);$(PLATFORMDEFINES);WINCE;_WINDOWS;_USRDLL;KERNEL_EXPORTS;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;TINYXML_MOD_DLL;POCKETPC2003_UI_MODEL;ACE_HAS_ACE_TOKEN;ACE_HAS_ACE_SVCCONF"
-				RuntimeLibrary="0"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES)"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(IntDir)"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				RegisterOutput="false"
-				AdditionalOptions=" /subsystem:windowsce,5.01"
-				AdditionalDependencies="Coin2es.lib ACEmini.lib"
-				OutputFile="$(OutDir)/stbkernel.dll"
-				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/WM2005&quot;;&quot;$(COINROOT)/lib/WM2005&quot;;&quot;$(ACEROOT)/lib/WM2005&quot;"
-				DelayLoadDLLs="$(NOINHERIT)"
-				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/stbkernel.pdb"
-				SubSystem="0"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				ImportLibrary="$(OutDir)/stbkernel.lib"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCCodeSignTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-			<DeploymentTool
-				ForceDirty="-1"
-				RemoteDirectory="/Stb4"
 				RegisterOutput="0"
 				AdditionalFiles=""
 			/>
