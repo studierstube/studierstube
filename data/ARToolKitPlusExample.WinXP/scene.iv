@@ -18,12 +18,12 @@ SoSeparator
 	{
 		# move the cube to sit ON the marker
 		# instead of IN the marker...
-		translation 0 0 0.4
+		translation 0 0 0.04
 	}
 	SoCube
 	{
-		width 0.8
-		height 0.8
-		depth 0.8
+		width 0.08
+		height 0.08
+		depth 0.08
 	}
 }

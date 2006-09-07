@@ -14,9 +14,9 @@ SoDisplay
 	transparencyType BLEND
 	clearBackGround FALSE
 	#showMouse TRUE
-	windowBorder TRUE
+	windowBorder FALSE
 	#windowOnTop FALSE
-	#decoration TRUE
+	decoration FALSE
 	#stencilBuffer FALSE
 	showFrameRate TRUE
 
