@@ -39,7 +39,9 @@
 #include <stb/kernel/Component.h>
 #include <stb/components/viewer/ViewerDefines.h>
 
+#ifdef HAVE_OPENVIDEO
 #include <stb/components/viewer/SoImageCapture.h>
+#endif
 
 #include <vector>
 
@@ -74,8 +76,9 @@ public:
     virtual void setParameter(string key, std::string value);
 
     // creator methods
+#ifdef HAVE_OPENVIDEO
     virtual SoImageCapture*           createSoImageCapture();
-    
+#endif    
 
 	/// Specify that this component implements the GUIBinder API
 	virtual GUIBinder* getGUIBinderInterface()  {  return this;  }

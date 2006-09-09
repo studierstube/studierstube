@@ -45,7 +45,11 @@
 #endif
 
 #include <iostream>
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 #ifndef STB_IS_WINCE
 #  include <errno.h>

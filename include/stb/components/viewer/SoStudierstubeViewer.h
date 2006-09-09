@@ -53,6 +53,8 @@
 #elif defined(STB_IS_LINUX)
 #ifndef __APPLE__
 #  include <GL/glx.h>
+#else
+#  include <AGL/agl.h>
 #endif
 #endif
 

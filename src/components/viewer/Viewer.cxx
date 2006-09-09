@@ -49,7 +49,9 @@
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoOffAxisZoomCamera.h>
 #include <stb/components/viewer/SoVideoBackground.h>
+#ifdef HAVE_OPENVIDEO
 #include <stb/components/viewer/SoImageCapture.h>
+#endif
 #include <stb/components/viewer/SoViewport.h>
 
 
@@ -129,8 +131,9 @@ Viewer::init()
 
     SoViewport::initClass();
     SoVideoBackground::initClass();
+#ifdef HAVE_OPENVIDEO
     SoImageCapture::initClass();
-
+#endif
     SoWindowHandling::initClass();
 
     //get viewer's parameter
@@ -193,11 +196,13 @@ Viewer::setParameter(string key, std::string value)
     //}
 }
 
+#ifdef HAVE_OPENVIDEO
 SoImageCapture*
 Viewer::createSoImageCapture()
 {
     return new SoImageCapture();
 }
+#endif
 
 void
 Viewer::addSoDisplay(SoDisplay* dsp)

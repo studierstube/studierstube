@@ -37,7 +37,11 @@
 #  include <windows.h>
 #endif
 
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 #include <stb/components/viewer/displaymode/SoAnaglyphDisplayMode.h>
 #include <stb/components/viewer/displaymode/SoGLColorBufferElement.h>

@@ -35,7 +35,10 @@ if sys.platform.startswith('linux') or sys.platform == 'darwin':
     release_flags = ['-O2']
     debug_flags = ['-O2', '-g']
     extra_flags = ['-pipe']
-    cxxflags = []
+    if sys.platform == 'darwin':
+	cxxflags = ['-I/opt/local/include']
+    else:
+	cxxflags = []
     defines = []
     warn_flags = ['-Wall']
     source_filter = '\.cxx$|\.cpp$'
@@ -79,7 +82,7 @@ if sys.platform.startswith('linux') or sys.platform == 'darwin':
 	#print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
 	#print tinyxmlmod_env['ENV']['PATH']
 	#print tinyxmlmod_libpath
-	Exit(1)
+	use_tinyxmlmod = 'true'
     elif tinyxml_lib == []:
 	print "INFO: Only have modified TinyXML."
         use_tinyxmlmod = 'true'
@@ -193,6 +196,7 @@ my_ccflags = []
 my_cxxflags = ['-Iinclude']
 #my_ldflags = [' -L' + root_build_dir + '/lib ']
 my_ldflags = []
+
 
 if os.path.exists (config_file):
 	print "Using config file: " + config_file
@@ -518,6 +522,9 @@ library_env = env.Copy ()
 library_env.Append (CCFLAGS = cflags)
 library_env.Append (CXXFLAGS = cxxflags)
 library_env.Append (LIBPATH = user_options_dict['LDFLAGS'])
+if sys.platform == 'darwin':
+    library_env.Append (LINKFLAGS = '-undefined dynamic_lookup')
+    library_env.Append (LIBPATH = '/opt/local/lib')
 library_env.Append (CPPDEFINES = defines)
 library_env.SConsignFile (root_build_dir+'scons-signatures')
 

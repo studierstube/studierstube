@@ -103,8 +103,9 @@ SimpleApp::init()
      //get viewer's parameter
      retrieveParameter();
 
+#ifdef WIN32
 #pragma message(">>> daniel2all: having the application to check for all components is not beautiful...")
-
+#endif
     if(needViewer){
         Viewer* viewer=(Viewer*)(Kernel::getInstance()->getComponentManager()->load("Viewer"));
         if(!viewer)

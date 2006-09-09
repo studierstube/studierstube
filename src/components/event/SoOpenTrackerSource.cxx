@@ -158,7 +158,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 #else  //USE_OT_2_0
         self->context = new ot::Context(1);
 	
-	createOTModule(*(self->context),  self);
+	createOTModule((self->context),  self);
 
 	std::string configFileString = configFile.getString();
         self->context->parseConfiguration( configFileString );

@@ -38,8 +38,11 @@
 #include <Inventor/fields/SoSFString.h> 
 #include <stb/base/macros.h>
 #include <stb/kernel/VideoUser.h>
+#ifndef __APPLE__
 #include <GL/gl.h>
-
+#else
+#include <OpenGL/gl.h>
+#endif
 
 namespace openvideo{
   class VideoSink;

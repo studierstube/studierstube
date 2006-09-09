@@ -42,7 +42,12 @@
 #  include <windows.h>
 #endif
 
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
+
 #include <Inventor/fields/SoSFBool.h> 
 #include <Inventor/fields/SoSFEnum.h> 
 

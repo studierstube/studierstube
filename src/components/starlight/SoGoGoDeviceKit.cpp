@@ -105,7 +105,8 @@ SoGoGoDeviceKit::~SoGoGoDeviceKit(void) {
 }
 
 void SoGoGoDeviceKit::handleEvent( SoHandleEventAction * action ) {
-	const SoEvent *event = action->getEvent();
+  const SoEvent *event = action->getEvent();
+    event = NULL;
 }
 
 // SetupConnections
@@ -254,7 +255,7 @@ void SoGoGoDeviceKit::measureAdvFM(void * userdata, SoSensor * sensor)
 	if (sensor == NULL)
 		return;
 	SbVec3f *pos = me->calculateWorldPosition();
-	printf ("GOT POSITION: %.02f %.02f %.02f", pos[0], pos[1], pos[2]);
+	  printf ("GOT POSITION: %.02f %.02f %.02f", (*pos)[0], (*pos)[1], (*pos)[2]);
 
 	me->measureState = (me->measureState+1)%3;
 }
@@ -263,6 +264,7 @@ void SoGoGoDeviceKit::measureAdvFM(void * userdata, SoSensor * sensor)
 void SoGoGoDeviceKit::measureBackFM(void * userdata, SoSensor * sensor) 
 {
 	SoGoGoDeviceKit *me = (SoGoGoDeviceKit *)userdata;
+	me = NULL;
 	if (sensor == NULL)
 		return;
  	//me->measureState = (me->measureState-1)%3;   

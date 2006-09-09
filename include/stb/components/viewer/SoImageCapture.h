@@ -38,7 +38,11 @@
 #include <Inventor/fields/SoSFString.h> 
 #include <stb/base/macros.h>
 #include <stb/kernel/VideoUser.h>
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 #include <Inventor/fields/SoSFBool.h>
 
@@ -126,7 +130,9 @@ protected:
 END_NAMESPACE_STB
 
 #else
+#ifdef WIN32
 # pragma "Please set HAVE_OPENVIDEO if you include SoImageCapture.h"
+#endif
 #endif // HAVE_OPENVIDEO
 
 #endif //_SoImageCapture_H_

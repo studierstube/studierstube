@@ -36,7 +36,11 @@
 #include <Inventor/elements/SoElement.h>
 #include <Inventor/elements/SoSubElement.h>
 #include <Inventor/SbLinear.h> 
+#ifndef __APPLE__
 #include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 #include <stb/base/macros.h>
 
 
