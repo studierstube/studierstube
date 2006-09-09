@@ -82,6 +82,8 @@ if sys.platform.startswith('linux') or sys.platform == 'darwin':
 	#print tinyxmlmod_env['ENV']['PKG_CONFIG_PATH']
 	#print tinyxmlmod_env['ENV']['PATH']
 	#print tinyxmlmod_libpath
+	tinyxmlmod_libpath = '/opt/local/lib'
+	tinyxmlmod_lib = '-ltinyxmlmod'
 	use_tinyxmlmod = 'true'
     elif tinyxml_lib == []:
 	print "INFO: Only have modified TinyXML."
@@ -117,14 +119,14 @@ if sys.platform.startswith('linux') or sys.platform == 'darwin':
     qt_include = qt_env.Dictionary()['CPPPATH']
     qt_lib = qt_env.Dictionary()['LIBS']
     qt_libpath = qt_env.Dictionary()['LIBPATH']
-    if sys.platform == 'darwin':
-	qt_include = ['/opt/local/qt4/include']
     # Soqt library information
+    soqt_env.Append(PKG_CONFIG_PATH = '/opt/local/lib/pkgconfig')
     soqt_env.ParseConfig ('soqt-config --cppflags --ldflags --libs')
     soqt_cflags = soqt_env.Dictionary()['CCFLAGS']
     soqt_include = soqt_env.Dictionary()['CPPPATH']
     soqt_lib = soqt_env.Dictionary()['LIBS']
     soqt_libpath = soqt_env.Dictionary()['LIBPATH']
+    soqt_ldflags = soqt_env.Dictionary()['LINKFLAGS']
     # Opentracker library information
     #print os.environ['OTROOT'] + '/lib/pkgconfig'
     ot_pkgcfgpath = ''
@@ -267,6 +269,7 @@ else:
 	config.write ("SOQT_INCLUDE = %r\n"%(soqt_include))
 	config.write ("SOQT_LIBPATH = %r\n"%(soqt_libpath))
 	config.write ("SOQT_LIBRARY = %r\n"%(soqt_lib))
+	config.write ("SOQT_LDFLAGS = %r\n"%(soqt_ldflags))
 
         config.write ("\n# OpenTracker library.\n")
         config.write ("OPENTRACKER_CFLAGS = %r\n"%(opentracker_cflags))
@@ -352,6 +355,7 @@ user_options.AddOptions (
 		('SOQT_INCLUDE', 'Include directory for SOQT header files.'),
 		('SOQT_LIBPATH', 'Library path where the SOQT library is located.'),
 		('SOQT_LIBRARY', 'SOQT library name.'),
+		('SOQT_LDFLAGS', 'SOQT library linking flags.'),
 		('OPENTRACKER_CFLAGS', 'Necessary CFLAGS when using OPENTRACKER functionality.'),
 		('OPENTRACKER_INCLUDE', 'Include directory for OPENTRACKER header files.'),
 		('OPENTRACKER_LIBPATH', 'Library path where the OPENTRACKER library is located.'),

@@ -89,7 +89,11 @@ os_LoadLibrary(stb::string fileName)
         fileName = fileName.substr(pos, fileName.length() - pos);
     }
 
+#ifndef __APPLE__
     libName = pathName + "lib" + fileName + ".so";
+#else
+    libName = pathName + "lib" + fileName + ".dylib";
+#endif 
     cerr << "Dynamically loading >" << libName << "< ...";
     
     // load the library

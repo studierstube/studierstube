@@ -26,9 +26,10 @@ viewer_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
 # simage
 viewer_env.Append (LIBS    = '-lsimage')
 # SoQt
-viewer_env.Append (CPPPATH = user_options_dict['SOQT_INCLUDE'])
-viewer_env.Append (LIBPATH = user_options_dict['SOQT_LIBPATH'])
-viewer_env.Append (LIBS    = user_options_dict['SOQT_LIBRARY'])
+viewer_env.Append (CPPPATH   = user_options_dict['SOQT_INCLUDE'])
+viewer_env.Append (LIBPATH   = user_options_dict['SOQT_LIBPATH'])
+viewer_env.Append (LIBS      = user_options_dict['SOQT_LIBRARY'])
+viewer_env.Append (LINKFLAGS = user_options_dict['SOQT_LDFLAGS'])
 # OpenVideo
 if user_options_dict['ENABLE_OPENVIDEO'] == 1:
     viewer_env.Append (CPPPATH = user_options_dict['OPENVIDEO_INCLUDE'])
