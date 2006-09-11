@@ -23,8 +23,6 @@ viewer_env.Append (LIBS    = user_options_dict['ACE_LIBRARY'])
 viewer_env.Append (CPPPATH = user_options_dict['COIN_INCLUDE'])
 viewer_env.Append (LIBPATH = user_options_dict['COIN_LIBPATH'])
 viewer_env.Append (LIBS    = user_options_dict['COIN_LIBRARY'])
-# simage
-viewer_env.Append (LIBS    = '-lsimage')
 # SoQt
 viewer_env.Append (CPPPATH   = user_options_dict['SOQT_INCLUDE'])
 viewer_env.Append (LIBPATH   = user_options_dict['SOQT_LIBPATH'])
