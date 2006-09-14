@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib simage1d.lib"
+				AdditionalDependencies="coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib"
 				OutputFile="$(OutDir)/stbviewer_wind.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;"
@@ -143,7 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib sowin1.lib opengl32.lib glu32.lib openvideo.lib simage1.lib"
+				AdditionalDependencies="coin2.lib sowin1.lib opengl32.lib glu32.lib openvideo.lib"
 				OutputFile="$(OutDir)/stbviewer_win.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;"
