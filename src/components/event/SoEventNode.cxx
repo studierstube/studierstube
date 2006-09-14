@@ -38,8 +38,5 @@ SO_NODE_SOURCE(SoEventNode);
 
 void SoEventNode::initClass(void)
 {
-    if( SoType::fromName("SoEventNode").isBad() )
-    {
-        SO_NODE_INIT_CLASS(SoEventNode, SoNode, "Node");
-    }
+    SO_NODE_INIT_CLASS(SoEventNode, SoNode, "Node");
 }

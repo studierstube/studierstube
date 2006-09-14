@@ -79,6 +79,8 @@ public:
 	virtual void redraw();
 	virtual void render();
 
+	virtual void destroy();
+
 	void registerDevice(SoSimpleDevice* device);
 	void unregisterDevice(SoSimpleDevice* device);
 
@@ -92,6 +94,7 @@ public:
 	virtual SbBool getStencilBuffer(void) const;
 	virtual void setAlphaChannel(const SbBool enable);
 	virtual SbBool getAlphaChannel(void) const;
+	virtual void setViewing(const SbBool enable);
 
 	void processEvent(MSG * event);
 

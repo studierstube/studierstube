@@ -84,6 +84,8 @@ public:
 	/// The destructor
 	virtual ~StbLogger();
 
+	virtual void setLogMode(LOG_MODE newMode);
+
 	virtual void printMessage(const char *message);
 	virtual void printDebug(const char *debugMessage);
 	virtual void printSetup(const char *setupMessage);
@@ -92,12 +94,20 @@ public:
 	virtual void printErrorAndContinue(const char *errorMessage);
 	virtual void printErrorAndAbort(const char *errorMessage);
 
+	virtual void writeToFile(const char * message);
+	virtual void writeToFileEx(const char * format, ...);
+
+	virtual char * getLogFileName();
+	virtual void setLogFileName(char * filename);
+
 protected:
 	LOG_MODE logMode;
 
 
 	/// The instance
 	static StbLogger *instance;
+
+	char * logFileName;
 
 	/// The constructor
 	StbLogger();

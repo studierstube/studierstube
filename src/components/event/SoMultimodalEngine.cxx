@@ -40,10 +40,7 @@
 SO_ENGINE_SOURCE(SoMultimodalEngine);
 
 void SoMultimodalEngine::initClass(){
-  printf("SOMULTIMODALENGINE::INITCLASS\n");
-  if (SoType::fromName("SoMultimodalEngine").isBad()){
-    SO_ENGINE_INIT_CLASS(SoMultimodalEngine, SoEngine, "Engine");
-  }
+   SO_ENGINE_INIT_CLASS(SoMultimodalEngine, SoEngine, "Engine");
 };
 
 

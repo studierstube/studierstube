@@ -38,8 +38,5 @@ SO_NODE_SOURCE(SoEventGroup);
 
 void SoEventGroup::initClass(void)
 {
-    if( SoType::fromName("SoEventGroup").isBad() )
-    {
-        SO_NODE_INIT_CLASS(SoEventGroup, SoGroup, "Group");
-    }
+    SO_NODE_INIT_CLASS(SoEventGroup, SoGroup, "Group");
 }

@@ -99,10 +99,7 @@ SO_EVENT_SOURCE(SoInputEvent);
 
 void SoInputEvent::initClass(void)
 {
-    if( SoType::fromName("SoInputEvent").isBad())
-    {
-        SO_EVENT_INIT_CLASS(SoInputEvent, SoEvent);
-    }
+    SO_EVENT_INIT_CLASS(SoInputEvent, SoEvent);
 }
 
 SoInputEvent::SoInputEvent(/*EventContext * myContext,*/ EventProducer * prod)

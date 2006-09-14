@@ -40,9 +40,10 @@
 bool
 preloadModules()
 {
+
 	printf("INFO: preloading modules\n");
 
-	const char* libNames[] = { "TinyXML_Mod", "ACEmini", "ARToolKitPlusDll", "opentracker", "libGLES_CM", "KlimtES", "coin2es", "openVideo", "SoSimple", "stbkernel", "stbevent", "stbvideo", "stbviewer_simple" };
+	const char* libNames[] = { "TinyXML_Mod", "ACEmini", "ARToolKitPlusDll", "opentracker", "libGLES_CL", "KlimtES", "coin2es", "openVideo", "SoSimple", "stbkernel", "stbevent", "stbvideo", "stbviewer_simple" };
 	bool libDebugs[] = {       true,          true,      false,              true,          false,        true,      true,      true,        true,       true,        true,       true,       true,              };
 	const size_t numLibs = sizeof(libNames) / sizeof(const char*);
 
@@ -53,6 +54,14 @@ preloadModules()
 		printf("trying to load module '%s'\n", libName.c_str());
 		if(!stb::os_LoadLibrary(libName))
 		{
+			//flo
+			WCHAR str[256];
+			LPVOID lpMsgBuf;
+			FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM|FORMAT_MESSAGE_IGNORE_INSERTS, NULL, GetLastError(), 0, (LPWSTR)&lpMsgBuf, 0, NULL);
+			swprintf(str, L"Failed to load library:\n%S\n\nWindows reports: %s", libName.c_str(), lpMsgBuf);
+			MessageBoxW(NULL, str, L"STARTUP ERROR", MB_OK);
+			LocalFree(lpMsgBuf);
+
 			printf("ERROR: failed to load module '%s'\n", libName.c_str());
 			return false;
 		}
@@ -66,7 +75,11 @@ int WINAPI
 WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 	const int argc = 2;
+#ifdef STB_IS_WINCE
+	char* argv[argc] = { "studierstube.exe", "Program Files/stb4/data" };
+#else
 	char* argv[argc] = { "studierstube.exe", "/data" };
+#endif
 	stb::string libName="stbkernel";
 
 	if(!preloadModules())

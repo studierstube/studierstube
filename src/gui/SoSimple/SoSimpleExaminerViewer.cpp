@@ -139,6 +139,11 @@ SoSimpleExaminerViewer::getAlphaChannel(void) const
 	return FALSE;
 }
 
+void
+SoSimpleExaminerViewer::setViewing(const SbBool enable)
+{
+	// ignored
+}
 
 void
 SoSimpleExaminerViewer::setTransparencyType(SoGLRenderAction::TransparencyType type)
@@ -168,6 +173,8 @@ SoSimpleExaminerViewer::setSceneGraph(SoNode* root)
 		sceneroot->removeChild(scenegraph);
 
 	sceneroot->addChild(root);
+	scenegraph = root;
+
 	sceneManager->scheduleRedraw();
 }
 
@@ -413,6 +420,10 @@ renderCB(void * closure, SoSceneManager * manager)
 	//	manager->setRenderCallback(NULL, NULL);
 }
 
+void SoSimpleExaminerViewer::destroy() {
+	wglDeleteContext(hRC);
+	DestroyWindow(hWnd);
+}
 
 static LRESULT CALLBACK
 windowFunc(HWND window, UINT message, WPARAM wparam, LPARAM lparam)
@@ -428,8 +439,23 @@ windowFunc(HWND window, UINT message, WPARAM wparam, LPARAM lparam)
 
 		case WM_QUIT:
 			retval = SoSimple::onQuit(window, message, wparam, lparam);
+			if(SoSimpleExaminerViewer* viewer = (SoSimpleExaminerViewer*)::GetWindowLong(window, GWL_USERDATA))
+			{
+				viewer->destroy();
+			}
 			handled = TRUE;
 			break;
+
+		case WM_KEYDOWN:
+			SoSimple::exitMainLoop();
+			if(SoSimpleExaminerViewer* viewer = (SoSimpleExaminerViewer*)::GetWindowLong(window, GWL_USERDATA))
+			{
+				viewer->destroy();
+			}
+			handled = TRUE;
+			break;
+
+
 	}
 
 	

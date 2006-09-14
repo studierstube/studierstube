@@ -190,7 +190,6 @@ Viewer::setParameter(string key, std::string value)
     //}
 }
 
-
 void
 Viewer::addSoDisplay(SoDisplay* dsp)
 {

@@ -53,15 +53,12 @@ SO_ACTION_SOURCE(SoEventAction);
 
 void SoEventAction::initClass(void)
 {
-    if( SoType::fromName("SoEventAction").isBad())
-    {
-        SO_ACTION_INIT_CLASS(SoEventAction, SoCallbackAction );
+    SO_ACTION_INIT_CLASS(SoEventAction, SoCallbackAction );
 
-        SO_ACTION_ADD_METHOD(SoEventNode, SoEventAction::nodeS<SoEventNode>);
-        SO_ACTION_ADD_METHOD(SoEventGroup, SoEventAction::nodeS<SoEventGroup>);
-        SO_ACTION_ADD_METHOD(SoEventSeparator, SoEventAction::nodeS<SoEventSeparator>);
-        SO_ACTION_ADD_METHOD(SoEventKit, SoEventAction::nodeS<SoEventKit>);
-    }
+    SO_ACTION_ADD_METHOD(SoEventNode, SoEventAction::nodeS<SoEventNode>);
+    SO_ACTION_ADD_METHOD(SoEventGroup, SoEventAction::nodeS<SoEventGroup>);
+    SO_ACTION_ADD_METHOD(SoEventSeparator, SoEventAction::nodeS<SoEventSeparator>);
+    SO_ACTION_ADD_METHOD(SoEventKit, SoEventAction::nodeS<SoEventKit>);
 }
 
 SoEventAction::SoEventAction(void)

@@ -35,7 +35,6 @@
 
 #include <stb/base/OS.h>
 
-
 #ifdef USE_SOQT
 
 #ifdef STB_IS_WINDOWS

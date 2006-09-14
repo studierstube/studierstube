@@ -44,11 +44,7 @@ SO_KIT_SOURCE(SoTrackedArtifactKit);
 /// Inventor class initialization
 void SoTrackedArtifactKit::initClass()
 {
-    if( SoType::fromName("SoTrackedArtifactKit").isBad() )
-    {
-        SoTrakEngine::initClass();
-        SO_KIT_INIT_CLASS(SoTrackedArtifactKit,SoBaseKit,"BaseKit");
-    }
+    SO_KIT_INIT_CLASS(SoTrackedArtifactKit,SoBaseKit,"BaseKit");
 }
 
 /// The constructor of the kit inits the fields and connects the tracker

@@ -39,11 +39,7 @@ SO_NODE_ABSTRACT_SOURCE(SoEventSource);
 
 void SoEventSource::initClass(void)
 {
-    if( SoType::fromName("SoEventSource").isBad() )
-    {
-        SoInputEvent::initClass();
-        SO_NODE_INIT_ABSTRACT_CLASS(SoEventSource, SoNode, "Node");
-    }
+    SO_NODE_INIT_ABSTRACT_CLASS(SoEventSource, SoNode, "Node");
 }
 
 SoEventSource::SoEventSource(void)

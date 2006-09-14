@@ -151,17 +151,17 @@ Event::init()
     }
 #endif
 	SoMultimodalEngine::initClass();
-    SoTrackedArtifactKit::initClass();
     SoTrakEngine::initClass();
+    SoTrackedArtifactKit::initClass();
+    SoInputEvent::initClass();
+    SoEventSource::initClass();
     SoOpenTrackerSource::initClass();
     SoEventGroup::initClass();
     SoEventKit::initClass();
     SoEventNode::initClass();
     SoEventSeparator::initClass();
-    SoEventSource::initClass();
-    SoInputEvent::initClass();
-    SoEventRoot::initClass();
     SoEventAction::initClass();
+    SoEventRoot::initClass();
 
 
     otSource=new SoOpenTrackerSource;

@@ -146,6 +146,8 @@ public:
         }
     };
 
+#ifdef USE_OT_1_1
+#else
     /// and so on for all other types as well
 	void multimodal(std::string name,  const ot::Event * ev){
 
@@ -230,6 +232,7 @@ public:
 			event.setstring( ("event." + name).c_str() , value.c_str() );
 		}
 	};
+#endif
 protected:
     SoInputEvent & event;
 };

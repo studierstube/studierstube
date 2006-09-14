@@ -122,11 +122,16 @@ Kernel::getConfig() const
 void
 Kernel::start(int argc, char* argv[])
 {
-    logPrint("*****************************************\n");
+#ifdef STB_IS_WINCE
+//	StbLogger::getInstance()->setLogMode(MODE_FILE);
+	StbLogger::getInstance()->setLogFileName("Program Files/stb4/stb_log.txt");
+#endif
+
+    logPrint("**********************\n");
     logPrint(STUDIERSTUBE_VERSION_STRING);logPrint("\n");
     logPrint("(C) ");logPrint(STUDIERSTUBE_YEAR_STRING);
     logPrint(" Graz University of Technology\n");
-    logPrint("*****************************************\n\n");
+    logPrint("**********************\n\n");
 
     // extract application base directory name as search path
     // only useful for linux

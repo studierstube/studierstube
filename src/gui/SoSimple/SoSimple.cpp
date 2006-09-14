@@ -390,14 +390,17 @@ idleSensorCB(HWND window, UINT message, UINT idevent, DWORD dwtime)
 HWND
 SoSimple::createMainWindow(WNDPROC nWindowFunc)
 {
+
 	TCHAR appName[256], className[256];
 
 	_tcscpy(className, CHAR_TO_NATIVE(gClassName.getString()));
 	_tcscpy(appName, CHAR_TO_NATIVE(gAppName.getString()));
 
+	HINSTANCE hInstance = ::GetModuleHandle(0);
+
 	WNDCLASS windowclass;
 	windowclass.lpszClassName = className;
-	windowclass.hInstance = NULL;
+	windowclass.hInstance = hInstance;
 	windowclass.lpfnWndProc = nWindowFunc;
 	windowclass.style = 0;
 	windowclass.lpszMenuName = NULL;
@@ -410,14 +413,15 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 	ATOM reg = ::RegisterClass(&windowclass);
 
 #ifdef _WIN32_WCE
-	DWORD	style = WS_VISIBLE | WS_POPUP,
-			exStyle = 0;
+	DWORD	style = WS_VISIBLE, // | WS_POPUP
+			exStyle = WS_EX_TOPMOST;
+	int		width = ::GetSystemMetrics(SM_CXSCREEN), height = ::GetSystemMetrics(SM_CYSCREEN);
 #else
 	DWORD	style = WS_CAPTION | WS_BORDER | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_VISIBLE | WS_POPUPWINDOW,
 			exStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
+	int		width = 640, height = 480;
 #endif
 
-	int width = 640, height = 480;
 
 	adjustWindowSize(width,height, style, exStyle);
 
@@ -429,7 +433,7 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 		width,height,
 		NULL,
 		NULL,
-		NULL,	// hInstance
+		hInstance,
 		NULL);
 
 	if(gHWND==NULL)
@@ -440,7 +444,11 @@ SoSimple::createMainWindow(WNDPROC nWindowFunc)
 	else
 	{
 		::ShowWindow(gHWND, SW_SHOW);
+	    ::SetForegroundWindow(gHWND);
+
+	    ::InvalidateRect(gHWND, NULL, TRUE); 
 		::UpdateWindow(gHWND);
+		::Sleep(200);
 	}
 
 	return gHWND;

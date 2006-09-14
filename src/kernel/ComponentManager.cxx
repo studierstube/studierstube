@@ -81,6 +81,7 @@ bool
 ComponentManager::initComponent(Component *comp)
 {
     char padding[4];
+    logPrintS("PREINIT component %s\n", comp->getInfo()->getName().c_str());
     if(comp->init())
     {
         if (comp->getInfo()->getName().size()<8) strcpy(padding,"\t\t\t");

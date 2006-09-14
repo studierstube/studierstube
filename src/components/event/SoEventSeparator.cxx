@@ -38,8 +38,5 @@ SO_NODE_SOURCE(SoEventSeparator);
 
 void SoEventSeparator::initClass(void)
 {
-    if( SoType::fromName("SoEventSeparator").isBad() )
-    {
-        SO_NODE_INIT_CLASS(SoEventSeparator, SoSeparator, "Separator");
-    }
+    SO_NODE_INIT_CLASS(SoEventSeparator, SoSeparator, "Separator");
 }

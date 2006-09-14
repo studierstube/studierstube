@@ -38,6 +38,7 @@
 
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
+#include <stb/components/viewer/SoViewport.h>
 
 #include SOGUI_H
 #include SOGUI_CURSOR_H
@@ -138,6 +139,14 @@ SoDisplay::createViewer()
     //
     displayRoot=new SoSeparator();
     this->addChild(displayRoot);
+
+	// on wince, the viewport is (for whatever reason) not correctly set up -- 20060914 flo
+#ifdef STB_IS_WINCE
+	SoViewport * viewport = new SoViewport();
+	viewport->setViewportRegion(SbVec2s(0,0),SbVec2s(640,480));
+	displayRoot->addChild(viewport);
+#endif
+
     if(useRefCamera.getValue()){
         examCam= new SoPerspectiveCamera();
         displayRoot->addChild(examCam);

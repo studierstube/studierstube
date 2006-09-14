@@ -63,11 +63,7 @@ SO_NODE_SOURCE(SoOpenTrackerSource);
 
 void SoOpenTrackerSource::initClass(void)
 {
-    if( SoType::fromName("SoOpenTrackerSource").isBad() )
-    {
-        SoEventSource::initClass();
-        SO_NODE_INIT_CLASS(SoOpenTrackerSource, SoEventSource, "SoEventSource");
-    }
+    SO_NODE_INIT_CLASS(SoOpenTrackerSource, SoEventSource, "SoEventSource");
 }
 
 SoOpenTrackerSource::SoOpenTrackerSource(void) :

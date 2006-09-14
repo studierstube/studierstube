@@ -161,6 +161,7 @@ StbLogger*	StbLogger::instance=NULL;
 StbLogger::StbLogger()
 {
 	logMode = MODE_CONSOLE;
+	logFileName = "stb_log.txt";
 }
 
 StbLogger::~StbLogger()
@@ -175,6 +176,21 @@ StbLogger *StbLogger::getInstance()
 	return instance;
 }
 
+void StbLogger::setLogMode(LOG_MODE newMode) {
+	logMode = newMode;
+}
+
+void StbLogger::setLogFileName(char * filename)
+{
+	logFileName = filename;
+}
+
+char * StbLogger::getLogFileName() 
+{
+	return logFileName;
+}
+
+
 void StbLogger::printMessage(const char *message)
 {
 	// We should be using ACE here
@@ -183,7 +199,7 @@ void StbLogger::printMessage(const char *message)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFile(message);
 			break;
 		case MODE_CONSOLE:
 			printf("%s",message);
@@ -202,10 +218,10 @@ void StbLogger::printDebug(const char *debugMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFileEx("DEBUG: %s", debugMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("DEBUG: %s",debugMessage);
+			printf("DEBUG: %s", debugMessage);
 			break;
 		default:
 			break;
@@ -221,7 +237,7 @@ void StbLogger::printSetup(const char *setupMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFileEx("SETUP: %s",setupMessage);
 			break;
 		case MODE_CONSOLE:
 			printf("SETUP: %s",setupMessage);
@@ -238,7 +254,7 @@ void StbLogger::printInfo(const char *infoMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFileEx("INFO : %s",infoMessage);
 			break;
 		case MODE_CONSOLE:
 			printf("INFO : %s",infoMessage);
@@ -256,7 +272,7 @@ void StbLogger::printWarning(const char *warningMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFileEx("WARN : %s",warningMessage);
 			break;
 		case MODE_CONSOLE:
 			printf("WARN : %s",warningMessage);
@@ -274,7 +290,7 @@ void StbLogger::printErrorAndContinue(const char *errorMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			/*Do Something here*/
+			writeToFileEx("ERROR: %s",errorMessage);
 			break;
 		case MODE_CONSOLE:
 			printf("ERROR: %s",errorMessage);
@@ -291,6 +307,30 @@ void StbLogger::printErrorAndAbort(const char *errorMessage)
 
 	// FIXME: Something more elegant here please. Mendez 20060316
 	exit(0);
+}
+
+void StbLogger::writeToFile(const char * message) 
+{
+	FILE* fp = fopen(getLogFileName(), "a");
+	if(!fp)
+		return;
+
+	fprintf(fp, message);
+	//if(message[strlen(message)-1]!='\n')
+	//	fputc('\n', fp);
+
+	fclose(fp);
+}
+
+void StbLogger::writeToFileEx(const char* nStr, ...)
+{
+	char tmpString[512];
+    va_list marker;
+
+	va_start(marker, nStr);
+	vsprintf(tmpString, nStr, marker);
+
+	writeToFile(tmpString);
 }
 
 END_NAMESPACE_STB

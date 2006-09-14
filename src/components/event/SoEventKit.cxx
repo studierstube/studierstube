@@ -38,10 +38,7 @@ SO_KIT_SOURCE(SoEventKit);
 
 void SoEventKit::initClass(void)
 {
-    if( SoType::fromName("SoEventKit").isBad())
-    {
-        SO_KIT_INIT_CLASS(SoEventKit, SoBaseKit, "BaseKit");
-    }
+    SO_KIT_INIT_CLASS(SoEventKit, SoBaseKit, "BaseKit");
 }
 
 SoEventKit::SoEventKit(void)

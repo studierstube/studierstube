@@ -40,10 +40,7 @@ SO_ENGINE_SOURCE(SoTrakEngine);
 
 void SoTrakEngine::initClass(void)
 {    
-    if( SoType::fromName("SoTrakEngine").isBad() )
-    {
-        SO_ENGINE_INIT_CLASS(SoTrakEngine,SoEngine,"Engine");
-    }
+    SO_ENGINE_INIT_CLASS(SoTrakEngine,SoEngine,"Engine");
 }
 
 SoTrakEngine::SoTrakEngine(void) : adapter(NULL)

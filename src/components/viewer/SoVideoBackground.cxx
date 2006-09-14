@@ -135,7 +135,10 @@ SoVideoBackground::SoVideoBackground()
 	initialized = false;
 
 #ifdef _IS_KLIMTES_
-	bufferSynchronizer = new openvideo::BufferSynchronizer();
+	if (klesGetBufferPixels() != NULL)
+		bufferSynchronizer = new openvideo::BufferSynchronizer();
+	else 
+		bufferSynchronizer = NULL;
 #endif
 }
 
@@ -146,10 +149,13 @@ SoVideoBackground::GLRender(SoGLRenderAction*)
 	if(!initialized)
 		initialized = init();
 
-#ifndef _IS_KLIMTES_
-	drawTexture();
+#ifdef _IS_KLIMTES_
+	if (bufferSynchronizer == NULL)
+		drawTexture();
+	else
+		blitIntoVideoMemory();
 #else
-	blitIntoVideoMemory();
+	drawTexture();
 #endif
 }
 
@@ -177,19 +183,22 @@ void
 SoVideoBackground::vu_update(const openvideo::Buffer& frame)
 {
 #ifdef HAVE_OPENVIDEO
-#  ifndef _IS_KLIMTES_
+#ifdef _IS_KLIMTES_
+	if (bufferSynchronizer == NULL)
+		updateTexture(frame);
+	else
+		bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
+#else
 	updateTexture(frame);
-#  else
-	bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
-#  endif
 #endif
+#endif 
 }
 
 
 bool
 SoVideoBackground::createTexture(const openvideo::Buffer& buffer)
 {
-#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
+#if defined(HAVE_OPENVIDEO)
 
 	texInfo = new VideoBackgroundTexInfo;
 
@@ -224,10 +233,15 @@ SoVideoBackground::createTexture(const openvideo::Buffer& buffer)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
+#if defined(_IS_KLIMTES_)
+	assert(texInfo->internalFormat==GL_UNSIGNED_SHORT_5_6_5);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texInfo->texWidth, texInfo->texHeight, 0, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, NULL);
+#else
 	glTexImage2D(GL_TEXTURE_2D, 0, texInfo->internalFormat, texInfo->texWidth, texInfo->texHeight, 0, texInfo->format, GL_UNSIGNED_BYTE, NULL);
+#endif
 	glDisable(GL_TEXTURE_2D);
 	return true;
-#endif // defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
+#endif // defined(HAVE_OPENVIDEO)
 
 	return false;
 }
@@ -238,7 +252,7 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 {
 	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
 
-#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
+#if defined(HAVE_OPENVIDEO)
 	if(!texInfo)
 		if(!createTexture(buffer))
 			return;
@@ -252,7 +266,11 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, texInfo->texID);
+#if defined(_IS_KLIMTES_)
+		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texInfo->imgWidth, texInfo->imgHeight, GL_RGB, GL_UNSIGNED_SHORT_5_6_5, (void*)buffer.getPixels());
+#else
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texInfo->imgWidth, texInfo->imgHeight, texInfo->format, GL_UNSIGNED_BYTE, (void*)buffer.getPixels());
+#endif
 		glDisable(GL_TEXTURE_2D);
 
 		GLenum e;
@@ -263,7 +281,7 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 
 		touch();
 	}
-#endif // defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
+#endif // defined(HAVE_OPENVIDEO)
 }
 
 
@@ -272,7 +290,7 @@ SoVideoBackground::drawTexture()
 {
 	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
 
-#if defined(HAVE_OPENVIDEO) && !defined(_IS_KLIMTES_)
+#if defined(HAVE_OPENVIDEO)
 	if(!texInfo)
 		return;
 
@@ -283,12 +301,16 @@ SoVideoBackground::drawTexture()
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
+#ifdef _IS_KLIMTES_
+	// glPushAttrib() is not available in OpenGLES
 	glDisable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 	glDisable(GL_LIGHTING);
 	glDisable(GL_ALPHA_TEST);
 	glDisable(GL_BLEND);
+#else
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+#endif
 	///////////////////////    
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
@@ -308,12 +330,23 @@ SoVideoBackground::drawTexture()
 	glDisable(GL_TEXTURE_2D);
 
 	///postGLCalls()
+#ifdef _IS_KLIMTES_
+	// glPopAttrib() is not available in OpenGLES
+	glEnable(GL_BLEND);
+	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_LIGHTING);
+	glDepthMask(GL_TRUE);
+	glEnable(GL_DEPTH_TEST);
+#else
 	glPopAttrib();
+#endif
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	glPopMatrix();
-#endif // defined(HAVE_OPENVIDEO) !defined(_IS_KLIMTES_)
+#else
+	glClear(GL_COLOR_BUFFER_BIT);
+#endif // defined(HAVE_OPENVIDEO)
 }
 
 
