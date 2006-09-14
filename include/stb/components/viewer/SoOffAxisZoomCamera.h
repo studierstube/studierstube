@@ -41,6 +41,7 @@
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
 #include <stb/components/viewer/ViewerDefines.h>
+#include <stb/components/viewer/SoStbCamera.h>
 
 #ifdef STB_IS_WINDOWS
 #  include <SoWinLeaveScope.h>
@@ -96,6 +97,8 @@ public:
 	SoSFVec3f eyepointPosition;
     /** size[0] is the width, size[1] is the height of the projection area
     */
+	SoSFVec3f pos;
+	SoSFRotation rot;
 	SoSFFloat zoomFactor;
 
 	SoSFVec2f size;
@@ -135,9 +138,14 @@ public:
 	int projectToScreen(const SbVec3f &src, SbVec2f &dst) const;
 
 protected:
-    virtual void	viewBoundingBox(const SbBox3f &box,
+    virtual void viewBoundingBox(const SbBox3f &box,
 					float aspect, float slack);
 	virtual void GLRender(SoGLRenderAction *action);
+
+	virtual void rayPick(SoRayPickAction * action);
+
+	//virtual void doPickAction(SoAction * action);
+	
 #ifndef __COIN__
 
 protected:

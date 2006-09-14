@@ -33,6 +33,8 @@
 
 #include <stb/base/OS.h>
 
+#include <iostream>
+
 #ifdef STB_IS_WINDOWS
 #  include <SoWinEnterScope.h>
 #  include <windows.h>
@@ -42,7 +44,9 @@
 #include <Inventor/elements/SoViewingMatrixElement.h>
 #include <Inventor/elements/SoProjectionMatrixElement.h>
 #include <Inventor/elements/SoViewVolumeElement.h>
+#include <Inventor/elements/SoFocalDistanceElement.h>
 #include <Inventor/actions/SoGLRenderAction.h>
+#include <Inventor/actions/SoRayPickAction.h>
 #include <Inventor/SbLinear.h>
 
 #ifndef __APPLE__
@@ -79,8 +83,12 @@ SoOffAxisZoomCamera::SoOffAxisZoomCamera()
 {
 	SO_NODE_CONSTRUCTOR(SoOffAxisZoomCamera);
 
+	// pos and rot of camera location
+	SO_NODE_ADD_FIELD(pos, (0.0f, 0.0f, 1.0f));
+	SO_NODE_ADD_FIELD(rot, (SbRotation(SbVec3f(0.0f, 0.0f, 1.0f), 0.0f)));
 	// fieldOfView of camera
 	SO_NODE_ADD_FIELD(zoomFactor, (1.0f) );
+
 	// size of projection plane
 	SO_NODE_ADD_FIELD(size, (1.0f, 1.0f) );
 	// eye posistion in world space
@@ -100,14 +108,14 @@ SoOffAxisZoomCamera::~SoOffAxisZoomCamera()
 
 // Scales the height of the camera's projection plane.
 
-void	SoOffAxisZoomCamera::scaleHeight(float scaleFactor)
+void SoOffAxisZoomCamera::scaleHeight(float scaleFactor)
 {
     SbVec2f ppSize = size.getValue();
     ppSize[1] = ppSize[1] * scaleFactor;
     size.setValue(ppSize);
 }
 
-void	SoOffAxisZoomCamera::viewBoundingBox(const SbBox3f &/*box*/,
+void SoOffAxisZoomCamera::viewBoundingBox(const SbBox3f &/*box*/,
                                          float /*aspect*/, float /*slack*/)
 {
     // NIL
@@ -144,7 +152,6 @@ SbViewVolume SoOffAxisZoomCamera::getViewVolume(float useaspectratio) const
 	}
 
 	// set zoom offset
-	SbVec3f invPos = -position.getValue();
 	ppSize[0] *= zoomFactor.getValue();
 	ppSize[1] *= zoomFactor.getValue();
 
@@ -154,10 +161,9 @@ SbViewVolume SoOffAxisZoomCamera::getViewVolume(float useaspectratio) const
 		ppSize.setValue((useaspectratio/cameraAspect) * ppSize[0], ppSize[1]);
 	}
 	
-	// world to PP-space tansformation
+	// world to PP-space transformation
 	SbMatrix invOrientation, invPosition;
-	////invPosition.setTranslate(-position.getValue());
-	invPosition.setTranslate(invPos);
+	invPosition.setTranslate(-position.getValue());
 	invOrientation.setRotate(orientation.getValue().inverse());
 
 	// transform eyepointPosition from world to PP-space
@@ -206,8 +212,8 @@ SbViewVolume SoOffAxisZoomCamera::getViewVolume(float useaspectratio) const
     return vv;
 }
 
-// This method projects a given source point (3D) to the screen (2D).
 
+// This method projects a given source point (3D) to the screen (2D).
 int SoOffAxisZoomCamera::projectToScreen(const SbVec3f &src, SbVec2f &dst) const
 {    
     SbVec3f res;
@@ -227,16 +233,64 @@ int SoOffAxisZoomCamera::projectToScreen(const SbVec3f &src, SbVec2f &dst) const
     return FALSE;
 }
 
+
 void SoOffAxisZoomCamera::GLRender(SoGLRenderAction* action)
 {
 		glClear(GL_DEPTH_BUFFER_BIT);
 		SoCamera::GLRender(action);
 }
-#else // __COIN__
+
+
+// Overrides the inherited method, to do picking for off axis camera.
+void SoOffAxisZoomCamera::rayPick(SoRayPickAction * action)
+{
+	// Overridden to calculate the coordinates of the ray within the current camera settings
+	//SoOffAxisZoomCamera::doPickAction(action);
+	SoCamera::doAction(action);
+
+	// check for a non-empty view volume
+	SbViewVolume vv = this->getViewVolume(1.0f);
+	if (vv.getDepth() != 0.0f &&
+		vv.getWidth() != 0.0f &&
+		vv.getHeight() != 0.0f) {
+			action->computeWorldSpaceRay();
+	}
+}
+
+////// Overridden to set up the viewing and projection matrices.
+////void SoOffAxisZoomCamera::doPickAction(SoAction * action)
+////{
+////	SoState * state = action->getState();
+////
+////	SbViewVolume vv = this->getViewVolume(1.0f);
+////
+////	SbMatrix affine, proj;
+////	if (vv.getDepth() == 0.0f || vv.getWidth() == 0.0f || vv.getHeight() == 0.0f) {
+////		 Handle empty scenes.
+////		affine = proj = SbMatrix::identity();
+////	}
+////	else {
+////		vv.getMatrices(affine, proj);
+////
+////		 fix transform here
+////		////////////////////// TODO ////////////////////////////////////////
+////		SoTransform viewerLocation = SoStbCamera::getTransform();
+////		SbMatrix mm;
+////		mm.setTransform( pos.getValue(), rot.getValue(), SbVec3f(1.f, 1.f, 1.f));
+////
+////		vv.transform(mm);
+////		affine.multRight(mm.inverse());
+////	}
+////	SoViewVolumeElement::set(state, this, vv);
+////	SoProjectionMatrixElement::set(state, this, proj);
+////	SoViewingMatrixElement::set(state, this, affine);
+////	SoFocalDistanceElement::set(state, this, this->focalDistance.getValue());
+////}
+
+#else ///////////////////////// not __COIN__
 
 // method returning an approximate SbViewVolume.
-
-SbViewVolume	SoOffAxisZoomCamera::getViewVolume(float useAspectRatio) const
+SbViewVolume SoOffAxisZoomCamera::getViewVolume(float useAspectRatio) const
 {
     SbViewVolume view;
 
@@ -313,8 +367,6 @@ int SoOffAxisZoomCamera::projectToScreen(const SbVec3f &src, SbVec2f &dst) const
 			valid = FALSE;
 	return valid;
 }
-
-
 
 
 void 
@@ -490,7 +542,6 @@ SoOffAxisZoomCamera::getBoundingBox(SoGetBoundingBoxAction *action)
 
 
 // Overrides the inherited method, to do nothing when called.
-
 void
 SoOffAxisZoomCamera::rayPick(SoRayPickAction *action)
 {
