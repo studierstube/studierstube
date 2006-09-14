@@ -15,7 +15,7 @@
 			<!-- We add an extra tranformation -->
 			<EventTransform scale="1 1 1" rotationtype="euler" rotation="3.141592654 0 0" translation="0 0 0">
 				<!-- This source receives data from ARToolKit Plus -->
-				<ARToolKitPlusSource center="0 0" size="0.08 0.08" tag-id="3113"/>
+				<ARToolKitPlusSource center="0 0" size="0.08 0.08" tag-id="0"/>
 			</EventTransform>
 		</EventSink>
 	</ConsoleSink>
