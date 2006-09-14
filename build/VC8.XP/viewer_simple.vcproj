@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(STB4ROOT)/src/gui&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_SOSIMPLE;VIEWER_EXPORTS;HAVE_OPENVIDEO"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;USE_SOSIMPLE;VIEWER_EXPORTS;HAVE_OPENVIDEO;SIMAGE_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -210,6 +210,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\viewer\SoOffAxisZoomCamera.cxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\viewer\SoStbCamera.cxx"
 				>
 			</File>
@@ -239,6 +243,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\viewer\SoViewport.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoWindowHandling.cxx"
 				>
 			</File>
 			<File
@@ -362,6 +370,14 @@
 				</Filter>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath="..\..\include\stb\components\viewer\SoOffAxisZoomCamera.h"
+			>
+		</File>
+		<File
+			RelativePath="..\..\include\stb\components\viewer\SoWindowHandling.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

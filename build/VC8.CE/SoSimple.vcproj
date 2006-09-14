@@ -71,7 +71,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2esd.lib klimtesd.lib"
-				OutputFile="../../bin/WM2005/SoSimpled.dll"
+				OutputFile="../../lib/WM2005/SoSimpled.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINESROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"

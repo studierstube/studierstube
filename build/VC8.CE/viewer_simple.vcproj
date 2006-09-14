@@ -72,7 +72,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2esd.lib KlimtESd.lib openvideod.lib"
-				OutputFile="../../bin/WM2005/stbviewer_simpled.dll"
+				OutputFile="../../lib/WM2005/stbviewer_simpled.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(COINESROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
@@ -241,7 +241,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions=" /subsystem:windowsce,5.01"
 				AdditionalDependencies="coin2es.lib KlimtES.lib openvideo.lib"
-				OutputFile="../../bin/WM2005/stbviewer_simple.dll"
+				OutputFile="../../lib/WM2005/stbviewer_simple.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OPENVIDEOROOT)/lib/WM2005&quot;;&quot;$(COINESROOT)/lib/WM2005&quot;;&quot;$(STB4ROOT)/lib/WM2005&quot;;&quot;$(KLIMTESROOT)/lib/WM2005&quot;"
 				DelayLoadDLLs="$(NOINHERIT)"
@@ -554,6 +554,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\viewer\SoOffAxisZoomCamera.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\viewer\SoOffAxisZoomCamera.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\viewer\SoStbCamera.cxx"
 				>
 			</File>
@@ -583,6 +591,14 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\viewer\SoViewport.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\viewer\SoWindowHandling.cxx"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\viewer\SoWindowHandling.h"
 				>
 			</File>
 			<File
