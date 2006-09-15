@@ -41,6 +41,7 @@
 #include <stb/components/starlight/SoPhantomShape.h>
 #include <stb/components/starlight/SoHiddenGroup.h>
 #include <stb/components/starlight/SoFileEnv.h>
+#include <stb/components/starlight/SoPrismKit.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -116,6 +117,7 @@ Starlight::init(void)
     SoPhantomShape::initClass();
     SoHiddenGroup::initClass();
     SoFileEnv::initClass();
+    SoPrismKit::initClass();
 	    
 	SoCommand::initClass();
     SoSetName::initClass();

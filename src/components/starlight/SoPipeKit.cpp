@@ -38,9 +38,9 @@
 * --------------------------------------------------------------------------------
 */
 #include <Inventor/nodes/SoSphere.h>
-#include <Inventor/nodes/SoCylinder.h>
 #include <Inventor/nodes/SoTransform.h>
 #include <stb/components/starlight/SoPipeKit.h>
+#include <stb/components/starlight/SoPrismKit.h>
 #include <iostream>
 
 using namespace std;
@@ -72,7 +72,7 @@ SoPipeKit::SoPipeKit()
 	// This is for the Fields
 	SO_KIT_ADD_FIELD(coords,	(0,0,0));
 	SO_KIT_ADD_FIELD(radius,	(0));
-	SO_KIT_ADD_FIELD(caps,		(TRUE));
+	SO_KIT_ADD_FIELD(caps,		(FALSE));
 
 	SO_KIT_INIT_INSTANCE();
 
@@ -144,7 +144,7 @@ SoSeparator *SoPipeKit::createCylinder(SbVec3f start, SbVec3f end)
 	rotVec=diffVec.cross(tmpVec);
 	float angle=getAngle(diffVec, tmpVec);
 
-	SoCylinder *myCylinder=new SoCylinder;
+	SoPrismKit *myCylinder=new SoPrismKit;
 	myCylinder->radius=radius.getValue();
 	myCylinder->height.setValue(magnitude);
 
@@ -219,7 +219,8 @@ void SoPipeKit::refresh()
 	// Add the rest
 	for (i=1;i<nNumberOfCoordinates-1;i++)
 	{
-		pipes->addChild(createSphere(cleanCoords[i]));
+        if (caps.getValue())
+		    pipes->addChild(createSphere(cleanCoords[i]));
 		pipes->addChild(createCylinder(cleanCoords[i],cleanCoords[i+1]));
 	}
 
