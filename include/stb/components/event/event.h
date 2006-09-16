@@ -66,6 +66,7 @@
 *	
 */
 class SoTrakEngine;
+class SoMultimodalEngine;
 class SoTrackedArtifactKit;
 class SoTrakEngine;
 class SoOpenTrackerSource;
@@ -103,6 +104,7 @@ public:
     virtual void setParameter(stb::string key, std::string value);
 
     virtual SoTrakEngine*           createSoTrakEngine();
+	virtual SoMultimodalEngine*		createSoMultimodalEngine();
     virtual SoTrackedArtifactKit*   createSoTrackedArtifactKit();
     virtual SoOpenTrackerSource*    createSoOpenTrackerSource();
     virtual SoEventGroup*           createSoEventGroup();

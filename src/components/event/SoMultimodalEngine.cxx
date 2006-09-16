@@ -119,7 +119,7 @@ void SoMultimodalEngine::evaluate() {
         boolIn.getValue()));
     SO_ENGINE_OUTPUT(floatValue, SoSFFloat, setValue(
         floatIn.getValue()));
-     SO_ENGINE_OUTPUT(intValue, SoSFInt32, setValue(
+    SO_ENGINE_OUTPUT(intValue, SoSFInt32, setValue(
         intIn.getValue()));
     SO_ENGINE_OUTPUT(shortValue, SoSFShort, setValue(
         shortIn.getValue()));

@@ -205,6 +205,12 @@ Event::createSoTrakEngine()
     return new SoTrakEngine();
 }
 
+SoMultimodalEngine*
+Event::createSoMultimodalEngine()
+{
+	return new SoMultimodalEngine();
+}
+
 SoTrackedArtifactKit* 
 Event::createSoTrackedArtifactKit()
 {
