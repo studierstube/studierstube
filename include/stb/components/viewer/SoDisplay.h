@@ -74,7 +74,7 @@ public:
     /** 
      * The destructor 
      */
-    ~SoDisplay();
+    virtual ~SoDisplay();
     
     /** 
      * Inventor class initialization 
