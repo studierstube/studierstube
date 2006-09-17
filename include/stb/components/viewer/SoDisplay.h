@@ -184,7 +184,7 @@ public:
      *	all the stbCameras to the viewer's scene graph. If a stbCamera has no content assigned to it, 
      *	'createViewer' will set the display's content to be used as the camera's content 
      */
-    void createViewer();
+    virtual void createViewer();
     
     /************************************************************************/
     /*                                                                      */
