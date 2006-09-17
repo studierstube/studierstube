@@ -84,11 +84,12 @@ public:
 
     static SoDisplay* findSoDisplay(SoNode* node);
 
+    void addSoDisplay(SoDisplay* disp);
     static void removeSoDisplay(SoDisplay* disp);
 protected:	
     string configFile; 
     static std::vector<SoDisplay*> displayList;
-    void addSoDisplay(SoDisplay* disp);
+    
 private:
 	
 };// class 
