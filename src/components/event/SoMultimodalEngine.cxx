@@ -45,7 +45,8 @@ void SoMultimodalEngine::initClass(){
 
 
 //Constructor
-SoMultimodalEngine::SoMultimodalEngine(){
+SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
+{
   //	printf("SOMULTIMODALENGINE::CONSTRUCTOR\n");
   // Do Standard Constructor Stuff
   SO_ENGINE_CONSTRUCTOR(SoMultimodalEngine);
