@@ -269,7 +269,7 @@ Viewer::gb_registerManualCallback(SoSensorCB* cb)
 #ifdef USE_SOSIMPLE
 	SoSimple_setCallback(cb);
 #else
-	assert(false);
+    stb::Kernel::update(NULL,NULL);
 #endif
 
 }
