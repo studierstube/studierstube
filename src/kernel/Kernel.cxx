@@ -186,8 +186,8 @@ Kernel::parseConfiguration(TiXmlElement* element)
 void
 Kernel::update( void * /*data*/, SoSensor * /*sensor*/)
 {
-    instance->sceneManager->update();
     instance->componentManager->update();
+    instance->sceneManager->update();
 }
 
 
