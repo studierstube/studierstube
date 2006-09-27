@@ -30,7 +30,7 @@ doxygen studierstube_v4.dox
 %install
 scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
-cp -a doc/html $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
+cp -a doc/doc/html $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
 
 %clean
 scons -c
