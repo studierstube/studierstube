@@ -82,7 +82,7 @@ WARN_LOGFILE           = doxygen_warning_stb4.txt
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = D:/workspace/lib/icg/stb4
+INPUT                  = ..
 FILE_PATTERNS          = *.cpp \
                          *.cxx \
                          *.h
@@ -223,7 +223,7 @@ CALLER_GRAPH           = NO
 GRAPHICAL_HIERARCHY    = YES
 DIRECTORY_GRAPH        = YES
 DOT_IMAGE_FORMAT       = png
-DOT_PATH               = "C:/Program Files/Development/GraphViz/Graphviz/bin"
+#DOT_PATH               = "C:/Program Files/Development/GraphViz/Graphviz/bin"
 DOTFILE_DIRS           = 
 MAX_DOT_GRAPH_WIDTH    = 1024
 MAX_DOT_GRAPH_HEIGHT   = 1024
