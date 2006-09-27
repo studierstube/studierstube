@@ -223,5 +223,19 @@ ComponentManager::connectComponents(Component* component)
 	}
 }
 
+void ComponentManager::shutDown()
+{
+    for(int i=0;i<(int)compList.size();i++)
+    {
+        stb::logPrintI("Shutting Down %s Component\n",compList[i]->getInfo()->getName().c_str());
+        compList[i]->shutDown();
+    }
+    for(int i=0;i<(int)appList.size();i++)
+    {
+        stb::logPrintI("Shutting Down %s Application\n",compList[i]->getInfo()->getName().c_str());
+        appList[i]->shutDown();
+    }
+
+}
 
 END_NAMESPACE_STB

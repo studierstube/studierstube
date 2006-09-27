@@ -78,10 +78,15 @@ public:
     Component* load(std::string compName);
 
     /************************************************************************
-     * Updates the ComponentManager during the kernel's update traversal, 
-     * which will in turn update all currently the loaded applications. 
-     ************************************************************************/
+    * Updates the ComponentManager during the kernel's update traversal, 
+    * which will in turn update all currently the loaded applications. 
+    ************************************************************************/
     void update(); 
+
+    /************************************************************************
+    * Shuts down all the components and applications
+    ************************************************************************/
+    void shutDown(); 
 
 
 	/// Returns a GUI binding component - if one has been loaded to far

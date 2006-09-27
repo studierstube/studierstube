@@ -159,6 +159,7 @@ Kernel::start(int argc, char* argv[])
 void
 Kernel::stop()
 {
+    componentManager->shutDown();
     if(GUIBinder* guiBinder = componentManager->getGUIBinder())
         scheduler->stop(guiBinder);
 }
