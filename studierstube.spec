@@ -23,8 +23,9 @@ STUDIERSTUBE is a leading framework for the development of mobile, collaborative
 %setup
 
 %build
-scons PREFIX=%{_prefix} LIBDIR=%{_libdir}
-make doxy
+scons PREFIX=%{_prefix} LIBDIR=%{_libdir} ENABLE_OPENVIDEO=1
+cd doc
+doxygen studierstube_v4.dox
 
 %install
 scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
