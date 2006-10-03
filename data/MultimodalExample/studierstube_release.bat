@@ -1,2 +1,0 @@
-studierstube.exe
-pause

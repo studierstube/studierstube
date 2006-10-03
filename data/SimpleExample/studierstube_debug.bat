@@ -1,3 +1,0 @@
-studierstubed.exe
-
-pause

@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<openvideo scheduleMode="idle" updateRate="30">
-	<SpectecSrc pixelformat="R5G6B5">
-		<VideoSink name="Stb4VideoSink" pixelformat="R5G6B5"/>
-	</SpectecSrc>
-</openvideo>
