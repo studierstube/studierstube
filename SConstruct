@@ -302,7 +302,6 @@ else:
 	config.write ("OPENGL_LIBPATH = %r\n"%(opengl_libpath))
 	config.write ("OPENGL_LIBRARY = %r\n"%(opengl_lib))
 
-        config.write ("BUILD_EXAMPLE_APP = %r\n"%(build_example_app))
         config.write ("ENABLE_OPENVIDEO = %r\n"%(enable_openvideo))
         config.write ("ENABLE_MUDDLEWARE = %r\n"%(enable_muddleware))
         config.close ()
@@ -387,9 +386,6 @@ user_options.AddOptions (
                 ('SOURCE_FILTER', 'Specify the source filter for compiling sources'),
                 ('INCLUDE_FILTER', 'Specify the header files which should be considered'),
                 ('IGNORE_FILTER', 'Specify the ignore filter for excluding source files'),
-		(BoolOption ('BUILD_EXAMPLE_APP',
-					'Set to 1 to build the example application.',
-					'true')),
 		(BoolOption ('ENABLE_OPENVIDEO',
 					'Set to 1 to use the OpenVideo library.',
 					'false')),

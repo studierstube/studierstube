@@ -42,7 +42,7 @@
 #else
 #include <OpenTracker/OpenTracker.h>
 #include <OpenTracker/core/Configurator.h>
-#endif USE_OT_2_0
+#endif //USE_OT_2_0
 
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/EventModule.h>
@@ -103,7 +103,7 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
 	// this allows opentracker to create the stb modules, whenever they are needed
         ot::Configurator::addModuleInit("Studierstube", createOTModule, (void *)this);
 	ot::Configurator::instance() ->runConfigurationThread();
-#endif USE_OT_2_0
+#endif //USE_OT_2_0
 }
 
 SoOpenTrackerSource::~SoOpenTrackerSource()

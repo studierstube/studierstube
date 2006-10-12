@@ -11,6 +11,6 @@ SConscript(['kernel/SConscript',
 #	    'components/viewer',
 #	    'components/video'])
 
-if user_options_dict['BUILD_EXAMPLE_APP'] == 1:
-    SConscript (['applications/simple/SConscript'])
+#if user_options_dict['BUILD_EXAMPLE_APP'] == 1:
+#    SConscript (['applications/simple/SConscript'])
 
