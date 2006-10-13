@@ -101,7 +101,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(STB4ROOT)/bin/Win32"
-			IntermediateDirectory="viewer_win_release"
+			IntermediateDirectory="viewer_qt_release"
 			ConfigurationType="2"
 			CharacterSet="2"
 			WholeProgramOptimization="1"

@@ -162,6 +162,8 @@ Kernel::stop()
     componentManager->shutDown();
     if(GUIBinder* guiBinder = componentManager->getGUIBinder())
         scheduler->stop(guiBinder);
+    stb::logPrintI("Closing Studierstube\n");
+    exit(0);
 }
 
 ////////////////////////////////////////////////////////////////

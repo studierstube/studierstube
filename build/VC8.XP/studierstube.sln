@@ -30,6 +30,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_simple", "viewer_sim
 		{42748253-9DEC-4BB4-9483-FDDA842B610B} = {42748253-9DEC-4BB4-9483-FDDA842B610B}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_qt", "viewer_qt.vcproj", "{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -64,6 +66,10 @@ Global
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Debug|Win32.Build.0 = Debug|Win32
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Release|Win32.ActiveCfg = Release|Win32
 		{498BB536-E76A-4F91-9213-DCC2A350EAAA}.Release|Win32.Build.0 = Release|Win32
+		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Debug|Win32.Build.0 = Debug|Win32
+		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.ActiveCfg = Release|Win32
+		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

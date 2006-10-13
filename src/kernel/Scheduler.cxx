@@ -78,6 +78,7 @@ void
 Scheduler::stop(GUIBinder* gui_binder)
 {
     guiBinder = gui_binder;
+    stb::logPrintI("Exiting GUI Binder\n");
     guiBinder->gb_exitMainLoop();
 }
 

@@ -232,10 +232,9 @@ void ComponentManager::shutDown()
     }
     for(int i=0;i<(int)appList.size();i++)
     {
-        stb::logPrintI("Shutting Down %s Application\n",compList[i]->getInfo()->getName().c_str());
+        stb::logPrintI("Shutting Down %s Application\n",appList[i]->getInfo()->getName().c_str());
         appList[i]->shutDown();
     }
-
 }
 
 END_NAMESPACE_STB
