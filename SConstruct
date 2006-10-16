@@ -173,8 +173,9 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     
     event ={'name': 'stbevent',
                 'type': 'DL',
-                'libs': ['ACE', 'Coin', 'opentracker', 'boost', 'stbstarlight'],
+                'libs': ['ACE', 'Coin', 'opentracker'],
                 'use' : use,
+	        'defines': ['USE_OT_2_0'],
                 'src_use' : ['components/event']
                 }
 
@@ -194,7 +195,9 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
 
     targetList.append(kernel)
     targetList.append(bootloader)
-
+    targetList.append(starlight)
+    targetList.append(event)
+    targetList.append(viewer)
 
 
 #======================== CONFIGURATION SECTION =============================
