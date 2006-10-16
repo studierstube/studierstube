@@ -39,7 +39,7 @@ import buildutils
 #***************************************************************************************
 
 version      = '4.0.0'
-project      = 'Studierstube'
+project      = 'stb'
 description  = project + ' is a modified "big" library providing an AR support'
 mainlib      = 'stbkernel'
 installRoot  = os.getcwd()
@@ -50,6 +50,12 @@ targetList = []
 
 # use flags that will be shared both by static and dynamic libs.
 use= {
+      'stb4'          : 'true',
+      'coin'          : 'true'
+	}
+
+usek= {
+  'tinyxmlmod'          : 'true',	
       'stb4'          : 'true',
       'coin'          : 'true'
 	}
@@ -140,13 +146,13 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
     # and the flags needed to build with those libraries. The obtained result will be used by the build, for
     # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ACE', 'xercesc', 'tinyxmlmod']
+    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'qt-mt', 'soqt', 'coin']
 
 
     kernel ={'name': 'stbkernel',
              'type': 'DL',
              'libs': ['ACE', 'TinyXML_Mod', 'Coin'],
-             'use' : use,
+             'use' : usek,
              'src_use' : ['kernel']
          }
 
@@ -174,7 +180,8 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
 
     viewer ={'name': 'stbviewer_qt',
                 'type': 'DL',
-                'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'qt'],
+                'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'qt-mt'],
+	        'defines': ['USE_SOQT'],
                 'use' : use,
                 'src_use' : ['components/viewer']
                 }
@@ -230,8 +237,8 @@ elif sys.platform == 'linux' or sys.platform == 'linux2':
 	from linuxFlags import *
 	
 	scannerType = 'mix'
-	libraryList =['boost', 'ACE', 'xerces', 'omniORB4', 'omniCOS4', 'omniEvents',
-		      'omnithread3','XMLClient']
+
+
 
 
 	# directories needed for the build and install process
@@ -244,8 +251,8 @@ elif sys.platform == 'darwin':
 	
 	# list of libraries that might be used by this project
 	scannerType = 'mix'
-	libraryList =['boost', 'ACE', 'xerces-c', 'x11', 'omniORB4', 'omniCOS4', 'omniEvents',
-		      'omnithread3','XMLClient']
+
+
 
 	buildDir     = os.path.join(prefix, 'build', 'darwin')
 
