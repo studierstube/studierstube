@@ -262,7 +262,7 @@ elif sys.platform == 'darwin':
 
 srcDir       = os.path.join(os.getcwd(), 'src')	
 
-config_file='config.opts'
+
 	
 print 'CONFIGURE: Searching for installed libraries'
 # to get the include path for all libraries we need to retrieve 
@@ -270,10 +270,10 @@ print 'CONFIGURE: Searching for installed libraries'
 envvars = os.environ
 
 
-targets = []
+
 # create the builder with an empty target list
 buildConfig = icgbuilder.ConfigBuilder(project, scannerType, envvars,
-				       targets, libraryList)
+				       ARGUMENTS, libraryList)
 
 # add extra configuration flags
 buildConfig.desc     = description
@@ -297,8 +297,8 @@ buildConfig.setTargetList(targetList)
 buildConfig.createBuildEnvironments()
 
 # write a config file to be read by scons and used to build each target
-buildConfig.writeConfigFile(config_file, ARGUMENTS)
-
+buildConfig.writeConfigFile(ARGUMENTS)
+buildConfig.generateOptions()
 #-----------------------------------------------------------------------------
 # Read the options from the config file and update the various necessary flags
 # 
