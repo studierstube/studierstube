@@ -2,7 +2,7 @@ Summary:	Studierstube - The Augmented Reality Environment
 Name:		studierstube
 Version:	4.0
 Release:	1
-Copyright:	GPL
+License:	GPL
 Group:		Development/Libraries
 Source:		%{name}-%{version}.tar.bz2
 Vendor:		Institute for Computer Graphics and Vision, Graz University of Technology, Austria
@@ -10,8 +10,8 @@ URL:		http://www.studierstube.org
 Packager:	Institute for Computer Graphics and Vision, Graz University of Technology, Austria
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
-Requires:	tinyxml ACE openvideo opentracker Coin SoQt
-BuildRequires:	scons tinyxml-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel
+Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt
+BuildRequires:	scons tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel
 
 %define _prefix %{prefix}
 
@@ -28,7 +28,7 @@ cd doc
 doxygen studierstube_v4.dox
 
 %install
-scons INSTALL_ROOT_DIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
+scons --cache-disable DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
 cp -a doc/doc/html $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
 
