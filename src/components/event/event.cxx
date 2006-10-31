@@ -90,7 +90,7 @@
 #      endif
 #    elif (OPENTRACKER_VERSION_MAJOR==2) && (OPENTRACKER_VERSION_MINOR==0)
 #      ifdef WIN32
-#        pragma message(">>> Building against OpenTracker version 1.3 - version check OK")
+#        pragma message(">>> Building against OpenTracker version 2.0 - version check OK")
 #      endif
 #    else
 #      ifdef WIN32
