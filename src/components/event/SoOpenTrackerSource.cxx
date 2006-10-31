@@ -36,6 +36,7 @@
 
 #include <Inventor/sensors/SoIdleSensor.h>
 #include <Inventor/sensors/SoTimerSensor.h>
+#include <stb/kernel/StbLogger.h>
 
 #ifndef USE_OT_2_0
 #include <OpenTracker.h>
@@ -101,7 +102,7 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
 #ifdef USE_OT_2_0
 	// add initialization procedure to the opentracker Configurator,
 	// this allows opentracker to create the stb modules, whenever they are needed
-        ot::Configurator::addModuleInit("Studierstube", createOTModule, (void *)this);
+        ot::Configurator::addModuleInit("EventConfig", createOTModule, (void *)this);
 	ot::Configurator::instance() ->runConfigurationThread();
 #endif //USE_OT_2_0
 }

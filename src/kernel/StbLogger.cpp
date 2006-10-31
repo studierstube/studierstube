@@ -218,10 +218,10 @@ void StbLogger::printDebug(const char *debugMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			writeToFileEx("DEBUG: %s", debugMessage);
+            writeToFileEx("STB|DEBUG: %s", debugMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("DEBUG: %s", debugMessage);
+			printf("STB|DEBUG: %s", debugMessage);
 			break;
 		default:
 			break;
@@ -237,10 +237,10 @@ void StbLogger::printSetup(const char *setupMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			writeToFileEx("SETUP: %s",setupMessage);
+			writeToFileEx("STB|SETUP: %s",setupMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("SETUP: %s",setupMessage);
+			printf("STB|SETUP: %s",setupMessage);
 			break;
 		default: break;
 	}
@@ -254,10 +254,10 @@ void StbLogger::printInfo(const char *infoMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			writeToFileEx("INFO : %s",infoMessage);
+			writeToFileEx("STB|INFO : %s",infoMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("INFO : %s",infoMessage);
+			printf("STB|INFO : %s",infoMessage);
 			break;
 		default:
 			break;
@@ -272,10 +272,10 @@ void StbLogger::printWarning(const char *warningMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			writeToFileEx("WARN : %s",warningMessage);
+			writeToFileEx("STB|WARN : %s",warningMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("WARN : %s",warningMessage);
+			printf("STB|WARN : %s",warningMessage);
 			break;
 		default:
 			break;
@@ -290,10 +290,10 @@ void StbLogger::printErrorAndContinue(const char *errorMessage)
 		case MODE_OFF:
 			break;
 		case MODE_FILE:
-			writeToFileEx("ERROR: %s",errorMessage);
+			writeToFileEx("STB|ERROR: %s",errorMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("ERROR: %s",errorMessage);
+			printf("STB|ERROR: %s",errorMessage);
 			break;
 		default:
 			break;
