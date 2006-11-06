@@ -84,7 +84,7 @@ ComponentManager::initComponent(Component *comp)
     if(comp->init())
     {
         if (comp->getInfo()->getName().size()<8) strcpy(padding,"\t\t\t");
-        else strcpy(padding,"\t\t");
+        else strcpy(padding,"\t\t\t");
         logPrintS("Initializing component %s %s [ OK ]\n", comp->getInfo()->getName().c_str(), padding);
 
 		connectComponents(comp);
