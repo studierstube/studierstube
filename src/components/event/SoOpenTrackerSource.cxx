@@ -243,11 +243,16 @@ void SoOpenTrackerSource::runTracker( void )
 
 void SoOpenTrackerSource::handleEvent(SoHandleEventAction * action)
 {
-	if(!active.getValue())
-		return;
+    if(!active.getValue())
+        return;
 
     assert(eventHandler);
     eventHandler->handleEvent(action);
+}
+
+void SoOpenTrackerSource::shutDown()
+{
+    context->close();
 }
 
 struct Setter {

@@ -200,7 +200,7 @@ Event::setParameter(stb::string key, std::string value)
 void 
 Event::shutDown()
 {
-
+    otSource->shutDown();
 }
 
 SoTrakEngine*

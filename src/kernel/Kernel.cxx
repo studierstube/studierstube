@@ -26,6 +26,7 @@
  *
  * @author Denis Kalkofen
  * @author Michael Kalkusch
+ * @author Erick Mendez
  *
  * $Id: Kernel.cxx 2006-06-22 11:51:59Z kalkusch $
  * @file                                                                   */
@@ -44,6 +45,8 @@
 #endif
 #include <stb/base/fixWinXPIssues.h>
 #include <ace/ACE.h>
+#include <ace/OS.h>
+
 #include <Inventor/SoDB.h>
 #include <Inventor/sensors/SoSensor.h>
 
@@ -160,6 +163,13 @@ void
 Kernel::stop()
 {
     componentManager->shutDown();
+
+    // FIXME: give some threads time to close down. Mendez. 20061114
+    int time=1000;
+    stb::logPrintI("Waiting %d milliseconds for components to shutdown\n",time);
+    ACE_Time_Value timeVal(0, (int)(1000*time) );
+    ACE_OS::sleep( timeVal );
+
     if(GUIBinder* guiBinder = componentManager->getGUIBinder())
         scheduler->stop(guiBinder);
     stb::logPrintI("Closing Studierstube\n");

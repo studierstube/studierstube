@@ -34,6 +34,10 @@
 #include <stb/base/OS.h>
 #include <stdarg.h>
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 BEGIN_NAMESPACE_STB
 
 /*
@@ -240,7 +244,7 @@ void StbLogger::printSetup(const char *setupMessage)
 			writeToFileEx("STB|SETUP: %s",setupMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("STB|SETUP: %s",setupMessage);
+            printf("STB|SETUP: %s",setupMessage);
 			break;
 		default: break;
 	}
@@ -275,7 +279,15 @@ void StbLogger::printWarning(const char *warningMessage)
 			writeToFileEx("STB|WARN : %s",warningMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("STB|WARN : %s",warningMessage);
+#ifdef WIN32
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN);
+            printf("STB|WARN : ");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            printf("%s",warningMessage);
+#else
+            /// Color changes for console text are platform dependent
+            printf("STB|WARN : %s",warningMessage);
+#endif
 			break;
 		default:
 			break;
@@ -293,7 +305,15 @@ void StbLogger::printErrorAndContinue(const char *errorMessage)
 			writeToFileEx("STB|ERROR: %s",errorMessage);
 			break;
 		case MODE_CONSOLE:
-			printf("STB|ERROR: %s",errorMessage);
+#ifdef WIN32
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED);
+            printf("STB|ERROR: ");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+            printf("%s",errorMessage);
+#else
+            /// Color changes for console text are platform dependent
+            printf("STB|ERROR: %s",errorMessage);
+#endif
 			break;
 		default:
 			break;

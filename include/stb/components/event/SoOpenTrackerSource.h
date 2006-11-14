@@ -94,7 +94,9 @@ public:
 
 	/// run a single iteration of the event loop
 	virtual void runTracker(void);
-
+    
+    /// Shut down Opentracker
+    void shutDown();
 
 protected:
     virtual ~SoOpenTrackerSource();
