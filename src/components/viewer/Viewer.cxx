@@ -74,6 +74,8 @@
 #elif USE_SOSIMPLE
 #  include "../gui/SoSimple/public.h"
 #elif USE_SOQT
+#include <qapplication.h>
+#include <qwidget.h>
 #include <Inventor/Qt/SoQt.h>
 #else
 #  pragma error("unkown GUI binding")
@@ -231,7 +233,15 @@ Viewer::gb_init(const char*appname)
 #elif USE_SOSIMPLE
 	SoSimple_init(appname, "SoSimple");
 #elif USE_SOQT
+        // NOTE: there is a bug in QT4, initialization must be
+        // different here ! breiting !
+#if QT_VERSION >= 0x040000
+        new QApplication(0, 0);
+        QWidget *window = new QWidget;
+        SoQt::init(window);
+#else
 	SoQt::init(appname, "SoQt");
+#endif
 #endif
 }
 
