@@ -157,8 +157,8 @@ SoTrackedViewpointMobileDisplayControlMode::connectHeadTrackerStep2(SoComposeMat
 	te->matrix.connectFrom(&ctw->matrix);
 
 	// connect eyepointPositions to transformed offsets
-	//((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
-    stbCamera->getTransform()->translation.connectFrom(&te->point);
+	((SoOffAxisCamera*)stbCamera->getCamera())->eyepointPosition.connectFrom(&te->point);
+    //stbCamera->getTransform()->translation.connectFrom(&te->point);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -183,8 +183,8 @@ SoTrackedViewpointMobileDisplayControlMode::connectDisplayTracker(SoTrakEngine* 
     md->rotationB.connectFrom(&tracker->rotation);
 
     // connect orientations to calculated rotations
-    //((SoOffAxisCamera*)stbCamera->getCamera())->orientation.connectFrom(&md->product);
-     stbCamera->getTransform()->rotation.connectFrom(&md->product);
+    ((SoOffAxisCamera*)stbCamera->getCamera())->orientation.connectFrom(&md->product);
+    // stbCamera->getTransform()->rotation.connectFrom(&md->product);
 }
 
 
