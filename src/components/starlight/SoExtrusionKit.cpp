@@ -74,16 +74,17 @@ SoExtrusionKit::SoExtrusionKit()
 
 	// This is for the Fields
 	SO_KIT_ADD_FIELD(vertices,			(0,0));
-	SO_KIT_ADD_FIELD(extrusionVector,	(0,0,0));
+    SO_KIT_ADD_FIELD(extrusionVector,	(0,0,0));
+    SO_KIT_ADD_FIELD(caps,	            (TRUE));
 
     SO_KIT_INIT_INSTANCE();
 
 	// Create the Sensors
-	verticesSensor=new SoFieldSensor(SoExtrusionKit::verticesCB, this);
-	extrusionVectorSensor=new SoFieldSensor(SoExtrusionKit::extrusionVectorCB, this);
+    capsSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
+    verticesSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
+	extrusionVectorSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
 
-	// This has to be done only once, we know all the vertices are in
-	// counterclockwise order and that they could be concave
+	// Set the appropriate values for faster rendering
 	SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
 	shapeHints->vertexOrdering=SoShapeHints::COUNTERCLOCKWISE;
 	//shapeHints->vertexOrdering=SoShapeHints::UNKNOWN_ORDERING;
@@ -95,7 +96,8 @@ SoExtrusionKit::SoExtrusionKit()
 
 SoExtrusionKit::~SoExtrusionKit()
 {
-	delete verticesSensor;
+    delete capsSensor;
+    delete verticesSensor;
 	delete extrusionVectorSensor;
 }
 
@@ -114,15 +116,22 @@ SbBool SoExtrusionKit::setUpConnections(SbBool onoff, SbBool doitalways)
 
 		// Attach the field sensors, always make sure to change first the 
 		// extrusion vector
-		verticesSensor->attach(&this->vertices);
+        capsSensor->attach(&this->caps);
+        verticesSensor->attach(&this->vertices);
 		extrusionVectorSensor->attach(&this->extrusionVector);
 
+        if (caps.getValue())
+        {
+            SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
+            shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
+        }
 		refresh();
     }
     else 
     {
         // We disconnect BEFORE base class.
-		verticesSensor->detach();
+        capsSensor->detach();
+        verticesSensor->detach();
 		extrusionVectorSensor->detach();
 
         inherited::setUpConnections(onoff, doitalways);
@@ -130,13 +139,7 @@ SbBool SoExtrusionKit::setUpConnections(SbBool onoff, SbBool doitalways)
     return !(connectionsSetUp = onoff);
 }
 
-void SoExtrusionKit::verticesCB(void *data, SoSensor * /*sensor*/)
-{
-    SoExtrusionKit *exkTmp= (SoExtrusionKit *)data;
-	exkTmp->refresh();
-}
-
-void SoExtrusionKit::extrusionVectorCB(void *data, SoSensor * /*sensor*/)
+void SoExtrusionKit::refreshCB(void *data, SoSensor * /*sensor*/)
 {
     SoExtrusionKit *exkTmp= (SoExtrusionKit *)data;
 	exkTmp->refresh();
@@ -195,23 +198,39 @@ void SoExtrusionKit::refresh()
 
 	// This is the total of coordinates in 'coords'
 	nNumberOfCoordinates=nNumberOfVertices*2;
-	
-	// Create footprint face
-	nNextIndex=0;
-	nNextLimit=nNumberOfVertices;
-	for (i=nNextIndex;i<nNextLimit;i++)
-		faces->coordIndex.set1Value(i,i);
-	faces->coordIndex.set1Value(nNextLimit,-1);
 
-	// Create footprint extruded face
-	nNextIndex=nNextLimit+1;
-	nNextLimit=nNextIndex+nNumberOfVertices;
-	for (i=0;i<nNumberOfVertices;i++)
-		faces->coordIndex.set1Value(i+nNextIndex,nNextLimit-i-2);
-	faces->coordIndex.set1Value(nNextLimit,-1);
+    if (caps.getValue())
+    {
+        // We activate this only if we have to render the caps
+        SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
+        shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
 
-	// Create the rest of the cylinder faces except for the last
-	nNextIndex=nNextLimit+1;
+	    // Create footprint face
+	    nNextIndex=0;
+	    nNextLimit=nNumberOfVertices;
+	    for (i=nNextIndex;i<nNextLimit;i++)
+		    faces->coordIndex.set1Value(i,i);
+	    faces->coordIndex.set1Value(nNextLimit,-1);
+
+	    // Create footprint extruded face
+	    nNextIndex=nNextLimit+1;
+	    nNextLimit=nNextIndex+nNumberOfVertices;
+	    for (i=0;i<nNumberOfVertices;i++)
+		    faces->coordIndex.set1Value(i+nNextIndex,nNextLimit-i-2);
+	    faces->coordIndex.set1Value(nNextLimit,-1);
+
+	    // Create the rest of the cylinder faces except for the last
+        nNextIndex=nNextLimit+1;
+    }
+    else
+    {
+        SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
+        shapeHints->faceType=SoShapeHints::CONVEX;
+
+        nNextIndex=0;
+        nNextLimit=nNumberOfVertices;
+    }
+
 	for (i=0;i<nNumberOfVertices-1;i++)
 	{
 		nNextLimit=(i*5+nNextIndex);
@@ -230,5 +249,6 @@ void SoExtrusionKit::refresh()
 	faces->coordIndex.set1Value(nNextLimit+2,	nNumberOfVertices);
 	faces->coordIndex.set1Value(nNextLimit+3,	0);
 	faces->coordIndex.set1Value(nNextLimit+4,	-1);
+
 }
 

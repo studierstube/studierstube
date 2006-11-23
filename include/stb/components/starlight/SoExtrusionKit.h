@@ -44,6 +44,7 @@
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/fields/SoMFVec2f.h>
 #include <Inventor/fields/SoSFVec3f.h>
+#include <Inventor/fields/SoSFBool.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 
 #include "starlight.h"
@@ -80,10 +81,14 @@ public:
 	/// The extrusion vector, giving the direction and magnitude of extrusion
 	SoSFVec3f extrusionVector;
 
+    /// Flag to let the kit know that it has to create the top and bottom faces, default value is TRUE
+    SoSFBool caps;
+
 protected:
 
 	/// Sensors
-	SoFieldSensor *verticesSensor;
+    SoFieldSensor *capsSensor;
+    SoFieldSensor *verticesSensor;
 	SoFieldSensor *extrusionVectorSensor;
 
 	/// Parts of the catalog
@@ -96,10 +101,7 @@ protected:
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
 
 	/// Calls the function that rebuilds the object
-    static void verticesCB(void* data, SoSensor* sensor);
-
-	/// Calls the function that rebuilds the object
-    static void extrusionVectorCB(void* data, SoSensor* sensor);
+    static void refreshCB(void* data, SoSensor* sensor);
 
 	/// Rebuilds the Extrusion Object
 	void refresh();
