@@ -37,7 +37,7 @@
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 #endif
-
+#include <stb/kernel/StbLogger.h>
 #include <stb/components/viewer/Viewer.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/displaymode/SoFieldSequentialDisplayMode.h>
@@ -87,17 +87,16 @@ SoFieldSequentialDisplayMode::~SoFieldSequentialDisplayMode()
 void 
 SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 {
+    printf("SoFieldSequentialDisplayMode::setViewer\n");
 	SoDisplayMode::setViewer(aViewer);
 	if(!SoFieldSequentialDisplayMode::isInit){
-		SoFieldSequentialDisplayMode::isInit=true;
-		viewer->setQuadBufferStereo(true);
+		SoFieldSequentialDisplayMode::isInit=true;		
 		if(viewer->isQuadBufferStereo()){
-			printf("STB_INFO: set displayMode for SoStudierstubeViewer to SoFieldSequentialDisplayMode::QuadBuffer");
 			isQuadBufferAvailable=true;
 		}
-		else{
+		else{            
 			viewer->setQuadBufferStereo(false);
-			printf("STB_INFO: displayMode = set displayMode for SoStudierstubeViewer to SoFieldSequentialDisplayMode -> no quadbuffer found -> render in mono");
+            stb::logPrintW("SoFieldSequentialDisplayMode :: no quadbuffer found");
 		}
 	}
 }

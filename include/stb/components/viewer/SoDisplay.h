@@ -89,6 +89,8 @@ public:
     
     /** Specifies whether the viewer's headlight is turned on or off. */ 
     SoSFBool  useRefCamera;
+
+    SoSFBool  quadBuffering;
     //////////////////////////////////////////
     ////////////// Viewer Configuration //////
     //////////////////////////////////////////

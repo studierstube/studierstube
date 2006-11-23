@@ -85,6 +85,7 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(isViewing,(TRUE));
     SO_NODE_ADD_FIELD(showFrameRate,(FALSE));
     SO_NODE_ADD_FIELD(showTriangleCount,(FALSE));
+    SO_NODE_ADD_FIELD(quadBuffering,(FALSE));
 
     
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SCREEN_DOOR);
@@ -159,7 +160,10 @@ SoDisplay::createViewer()
     // create StudierstubeViewer
     ////////////////////////////////////////
     viewer=new SoStudierstubeViewer(NULL);
-
+    if (quadBuffering.getValue())
+    {
+        viewer->setQuadBufferStereo(true);
+    }        
     ///////////////////////////////////////////////////
     // add all the stbCameras to the viewer's root node
     // for (int i=0;i<stbCameraList.getNum();i++)
