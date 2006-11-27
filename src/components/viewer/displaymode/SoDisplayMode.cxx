@@ -53,6 +53,7 @@ SoDisplayMode::initClass()
 SoDisplayMode::SoDisplayMode()
 {
 	viewer=NULL;
+	activated=false;
     // nil
 }
 
