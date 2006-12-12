@@ -184,7 +184,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'QtCore'],
 	        'defines': ['USE_SOQT'],
                 'use' : use,
-                'incpath' : ['/usr/include/qt4/Qt'], 
+                'incpath' : ['/usr/include/qt4/Qt', '/usr/include/Qt'], 
                 'src_use' : ['components/viewer']
                 }
 

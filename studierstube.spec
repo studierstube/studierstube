@@ -29,8 +29,8 @@ doxygen studierstube_v4.dox
 
 %install
 scons --cache-disable DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
-cp -a doc/doc/html $RPM_BUILD_ROOT/%{_prefix}/share/doc/packages/studierstube
+mkdir -p $RPM_BUILD_ROOT/%{_docdir}/studierstube
+cp -a doc/doc/html $RPM_BUILD_ROOT/%{_docdir}/studierstube
 
 %clean
 scons -c
@@ -40,7 +40,6 @@ scons -c
 %defattr(-,root,root)
 %{_libdir}/*.so*
 %{_bindir}/*
-%{_prefix}/share/stb/*
 
 
 %package devel
@@ -49,7 +48,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
 %description devel
-This package contains header files and include files that are needed for development using ...
+This package contains header files and include files that are needed for development using Studierstube.
 
 %files devel
 %defattr(-,root,root)
@@ -58,7 +57,7 @@ This package contains header files and include files that are needed for develop
 
 
 %package doc
-Summary:	Studierstube header files
+Summary:	Studierstube documentation
 Group:		Development/Libraries
 Requires:	%{name} = %{version}
 
@@ -67,4 +66,4 @@ Studierstube documentation
 
 %files doc
 %defattr(-,root,root)
-%{_prefix}/share/doc/packages/studierstube
+%{_docdir}/*
