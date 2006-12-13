@@ -105,7 +105,7 @@ SoTrackedViewpointMobileDisplayControlMode::activate()
     trHead->value.set1Value(0,viewpointTrackerValue.getValue());
 
     trDisplay->key.set1Value(0,displayTrackerKey.getValue());;
-    trDisplay->value.set1Value(0,displayTrackerKey.getValue());;
+    trDisplay->value.set1Value(0,displayTrackerValue.getValue());;
 
     connectHeadTracker(trHead);
     connectDisplayTracker(trDisplay);
