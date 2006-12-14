@@ -86,7 +86,7 @@ if sys.platform == 'win32':
             'type'    : 'DL',
             'libs'    : ['Coin2', 'opentracker', 'boost', 'stbkernel','stbstarlight', 'openvideo'],
             'use'     : use,
-            'defines' : ['COIN_DLL', 'HAVE_OPENVIDEO','EVENT_EXPORTS', 'USE_OT_2_0'],
+            'defines' : ['COIN_DLL', 'HAVE_OPENVIDEO','EVENT_EXPORTS', 'USE_OT_2_0', 'OT_ENABLE_RECONFIGURATION'],
             'src_use' : ['components/event']
             }
 
