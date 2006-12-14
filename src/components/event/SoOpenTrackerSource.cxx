@@ -53,10 +53,10 @@
 
 
 void SoOpenTrackerSource::createOTModule(ot::Context * context, void * data){
-	SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
-    self->eventHandler = new EventModule(self);
-	context->addModule( "EventConfig", *self->eventHandler );
-    context->addFactory( *self->eventHandler );
+  SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
+  self->eventHandler = new EventModule(self);
+  context->addModule( "EventConfig", *self->eventHandler );
+  context->addFactory( *self->eventHandler );
 
 }
 
@@ -102,8 +102,8 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
 #ifdef USE_OT_2_0
 	// add initialization procedure to the opentracker Configurator,
 	// this allows opentracker to create the stb modules, whenever they are needed
-        ot::Configurator::addModuleInit("EventConfig", createOTModule, (void *)this);
-	ot::Configurator::instance() ->runConfigurationThread();
+    ot::Configurator::addModuleInit("EventModule", createOTModule, (void *)this);
+
 #endif //USE_OT_2_0
 }
 
@@ -146,8 +146,12 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
     if(configFile.getLength() > 0)
     {
 #ifdef USE_OT_2_0
-	ot::Configurator * conf = ot::Configurator::instance();
 	std::string configFileString = configFile.getString();
+	ot::Configurator * conf = ot::Configurator::instance();
+#  ifdef OT_ENABLE_RECONFIGURATION
+	conf ->runConfigurationThread( configFileString.c_str() );
+#  endif //OT_ENABLE_RECONFIGURATION
+
 	conf->changeConfiguration(configFileString);
 
 	self->context = & conf->getContext();		
