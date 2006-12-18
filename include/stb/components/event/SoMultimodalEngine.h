@@ -40,6 +40,7 @@
 #include <Inventor/fields/SoSFVec3f.h>
 #include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoSFFloat.h>
+#include <Inventor/fields/SoMFFloat.h>
 #include <Inventor/fields/SoSFInt32.h>
 #include <Inventor/fields/SoSFShort.h>
 #include <Inventor/fields/SoSFTime.h>
@@ -83,7 +84,7 @@ public:
     SoSFUInt32      uintIn;            // guess...yes unsigned int input
     SoSFUShort      ushortIn;          // unsigned short input
     SoSFString      stringIn;          // string input
-
+    SoMFFloat       mffloatIn;
     SoSFTime        timeIn;            // timestamp input
 
     // just in case, these are unused and will probably be removed in
@@ -102,6 +103,7 @@ public:
     SoEngineOutput uintValue;               // (SoSFUInt) unsigned int output
     SoEngineOutput ushortValue;             // (SoSFUShort) unsigned short output
     SoEngineOutput stringValue;             // (SoSFString) string output
+    SoEngineOutput mffloatValue;			  // (SoMFFloat) mffloat output
 
     // just in case
     SoEngineOutput imageValue;

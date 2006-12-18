@@ -114,7 +114,7 @@ public:
     // need the complementary getXXX functions
     // all of these could be implemented inline and with template and overloading.
     // however, this would introduce dependencies on boost in this header file.
-
+    const std::vector<float> getVector( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const SbVec3f  getSFVec3f( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const SbRotation  getSFRotation( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);
     const SbString  getSFString( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType);

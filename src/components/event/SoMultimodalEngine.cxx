@@ -36,6 +36,9 @@
 #include <stb/components/event/EventContextFilter.h>
 #include <stb/components/event/SoMultimodalEngine.h>
 
+#include <iostream>
+#include <vector>
+
 
 SO_ENGINE_SOURCE(SoMultimodalEngine);
 
@@ -69,6 +72,7 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
   SO_ENGINE_ADD_INPUT( uintIn, (0));
   SO_ENGINE_ADD_INPUT( ushortIn, (0));
   SO_ENGINE_ADD_INPUT( stringIn, (""));
+  SO_ENGINE_ADD_INPUT( mffloatIn, (0));
 
   /* just in case 
   SO_ENGINE_ADD_INPUT( imageIn, (0));
@@ -90,6 +94,7 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
   SO_ENGINE_ADD_OUTPUT( uintValue,   SoSFUInt32);
   SO_ENGINE_ADD_OUTPUT( ushortValue,   SoSFUShort);
   SO_ENGINE_ADD_OUTPUT( stringValue,   SoSFString);
+  SO_ENGINE_ADD_OUTPUT( mffloatValue,   SoMFFloat);
 
   /* just in case 
   SO_ENGINE_ADD_OUTPUT( imageValue,   SoSFImage);
@@ -129,6 +134,8 @@ void SoMultimodalEngine::evaluate() {
 
     SO_ENGINE_OUTPUT(ushortValue, SoSFUShort, setValue(
         ushortIn.getValue()));
+	 SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
+        mffloatIn));
 
 };
 void SoMultimodalEngine::inputChanged(SoField * whichField){
@@ -143,6 +150,7 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 {
     if (event){
       SbString key = attrName.getValue();
+     
       SbString eventstr = key.getSubString(0, 5);
       if (eventstr != "event."){
 	key = "event.";
@@ -153,7 +161,7 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
       if (event->containsKey(key.getString())){
 	// evaluate the type of the event in order to decide in which output to 
 	// place it
-
+	//	printf("SOMULTIMODALENGINE::PROCESSEVENT: of type %s\n", attrType.getValue().getString());	
 	if(attrType.getValue()=="string"){
 
 	  if (event->isOfType(key, typeid(SbString))){
@@ -203,9 +211,30 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 	    vec3fIn.setValue(event->getSFVec3f(key));
 	    evaluate();
 	  }
+	  else if (event->isOfType(key, typeid(std::vector<float>))){
+		 std::vector<float> vec = event->getVector(key);
+	    if (vec.size() == 3) {
+			 vec3fIn.setValue(vec[0], vec[1], vec[2]);
+		    evaluate();
+		 }
+	  }
 	} else if (attrType.getValue() == "rotation") {
 	  if (event->isOfType(key, typeid(SbRotation))){
 	    rotationIn.setValue(event->getSFRotation(key));
+	    evaluate();
+	  }
+	  else if (event->isOfType(key, typeid(std::vector<float>))){
+		 std::vector<float> vec = event->getVector(key);
+	    if (vec.size() == 4) {
+			 rotationIn.setValue(vec[0], vec[1], vec[2], vec[3]);
+		    evaluate();
+		 }
+	  }
+	} else if (attrType.getValue() == "mffloat"){
+	  if (event->isOfType(key, typeid(std::vector<float>))){
+	    std::vector<float> vec = event->getVector(key);
+		 for (unsigned int i=0; i<vec.size(); i++)
+		    mffloatIn.set1Value(i,vec[i]);
 	    evaluate();
 	  }
 	} else if (attrType.getValue() == "time"){
@@ -221,10 +250,7 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
       }
       //      evaluate(); 
     }
-    
-    
-     
-	  
+      
 }
 
 

@@ -224,6 +224,12 @@ const SbVec3f SoInputEvent::getSFVec3f( const SbName & name ) const throw(Elemen
     return data->get<SbVec3f>( name );
 }
 
+const std::vector<float> SoInputEvent::getVector( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
+{
+    assert( data );
+    return data->get< std::vector<float> >( name );
+}
+
 const SbString SoInputEvent::getSFString( const SbName & name ) const throw(ElementNotFound, ElementOfDifferentType)
 {
     assert( data );
