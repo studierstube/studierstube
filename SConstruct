@@ -39,7 +39,7 @@ import buildutils
 #***************************************************************************************
 
 version      = '4.0.0'
-project      = 'stb'
+project      = 'stb4'
 description  = project + ' is a modified "big" library providing an AR support'
 mainlib      = 'stbkernel'
 installRoot  = os.getcwd()
@@ -50,13 +50,13 @@ targetList = []
 
 # use flags that will be shared both by static and dynamic libs.
 use = {
-    'stb4'          : 'true',
+    #'stb4'          : 'true',
     'Coin'          : 'true'
     }
 
 usek = {
     'tinyxmlmod'          : 'true',	
-    'stb4'          : 'true',
+    #'stb4'          : 'true',
     'Coin'          : 'true'
     }
 
@@ -65,7 +65,7 @@ if sys.platform == 'win32':
 # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
 # and the flags needed to build with those libraries. The obtained result will be used by the build, for
 # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'stb4', 'openvideo', 'ot', 'boost']
+    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'openvideo', 'ot', 'boost']
 
     bootloader ={'name': 'bootloader',
                  'type': 'PRG',
