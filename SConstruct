@@ -84,8 +84,8 @@ if sys.platform == 'win32':
 
     event ={'name'    : 'stbevent',
             'type'    : 'DL',
-            'libs'    : ['Coin2', 'opentracker', 'boost', 'stbkernel','stbstarlight', 'openvideo'],
             'use'     : use,
+            'libs'    : ['Coin2', 'opentracker', 'boost', 'stbkernel','stbstarlight', 'openvideo'],
             'defines' : ['COIN_DLL', 'HAVE_OPENVIDEO','EVENT_EXPORTS', 'USE_OT_2_0', 'OT_ENABLE_RECONFIGURATION'],
             'src_use' : ['components/event']
             }
@@ -146,7 +146,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
     # and the flags needed to build with those libraries. The obtained result will be used by the build, for
     # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'soqt', 'coin']
+    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'soqt', 'coin', 'boost']
 
 
     kernel ={'name': 'stbkernel',
@@ -173,7 +173,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     
     event ={'name': 'stbevent',
                 'type': 'DL',
-                'libs': ['ACE', 'Coin', 'opentracker'],
+                'libs': ['ACE', 'Coin', 'opentracker','boost'],
                 'use' : use,
 	        'defines': ['USE_OT_2_0'],
                 'src_use' : ['components/event']

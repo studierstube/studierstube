@@ -56,6 +56,10 @@
 
 #  define STB_IS_LINUX
 
+#elif defined(DARWIN)
+
+#  define STB_IS_DARWIN
+
 #else
 
 #  pragma error("unknown OS!!!")
@@ -79,6 +83,12 @@
 
 #endif
 
+#ifdef STB_IS_DARWIN
+
+#  include <dlfcn.h>
+#  define OS_SEP "/"
+
+#endif
 
 BEGIN_NAMESPACE_STB
 
@@ -87,7 +97,7 @@ BEGIN_NAMESPACE_STB
 
    typedef HMODULE hModule;
 
-#elif defined(STB_IS_LINUX)
+#elif defined(STB_IS_LINUX) || defined (STB_IS_DARWIN)
 
    typedef void* hModule; 
 
