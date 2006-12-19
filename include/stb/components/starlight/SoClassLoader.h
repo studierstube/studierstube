@@ -42,7 +42,7 @@
 
 #ifdef STB_IS_WINDOWS
 #  include <windows.h>
-#elif defined(STB_IS_LINUX)
+#elif defined(STB_IS_LINUX) || defined(STB_IS_APPLE)
 #  include <ltdl.h>
 #endif
 
@@ -87,7 +87,10 @@ public:
     HINSTANCE getObjectHandle() { return objectHandle; };
 #elif defined(STB_IS_LINUX)
     void* getObjectHandle() { return objectHandle; };
+#elif defined (STB_IS_APPLE)
+    void* getObjectHandle() { return objectHandle; };
 #endif
+
     
 protected:
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
@@ -104,6 +107,8 @@ private:
 #ifdef STB_IS_WINDOWS
     HINSTANCE objectHandle;
 #elif defined(STB_IS_LINUX)
+    lt_dlhandle objectHandle;
+#elif defined(STB_IS_APPLE)
     lt_dlhandle objectHandle;
 #endif
 

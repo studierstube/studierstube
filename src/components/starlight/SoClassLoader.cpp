@@ -167,6 +167,8 @@ SoClassLoader::linkDll(SbString filename)
 #  endif // STB_IS_DEBUG
 #elif defined(STB_IS_LINUX)
    objectHandle = lt_dlopenext(filename.getString());
+#elif defined(STB_IS_APPLE)
+   objectHandle = lt_dlopenext(filename.getString());
 #endif
 
    if (!objectHandle)

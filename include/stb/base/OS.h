@@ -56,9 +56,9 @@
 
 #  define STB_IS_LINUX
 
-#elif defined(DARWIN)
+#elif defined(__APPLE__)
 
-#  define STB_IS_DARWIN
+#  define STB_IS_APPLE
 
 #else
 
@@ -83,7 +83,7 @@
 
 #endif
 
-#ifdef STB_IS_DARWIN
+#ifdef STB_IS_APPLE
 
 #  include <dlfcn.h>
 #  define OS_SEP "/"
@@ -97,7 +97,7 @@ BEGIN_NAMESPACE_STB
 
    typedef HMODULE hModule;
 
-#elif defined(STB_IS_LINUX) || defined (STB_IS_DARWIN)
+#elif defined(STB_IS_LINUX) || defined (STB_IS_APPLE)
 
    typedef void* hModule; 
 
