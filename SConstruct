@@ -98,13 +98,20 @@ if sys.platform == 'win32':
                  'src_use' : ['components/starlight']
                 }
 
-    video ={'name': 'video',
-            'type': 'DL',
-            'libs': ['openvideo', 'stbkernel'],
-            'use' : use,
-            'defines' : ['COIN_DLL','VIDEO_EXPORTS'],
-            'src_use' : ['components/video']
-            }
+    video = { 'name': 'video',
+              'type': 'DL',
+              'libs': ['openvideo', 'stbkernel'],
+              'use' : use,
+              'defines' : ['COIN_DLL','VIDEO_EXPORTS'],
+              'src_use' : ['components/video']
+              }
+
+    bpython = { 'name': 'bpython',
+                'type': 'DL',
+                'libs': ['Python','Coin2'],
+                'use' : use,
+                'src_use':['components/bpython']
+                }
 
     viewer_simple ={'name': 'viewer_simple',
             'type': 'DL',
@@ -137,6 +144,7 @@ if sys.platform == 'win32':
     targetList.append(kernel)
     targetList.append(event)
     targetList.append(starlight)
+    targetList.append(bpython)
     targetList.append(video)
     targetList.append(viewer_simple)
     targetList.append(viewer_win)
@@ -146,7 +154,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
     # and the flags needed to build with those libraries. The obtained result will be used by the build, for
     # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'SoQt', 'Coin', 'boost']
+    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'SoQt', 'Coin', 'boost','Python']
 
 
     kernel ={'name': 'stbkernel',
@@ -184,10 +192,15 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'QtCore'],
 	        'defines': ['USE_SOQT'],
                 'use' : use,
-                'incpath' : ['/usr/include/qt4/Qt', '/usr/include/Qt'], 
                 'src_use' : ['components/viewer']
-                }
+             }
 
+    bpython = { 'name': 'bpython',
+                'type': 'DL',
+                'libs': ['Python','Coin'],
+                'use' : use,
+                'src_use':['components/bpython']
+                }
     
     if sys.platform == 'darwin':
         starlight['defines'] = ['COIN_LDFLAGS', 'dynamic_lookup']
@@ -199,6 +212,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     targetList.append(starlight)
     targetList.append(event)
     targetList.append(viewer)
+    targetList.append(bpython)
 
 
 #======================== CONFIGURATION SECTION =============================

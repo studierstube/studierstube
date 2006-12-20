@@ -35,8 +35,8 @@
 #include <Inventor/lists/SbStringList.h>
 #include <Inventor/sensors/SoOneShotSensor.h>
 
-#include "swigpyrun.h"
-#include "SoPyScript.h"
+#include <stb/components/bpython/swigpyrun.h>
+#include <stb/components/bpython/SoPyScript.h>
 
 // Python code snippet to load in a URL through the urrlib module
 #define PYTHON_URLLIB_URLOPEN "\
@@ -471,7 +471,8 @@ SoPyScript::getFieldData(void) const
 // loads and executes Python script contained in the script field
 void
 SoPyScript::executePyScript(void)
-{
+{ 
+  return;
   // strip out possible \r's that could come from win32 line endings
   SbString src = script.getValue();
   SbString pyString;
