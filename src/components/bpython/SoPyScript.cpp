@@ -472,7 +472,6 @@ SoPyScript::getFieldData(void) const
 void
 SoPyScript::executePyScript(void)
 { 
-  return;
   // strip out possible \r's that could come from win32 line endings
   SbString src = script.getValue();
   SbString pyString;
