@@ -110,6 +110,7 @@ if sys.platform == 'win32':
                 'type': 'DL',
                 'libs': ['Python','Coin2'],
                 'use' : use,
+                'incpath' : ['/usr/include/python'], 
                 'src_use':['components/bpython']
                 }
 
@@ -199,6 +200,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'type': 'DL',
                 'libs': ['Python','Coin'],
                 'use' : use,
+                'incpath' : ['/usr/include/python'], 
                 'src_use':['components/bpython']
                 }
     
