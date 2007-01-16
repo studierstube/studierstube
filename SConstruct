@@ -166,7 +166,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
          }
 
 
-    bootloader ={'name': 'bootloader',
+    bootloader ={'name': 'workspace',
                  'type': 'PRG',
                  'libs': ['ACE'],
                  'use' : use,
