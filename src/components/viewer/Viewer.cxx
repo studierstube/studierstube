@@ -233,15 +233,20 @@ Viewer::gb_init(const char*appname)
 #elif USE_SOSIMPLE
 	SoSimple_init(appname, "SoSimple");
 #elif USE_SOQT
+    #ifdef WIN32
+        // Bugfix only necessary for Linux. Mendez
+        SoQt::init(appname, "SoQt");
+    #elif
         // NOTE: there is a bug in QT4, initialization must be
         // different here ! breiting !
-#if QT_VERSION >= 0x040000
-        new QApplication(0, 0);
-        QWidget *window = new QWidget;
-        SoQt::init(window);
-#else
-	SoQt::init(appname, "SoQt");
-#endif
+        #if QT_VERSION >= 0x040000
+            new QApplication((int*)0, 0);
+            QWidget *window = new QWidget;
+            SoQt::init(window);
+        #else
+            SoQt::init(appname, "SoQt");
+        #endif
+    #endif
 #endif
 }
 
