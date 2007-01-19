@@ -35,7 +35,7 @@
 
 #include <stb/base/OS.h>
 
-#ifdef USE_SOQT
+#if defined(USE_SOQT)
 
 #ifdef STB_IS_WINDOWS
 #  define SOQT_DLL 1
@@ -57,7 +57,7 @@
 #define SoGuiRenderArea SoQtRenderArea
 #define SoGuiExaminerViewer SoQtExaminerViewer
 
-#elif USE_SOWIN
+#elif defined(USE_SOWIN)
 
 #ifdef STB_IS_WINDOWS
 #  define SOWIN_DLL 1
@@ -93,7 +93,7 @@
 #define SoGuiRenderArea SoGLRenderArea
 #define SoGuiExaminerViewer SoGLExaminerViewer*/
 
-#elif USE_SOSIMPLE
+#elif defined(USE_SOSIMPLE)
 
 #define SOGUICOMPONENT_H <SoSimple/SoSimpleExaminerViewer.h>
 #define SOGUI_H <SoSimple/SoSimple.h>
@@ -111,7 +111,7 @@
 
 #else // no window binding defined
 
-#  pragma error("ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL")
+#  error "ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL"
 
 #endif // end of windows bindings
 
