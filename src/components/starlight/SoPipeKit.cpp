@@ -71,7 +71,8 @@ SoPipeKit::SoPipeKit()
 
 	// This is for the Fields
 	SO_KIT_ADD_FIELD(coords,	(0,0,0));
-	SO_KIT_ADD_FIELD(radius,	(0));
+    SO_KIT_ADD_FIELD(radius,	(0));
+    SO_KIT_ADD_FIELD(numFaces,	(3));
 	SO_KIT_ADD_FIELD(caps,		(FALSE));
 
 	SO_KIT_INIT_INSTANCE();
@@ -145,6 +146,7 @@ SoSeparator *SoPipeKit::createCylinder(SbVec3f start, SbVec3f end)
 	float angle=getAngle(diffVec, tmpVec);
 
 	SoPrismKit *myCylinder=new SoPrismKit;
+    myCylinder->numFaces=numFaces;
 	myCylinder->radius=radius.getValue();
 	myCylinder->height.setValue(magnitude);
 

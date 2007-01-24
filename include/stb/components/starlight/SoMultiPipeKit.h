@@ -22,7 +22,7 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoPipeKit
+/** The header file for the SoMultiPipeKit
 *
 * @author Erick Mendez
 * @ingroup starlight
@@ -31,8 +31,8 @@
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SOPIPEKIT_H_
-#define _SOPIPEKIT_H_
+#ifndef _SOMULTIPIPEKIT_H_
+#define _SOMULTIPIPEKIT_H_
 
 
 /*
@@ -48,6 +48,7 @@
 #include <Inventor/fields/SoMFInt32.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 #include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/fields/SoSFBitMask.h>
 
 #include "starlight.h"
 
@@ -57,11 +58,9 @@
 * @ingroup vidente
 */
 
-float getAngle(SbVec3f alpha, SbVec3f beta);
-
-class STARLIGHT_API SoPipeKit: public SoBaseKit
+class STARLIGHT_API SoMultiPipeKit: public SoBaseKit
 {
-	SO_KIT_HEADER(SoPipeKit);
+	SO_KIT_HEADER(SoMultiPipeKit);
 	typedef SoBaseKit inherited;
 
 public:
@@ -69,10 +68,18 @@ public:
 	static void initClass();
 
 	/// The constructor of the class, initializes the catalog
-	SoPipeKit();
+	SoMultiPipeKit();
 
 	/// Destructor, deletes the sensors
-	~SoPipeKit();
+	~SoMultiPipeKit();
+
+    enum Part 
+    {
+        SIDES =  0x1,
+        TOP =    0x2,
+        BOTTOM = 0x4,
+        ALL =    SIDES|TOP|BOTTOM
+    };
 
     /// Number of faces to be displayed (minimum 3)
     SoSFInt32 numFaces;
@@ -80,38 +87,51 @@ public:
 	/// The input vertices that will be extruded
 	SoMFVec3f coords;
 
+    /// Number of faces to be displayed (minimum 3)
+    SoMFInt32 lineIndices;
+
 	/// Radius of the pipe
 	SoSFFloat radius;
 
-	/// Set if starting and ending spheres are desired
-	SoSFBool caps;
+    /// Set if starting and ending spheres are desired
+    SoSFBool caps;
+
+    /// Set if starting and ending spheres are desired
+    SoSFBool doubleSided;
+
+    /// Parts to render, bottom, sides and top
+    SoSFBitMask parts;
+
+private:
+    int numOfInternalCoords;
+    int numOfInternalFaces;
 
 protected:
 	/// Sensors
 	SoFieldSensor *coordsSensor;
-	SoFieldSensor *radiusSensor;
+    SoFieldSensor *radiusSensor;
+    SoFieldSensor *doubleSidedSensor;
 
 	/// Parts of the catalog
 	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
-	SO_KIT_CATALOG_ENTRY_HEADER(pipes);
+    SO_KIT_CATALOG_ENTRY_HEADER(coordsInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(facesInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
 	virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
 
 	/// Calls the function that rebuilds the object
-	static void coordsCB(void* data, SoSensor* sensor);
-
-	/// Calls the function that rebuilds the object
-	static void radiusCB(void* data, SoSensor* sensor);
+	static void refreshCB(void* data, SoSensor* sensor);
 
 	/// Creates a Cylinder of a radius set by the class between the two given points
 	SoSeparator *createCylinder(SbVec3f start, SbVec3f end);
 
-	/// Creates a Sphere of a radius set by the class at the given position
-	SoSeparator *createSphere(SbVec3f position);
-
 	/// Rebuilds the Object
 	void refresh();
+
+    void createOneLineString(int startIndex, int endIndex);
+    void createOneSegment(SbVec3f start, SbVec3f end);
 
 };
 

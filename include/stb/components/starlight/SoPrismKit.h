@@ -25,7 +25,7 @@
 /** The header file for the SoPrismKit.
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 *
 * $Id: SoPrismKit.h 2006-03-10 mendez $
 * @file                                                                   */
