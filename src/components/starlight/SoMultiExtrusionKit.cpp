@@ -78,7 +78,7 @@ SoMultiExtrusionKit::SoMultiExtrusionKit()
     SO_KIT_ADD_FIELD(extrusionVectors,	(0,0,0));
     SO_KIT_ADD_FIELD(indices,	        (0));
     SO_KIT_ADD_FIELD(doubleSided,	    (FALSE));
-    SO_KIT_ADD_FIELD(caps,	            (FALSE));
+    SO_KIT_ADD_FIELD(caps,	            (TRUE));
 
 	SO_KIT_INIT_INSTANCE();
 
@@ -158,11 +158,11 @@ void SoMultiExtrusionKit::refresh()
     else
         shapeHints->shapeType=SoShapeHints::SOLID;
 
-    // We do this only if we have to render the caps
-    if (caps.getValue())
-        shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
-    else
-        shapeHints->faceType=SoShapeHints::CONVEX;
+    //// We do this only if we have to render the caps
+    //if (caps.getValue())
+    //    shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
+    //else
+    shapeHints->faceType=SoShapeHints::CONVEX;
 
 
     unsigned int k, startIndex, endIndex;
@@ -217,9 +217,6 @@ void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec
         coords->point.set1Value(numOfInternalCoords+i+nNumberOfVertices,tmpVec+extrusion.getValue());
     }
 
-    int oldNumFaces=numOfInternalFaces;
-    int anotherOld;
-
     if (caps.getValue())
     {
         // Create footprint face
@@ -230,7 +227,7 @@ void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec
 
         // Create footprint extruded face
         for (i=0;i<nNumberOfVertices;i++)
-            faces->coordIndex.set1Value(numOfInternalFaces+i,numOfInternalCoords+nNumberOfVertices+i);
+            faces->coordIndex.set1Value(numOfInternalFaces+i,numOfInternalCoords+((nNumberOfVertices*2)-i-1));
         faces->coordIndex.set1Value(numOfInternalFaces+nNumberOfVertices,-1);
         numOfInternalFaces=numOfInternalFaces+nNumberOfVertices+1;
     }
