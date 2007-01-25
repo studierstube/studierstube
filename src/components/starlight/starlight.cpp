@@ -43,6 +43,7 @@
 #include <stb/components/starlight/SoFileEnv.h>
 #include <stb/components/starlight/SoPrismKit.h>
 #include <stb/components/starlight/SoMultiPipeKit.h>
+#include <stb/components/starlight/SoMultiExtrusionKit.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -120,6 +121,7 @@ Starlight::init(void)
     SoFileEnv::initClass();
     SoPrismKit::initClass();
     SoMultiPipeKit::initClass();
+    SoMultiExtrusionKit::initClass();
 	    
 	SoCommand::initClass();
     SoSetName::initClass();

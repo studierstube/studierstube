@@ -287,6 +287,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoMultiExtrusionKit.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoMultiPipeKit.cpp"
 				>
 			</File>
@@ -470,6 +474,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoLineStringKit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoMultiExtrusionKit.h"
 				>
 			</File>
 			<File
