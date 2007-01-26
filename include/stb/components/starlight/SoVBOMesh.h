@@ -41,6 +41,7 @@
 #include <Inventor/nodes/SoIndexedFaceSet.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/fields/SoSFFloat.h>
+#include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoSFVec3f.h>
 #include <Inventor/fields/SoSFNode.h>
 #include <Inventor/nodes/SoVertexProperty.h>
@@ -87,6 +88,9 @@ public:
    // And the SoCoordinate3 should be given here
    SoSFNode coords;
 
+   // Invert the direction of the normals if true
+   SoSFBool invertNormals;
+
 protected:
    virtual void GLRender(SoGLRenderAction * action);
 
@@ -123,6 +127,7 @@ public:
     ~SoVBOMesh();
     SoSFNode faceset;
     SoSFNode coords;
+    SoSFBool invertNormals;
     static void initClass();
 protected:
 

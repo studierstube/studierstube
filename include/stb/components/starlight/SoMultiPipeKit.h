@@ -48,6 +48,7 @@
 #include <Inventor/fields/SoMFInt32.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 #include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/nodes/SoSwitch.h>
 #include <Inventor/fields/SoSFBitMask.h>
 
 #include "starlight.h"
@@ -97,6 +98,9 @@ public:
     SoSFBool caps;
 
     /// Set if starting and ending spheres are desired
+    SoSFBool enableVBO;
+
+    /// Set if starting and ending spheres are desired
     SoSFBool doubleSided;
 
     /// Parts to render, bottom, sides and top
@@ -114,9 +118,12 @@ protected:
 
 	/// Parts of the catalog
 	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
+    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(switchInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(noVBOSeparator);
     SO_KIT_CATALOG_ENTRY_HEADER(coordsInternal);
     SO_KIT_CATALOG_ENTRY_HEADER(facesInternal);
-    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(vboMesh);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
 	virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);

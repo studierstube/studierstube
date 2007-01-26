@@ -39,8 +39,10 @@
 */
 #include <stb/components/starlight/SoMultiExtrusionKit.h>
 #include <stb/components/starlight/SoPipeKit.h>
+#include <stb/components/starlight/SoVBOMesh.h>
 #include <Inventor/nodes/SoCoordinate3.h>
 #include <Inventor/nodes/SoIndexedFaceSet.h>
+#include <Inventor/nodes/SoSwitch.h>
 #include <Inventor/nodes/SoShapeHints.h>
 #include <iostream>
 
@@ -67,11 +69,33 @@ SoMultiExtrusionKit::SoMultiExtrusionKit()
 {
 	SO_KIT_CONSTRUCTOR(SoMultiExtrusionKit);
 
+
 	// This is for the parts of the catalog
-	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,		    SoSeparator,		FALSE,	this,	\x0, TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,		    SoSeparator,		FALSE,	this,	        \x0, TRUE);
     SO_KIT_ADD_CATALOG_ENTRY(shapeHintsInternal,	SoShapeHints,		FALSE,	topSeparator,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(coordsInternal,		SoCoordinate3,		FALSE,	topSeparator,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(facesInternal,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(switchInternal,		SoSwitch,		    FALSE,	topSeparator,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(noVBOSeparator,		SoSeparator,		FALSE,	switchInternal,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(vboMesh,		        SoVBOMesh,		    FALSE,	switchInternal,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(coordsInternal,		SoCoordinate3,		FALSE,	noVBOSeparator,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(facesInternal,			SoIndexedFaceSet,	FALSE,	noVBOSeparator,	\x0, TRUE);
+
+// Graph structure
+// ---------------
+// ¦ topSeparator ¦
+// ---------------
+//       ¦--------------------¦
+// ---------------     ---------------
+// ¦ shapeHints   ¦    ¦ switchInter  ¦
+// ---------------     ---------------
+//                            ¦----------------------------------¦
+//                     ---------------                    ---------------
+//                     ¦ noVBOSeparat ¦                   ¦ vboMesh      ¦
+//                     ---------------                    ---------------
+//                            ¦-------------------¦
+//                     ---------------    ---------------
+//                     ¦ coordsIntern ¦   ¦ facesInterna ¦
+//                     ---------------    ---------------
+
 
 	// This is for the Fields
 	SO_KIT_ADD_FIELD(vertices,	        (0,0));
@@ -79,6 +103,7 @@ SoMultiExtrusionKit::SoMultiExtrusionKit()
     SO_KIT_ADD_FIELD(indices,	        (0));
     SO_KIT_ADD_FIELD(doubleSided,	    (FALSE));
     SO_KIT_ADD_FIELD(caps,	            (TRUE));
+    SO_KIT_ADD_FIELD(enableVBO,	        (TRUE));
 
 	SO_KIT_INIT_INSTANCE();
 
@@ -190,6 +215,14 @@ void SoMultiExtrusionKit::refresh()
 
         startIndex=endIndex;
     }
+
+    SoVBOMesh *mesh=(SoVBOMesh *)(this->getPart("vboMesh", TRUE));
+    mesh->invertNormals=FALSE;
+    mesh->faceset=faces;
+    mesh->coords=coords;
+
+    SoSwitch *vboSwitch=(SoSwitch *)(this->getAnyPart("switchInternal", TRUE));
+    vboSwitch->whichChild=enableVBO.getValue();
 }
 
 void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec3f extrusion)

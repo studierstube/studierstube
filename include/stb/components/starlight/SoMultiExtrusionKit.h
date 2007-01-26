@@ -82,6 +82,9 @@ public:
     SoMFInt32 indices;
 
     /// Set if starting and ending spheres are desired
+    SoSFBool enableVBO;
+
+    /// Set if starting and ending spheres are desired
     SoSFBool doubleSided;
 
     /// Set if starting and ending spheres are desired
@@ -99,11 +102,14 @@ protected:
     SoFieldSensor *doubleSidedSensor;
     SoFieldSensor *capsSensor;
 
-	/// Parts of the catalog
-	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
+    /// Parts of the catalog
+    SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
+    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(switchInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(noVBOSeparator);
     SO_KIT_CATALOG_ENTRY_HEADER(coordsInternal);
     SO_KIT_CATALOG_ENTRY_HEADER(facesInternal);
-    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
+    SO_KIT_CATALOG_ENTRY_HEADER(vboMesh);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
 	virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);

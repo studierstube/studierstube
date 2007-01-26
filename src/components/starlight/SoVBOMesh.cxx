@@ -54,8 +54,9 @@ void SoVBOMesh::initClass()
 SoVBOMesh::SoVBOMesh()
 {   
     SO_NODE_CONSTRUCTOR(SoVBOMesh); 
-    SO_NODE_ADD_FIELD(faceset,      (NULL));
-    SO_NODE_ADD_FIELD(coords,       (NULL));
+    SO_NODE_ADD_FIELD(faceset,          (NULL));
+    SO_NODE_ADD_FIELD(coords,           (NULL));
+    SO_NODE_ADD_FIELD(invertNormals,    (FALSE));
     isInit=false;
 }
 
@@ -101,7 +102,7 @@ void SoVBOMesh::init()
     vertexCount   =((SoVertexProperty*)vertexProperty.getValue())->vertex.getNum();
     vertexList    = new Vertex[vertexCount];						// Allocate Vertex Data
     normalList    = new Normal[vertexCount];
-    stb::logPrintD("vertexCount %i \n",vertexCount);
+    stb::logPrint("vertexCount %i \n",vertexCount);
 
     // fill vertList
     for(int i=0;i<vertexCount;i++)
@@ -170,7 +171,7 @@ void SoVBOMesh::buildVBO()
     }
     delete curFace;
     polygonCount=(int)faceList.size();    
-    stb::logPrintD("SoVBOMesh::polygonCount=%i \n",polygonCount);
+    stb::logPrint("SoVBOMesh::polygonCount=%i \n",polygonCount);
     polygonSizeList   =new int[polygonCount];                   //polygonSizeList[i]= number of vertices of polygon i
     indexedPolygonList=new int*[polygonCount];                  //indexedPolygonList[k][i] = index of vertex i of polygon k    
     for(int i=polygonCount-1;i>=0;i--)
@@ -206,7 +207,13 @@ void SoVBOMesh::buildVBO()
                      -SbVec3f(vertexList[vertexIdx0].x,vertexList[vertexIdx0].y,vertexList[vertexIdx0].z);
             SbVec3f b=SbVec3f(vertexList[vertexIdx2].x,vertexList[vertexIdx2].y,vertexList[vertexIdx2].z)
                      -SbVec3f(vertexList[vertexIdx0].x,vertexList[vertexIdx0].y,vertexList[vertexIdx0].z);
-            SbVec3f n=b.cross(a);
+
+            SbVec3f n;
+            if (invertNormals.getValue())
+                n=a.cross(b);
+            else
+                n=b.cross(a);
+
             n.normalize();
             for (int j=0;j<numOfVertPerFace;j++)
             {
@@ -219,6 +226,7 @@ void SoVBOMesh::buildVBO()
         
         delete faceList[i];
     }
+
     ////delete faces 
     faceList.empty();
 
@@ -285,8 +293,9 @@ void SoVBOMesh::initClass()
 SoVBOMesh::SoVBOMesh()
 {   
     SO_NODE_CONSTRUCTOR(SoVBOMesh); 
-    SO_NODE_ADD_FIELD(faceset,   (NULL));
-    SO_NODE_ADD_FIELD(coords,       (NULL));
+    SO_NODE_ADD_FIELD(faceset,          (NULL));
+    SO_NODE_ADD_FIELD(coords,           (NULL));
+    SO_NODE_ADD_FIELD(invertNormals,    (FALSE));
 }
 
 SoVBOMesh::~SoVBOMesh()
