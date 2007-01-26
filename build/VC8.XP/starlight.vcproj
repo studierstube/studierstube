@@ -143,7 +143,7 @@
 				AdditionalDependencies="coin2.lib opengl32.lib glu32.lib ace.lib"
 				OutputFile="$(OutDir)/stbstarlight.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib/win32&quot;;&quot;$(COINROOT)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;;&quot;$(GLEWROOT)/lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
 				SubSystem="2"
@@ -363,6 +363,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoVBOMesh.cxx"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\starlight.cpp"
 				>
 			</File>
@@ -550,6 +554,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoVariable.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoVBOMesh.h"
 				>
 			</File>
 			<File

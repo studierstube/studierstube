@@ -44,6 +44,7 @@
 #include <stb/components/starlight/SoPrismKit.h>
 #include <stb/components/starlight/SoMultiPipeKit.h>
 #include <stb/components/starlight/SoMultiExtrusionKit.h>
+#include <stb/components/starlight/SoVBOMesh.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -122,6 +123,7 @@ Starlight::init(void)
     SoPrismKit::initClass();
     SoMultiPipeKit::initClass();
     SoMultiExtrusionKit::initClass();
+    SoVBOMesh::initClass();
 	    
 	SoCommand::initClass();
     SoSetName::initClass();

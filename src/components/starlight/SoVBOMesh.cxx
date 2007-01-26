@@ -1,31 +1,61 @@
+/* ========================================================================
+* Copyright (C) 2005  Graz University of Technology
+*
+* This framework is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* This framework is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this framework; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*
+* For further information please contact Dieter Schmalstieg under
+* <schmalstieg@icg.tu-graz.ac.at> or write to Dieter Schmalstieg,
+* Graz University of Technology, Inffeldgasse 16a, A8010 Graz,
+* Austria.
+* ========================================================================
+* PROJECT: Studierstube
+* ======================================================================== */
+/** The header file for the SoVBOMesh.
+*
+* @author Denis Kalkofen
+* @author Erick Mendez
+* @ingroup starlight
+*
+* $Id: SoVBOMesh.h 2006-03-10 mendez $
+* @file                                                                   */
+/* ======================================================================= */
+
 #include <stb/components/starlight/SoVBOMesh.h>
-#include <stb/components/starlight/InventorUtils.h>
+
+#ifndef NO_VBOMESH
+
 #include <Inventor/actions/SoGLRenderAction.h>
-#include <Inventor/nodes/SoVertexProperty.h>
 #include <Inventor/nodes/SoCoordinate3.h> 
 #include <Inventor/elements/SoGLLazyElement.h>
 #include <Inventor/elements/SoCacheElement.h>
 
-
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include <gl\gl.h>												// Header File For The OpenGL32 Library
 
 SO_NODE_SOURCE(SoVBOMesh);
 
-void 
-SoVBOMesh::initClass()
+void SoVBOMesh::initClass()
 {
    SO_NODE_INIT_CLASS(SoVBOMesh, SoIndexedFaceSet, "IndexedFaceSet");
-  
 }
 
 SoVBOMesh::SoVBOMesh()
 {   
     SO_NODE_CONSTRUCTOR(SoVBOMesh); 
-    SO_NODE_ADD_FIELD(meshFile,(""));
-    SO_NODE_ADD_FIELD(color,(0.0,0.0,0.0));
-    SO_NODE_ADD_FIELD(opacity,(0.0));
+    SO_NODE_ADD_FIELD(faceset,      (NULL));
+    SO_NODE_ADD_FIELD(coords,       (NULL));
     isInit=false;
 }
 
@@ -33,115 +63,98 @@ SoVBOMesh::SoVBOMesh()
 SoVBOMesh::~SoVBOMesh()
 {   
     delete[] vertexList;
-    delete[] colorList;
     delete[] normalList;
 }
 
 
-void
-SoVBOMesh::init()
+void SoVBOMesh::init()
 {
-    /////////////////////////////////////////////////////////////////////////    
-    ////////////////// load mesh file ///////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////    
+    if (faceset.getValue()==NULL)
+    {
+        stb::logPrintE("SoVBOMesh doesn't have a defined faceset\n");
+        return;
+    }
+
     vertexProperty.setValue(new SoVertexProperty());
-    printf("ColorMesh:: reading meshFile %s\n",meshFile.getValue().getString());
-    InventorUtils ivUtil;
-    SoSeparator* fileRoot=ivUtil.loadFile(meshFile.getValue().getString());
-    fileRoot->ref();
-    //SoPathList pathsIdxFaceSet;
-    //SoPathList pathsIdxVertexProp;
-    //SoPathList pathsCoord3;
-    SoIndexedFaceSet* idxFaceSet=(SoIndexedFaceSet*)ivUtil.find(SoIndexedFaceSet::getClassTypeId(),fileRoot);
-    if(!idxFaceSet)
+    this->coordIndex=((SoIndexedFaceSet *)faceset.getValue())->coordIndex;
+    SoCoordinate3* coord3=(SoCoordinate3*)coords.getValue();
+
+    // Check if the faceset has a vertexProperty
+    if(((SoIndexedFaceSet *)faceset.getValue())->vertexProperty.getValue())
+        ((SoVertexProperty*)vertexProperty.getValue())->vertex=((SoVertexProperty*)((SoIndexedFaceSet *)faceset.getValue())->vertexProperty.getValue())->vertex;
+    // If not, check if 'coords' were given
+    else if(coord3)
     {
-        printf("SoVBOMesh:: couldn't find SoIndexFaceSet \n");
-        return ;
-    }
-    printf("SoVBOMesh::found SoIndexFaceSet in file '%s'\n",meshFile.getValue().getString());
-    this->coordIndex=idxFaceSet->coordIndex;
-    if(idxFaceSet->vertexProperty.getValue())
-    {
-        printf("SoVBOMesh:: found SoVertexProperty \n");
-        ((SoVertexProperty*)vertexProperty.getValue())->vertex=((SoVertexProperty*)idxFaceSet->vertexProperty.getValue())->vertex;
-    }
-    else 
-    {    
-        printf("SoVBOMesh:: couldn't find SoVertexProperty... searching for SoCoordinate3 in %s \n",meshFile.getValue().getString());
-        SoCoordinate3* coord3=(SoCoordinate3*)ivUtil.find(SoCoordinate3::getClassTypeId(),fileRoot);
-        if(coord3)
-        {
-            printf("SoVBOMesh:: found SoCoordinate3 \n");
             coord3->ref();
             ((SoVertexProperty*)vertexProperty.getValue())->vertex=coord3->point;
             coord3->unref();
-        }
-        else
-        {
-            printf("SoVBOMesh:: couldn't find SoCoordinate3 \n");
-            return;
-        }
     }
-    //((SoVertexProperty*)vertexProperty.getValue())->normalBinding=SoVertexProperty::PER_VERTEX;
-    fileRoot->unref();
+    // if nothing was found then abort
+    else
+    {
+        stb::logPrintE("SoVBOMesh doesn't have input vertices\n");
+        return;
+    }
+
     //////////////////////////////////////////////////////////
     // setup vertexList & colorList
     vertexCount   =((SoVertexProperty*)vertexProperty.getValue())->vertex.getNum();
     vertexList    = new Vertex[vertexCount];						// Allocate Vertex Data
-    colorList     = new Color [vertexCount];
     normalList    = new Normal[vertexCount];
+    stb::logPrintD("vertexCount %i \n",vertexCount);
 
-    printf("vertexCount %i \n",vertexCount);
-
-    float r,g,b,a;
-    color.getValue().getValue(r,g,b);
-    a=opacity.getValue();
+    // fill vertList
     for(int i=0;i<vertexCount;i++)
-    {
-        // fill vertList
-        ((SoVertexProperty*)vertexProperty.getValue())->vertex[i].getValue(vertexList[i].x,
-                                                                           vertexList[i].y,
-                                                                           vertexList[i].z);
-        colorList[i].r=r;
-        colorList[i].g=g;
-        colorList[i].b=b;
-        colorList[i].a=a;
-    }
-    //////////////////////////////////////////////////////////////////////////    
+        ((SoVertexProperty*)vertexProperty.getValue())->vertex[i].getValue(vertexList[i].x, vertexList[i].y, vertexList[i].z);
+
+    // Build the VBO
     buildVBO();
 
     isInit=true;
 }
 
-void 
-SoVBOMesh::buildVBO()
+bool isExtensionSupported(const char *extension)
 {
-    //if (!CgGlManager::getInstance()->isExtensionSupported("GL_ARB_vertex_buffer_object"))
-    //{
-    //    printf("SoVBOMesh: GL_ARB_vertex_buffer_object not available.\n");
-    //    assert(0);
-    //}
-    //else
-    //    printf("SoVBOMesh: GL_ARB_vertex_buffer_object available.\n");
+    const GLubyte *extensions = NULL;
+    const GLubyte *start;
+    GLubyte *where, *terminator;
 
-    // Generate And Bind The Vertex Buffer
-    // vertices
+    where=(GLubyte *) strchr(extension, ' ');
+    if (where || *extension == '\0') return false;
+    extensions=glGetString(GL_EXTENSIONS);
+    start=extensions;
+    for (;;) 
+    {
+        where=(GLubyte *) strstr((const char *) start, extension);
+        if (!where) break;
+        terminator=where+strlen(extension);
+        if (where==start || *(where - 1)==' ')
+            if (*terminator==' ' || *terminator=='\0')
+                return true;
+        start=terminator;
+    }
+    return false;
+}
+
+
+void SoVBOMesh::buildVBO()
+{
+    if (!isExtensionSupported("GL_ARB_vertex_buffer_object"))
+        stb::logPrintEAbort("GL_ARB_vertex_buffer_object not available.\n");
+
+    // ----------------------------- Generate And Bind The Vertex Buffer
+    // Vertices
     glEnableClientState(GL_VERTEX_ARRAY);	
-        glGenBuffersARB(1, &vboVertices);							 // Get A Valid Name
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboVertices);			// Bind The Buffer   
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB, vertexCount*3*sizeof(float), vertexList, GL_STATIC_DRAW_ARB);// Load Vertex Data Into The Graphics Card Memory
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);			// Bind The Buffer   
+        glGenBuffersARB(1, &vboVertices);			            // Get A Valid Name
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboVertices);	    // Bind The Buffer   
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB, 
+                        vertexCount*3*sizeof(float), 
+                        vertexList, GL_STATIC_DRAW_ARB);        // Load Vertex Data Into The Graphics Card Memory
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);			    // Bind The Buffer   
     glDisableClientState(GL_VERTEX_ARRAY);	
 
-    //color
-    glEnableClientState(GL_COLOR_ARRAY);
-        glGenBuffersARB(1, &vboColors);
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboColors);
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB,vertexCount*4*sizeof(float),  colorList, GL_DYNAMIC_DRAW);
-    glDisableClientState(GL_COLOR_ARRAY);
+    // ----------------------------- Set up polygon index lists
 
-    ////set up polygon index lists
-    //printf("coordIndex.getNum()= %i",coordIndex.getNum());   
     struct IndexedFace{std::vector<int> indices;};
     std::vector<IndexedFace*> faceList;
     IndexedFace* curFace=new IndexedFace;
@@ -152,38 +165,25 @@ SoVBOMesh::buildVBO()
             faceList.push_back(curFace);
             curFace=new IndexedFace;
         }
-        else{
+        else
             curFace->indices.push_back(coordIndex[i]);
-        }
     }
     delete curFace;
     polygonCount=(int)faceList.size();    
-    printf("SoVBOMesh::polygonCount=%i \n",polygonCount);
-    polygonSizeList   =new int[polygonCount];//polygonSizeList[i]= number of vertices of polygon i
-    indexedPolygonList=new int*[polygonCount];//indexedPolygonList[k][i] = index of vertex i of polygon k    
+    stb::logPrintD("SoVBOMesh::polygonCount=%i \n",polygonCount);
+    polygonSizeList   =new int[polygonCount];                   //polygonSizeList[i]= number of vertices of polygon i
+    indexedPolygonList=new int*[polygonCount];                  //indexedPolygonList[k][i] = index of vertex i of polygon k    
     for(int i=polygonCount-1;i>=0;i--)
     {
-        int numOfVert=(int)(faceList[i]->indices.size());//number of vertices of face i
+        int numOfVert=(int)(faceList[i]->indices.size());       //number of vertices of face i
         polygonSizeList[i]=numOfVert;
         indexedPolygonList[i]=new int[numOfVert];
         int k=0;
         for(int j=(int)(faceList[i]->indices.size())-1;j>=0;j--,k++)
-        {
             indexedPolygonList[i][k]=faceList[i]->indices[j];
-        }
-        
     }
 
- 
-    //set up color buffer 
-    //color
-    glEnableClientState(GL_COLOR_ARRAY);
-        glGenBuffersARB(1, &vboColors);
-        glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboColors);
-        glBufferDataARB(GL_ARRAY_BUFFER_ARB,vertexCount*4*sizeof(float),  colorList, GL_DYNAMIC_DRAW);
-    glDisableClientState(GL_COLOR_ARRAY);
-
-    //compute normals per vertex
+    // ----------------------------- Compute normals per vertex
     for(int i=0;i<vertexCount;i++)
     {
         normalList[i].nx=1.0;
@@ -191,15 +191,13 @@ SoVBOMesh::buildVBO()
         normalList[i].nz=0.0;           
     }
 
-
     for(int i=(int)faceList.size()-1;i>=0;i--)
     {//per face i
-        int numOfVertPerFace=(int)(faceList[i]->indices.size());//number of vertices of face i
+        int numOfVertPerFace=(int)(faceList[i]->indices.size());    //number of vertices of face i
         if(numOfVertPerFace<3)
+            stb::logPrintD("Less than 3 vertices found -- setting normal to (1,0,0)\n");
+        else
         {
-            printf("less than 3 vertices per face --> can't compute a normal for this face -- set normal to vn(1,0,0)\n");
-        }
-        else{
             int vertexIdx0=faceList[i]->indices[0];
             int vertexIdx1=faceList[i]->indices[1];
             int vertexIdx2=faceList[i]->indices[2];
@@ -225,82 +223,74 @@ SoVBOMesh::buildVBO()
     faceList.empty();
 
     glEnableClientState(GL_NORMAL_ARRAY);
-    glGenBuffersARB(1, &vboNormals);
-    glBindBufferARB(GL_ARRAY_BUFFER_ARB,vboNormals);
-    glBufferDataARB(GL_ARRAY_BUFFER_ARB,vertexCount*3*sizeof(float),  normalList,  GL_STATIC_DRAW_ARB);
+        glGenBuffersARB(1, &vboNormals);
+        glBindBufferARB(GL_ARRAY_BUFFER_ARB,vboNormals);
+        glBufferDataARB(GL_ARRAY_BUFFER_ARB,vertexCount*3*sizeof(float),  normalList,  GL_STATIC_DRAW_ARB);
     glDisableClientState(GL_NORMAL_ARRAY);
+
 }
 
-void
-SoVBOMesh::GLRender(SoGLRenderAction *action)
+void SoVBOMesh::GLRender(SoGLRenderAction *action)
 {
     SoState* state=action->getState();
-    if(!isInit){
+    if(!isInit)
+    {
+        // Initializing GLEW
+        GLenum error=glewInit();
+        if (error!=GLEW_OK)
+            stb::logPrintEAbort("GLEW could not be initialized [ %s ]. \nAborting.\n\n", glewGetErrorString(error));
+
+        // Initializing the Mesh
         init();           
     }
 
     SoIndexedFaceSet::GLRender(action);
 
-    ////printf("--> in glrender -- normal count %i \n",((SoVertexProperty*)vertexProperty.getValue())->normal.getNum());
-    ////////////////////////////////////////////////////////////////////////////
-    ////vertices 
+    // ----------------------------- Vertices 
     glEnableClientState( GL_VERTEX_ARRAY );            
     glBindBufferARB( GL_ARRAY_BUFFER_ARB, vboVertices);    
     glVertexPointer( 3, GL_FLOAT, 0, (char*)NULL);
     
-    //////////////////////////////////////////////////////////////////////////    
-    //color 
-    glEnableClientState(GL_COLOR_ARRAY);
-    glBindBufferARB( GL_ARRAY_BUFFER_ARB, vboColors );        
-    //update colors
-    glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, 0, vertexCount*4*sizeof(float),colorList);        
-    glColorPointer( 4,GL_FLOAT, 0, (char*) NULL );
-
-    /// material
-    //const float adiff[4] = { 1.0, 1.0, 1.0, 1.0 };
-    //const float spec[4] = { 0.2,  0.2, 0.2, 1.0 };
-    //const float shin = 64.0;
-    //glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, adiff);
-    //glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, spec);
-    //glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shin);
-    //glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-    //glLightModeli(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
-    //glEnable(GL_COLOR_MATERIAL);         
-
-
-
-    //////////////////////////////////////////////////////////////////////////    
-    //normals 
-    glEnableClientState( GL_NORMAL_ARRAY );						// Enable Vertex Arrays
+    // ----------------------------- Normals 
+    glEnableClientState( GL_NORMAL_ARRAY );						    // Enable Vertex Arrays
     glBindBufferARB( GL_ARRAY_BUFFER_ARB, vboNormals );
     glNormalPointer( GL_FLOAT, 0, (char*)NULL  );
 
 
-    //glEnable(GL_BLEND);
-    //glDisable(GL_CULL_FACE);
-    //render 
-    //indexedPolygonList[k][i] = index of vertex i of polygon k
-    //polygonSizeList[i]= number of vertices of polygon i
-    glMultiDrawElements(    GL_POLYGON,		    //GLenum mode
-                            (GLsizei*)polygonSizeList,    //const GLsizei *count 
-                            GL_UNSIGNED_INT,      //GLenum type
-                            (const GLvoid **)indexedPolygonList,  //const GLvoid* *indices
-                            (GLsizei)polygonCount);           //GLsizei primcount
+    glMultiDrawElements(    GL_POLYGON,		                        // GLenum mode
+                            (GLsizei*)polygonSizeList,              // const GLsizei *count 
+                            GL_UNSIGNED_INT,                        // GLenum type
+                            (const GLvoid **)indexedPolygonList,    // const GLvoid* *indices
+                            (GLsizei)polygonCount);                 // GLsizei primcount
             
-    //Disable vbo
+    //Disable VBO
     glBindBufferARB( GL_ARRAY_BUFFER_ARB, 0 );
     glDisableClientState(GL_VERTEX_ARRAY );
-    glDisableClientState(GL_COLOR_ARRAY  );	
     glDisableClientState(GL_NORMAL_ARRAY  );	
 
 }
 
+#else
 
-//----------------------------------------------------------------------
-// End of SoColorMesh.cxx
-//----------------------------------------------------------------------
-// Local Variables:
-// mode: c++
-// c-basic-offset: 3
-// End:
-//----------------------------------------------------------------------
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+
+SO_NODE_SOURCE(SoVBOMesh);
+
+void SoVBOMesh::initClass()
+{
+    SO_NODE_INIT_CLASS(SoVBOMesh, SoIndexedFaceSet, "IndexedFaceSet");
+}
+
+SoVBOMesh::SoVBOMesh()
+{   
+    SO_NODE_CONSTRUCTOR(SoVBOMesh); 
+    SO_NODE_ADD_FIELD(faceset,   (NULL));
+    SO_NODE_ADD_FIELD(coords,       (NULL));
+}
+
+SoVBOMesh::~SoVBOMesh()
+{   
+}
+
+#endif

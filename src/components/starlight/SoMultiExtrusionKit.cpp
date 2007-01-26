@@ -158,11 +158,11 @@ void SoMultiExtrusionKit::refresh()
     else
         shapeHints->shapeType=SoShapeHints::SOLID;
 
-    //// We do this only if we have to render the caps
-    //if (caps.getValue())
-    //    shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
-    //else
-    shapeHints->faceType=SoShapeHints::CONVEX;
+    // We do this only if we have to render the caps
+    if (caps.getValue())
+        shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
+    else
+        shapeHints->faceType=SoShapeHints::CONVEX;
 
 
     unsigned int k, startIndex, endIndex;
@@ -197,23 +197,46 @@ void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec
     SoCoordinate3 *coords=(SoCoordinate3 *)(this->getPart("coordsInternal", TRUE));
     SoIndexedFaceSet *faces=(SoIndexedFaceSet *)(this->getPart("facesInternal", TRUE));
 
-    unsigned int nNumberOfVertices, i;
+    unsigned int nNumberOfVertices, i, k;
     SbVec3f tmpVec;
 
+
+    SoMFVec2f cleanVertices;
+
+    // Clean repeated vertices
+    // Copy the first vertex
+    k=0;
+    cleanVertices.set1Value(k,vertices[startIndex]);
+    // Then all other vertices except the last
+    for (i=startIndex+1;i<endIndex-1;i++)
+    {
+        if (vertices[i]!=vertices[i-1])
+        {
+            k++;
+            cleanVertices.set1Value(k,vertices[i]);
+        }
+    }
+    // And now the last only if is not equal to the first
+    if (vertices[endIndex]!=vertices[startIndex])
+    {
+        k++;
+        cleanVertices.set1Value(k,vertices[endIndex]);
+    }
+
     // The Number of Vertices to extrude
-    nNumberOfVertices=endIndex-startIndex;
+    nNumberOfVertices=k;
 
     // Attach footprint coordinates
     for (i=0;i<nNumberOfVertices;i++)
     {
-        tmpVec.setValue(vertices[startIndex+i][0],vertices[startIndex+i][1],0);
+        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
         coords->point.set1Value(numOfInternalCoords+i,tmpVec);
     }
 
     // Attach extruded footprint coordinates
     for (i=0;i<nNumberOfVertices;i++)
     {
-        tmpVec.setValue(vertices[startIndex+i][0],vertices[startIndex+i][1],0);
+        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
         coords->point.set1Value(numOfInternalCoords+i+nNumberOfVertices,tmpVec+extrusion.getValue());
     }
 
