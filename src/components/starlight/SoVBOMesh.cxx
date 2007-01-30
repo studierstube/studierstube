@@ -41,9 +41,6 @@
 #include <Inventor/elements/SoGLLazyElement.h>
 #include <Inventor/elements/SoCacheElement.h>
 
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
 SO_NODE_SOURCE(SoVBOMesh);
 
 void SoVBOMesh::initClass()
@@ -279,9 +276,6 @@ void SoVBOMesh::GLRender(SoGLRenderAction *action)
 }
 
 #else
-
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
 
 SO_NODE_SOURCE(SoVBOMesh);
 

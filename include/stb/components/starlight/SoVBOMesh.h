@@ -117,6 +117,7 @@ protected:
 #else // If this node is not desired
 
 #include <Inventor/nodes/SoIndexedFaceSet.h>
+#include <Inventor/fields/SoSFBool.h>
 #include "starlight.h"
 
 class STARLIGHT_API SoVBOMesh : public SoIndexedFaceSet
