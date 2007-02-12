@@ -236,7 +236,7 @@ Viewer::gb_init(const char*appname)
     #ifdef WIN32
         // Bugfix only necessary for Linux. Mendez
         SoQt::init(appname, "SoQt");
-    #elif
+    #else
         // NOTE: there is a bug in QT4, initialization must be
         // different here ! breiting !
         #if QT_VERSION >= 0x040000
