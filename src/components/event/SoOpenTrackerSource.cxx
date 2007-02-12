@@ -154,7 +154,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 
 	conf->changeConfiguration(configFileString);
 
-	self->context = & conf->getContext();		
+	self->context = conf->getContext();		
 
 #else  //USE_OT_2_0
         self->context = new ot::Context(1);
