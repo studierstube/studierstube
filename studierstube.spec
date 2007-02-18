@@ -11,7 +11,7 @@ Packager:	Institute for Computer Graphics and Vision, Graz University of Technol
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
 Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt
-BuildRequires:	scons >= 0.96.92 tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel
+BuildRequires:	scons >= 0.96.92 ICGBuilder tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel
 
 %define _prefix %{prefix}
 

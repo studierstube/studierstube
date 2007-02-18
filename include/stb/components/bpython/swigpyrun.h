@@ -1115,7 +1115,7 @@ type_error:
     obj = pyobj;
     if (PyCFunction_Check(obj)) {
       /* here we get the method pointer for callbacks */
-      char *doc = (((PyCFunctionObject *)obj) -> m_ml -> ml_doc);
+      const char *doc = (((PyCFunctionObject *)obj) -> m_ml -> ml_doc);
       c = doc ? strstr(doc, "swig_ptr: ") : 0;
       if (c) {
 	c = ty ? SWIG_UnpackVoidPtr(c + 10, &vptr, ty->name) : 0;
