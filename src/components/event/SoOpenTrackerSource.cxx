@@ -154,7 +154,11 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 
 	conf->changeConfiguration(configFileString);
 
-	self->context = conf->getContext();		
+#ifdef WIN32
+	self->context = & conf->getContext();		
+#else
+    self->context = conf->getContext();		
+#endif
 
 #else  //USE_OT_2_0
         self->context = new ot::Context(1);
