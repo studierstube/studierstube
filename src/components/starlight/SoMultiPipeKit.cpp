@@ -103,6 +103,7 @@ SoMultiPipeKit::SoMultiPipeKit()
     SO_KIT_ADD_FIELD(lineIndices,	(0));
     SO_KIT_ADD_FIELD(doubleSided,	(FALSE));
     SO_KIT_ADD_FIELD(enableVBO,	    (TRUE));
+    SO_KIT_ADD_FIELD(flat,  	    (FALSE));
 
     // The enumerations
     SO_KIT_DEFINE_ENUM_VALUE(Part, SIDES);
@@ -289,6 +290,7 @@ void SoMultiPipeKit::createOneSegment(SbVec3f start, SbVec3f end)
         nextVertexBottom=nextVertexBottom+start;
 
         // Add bottom vertex
+        if (flat.getValue()) nextVertexBottom[2]=0;
         coords->point.set1Value(numOfInternalCoords+i,nextVertexBottom);
 
         // Calculate top vertex (without rotation)
@@ -317,6 +319,7 @@ void SoMultiPipeKit::createOneSegment(SbVec3f start, SbVec3f end)
         nextVertexTop=nextVertexTop+start;
 
         // Add top vertex
+        if (flat.getValue()) nextVertexTop[2]=0;
         coords->point.set1Value(numOfInternalCoords+i+nNumberOfVertices,nextVertexTop);
 
         // Change the angle for the next vertex

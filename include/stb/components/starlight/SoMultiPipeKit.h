@@ -95,9 +95,6 @@ public:
 	SoSFFloat radius;
 
     /// Set if starting and ending spheres are desired
-    SoSFBool caps;
-
-    /// Set if starting and ending spheres are desired
     SoSFBool enableVBO;
 
     /// Set if starting and ending spheres are desired
@@ -105,6 +102,9 @@ public:
 
     /// Parts to render, bottom, sides and top
     SoSFBitMask parts;
+
+    /// Useful for shadow generation
+    SoSFBool flat;
 
 private:
     int numOfInternalCoords;
