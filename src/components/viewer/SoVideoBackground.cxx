@@ -320,6 +320,7 @@ SoVideoBackground::drawTexture()
 	// redraw texture
 	glBindTexture(GL_TEXTURE_2D,  texInfo->texID);
 
+    glColor4f(1,1,1,1);
 	glBegin(GL_QUADS);
 		glTexCoord2f(texInfo->u0,texInfo->v0); glVertex3f(-1.0f, -1.0f,  0.0f);
 		glTexCoord2f(texInfo->u1,texInfo->v0); glVertex3f( 1.0f, -1.0f,  0.0f);
