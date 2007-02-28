@@ -248,6 +248,10 @@ bool SoConditionalTrigger::compareFloat(const float val)
         for (j=0; j<triggerFloat.getNum(); j++)
             if (val >= triggerFloat[j]) return true;
         break;
+    case NOT_EQUAL:
+        for (j=0; j<triggerFloat.getNum(); j++)
+            if (val != triggerFloat[j]) return true;
+        break;
     }
     return false;
 }
@@ -276,6 +280,10 @@ bool SoConditionalTrigger::compareInt(const int val)
     case GREATER_OR_EQUAL: 
         for (j=0; j<triggerInt.getNum(); j++)
             if (val >= triggerInt[j]) return true;
+        break;
+    case NOT_EQUAL:
+        for (j=0; j<triggerInt.getNum(); j++)
+            if (val != triggerInt[j]) return true;
         break;
     }
     return false;
