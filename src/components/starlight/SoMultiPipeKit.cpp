@@ -39,11 +39,9 @@
 */
 #include <stb/components/starlight/SoMultiPipeKit.h>
 #include <stb/components/starlight/SoPipeKit.h>
-#include <stb/components/starlight/SoVBOMesh.h>
 #include <Inventor/nodes/SoCoordinate3.h>
 #include <Inventor/nodes/SoIndexedFaceSet.h>
-#include <Inventor/nodes/SoShapeHints.h>
-#include <Inventor/nodes/SoSwitch.h>
+#include <stb/kernel/StbLogger.h>
 #include <iostream>
 
 using namespace std;
@@ -71,29 +69,17 @@ SoMultiPipeKit::SoMultiPipeKit()
 
 	// This is for the parts of the catalog
 	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,		    SoSeparator,		FALSE,	this,	        \x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(shapeHintsInternal,	SoShapeHints,		FALSE,	topSeparator,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(switchInternal,		SoSwitch,		    FALSE,	topSeparator,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(noVBOSeparator,		SoSeparator,		FALSE,	switchInternal,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(vboMesh,		        SoVBOMesh,		    FALSE,	switchInternal,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(coordsInternal,		SoCoordinate3,		FALSE,	noVBOSeparator,	\x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(facesInternal,			SoIndexedFaceSet,	FALSE,	noVBOSeparator,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(coordsInternal,		SoCoordinate3,		FALSE,	topSeparator,	\x0, TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(facesInternal,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
 
 // Graph structure
 // ---------------
 // ¦ topSeparator ¦
 // ---------------
-//       ¦--------------------¦
-// ---------------     ---------------
-// ¦ shapeHints   ¦    ¦ switchInter  ¦
-// ---------------     ---------------
-//                            ¦----------------------------------¦
-//                     ---------------                    ---------------
-//                     ¦ noVBOSeparat ¦                   ¦ vboMesh      ¦
-//                     ---------------                    ---------------
-//                            ¦-------------------¦
-//                     ---------------    ---------------
-//                     ¦ coordsIntern ¦   ¦ facesInterna ¦
-//                     ---------------    ---------------
+//       ¦-------------------¦
+//  ---------------    ---------------
+//  ¦ coordsIntern ¦   ¦ facesInterna ¦
+//  ---------------    ---------------
 
 
 	// This is for the Fields
@@ -101,23 +87,15 @@ SoMultiPipeKit::SoMultiPipeKit()
     SO_KIT_ADD_FIELD(radius,	    (0));
     SO_KIT_ADD_FIELD(numFaces,	    (3));
     SO_KIT_ADD_FIELD(lineIndices,	(0));
-    SO_KIT_ADD_FIELD(doubleSided,	(FALSE));
-    SO_KIT_ADD_FIELD(enableVBO,	    (TRUE));
+    SO_KIT_ADD_FIELD(caps,      	(FALSE));
     SO_KIT_ADD_FIELD(flat,  	    (FALSE));
-
-    // The enumerations
-    SO_KIT_DEFINE_ENUM_VALUE(Part, SIDES);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, TOP);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, BOTTOM);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, ALL);
-    SO_KIT_SET_SF_ENUM_TYPE(parts, Part);
 
 	SO_KIT_INIT_INSTANCE();
 
 	// Create the Sensors
 	coordsSensor=new SoFieldSensor(SoMultiPipeKit::refreshCB, this);
     radiusSensor=new SoFieldSensor(SoMultiPipeKit::refreshCB, this);
-    doubleSidedSensor=new SoFieldSensor(SoMultiPipeKit::refreshCB, this);
+    capsSensor=new SoFieldSensor(SoMultiPipeKit::refreshCB, this);
 
     numOfInternalCoords=0;
     numOfInternalFaces=0;
@@ -129,7 +107,7 @@ SoMultiPipeKit::~SoMultiPipeKit()
 {
 	delete coordsSensor;
     delete radiusSensor;
-    delete doubleSidedSensor;
+    delete capsSensor;
 }
 
 /*
@@ -147,7 +125,7 @@ SbBool SoMultiPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 
 		coordsSensor->attach(&this->coords);
         radiusSensor->attach(&this->radius);
-        doubleSidedSensor->attach(&this->doubleSided);
+        capsSensor->attach(&this->caps);
 
 		refresh();
 	}
@@ -156,7 +134,7 @@ SbBool SoMultiPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 		// We disconnect BEFORE base class.
 		coordsSensor->detach();
         radiusSensor->detach();
-        doubleSidedSensor->detach();
+        capsSensor->detach();
 
 		inherited::setUpConnections(onoff, doitalways);
 	}
@@ -174,26 +152,18 @@ void SoMultiPipeKit::refresh()
     SoCoordinate3 *coords=(SoCoordinate3 *)(this->getPart("coordsInternal", TRUE));
     SoIndexedFaceSet *faces=(SoIndexedFaceSet *)(this->getPart("facesInternal", TRUE));
 
-    SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHintsInternal", TRUE));
-    shapeHints->vertexOrdering=SoShapeHints::CLOCKWISE;
-    shapeHints->faceType=SoShapeHints::CONVEX;
-
-    if (doubleSided.getValue())
-        shapeHints->shapeType=SoShapeHints::UNKNOWN_SHAPE_TYPE;
-    else
-        shapeHints->shapeType=SoShapeHints::SOLID;
-
-
     unsigned int k, startIndex, endIndex;
     k=0; startIndex=0;
 
+    // Delete everything and do a clean start
     coords->point.deleteValues(0);
     faces->coordIndex.deleteValues(0);
     numOfInternalCoords=0;
     numOfInternalFaces=0;
 
-    // There must be at least three faces
-    if (numFaces.getValue()<3) numFaces.setValue(3);
+    // There must be at least three faces (except in flat pipes)
+    if (flat.getValue()) numFaces.setValue(2);
+    else if (numFaces.getValue()<3) numFaces.setValue(3);
 
     // Loop all the indices of line strings
     for (k=0;k<lineIndices.getNum();k++)
@@ -203,28 +173,36 @@ void SoMultiPipeKit::refresh()
 
         // Skip if only has one element or less
         if (lineIndices[k]>=2)
-        {
             createOneLineString(startIndex,endIndex);
-        }
 
         startIndex=endIndex;
     }
-
-    SoVBOMesh *mesh=(SoVBOMesh *)(this->getPart("vboMesh", TRUE));
-    mesh->invertNormals=TRUE;
-    mesh->faceset=faces;
-    mesh->coords=coords;
-
-    SoSwitch *vboSwitch=(SoSwitch *)(this->getAnyPart("switchInternal", TRUE));
-    vboSwitch->whichChild=enableVBO.getValue();
-
-
 }
 
 void SoMultiPipeKit::createOneLineString(int startIndex, int endIndex)
 {
-    for (int i=startIndex;i<endIndex-1;i++)
-        createOneSegment(coords[i],coords[i+1]);
+    SoMFVec3f cleanCoords;
+    unsigned int i, k;
+    k=0;
+
+    // Clean repeated coordinates
+    cleanCoords.set1Value(k,coords[startIndex]);
+    for (i=startIndex+1;i<endIndex;i++)
+    {
+        if (coords[i]!=coords[i-1])
+        {
+            k++;
+            cleanCoords.set1Value(k,coords[i]);
+        }
+    }
+
+    // Afterwards there should still be at least two
+    if (cleanCoords.getNum()<2) return;
+
+    // Line strings are created from multiple segments
+    // Here we loop through them all
+    for (i=0;i<cleanCoords.getNum()-1;i++)
+        createOneSegment(cleanCoords[i],cleanCoords[i+1]);
 }
 
 
@@ -330,8 +308,8 @@ void SoMultiPipeKit::createOneSegment(SbVec3f start, SbVec3f end)
 
     int old=numOfInternalFaces;
 
-    // Create Bottom Face
-    if (parts.getValue()&SoMultiPipeKit::BOTTOM)
+    // Create caps only for non-flats
+    if (caps.getValue()&&(!flat.getValue()))
     {
         // Loop the number of all the new bottom vertices
         // Then add them at the appropriate GLOBAL positions of faces
@@ -343,11 +321,7 @@ void SoMultiPipeKit::createOneSegment(SbVec3f start, SbVec3f end)
 
         // Update the number of internal faces
         numOfInternalFaces=numOfInternalFaces+nNumberOfVertices;
-    }
 
-    // Create Top Face
-    if (parts.getValue()&SoMultiPipeKit::TOP)
-    {
         // Loop the number of all the new bottom vertices
         // Then add them at the appropriate GLOBAL positions of faces
         for (i=0;i<nNumberOfVertices;i++)
@@ -364,25 +338,29 @@ void SoMultiPipeKit::createOneSegment(SbVec3f start, SbVec3f end)
     for (i=0;i<nNumberOfVertices-1;i++)
     {
         nNextIndex=numOfInternalCoords+i;
-        faces->coordIndex.set1Value(numOfInternalFaces,		nNextIndex);
-        faces->coordIndex.set1Value(numOfInternalFaces+1,	nNextIndex+nNumberOfVertices);
-        faces->coordIndex.set1Value(numOfInternalFaces+2,	nNextIndex+nNumberOfVertices+1);
-        faces->coordIndex.set1Value(numOfInternalFaces+3,	nNextIndex+1);
+        faces->coordIndex.set1Value(numOfInternalFaces+3,	nNextIndex);
+        faces->coordIndex.set1Value(numOfInternalFaces+2,	nNextIndex+nNumberOfVertices);
+        faces->coordIndex.set1Value(numOfInternalFaces+1,	nNextIndex+nNumberOfVertices+1);
+        faces->coordIndex.set1Value(numOfInternalFaces,	    nNextIndex+1);
         faces->coordIndex.set1Value(numOfInternalFaces+4,	-1);
 
         // Update the number of internal faces
         numOfInternalFaces=numOfInternalFaces+5;
     }
 
-    // Create the last of the cylinder faces
-    faces->coordIndex.set1Value(numOfInternalFaces,		numOfInternalCoords+(nNumberOfVertices-1));
-    faces->coordIndex.set1Value(numOfInternalFaces+1,	numOfInternalCoords+(nNumberOfVertices*2)-1);
-    faces->coordIndex.set1Value(numOfInternalFaces+2,	numOfInternalCoords+nNumberOfVertices);
-    faces->coordIndex.set1Value(numOfInternalFaces+3,	numOfInternalCoords);
-    faces->coordIndex.set1Value(numOfInternalFaces+4,	-1);
+    // Create a last cylinder face only if its not flat
+    if (!flat.getValue())
+    {
+        // Create the last of the cylinder faces
+        faces->coordIndex.set1Value(numOfInternalFaces+3,	numOfInternalCoords+(nNumberOfVertices-1));
+        faces->coordIndex.set1Value(numOfInternalFaces+2,	numOfInternalCoords+(nNumberOfVertices*2)-1);
+        faces->coordIndex.set1Value(numOfInternalFaces+1,	numOfInternalCoords+nNumberOfVertices);
+        faces->coordIndex.set1Value(numOfInternalFaces,	    numOfInternalCoords);
+        faces->coordIndex.set1Value(numOfInternalFaces+4,	-1);
 
-    // Update the number of internal faces
-    numOfInternalFaces=numOfInternalFaces+5;
+        // Update the number of internal faces
+        numOfInternalFaces=numOfInternalFaces+5;
+    }
 
     // Update the number of internal coordinates
     numOfInternalCoords=numOfInternalCoords+(nNumberOfVertices*2);

@@ -44,7 +44,7 @@
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/fields/SoSFInt32.h>
 #include <Inventor/fields/SoSFFloat.h>
-#include <Inventor/fields/SoSFBitMask.h>
+#include <Inventor/fields/SoSFBool.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 
 #include "starlight.h"
@@ -70,14 +70,6 @@ public:
 	 /// Destructor, deletes the sensors
     ~SoPrismKit();
 
-    enum Part 
-    {
-        SIDES =  0x1,
-        TOP =    0x2,
-        BOTTOM = 0x4,
-        ALL =    SIDES|TOP|BOTTOM
-    };
-
     /// Number of faces to be displayed (minimum 3)
 	SoSFInt32 numFaces;
 
@@ -88,7 +80,7 @@ public:
     SoSFFloat radius;
 
     /// Parts to render, bottom, sides and top
-    SoSFBitMask parts;
+    SoSFBool caps;
 
 protected:
 
@@ -96,13 +88,12 @@ protected:
     SoFieldSensor *numFacesSensor;
     SoFieldSensor *heightSensor;
     SoFieldSensor *radiusSensor;
-    SoFieldSensor *partsSensor;
+    SoFieldSensor *capsSensor;
 
 	/// Parts of the catalog
 	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
 	SO_KIT_CATALOG_ENTRY_HEADER(coords);
 	SO_KIT_CATALOG_ENTRY_HEADER(faces);
-	SO_KIT_CATALOG_ENTRY_HEADER(shapeHints);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);

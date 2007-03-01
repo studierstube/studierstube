@@ -68,22 +68,14 @@ SoPrismKit::SoPrismKit()
 
 	// This is for the parts of the catalog
 	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,	SoSeparator,		FALSE,	this,			\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(shapeHints,	SoShapeHints,		FALSE,	topSeparator,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(coords,		SoCoordinate3,		FALSE,	topSeparator,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(faces,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
 
     // This is for the Fields
-    SO_KIT_ADD_FIELD(numFaces, (3));
-    SO_KIT_ADD_FIELD(radius, (1.0f));
-    SO_KIT_ADD_FIELD(height, (2.0f));
-    SO_KIT_ADD_FIELD(parts, (SoPrismKit::SIDES));
-
-    // The enumerations
-    SO_KIT_DEFINE_ENUM_VALUE(Part, SIDES);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, TOP);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, BOTTOM);
-    SO_KIT_DEFINE_ENUM_VALUE(Part, ALL);
-    SO_KIT_SET_SF_ENUM_TYPE(parts, Part);
+    SO_KIT_ADD_FIELD(numFaces,  (3));
+    SO_KIT_ADD_FIELD(radius,    (1.0f));
+    SO_KIT_ADD_FIELD(height,    (2.0f));
+    SO_KIT_ADD_FIELD(caps,      (FALSE));
 
     SO_KIT_INIT_INSTANCE();
 
@@ -91,15 +83,7 @@ SoPrismKit::SoPrismKit()
     numFacesSensor=new SoFieldSensor(SoPrismKit::refreshCB, this);
     heightSensor=new SoFieldSensor(SoPrismKit::refreshCB, this);
     radiusSensor=new SoFieldSensor(SoPrismKit::refreshCB, this);
-    partsSensor=new SoFieldSensor(SoPrismKit::refreshCB, this);
-
-	// This has to be done only once, we know all the vertices are in
-	// counterclockwise order and that they could be concave
-	SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
-	shapeHints->vertexOrdering=SoShapeHints::COUNTERCLOCKWISE;
-	//shapeHints->vertexOrdering=SoShapeHints::UNKNOWN_ORDERING;
-	shapeHints->faceType=SoShapeHints::CONVEX;
-	shapeHints->shapeType=SoShapeHints::SOLID;
+    capsSensor=new SoFieldSensor(SoPrismKit::refreshCB, this);
 
 	this->setUpConnections(TRUE, TRUE);
 }
@@ -109,7 +93,7 @@ SoPrismKit::~SoPrismKit()
     delete numFacesSensor;
     delete heightSensor;
     delete radiusSensor;
-    delete partsSensor;
+    delete capsSensor;
 }
 
 /*
@@ -130,7 +114,7 @@ SbBool SoPrismKit::setUpConnections(SbBool onoff, SbBool doitalways)
         numFacesSensor->attach(&this->numFaces);
         heightSensor->attach(&this->height);
         radiusSensor->attach(&this->radius);
-        partsSensor->attach(&this->parts);
+        capsSensor->attach(&this->caps);
 
 		refresh();
     }
@@ -140,7 +124,7 @@ SbBool SoPrismKit::setUpConnections(SbBool onoff, SbBool doitalways)
         numFacesSensor->detach();
         heightSensor->detach();
         radiusSensor->detach();
-        partsSensor->detach();
+        capsSensor->detach();
 
         SoBaseKit::setUpConnections(onoff, doitalways);
     }
@@ -189,19 +173,15 @@ void SoPrismKit::refresh()
     nNextLimit=-1;
     
     // Create Bottom Face
-    if (parts.getValue()&SoPrismKit::BOTTOM)
+    if (caps.getValue())
     {
         nNextIndex=0;
         nNextLimit=nNumberOfVertices;
         for (i=nNextIndex;i<nNextLimit;i++)
             faces->coordIndex.set1Value(i,i);
         faces->coordIndex.set1Value(nNextLimit,-1);
-    }
-
     
-    // Create Top Face
-    if (parts.getValue()&SoPrismKit::TOP)
-    {
+        // Create Top Face
         nNextIndex=nNextLimit+1;
         nNextLimit=nNextIndex+nNumberOfVertices;
         for (i=0;i<nNumberOfVertices;i++)
@@ -217,17 +197,17 @@ void SoPrismKit::refresh()
 	for (i=0;i<nNumberOfVertices-1;i++)
 	{
 		nNextLimit=(i*5+nNextIndex);
-		faces->coordIndex.set1Value(nNextLimit,		i);
+		faces->coordIndex.set1Value(nNextLimit,	    i);
 		faces->coordIndex.set1Value(nNextLimit+1,	i+nNumberOfVertices);
 		faces->coordIndex.set1Value(nNextLimit+2,	i+nNumberOfVertices+1);
-		faces->coordIndex.set1Value(nNextLimit+3,	i+1);
+		faces->coordIndex.set1Value(nNextLimit+3,   i+1);
 		faces->coordIndex.set1Value(nNextLimit+4,	-1);
 	}
 
 	// Create the last of the cylinder faces
 	i=nNumberOfVertices-1;
 	nNextLimit=(i*5+nNextIndex);
-	faces->coordIndex.set1Value(nNextLimit,		nNumberOfVertices-1);
+	faces->coordIndex.set1Value(nNextLimit,	    nNumberOfVertices-1);
 	faces->coordIndex.set1Value(nNextLimit+1,	nNumberOfVertices*2-1);
 	faces->coordIndex.set1Value(nNextLimit+2,	nNumberOfVertices);
 	faces->coordIndex.set1Value(nNextLimit+3,	0);
