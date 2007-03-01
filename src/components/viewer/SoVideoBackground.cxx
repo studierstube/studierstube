@@ -310,17 +310,20 @@ SoVideoBackground::drawTexture()
 	glDisable(GL_BLEND);
 #else
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_ALPHA_TEST);
+    glDisable(GL_BLEND);
+    glDisable(GL_CULL_FACE);
 #endif
 	///////////////////////    
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glEnable(GL_TEXTURE_2D);
 
-
 	// redraw texture
 	glBindTexture(GL_TEXTURE_2D,  texInfo->texID);
 
-    glColor4f(1,1,1,1);
 	glBegin(GL_QUADS);
 		glTexCoord2f(texInfo->u0,texInfo->v0); glVertex3f(-1.0f, -1.0f,  0.0f);
 		glTexCoord2f(texInfo->u1,texInfo->v0); glVertex3f( 1.0f, -1.0f,  0.0f);
