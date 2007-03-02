@@ -39,7 +39,7 @@
 #include <iostream>
 #include <sstream>
 
-#include <Inventor/SoInput.h> 
+#include <Inventor/SoInput.h>
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/nodes/SoNode.h>
@@ -100,14 +100,14 @@ Viewer::~Viewer()
 }
 
 /// Called before the application is destructed.
-bool 
+bool
 Viewer::init()
 {
     stb::logPrintD("init Viewer\n");
 
     if(isInit)
         return true;
-    
+
     // init coin stuff
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
@@ -134,7 +134,7 @@ Viewer::init()
 
     //get viewer's parameter
     retrieveParameter();
- 
+
 #ifdef STB_IS_LINUX
     using namespace std;
     SoInput::addDirectoryFirst(Kernel::getInstance()->getBaseDir().c_str());
@@ -150,7 +150,7 @@ Viewer::init()
     SoSeparator *fileRoot=SoDB::readAll(&myinput);
     myinput.closeFile();
     SoInput::removeDirectory("./");
-    if (fileRoot==NULL) 
+    if (fileRoot==NULL)
     {
 		logPrintE("problem reading file: " + configFile + "\n");
         return false;
@@ -171,16 +171,16 @@ Viewer::init()
             // add content to display
             addSoDisplay(display);
             Kernel::getInstance()->getSceneManager()->setDisplay(display);
-            // add display to kernel's scenemanager 
+            // add display to kernel's scenemanager
         }
     }
-   fileRoot->unref();  
+   fileRoot->unref();
 
    isInit=true;
    return isInit;
 }
 
-void 
+void
 Viewer::setParameter(string key, std::string value)
 {
     if(key=="configFile")
@@ -204,7 +204,7 @@ Viewer::removeSoDisplay(SoDisplay*)
     //displayList. (dsp);
 }
 
-SoDisplay* 
+SoDisplay*
 Viewer::findSoDisplay(SoNode* node)
 {
     for(int i=0;i<(int)displayList.size();i++)
@@ -214,11 +214,11 @@ Viewer::findSoDisplay(SoNode* node)
             return displayList[i];
         }
     }
-    return NULL; 
+    return NULL;
 }
 
 /// Called before the application is destructed.
-void 
+void
 Viewer::shutDown()
 {
 
@@ -240,7 +240,11 @@ Viewer::gb_init(const char*appname)
         // NOTE: there is a bug in QT4, initialization must be
         // different here ! breiting !
         #if QT_VERSION >= 0x040000
-            new QApplication((int*)0, 0);
+            #if QT_VERSION >= 0x040200
+                new QApplication((int)0, 0);
+            #else
+                new QApplication((int*)0, 0);
+            #endif
             QWidget *window = new QWidget;
             SoQt::init(window);
         #else

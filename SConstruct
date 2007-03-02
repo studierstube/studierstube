@@ -155,7 +155,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
     # and the flags needed to build with those libraries. The obtained result will be used by the build, for
     # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'SoQt', 'Coin', 'boost','Python']
+    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'QtGui', 'SoQt', 'Coin', 'boost','Python']
 
 
     kernel ={'name': 'stbkernel',
@@ -190,7 +190,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
 
     viewer ={'name': 'stbviewer_qt',
                 'type': 'DL',
-                'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'QtCore'],
+                'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'QtCore', 'QtGui' ],
 	        'defines': ['USE_SOQT'],
                 'use' : use,
                 'src_use' : ['components/viewer']
