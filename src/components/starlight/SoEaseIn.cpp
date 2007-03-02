@@ -45,8 +45,9 @@ SoEaseIn::SoEaseIn()
 {
     SO_ENGINE_CONSTRUCTOR(SoEaseIn);
 
-    SO_ENGINE_ADD_INPUT(in, (0.0));
-    SO_ENGINE_ADD_INPUT(ease, (1.0));
+    SO_ENGINE_ADD_INPUT(in,             (0.0));
+    SO_ENGINE_ADD_INPUT(ease,           (1.0));
+    SO_ENGINE_ADD_INPUT(logarithmic,    (FALSE));
 
     SO_ENGINE_ADD_OUTPUT(out, SoSFFloat);
 }
@@ -59,8 +60,17 @@ void SoEaseIn::evaluate()
 {
     float val = in.getValue();
 
-    if (ease.getValue() > 0.0) {
-	    val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 3.0f);
+    if (!logarithmic.getValue())
+    {
+        if (ease.getValue() > 0.0) {
+	        val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 3.0f);
+        }
+    }
+    else
+    {
+        if (ease.getValue() > 0.0) {
+            val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 0.3f);
+        }
     }
 
 	SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(val) );

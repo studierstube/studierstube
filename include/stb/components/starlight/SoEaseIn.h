@@ -26,6 +26,7 @@
 
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoSFFloat.h>
+#include <Inventor/fields/SoSFBool.h>
 
 #include "starlight.h"
 
@@ -41,6 +42,9 @@ class STARLIGHT_API SoEaseIn : public SoEngine {
    SO_ENGINE_HEADER(SoEaseIn);
 
  public:
+
+    SoSFBool logarithmic;
+
     /// ease value for configuring. determines how big the effect will be.
     SoSFFloat ease;     
 

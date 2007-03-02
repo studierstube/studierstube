@@ -83,6 +83,7 @@ Starlight::init(void)
     if(isInit)
         return true;
     isInit=true;
+    SoAbortGroup::initClass();
     SoClassLoader::initClass();
     SoConditionalTrigger::initClass();
     SoContextElement::initClass();
