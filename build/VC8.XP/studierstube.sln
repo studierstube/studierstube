@@ -32,6 +32,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_simple", "viewer_sim
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_qt", "viewer_qt.vcproj", "{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bpython", "bpython.vcproj", "{6E05ECC9-E3D6-4C15-ABED-B5B39E9C166E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -70,6 +72,10 @@ Global
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Debug|Win32.Build.0 = Debug|Win32
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.ActiveCfg = Release|Win32
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.Build.0 = Release|Win32
+		{6E05ECC9-E3D6-4C15-ABED-B5B39E9C166E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6E05ECC9-E3D6-4C15-ABED-B5B39E9C166E}.Debug|Win32.Build.0 = Debug|Win32
+		{6E05ECC9-E3D6-4C15-ABED-B5B39E9C166E}.Release|Win32.ActiveCfg = Release|Win32
+		{6E05ECC9-E3D6-4C15-ABED-B5B39E9C166E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -121,7 +121,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)/include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(OTROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(BOOSTROOT)&quot;;&quot;$(COINROOT)\include&quot;;&quot;$(OTROOT)/src&quot;;&quot;$(OTROOT)/include&quot;;&quot;$(STB4ROOT)/include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;HAVE_OPENVIDEO;EVENT_EXPORTS;USE_OT_2_0"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"

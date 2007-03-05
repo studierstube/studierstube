@@ -35,7 +35,12 @@
 #include <Inventor/lists/SbStringList.h>
 #include <Inventor/sensors/SoOneShotSensor.h>
 
+#ifdef WIN32
+#include <stb/components/bpython/swigpyrunWin.h>
+#else
 #include <stb/components/bpython/swigpyrun.h>
+#endif
+
 #include <stb/components/bpython/SoPyScript.h>
 
 // Python code snippet to load in a URL through the urrlib module
@@ -70,6 +75,15 @@ class SoPyScriptP {
         Py_Initialize();
         global_module_dict = PyModule_GetDict(PyImport_AddModule("__main__"));
         
+		PyRun_SimpleString("print 'hello world'");
+		PyRun_SimpleString("import sys");
+		PyRun_SimpleString("print sys.version");
+		PyRun_SimpleString("print sys.getwindowsversion()");
+		PyRun_SimpleString("print sys.path");
+		PyRun_SimpleString("print 'importing Pivy into Studiestubes python environment'");
+		PyRun_SimpleString("import pivy");
+		PyRun_SimpleString("from pivy import *");
+
         if (PyRun_SimpleString("from pivy.coin import *")) {
           SoDebugError::postWarning("SoPyScript::initClass",
                                     "\n*Yuk!* The box containing a fierce looking python snake to drive\n"
