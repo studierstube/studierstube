@@ -287,6 +287,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoMFVec2s.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoMultiExtrusionKit.cpp"
 				>
 			</File>
@@ -340,6 +344,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoSFFieldContainer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoSpring.cpp"
 				>
 			</File>
 			<File
@@ -481,6 +489,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoMFVec2s.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoMultiExtrusionKit.h"
 				>
 			</File>
@@ -534,6 +546,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoSFFieldContainer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoSpring.h"
 				>
 			</File>
 			<File
