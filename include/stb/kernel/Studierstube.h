@@ -60,8 +60,8 @@
 #endif
 
 
-#define STUDIERSTUBE_VERSION_STRING "Studierstube v4.0"
-#define STUDIERSTUBE_YEAR_STRING "2006"
+#define STUDIERSTUBE_VERSION_STRING "Studierstube v4.2"
+#define STUDIERSTUBE_YEAR_STRING "2007"
 
 namespace stb{
 	class Kernel;
