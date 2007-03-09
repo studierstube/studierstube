@@ -70,7 +70,7 @@ public:
         return hasTerminated();
     };
 
-    void setGrabberPath( SoPath * );
+    void setGrabberPath( SoPath * aPath) {};
     void setTailAsGrabber(void);
     void releaseGrabber(void);
     SoNode * getGrabber(void) const;
