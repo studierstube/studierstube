@@ -79,17 +79,17 @@ SoStbCamera::SoStbCamera()
     //                 |						
     //				 xfSep		  
     //                 |
-    //		|--------------|----------|--------|
-    //    transform  controlMode   offset     camera
+    //		|-------------|---------|--------|----------|-----------|
+    //    transform  controlMode  offset  camera  zoomTransform  headUpNode
     //----------------------------------------------------------------------------
  
-    SO_KIT_ADD_CATALOG_ENTRY(xfSep,SoTransformSeparator,FALSE,        this,   ""  , FALSE);	
-	SO_KIT_ADD_CATALOG_ENTRY(camera,SoCamera,TRUE,        xfSep,   "", TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(offset,SoTransform,TRUE, xfSep,camera, FALSE);
-    SO_KIT_ADD_CATALOG_ENTRY(controlMode,SoStbCameraControlMode,TRUE, xfSep,offset, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(transform,SoTransform, FALSE ,           xfSep,controlMode, TRUE);
-
-
+    SO_KIT_ADD_CATALOG_ENTRY(xfSep,			SoTransformSeparator,	FALSE,	this,	"" ,			FALSE);	
+	SO_KIT_ADD_CATALOG_ENTRY(headUpNode,	SoSeparator,			TRUE,   xfSep,	"",				TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(zoomTransform,	SoTransform,			TRUE,	xfSep,	headUpNode,		TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(camera,		SoCamera,				TRUE,	xfSep,  zoomTransform,	TRUE);
+    SO_KIT_ADD_CATALOG_ENTRY(offset,		SoTransform,			TRUE,	xfSep,	camera,			FALSE);
+    SO_KIT_ADD_CATALOG_ENTRY(controlMode,	SoStbCameraControlMode,	TRUE,	xfSep,	offset,			TRUE);
+	SO_KIT_ADD_CATALOG_ENTRY(transform,		SoTransform,			FALSE,  xfSep,	controlMode,	TRUE);
 
     SO_KIT_INIT_INSTANCE();
 

@@ -50,6 +50,8 @@ public:
     SO_KIT_HEADER(SoStbCamera);
     
 	SO_KIT_CATALOG_ENTRY_HEADER(xfSep);
+	SO_KIT_CATALOG_ENTRY_HEADER(zoomTransform);
+	SO_KIT_CATALOG_ENTRY_HEADER(headUpNode);
     SO_KIT_CATALOG_ENTRY_HEADER(transform);
     SO_KIT_CATALOG_ENTRY_HEADER(offset);
     SO_KIT_CATALOG_ENTRY_HEADER(controlMode);
