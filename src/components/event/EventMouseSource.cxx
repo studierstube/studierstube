@@ -131,9 +131,9 @@ void EventMouseSource::processEvent( const SoEvent & event, const SbViewportRegi
         else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON3))
         {
 #ifdef USE_OT_1_1 
-            state.button |= 1;
+            state.button |= 4;
 #else
-            state.getButton() |= 1;
+            state.getButton() |= 4;
 #endif
             state.timeStamp();
             changed = true;

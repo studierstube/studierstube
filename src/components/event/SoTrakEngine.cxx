@@ -72,6 +72,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_OUTPUT(button5, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button6, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button7, SoSFBool);
+    SO_ENGINE_ADD_OUTPUT(buttonWrapper, SoSFShort);
 
 	buttonHistory0=FALSE;
 	buttonHistory1=FALSE;
@@ -80,7 +81,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonHistory4=FALSE;
 	buttonHistory5=FALSE;
 	buttonHistory6=FALSE;
-	buttonHistory7=FALSE;
+    buttonHistory7=FALSE;
 
 	buttonChange0=TRUE;
 	buttonChange1=TRUE;
@@ -89,7 +90,6 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonChange4=TRUE;
 	buttonChange5=TRUE;
 	buttonChange6=TRUE;
-	buttonChange7=TRUE;
 
 }
 
@@ -121,18 +121,21 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
 			rotationIn.setValue(rot);
 		}
 
-        
+        short wrapper=0;
         for (int i=0;i<8;i++){
             char fieldName[255],buttonEventName[255];
             sprintf(fieldName,"buttonIn%d",i);
             SoSFBool *field=(SoSFBool*)(this->getField(fieldName));
             if (field){
                 sprintf(buttonEventName,"event.button.%d",i);
-				if (event->containsKey(buttonEventName)){
+				if (event->containsKey(buttonEventName))
+                {
 					field->setValue(event->getSFBool(buttonEventName));
+                    wrapper=wrapper|(event->getSFBool(buttonEventName) << i);
 				}
             }
         }
+        buttonInWrapper.setValue(wrapper);
 
         evaluate();
     }
@@ -152,8 +155,10 @@ void SoTrakEngine::evaluate()
 		SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
 		SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
 		SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
-		SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
-	}
+        SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+        SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(buttonInWrapper.getValue()));
+    
+    }
 	else  // if Histeresis is on
 	{
 		// Button 0
@@ -212,13 +217,13 @@ void SoTrakEngine::evaluate()
 		}
 		buttonChange6=buttonIn6.getValue();
 
-		// Button 7
-		if ((buttonChange7==FALSE)&&(buttonIn7.getValue()==TRUE))
-		{
-			buttonHistory7=!buttonHistory7;
-			SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonHistory7));
-		}
-		buttonChange7=buttonIn7.getValue();
+        // Button 7
+        if ((buttonChange7==FALSE)&&(buttonIn7.getValue()==TRUE))
+        {
+            buttonHistory7=!buttonHistory7;
+            SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonHistory7));
+        }
+        buttonChange7=buttonIn7.getValue();
 
 	}
 }

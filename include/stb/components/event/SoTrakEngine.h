@@ -39,6 +39,7 @@
 #include <Inventor/sensors/SoFieldSensor.h>
 #include <Inventor/fields/SoSFVec3f.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <Inventor/fields/SoSFShort.h>
 #include <Inventor/fields/SoSFRotation.h>
 #include <Inventor/fields/SoMFName.h>
 #include <Inventor/fields/SoMFString.h>
@@ -69,6 +70,7 @@ public:
     SoSFBool        buttonIn5;         // input button 5
     SoSFBool        buttonIn6;         // input button 6
     SoSFBool        buttonIn7;         // input button 7
+    SoSFBool        buttonInWrapper;   // input button wrapper
 	
 	// Engine Output
     SoEngineOutput  translation;       // (SoSFVec3f) tracker translation
@@ -81,6 +83,7 @@ public:
     SoEngineOutput  button5;           // (SoSFBool) tracker button 5 value
     SoEngineOutput  button6;           // (SoSFBool) tracker button 6 value
     SoEngineOutput  button7;           // (SoSFBool) tracker button 7 value
+    SoEngineOutput  buttonWrapper;     // (SoSFShort) wrapper with all the trackers in a mask
 	
 
     SoTrakEngine(void);
@@ -107,7 +110,7 @@ private:
 	SbBool        buttonHistory4;      // history of button 4
 	SbBool        buttonHistory5;      // history of button 5
 	SbBool        buttonHistory6;      // history of button 6
-	SbBool        buttonHistory7;      // history of button 7
+    SbBool        buttonHistory7;      // history of button 7
 
 	// Used for detecting button changes 
 	SbBool        buttonChange0;       // Change of button 0
@@ -117,7 +120,7 @@ private:
 	SbBool        buttonChange4;       // Change of button 4
 	SbBool        buttonChange5;       // Change of button 5
 	SbBool        buttonChange6;       // Change of button 6
-	SbBool        buttonChange7;       // Change of button 7
+    SbBool        buttonChange7;       // Change of button 7
 
 };
 
