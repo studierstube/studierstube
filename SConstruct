@@ -106,7 +106,7 @@ if sys.platform == 'win32':
               'src_use' : ['components/video']
               }
 
-    bpython = { 'name': 'bpython',
+    bpython = { 'name': 'stbbpython',
                 'type': 'DL',
                 'libs': ['Python','Coin2'],
                 'use' : use,
@@ -196,13 +196,22 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'src_use' : ['components/viewer']
              }
 
-    bpython = { 'name': 'bpython',
+    bpython = { 'name': 'stbbpython',
                 'type': 'DL',
-                'libs': ['Python','Coin'],
+                'libs': ['python2.4','Coin'],
                 'use' : use,
-                'incpath' : ['/usr/include/python'], 
+                'incpath' : ['/usr/include/python2.4'], 
                 'src_use':['components/bpython']
                 }
+
+    video = {'name': 'stbvideo',
+                 'type': 'DL',
+                 'libs': ['openvideo'],
+                 'defines': ['USE_OPENVIDEO', 'ENABLE_OPENVIDEO'],
+                 'use' : use,
+                 'src_use' : ['components/video']
+             }
+
     
     if sys.platform == 'darwin':
         starlight['defines'] = ['COIN_LDFLAGS', 'dynamic_lookup']
@@ -215,6 +224,11 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     targetList.append(event)
     targetList.append(viewer)
     targetList.append(bpython)
+#    if user_options_dict['ENABLE_OPENVIDEO'] == '1':
+print "######### ENABLE_OPENVIDEO == 1"
+targetList.append(video)
+#    else:
+print "######### ENABLE_OPENVIDEO == 0"
 
 
 #======================== CONFIGURATION SECTION =============================
@@ -326,7 +340,6 @@ Help(buildConfig.getHelpText())
 user_options_dict = buildConfig.getOptionsDict()
 env = Environment (ENV = os.environ)
 ibuilder = icgbuilder.IcgBuilder(user_options_dict, env)
-
 
 print "\n"
 print "============================================================"
