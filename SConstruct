@@ -155,7 +155,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
     # and the flags needed to build with those libraries. The obtained result will be used by the build, for
     # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'QtGui', 'SoQt', 'Coin', 'boost','Python']
+    libraryList =['ACE', 'xercesc', 'tinyxmlmod', 'ot', 'openvideo', 'QtCore', 'QtGui', 'SoQt', 'Coin', 'boost','python']
 
 
     kernel ={'name': 'stbkernel',
@@ -198,9 +198,9 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
 
     bpython = { 'name': 'stbbpython',
                 'type': 'DL',
-                'libs': ['python2.4','Coin'],
+                'libs': ['python','Coin'],
                 'use' : use,
-                'incpath' : ['/usr/include/python2.4'], 
+                'incpath' : [], 
                 'src_use':['components/bpython']
                 }
 
