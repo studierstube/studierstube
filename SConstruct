@@ -65,7 +65,7 @@ if sys.platform == 'win32':
 # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
 # and the flags needed to build with those libraries. The obtained result will be used by the build, for
 # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'openvideo', 'ot', 'boost']
+    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'openvideo', 'ot', 'boost', 'Python']
 
     bootloader ={'name': 'bootloader',
                  'type': 'PRG',
