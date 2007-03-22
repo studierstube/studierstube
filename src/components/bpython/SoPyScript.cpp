@@ -70,31 +70,36 @@ class SoPyScriptP {
       handler_registry_dict(PyDict_New()),
       local_module_dict(PyDict_New())
     {
-      if (!global_module_dict) {
+      if (!global_module_dict){
         Py_SetProgramName("SoPyScript");
         Py_Initialize();
         global_module_dict = PyModule_GetDict(PyImport_AddModule("__main__"));
-        
-		PyRun_SimpleString("print 'hello world'");
-		PyRun_SimpleString("import sys");
-		PyRun_SimpleString("print sys.version");
-		PyRun_SimpleString("print sys.getwindowsversion()");
-		PyRun_SimpleString("print sys.path");
-		PyRun_SimpleString("print 'importing Pivy into Studiestubes python environment'");
-		PyRun_SimpleString("import pivy");
-		PyRun_SimpleString("from pivy import *");
 
-        if (PyRun_SimpleString("from pivy.coin import *")) {
-          SoDebugError::postWarning("SoPyScript::initClass",
-                                    "\n*Yuk!* The box containing a fierce looking python snake to drive\n"
-                                    "this node has arrived but was found to be empty! The Pivy module\n"
-                                    "required for the Python Scripting Node could not be successfully\n"
-                                    "imported! Check your setup and fix it so that the python snake can\n"
-                                    "happily wiggle and byte you in the ass...");
+        PyRun_SimpleString("print '----- Pivy @ Studierstube: Hello World'");
+        PyRun_SimpleString("import sys");
+        PyRun_SimpleString("print '** PYTHON version ::'");
+        PyRun_SimpleString("print sys.version");
+#ifdef WIN32
+        PyRun_SimpleString("print '** WINDOWS version ::'");
+        PyRun_SimpleString("print sys.getwindowsversion()");
+#endif
+        PyRun_SimpleString("print '** PYTHONPATH ::'");
+        PyRun_SimpleString("print sys.path");
+        PyRun_SimpleString("print '----- Pivy @ Studierstube: Importing pivy into Studierstube python environment'");
+        PyRun_SimpleString("import pivy");
+        PyRun_SimpleString("from pivy import *");
+
+        if (PyRun_SimpleString("from pivy.coin import *") == -1) {
+            SoDebugError::postWarning("SoPyScript::initClass",
+                                      "\n*Yuk!* The box containing a fierce looking python snake to drive\n"
+                                      "this node has arrived but was found to be empty! The Pivy module\n"
+                                      "required for the Python Scripting Node could not be successfully\n"
+                                      "imported! Check your setup and fix it so that the python snake can\n"
+                                      "happily wiggle and byte you in the ass...");
         }
-      }    
+      }
     }
-    
+
     ~SoPyScriptP() {
       GlobalLock lock;
       delete this->oneshotSensor;
@@ -103,7 +108,7 @@ class SoPyScriptP {
     }
 
     PyObject *
-    createPySwigType(SbString typeVal, void * obj) {    
+    createPySwigType(SbString typeVal, void * obj) {
       typeVal += " *";
       swig_type_info * swig_type;
       if (!(swig_type = SWIG_TypeQuery(typeVal.getString()))) {
@@ -206,10 +211,10 @@ SoPyScript::doAction(SoAction * action, const char * funcname)
         SoDebugError::postInfo("SoPyScript::doAction",
                                "%s called!", action->getTypeId().getName().getString());
       }
-      
+
       // convert the action instance to a Python object
       SbString typeVal(action->getTypeId().getName().getString());
-      
+
       PyObject * pyAction;
       if (!(pyAction = PRIVATE(this)->createPySwigType(typeVal, action))) {
         SoDebugError::post("SoPyScript::doAction",
@@ -373,28 +378,28 @@ SoPyScript::copyContents(const SoFieldContainer * from,
         f != &fromnode->mustEvaluate) {
       SoField * field = (SoField*)f->getTypeId().createInstance();
       SbString fieldname = src->getFieldName(i).getString();
-      
+
       field->setContainer(this);
-      this->fielddata->addField(this, fieldname.getString(), field);      
+      this->fielddata->addField(this, fieldname.getString(), field);
     }
   }
   inherited::copyContents(from, copyConn);
 }
 
 // Doc in parent
-void 
+void
 SoPyScript::notify(SoNotList * list)
 {
   if (!PRIVATE(this)->isReading) {
     SoField * f = list->getLastField();
 
     if (f == &this->mustEvaluate) {
-      int pri = this->mustEvaluate.getValue() ? 
+      int pri = this->mustEvaluate.getValue() ?
         0 : SoDelayQueueSensor::getDefaultPriority();
       PRIVATE(this)->oneshotSensor->setPriority(pri);
     }
     else if (f == &this->script) { this->executePyScript(); }
-    else { 
+    else {
       if (PRIVATE(this)->changedFields.find(f) == -1) {
         PRIVATE(this)->changedFields.append(f);
       }
@@ -426,7 +431,7 @@ SoPyScript::readInstance(SoInput * in, unsigned short flags)
     } else if (in->read(typeVal) && typeVal == "[") {
       while (in->read(typeVal) && typeVal != "]") {
         SoType type = SoType::fromName(typeVal);
-        
+
         /* if it denotes a valid type and is derived from SoField then
            read in the next string representing the name of the
            field */
@@ -434,12 +439,12 @@ SoPyScript::readInstance(SoInput * in, unsigned short flags)
             type.isDerivedFrom(SoField::getClassTypeId()) &&
             in->read(name)) {
           // check for a comma at the end and strip it off
-          const SbString fieldname = 
+          const SbString fieldname =
             (name[name.getLength()-1] == ',') ? name.getSubString(0, name.getLength()-2) : name;
-          
+
           // skip the static fields
           if (fieldname == "script" || fieldname == "mustEvaluate") { continue; }
-          
+
           /* instantiate the field and conduct similar actions as the
              SO_NODE_ADD_FIELD macro */
           SoField * field = (SoField *)type.createInstance();
@@ -485,7 +490,7 @@ SoPyScript::getFieldData(void) const
 // loads and executes Python script contained in the script field
 void
 SoPyScript::executePyScript(void)
-{ 
+{
   // strip out possible \r's that could come from win32 line endings
   SbString src = script.getValue();
   SbString pyString;
@@ -500,7 +505,7 @@ SoPyScript::executePyScript(void)
   PyDict_Clear(PRIVATE(this)->local_module_dict);
   PyDict_Update(PRIVATE(this)->local_module_dict, PRIVATE(this)->global_module_dict);
   PyDict_Clear(PRIVATE(this)->handler_registry_dict);
-      
+
   /* shovel the the node itself on to the Python interpreter as self
      instance */
   swig_type_info * swig_type = 0;
@@ -514,12 +519,12 @@ SoPyScript::executePyScript(void)
   this->ref();
 
   // add the field to the global dict
-  PyDict_SetItemString(PRIVATE(this)->local_module_dict, 
+  PyDict_SetItemString(PRIVATE(this)->local_module_dict,
                        "self",
                        SWIG_NewPointerObj(this, swig_type, 0));
-  
+
   // add the handler registry dict to the global dict
-  PyDict_SetItemString(PRIVATE(this)->local_module_dict, 
+  PyDict_SetItemString(PRIVATE(this)->local_module_dict,
                        "handler_registry",
                        PRIVATE(this)->handler_registry_dict);
 
@@ -529,18 +534,18 @@ SoPyScript::executePyScript(void)
     SoField * f = fields->getField(this, i);
     SbString typeName(f->getTypeId().getName());
     SbString fieldName(fields->getFieldName(i));
-    
+
     // shovel the field instance on to the Python interpreter
     PyObject * pyField = NULL;
     if ((pyField = PRIVATE(this)->createPySwigType(typeName, f)) == NULL) {
       SoDebugError::post("SoPyScript::readInstance",
                          "field type %s could not be created!",
-                          typeName.getString());            
+                          typeName.getString());
       continue;
     }
 
     // add the field to the global dict
-    PyDict_SetItemString(PRIVATE(this)->local_module_dict, 
+    PyDict_SetItemString(PRIVATE(this)->local_module_dict,
                          fieldName.getString(),
                          pyField);
 
@@ -548,7 +553,7 @@ SoPyScript::executePyScript(void)
     funcname += fieldName;
 
     // add the field handler to the handler registry
-    PyDict_SetItemString(PRIVATE(this)->handler_registry_dict, 
+    PyDict_SetItemString(PRIVATE(this)->handler_registry_dict,
                          fieldName.getString(),
                          PyString_FromString(funcname.getString()));
   }
@@ -565,14 +570,14 @@ SoPyScript::executePyScript(void)
     SbStringList subdirs;
     SbString fullName = SoInput::searchForFile(pyString, SoInput::getDirectories(), subdirs);
     if (fullName != "") { pyString = fullName; }
-    
+
     PyObject * url = PyString_FromString(pyString.getString());
 
     // add the url to the global dict
     PyDict_SetItemString(PRIVATE(this)->local_module_dict, "url", url);
 
     PyObject * result = PyRun_String(PYTHON_URLLIB_URLOPEN,
-                                     Py_file_input, 
+                                     Py_file_input,
                                      PRIVATE(this)->local_module_dict,
                                      PRIVATE(this)->local_module_dict);
     if (result) { Py_DECREF(result); }
@@ -602,7 +607,7 @@ SoPyScript::executePyScript(void)
 }
 
 // callback for oneshotSensor
-void 
+void
 SoPyScript::eval_cb(void * data, SoSensor *)
 {
   SoPyScript * self = (SoPyScript*)data;
