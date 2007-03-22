@@ -50,13 +50,11 @@ targetList = []
 
 # use flags that will be shared both by static and dynamic libs.
 use = {
-    #'stb4'          : 'true',
     'Coin'          : 'true'
     }
 
 usek = {
     'tinyxmlmod'          : 'true',	
-    #'stb4'          : 'true',
     'Coin'          : 'true'
     }
 
@@ -65,7 +63,7 @@ if sys.platform == 'win32':
 # list of libraries that will be searched by the scanner. The scanner will try to locate the libraries
 # and the flags needed to build with those libraries. The obtained result will be used by the build, for
 # each target that lists a library in its 'libs' or in its 'use' sections.
-    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'openvideo', 'ot', 'boost', 'Python']
+    libraryList =['ace', 'xercesc', 'tinyxmlmod', 'coin', 'openvideo', 'ot', 'boost', 'python']
 
     bootloader ={'name': 'bootloader',
                  'type': 'PRG',
@@ -108,7 +106,7 @@ if sys.platform == 'win32':
 
     bpython = { 'name': 'stbbpython',
                 'type': 'DL',
-                'libs': ['Python','Coin2'],
+                'libs': ['python','Coin2'],
                 'use' : use,
                 'incpath' : ['/usr/include/python'], 
                 'src_use':['components/bpython']
@@ -168,7 +166,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
 
     bootloader ={'name': 'workspace',
                  'type': 'PRG',
-                 'libs': ['ACE'],
+                 'libs': ['python','ACE'],
                  'use' : use,
                  'src_use' : ['bootloader', 'base']
                  }
