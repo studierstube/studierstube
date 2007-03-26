@@ -252,6 +252,11 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 {
 	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
 
+#ifndef _IS_KLIMTES_
+        glPushAttrib(GL_ALL_ATTRIB_BITS);
+#endif 
+
+
 #if defined(HAVE_OPENVIDEO)
 	if(!texInfo)
 		if(!createTexture(buffer))
@@ -282,6 +287,12 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 		touch();
 	}
 #endif // defined(HAVE_OPENVIDEO)
+
+#ifndef _IS_KLIMTES_
+    glPopAttrib();
+#endif 
+
+
 }
 
 
