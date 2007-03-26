@@ -351,7 +351,8 @@ print "============================================================"
 
 
 ibuilder.buildAll()
-ibuilder.installAll()
+if "install" in BUILD_TARGETS:
+    ibuilder.installAll()
 
 ###########################################################################
 # Done:)
