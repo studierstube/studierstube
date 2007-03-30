@@ -43,7 +43,8 @@ project      = 'stb4'
 description  = project + ' is a modified "big" library providing an AR support'
 mainlib      = 'stbkernel'
 installRoot  = os.getcwd()
-includeDir   = os.path.join(os.getcwd(),'include')
+#includeDir   = os.path.join(os.getcwd(),'include')
+includeDir   = os.path.abspath('include')
 prefix       = ''
 
 targetList = []
@@ -220,12 +221,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     targetList.append(event)
     targetList.append(viewer)
     targetList.append(bpython)
-#    if user_options_dict['ENABLE_OPENVIDEO'] == '1':
-print "######### ENABLE_OPENVIDEO == 1"
-targetList.append(video)
-#    else:
-print "######### ENABLE_OPENVIDEO == 0"
-
+    targetList.append(video)
 
 #======================== CONFIGURATION SECTION =============================
 # Following is the configuration section. In it most of the options for
@@ -336,6 +332,64 @@ Help(buildConfig.getHelpText())
 user_options_dict = buildConfig.getOptionsDict()
 env = Environment (ENV = os.environ)
 ibuilder = icgbuilder.IcgBuilder(user_options_dict, env)
+
+#### Generate swigpyrun.h C++ header file needed by Stb python binding depending on
+#### locally installed SWIG version
+
+## Generates new swigpyrun.h C++ header file needed by Stb python binding
+
+def generate_swigpyrun_header(target, source, env):
+
+    from subprocess import call
+
+    swig_cmd = ((sys.platform == "win32" and "swig.exe") or "swig")
+
+    target_path = [ ]
+    for t in target:
+        target_path.append(os.path.abspath(str(t)))
+
+    try:
+                          
+        for tp in target_path:
+            if os.path.isfile(tp):
+                os.remove(tp)
+            command = swig_cmd + ' -python -external-runtime ' + str(tp)
+            ret = call(command, shell = True)
+            if ret != 0:
+                raise OSError('Command "' + command + '" returned with retval = ' + retval)
+
+    except OSError, e:
+        print >>sys.stderr, "--- ERROR: Generating SWIG python runtime header failed: ", e
+        return -1
+
+    return 0
+
+## the header file to generate
+swigpyrun_path = os.path.abspath(ibuilder.options['INCLUDE_DIR'] + '/stb/components/bpython/swigpyrun.h')
+#if os.path.isfile(swigpyrun_path):
+#    os.remove(swigpyrun_path)
+
+## Python version uses function above
+ibuilder.env.Command(swigpyrun_path,
+                     '',
+                     generate_swigpyrun_header)
+
+# ## Platform-specific version
+
+# # NOT TESTED
+# if sys.platform == 'win32':
+    
+#     ibuilder.env.Command(swigpyrun_path,
+#                          '',
+#                          "del $TARGET; swig.exe -python -external-runtime $TARGET")
+# # TESTED
+# elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'darwin':
+    
+#     ibuilder.env.Command(swigpyrun_path,
+#                          '',
+#                          "rm -f $TARGET; swig -python -external-runtime $TARGET")
+# else:
+#     pass
 
 print "\n"
 print "============================================================"
