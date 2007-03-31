@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLROOT)/include&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINDIR)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(TINYXMLMODROOT)/include&quot;;&quot;$(TINYXMLMODROOT)/src&quot;;&quot;$(COINDIR)/include&quot;;&quot;$(STB4ROOT)/include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;_CRT_SECURE_NO_DEPRECATE;KERNEL_EXPORTS;TINYXML_MOD_DLL"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
