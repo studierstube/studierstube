@@ -45,7 +45,7 @@ scons -c
 %package devel
 Summary:	Studierstube header files
 Group:		Development/Libraries
-Requires:	%{name} = %{version} ICGBuilder
+Requires:	%{name} = %{version} ICGBuilder tinyxmlmod-devel ACE-devel openvideo-devel opentracker-devel Coin-devel SoQt-devel
 
 %description devel
 This package contains header files and include files that are needed for development using Studierstube.
