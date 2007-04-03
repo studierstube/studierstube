@@ -45,7 +45,7 @@ scons -c
 %package devel
 Summary:	Studierstube header files
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version} ICGBuilder
 
 %description devel
 This package contains header files and include files that are needed for development using Studierstube.
