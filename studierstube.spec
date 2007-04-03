@@ -10,8 +10,8 @@ URL:		http://www.studierstube.org
 Packager:	Institute for Computer Graphics and Vision, Graz University of Technology, Austria
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
-Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt
-BuildRequires:	scons >= 0.96.92 ICGBuilder tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel graphviz doxygen
+Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt >= 1.4.0
+BuildRequires:	scons >= 0.96.92 ICGBuilder tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel >= 1.4.0 graphviz doxygen
 
 %define _prefix %{prefix}
 
