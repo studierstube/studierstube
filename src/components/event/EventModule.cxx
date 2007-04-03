@@ -297,6 +297,7 @@ Node * EventModule::createNode( const string& name,  StringTable& attributes)
     }
     else if( name.compare("EventSink") == 0 )
     {
+      //      logPrintI("Creating EventSink\n");
         EventSink * sink = new EventSink( this );
         sinks.push_back( sink );
         KeyIterator keyIt(attributes);
