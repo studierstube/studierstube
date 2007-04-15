@@ -35,6 +35,7 @@
 #define _STB_KERNELEVENTSUBSCRIBER_H_
 
 
+#include <stb/base/macros.h>
 #include <vector>
 
 
