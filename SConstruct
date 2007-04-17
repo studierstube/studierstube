@@ -105,13 +105,6 @@ if sys.platform == 'win32':
               'src_use' : ['components/video']
               }
 
-    bpython = { 'name': 'stbbpython',
-                'type': 'DL',
-                'libs': ['python','Coin2'],
-                'use' : use,
-                'src_use':['components/bpython']
-                }
-
     viewer_simple ={'name': 'viewer_simple',
             'type': 'DL',
             'libs': ['Coin2', 'SoSimple', 'opengl32', 'glu32', 'openvideo', 'stbkernel'],
@@ -143,7 +136,6 @@ if sys.platform == 'win32':
     targetList.append(kernel)
     targetList.append(event)
     targetList.append(starlight)
-    targetList.append(bpython)
     targetList.append(video)
     targetList.append(viewer_simple)
     targetList.append(viewer_win)
@@ -194,13 +186,6 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'src_use' : ['components/viewer']
              }
 
-    bpython = { 'name': 'stbbpython',
-                'type': 'DL',
-                'libs': ['python','Coin'],
-                'use' : use,
-                'src_use':['components/bpython']
-                }
-
     video = {'name': 'stbvideo',
                  'type': 'DL',
                  'libs': ['openvideo'],
@@ -220,7 +205,6 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     targetList.append(starlight)
     targetList.append(event)
     targetList.append(viewer)
-    targetList.append(bpython)
     targetList.append(video)
 
 #======================== CONFIGURATION SECTION =============================
@@ -332,64 +316,6 @@ Help(buildConfig.getHelpText())
 user_options_dict = buildConfig.getOptionsDict()
 env = Environment (ENV = os.environ)
 ibuilder = icgbuilder.IcgBuilder(user_options_dict, env)
-
-#### Generate swigpyrun.h C++ header file needed by Stb python binding depending on
-#### locally installed SWIG version
-
-## Generates new swigpyrun.h C++ header file needed by Stb python binding
-
-def generate_swigpyrun_header(target, source, env):
-
-    from subprocess import call
-
-    swig_cmd = ((sys.platform == "win32" and "swig.exe") or "swig")
-
-    target_path = [ ]
-    for t in target:
-        target_path.append(os.path.abspath(str(t)))
-
-    try:
-                          
-        for tp in target_path:
-            if os.path.isfile(tp):
-                os.remove(tp)
-            command = swig_cmd + ' -python -external-runtime ' + str(tp)
-            ret = call(command, shell = True)
-            if ret != 0:
-                raise OSError('Command "' + command + '" returned with retval = ' + retval)
-
-    except OSError, e:
-        print >>sys.stderr, "--- ERROR: Generating SWIG python runtime header failed: ", e
-        return -1
-
-    return 0
-
-## the header file to generate
-swigpyrun_path = os.path.abspath(ibuilder.options['INCLUDE_DIR'] + '/stb/components/bpython/swigpyrun.h')
-#if os.path.isfile(swigpyrun_path):
-#    os.remove(swigpyrun_path)
-
-## Python version uses function above
-ibuilder.env.Command(swigpyrun_path,
-                     '',
-                     generate_swigpyrun_header)
-
-# ## Platform-specific version
-
-# # NOT TESTED
-# if sys.platform == 'win32':
-    
-#     ibuilder.env.Command(swigpyrun_path,
-#                          '',
-#                          "del $TARGET; swig.exe -python -external-runtime $TARGET")
-# # TESTED
-# elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'darwin':
-    
-#     ibuilder.env.Command(swigpyrun_path,
-#                          '',
-#                          "rm -f $TARGET; swig -python -external-runtime $TARGET")
-# else:
-#     pass
 
 print "\n"
 print "============================================================"
