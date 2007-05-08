@@ -172,16 +172,16 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     
     event ={'name': 'stbevent',
                 'type': 'DL',
-                'libs': ['ACE', 'Coin', 'opentracker','boost'],
+                'libs': ['ACE', 'Coin', 'opentracker','openvideo','boost'],
                 'use' : use,
-	        'defines': ['USE_OT_2_0'],
+	        'defines': ['USE_OT_2_0','HAVE_OPENVIDEO'],
                 'src_use' : ['components/event']
                 }
 
     viewer ={'name': 'stbviewer_qt',
                 'type': 'DL',
                 'libs': ['ACE', 'Coin', 'SoQt', 'openvideo', 'QtCore', 'QtGui' ],
-	        'defines': ['USE_SOQT'],
+	        'defines': ['USE_SOQT', 'HAVE_OPENVIDEO'],
                 'use' : use,
                 'src_use' : ['components/viewer']
              }
@@ -189,7 +189,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
     video = {'name': 'stbvideo',
                  'type': 'DL',
                  'libs': ['openvideo'],
-                 'defines': ['USE_OPENVIDEO', 'ENABLE_OPENVIDEO'],
+                 'defines': ['USE_OPENVIDEO', 'ENABLE_OPENVIDEO', 'HAVE_OPENVIDEO'],
                  'use' : use,
                  'src_use' : ['components/video']
              }
