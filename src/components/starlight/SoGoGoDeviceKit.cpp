@@ -30,6 +30,7 @@
 
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/actions/SoGetMatrixAction.h>
+// attention here: it links to the kernel (do starlight should be indipendent??)
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
 #include <stb/components/event/event.h>
