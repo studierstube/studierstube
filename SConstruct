@@ -174,7 +174,7 @@ elif sys.platform == 'linux' or sys.platform == 'linux2' or sys.platform == 'dar
                 'type': 'DL',
                 'libs': ['ACE', 'Coin', 'opentracker','openvideo','boost'],
                 'use' : use,
-	        'defines': ['USE_OT_2_0','HAVE_OPENVIDEO'],
+	        'defines': ['USE_OT_2_0','HAVE_OPENVIDEO','OT_ENABLE_RECONFIGURATION'],
                 'src_use' : ['components/event']
                 }
 
