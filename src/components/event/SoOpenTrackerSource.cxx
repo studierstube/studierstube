@@ -25,12 +25,12 @@
  * PROJECT: Studierstube
  * ======================================================================== */
 /** header file for SoEventAction node
-  *
-  * @author   Gerhard Reitmayr
-  *
-  * $Id: SoOpenTrackerSource.cpp 52 2006-02-02 20:14:26Z bara $
-  * @file                                                                   */
- /* ======================================================================= */
+ *
+ * @author   Gerhard Reitmayr
+ *
+ * $Id: SoOpenTrackerSource.cpp 52 2006-02-02 20:14:26Z bara $
+ * @file                                                                   */
+/* ======================================================================= */
 
 #include <algorithm>
 
@@ -52,12 +52,12 @@
 
 
 void SoOpenTrackerSource::createOTModule(ot::Context * context, void * data){
-  printf("SoOpenTrackerSource::CreateOTModule\n");
-   SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
-   self->eventHandler = new EventModule(self);
-   context->addModule( "EventConfig", *(self->eventHandler) );
-   //   printf("calling context add fatori\n");
-   context->addFactory( *(self->eventHandler) );
+    printf("SoOpenTrackerSource::CreateOTModule\n");
+    SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
+    self->eventHandler = new EventModule(self);
+    context->addModule( "EventConfig", *(self->eventHandler) );
+    //   printf("calling context add fatori\n");
+    context->addFactory( *(self->eventHandler) );
 
 }
 
@@ -70,7 +70,7 @@ void SoOpenTrackerSource::initClass(void)
 
 SoOpenTrackerSource::SoOpenTrackerSource(void) :
     context(NULL),
-	//artkpModule(NULL),
+    //artkpModule(NULL),
     eventHandler(NULL),
     runSensor(NULL)
 {
@@ -95,14 +95,14 @@ SoOpenTrackerSource::SoOpenTrackerSource(void) :
     processSensor.setData( this );
     processSensor.attach( &processing );
 
-	active.setValue(FALSE);
+    active.setValue(FALSE);
 
     // setup the timer sensor for running the show
     SoOpenTrackerSource::processChanged( this, NULL );
 
 #ifdef USE_OT_2_0
-	// add initialization procedure to the opentracker Configurator,
-	// this allows opentracker to create the stb modules, whenever they are needed
+    // add initialization procedure to the opentracker Configurator,
+    // this allows opentracker to create the stb modules, whenever they are needed
     //    logPrintI("Adding eventmodule %p\n", createOTModule);
     ot::Configurator::addModuleInit("EventModule", createOTModule, (void *)this);
 
@@ -156,7 +156,7 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 
 	conf->changeConfiguration(configFileString);
 
-	self->context = &conf->getContext();		
+	self->context = conf->getContext();		
 
 
 #else  //USE_OT_2_0
@@ -171,14 +171,14 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 #endif // USE_OT_2_0
 
 
-		self->context->start();
+        self->context->start();
 
         self->active.setValue(TRUE);
 	
-		// try to find an ARToolKitPlusModule
-		// FIXME: maybe OpenTracker should rather have a generic video input interface for all its nodes...
-		//
-		//self->artkpModule = reinterpret_cast<ot::ARToolKitPlusModule*>(self->context->getModule("ARToolKitPlusConfig"));
+        // try to find an ARToolKitPlusModule
+        // FIXME: maybe OpenTracker should rather have a generic video input interface for all its nodes...
+        //
+        //self->artkpModule = reinterpret_cast<ot::ARToolKitPlusModule*>(self->context->getModule("ARToolKitPlusConfig"));
     }
 }
 
@@ -223,7 +223,7 @@ void SoOpenTrackerSource::runTrackerCB( void * data, SoSensor * )
 
 void SoOpenTrackerSource::runTracker( void )
 {
-	//printf("SoOpenTrackerSource::runTracker\n");
+    //printf("SoOpenTrackerSource::runTracker\n");
 
     if(active.getValue())
     {
@@ -233,18 +233,19 @@ void SoOpenTrackerSource::runTracker( void )
 #ifdef USE_OT_1_1
             context->pushStates();
             context->pullStates();
-			int stopflag= context->stop();
+            int stopflag= context->stop();
 #elif USE_OT_2_0
 
 
-			int stopflag = context->loopOnce();
+            int stopflag = context->loopOnce();
+            context->consumedBroadcast();
 #else
             context->pushEvents();
             context->pullEvents();
-			int stopflag= context->stop();
+            int stopflag= context->stop();
 #endif
             if(stopflag && !shouldStop.getValue()) shouldStop.setValue(TRUE);
-         }
+        }
     }
 }
 
@@ -273,7 +274,7 @@ public:
 };
 
 #ifdef USE_OT_1_1
-    void SoOpenTrackerSource::processEvent( const ot::State * state, const NameStringMap * attributes )
+void SoOpenTrackerSource::processEvent( const ot::State * state, const NameStringMap * attributes )
 #else
     void SoOpenTrackerSource::processEvent( const ot::Event * state, const NameStringMap * attributes )
 #endif
@@ -292,25 +293,25 @@ public:
 #else
     // copy the OpenTracker event to the Inventor event using the EventSchema
     EventSchema schema(event);
-	int attrcount = state->getSize();
-	std::string attrname;
-	for (int i = 0; i< attrcount; i++){
-		attrname = state->getAttributeName(i);
-		if (attrname == "position" )
-			schema.position( state->getPosition() );
-		else if (attrname == "orientation"  )
-			schema.orientation( state->getOrientation() );
-		else if (attrname == "confidence" )
-			schema.confidence( state->getConfidence() );
-		else if (attrname == "button")
-			for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
-				schema.button( i, !!(state->getButton() & j) );	
-		else {
-			// some multimodal attribute, which has to be added somehow to stb event
-			schema.multimodal(attrname, state);
+    int attrcount = state->getSize();
+    std::string attrname;
+    for (int i = 0; i< attrcount; i++){
+        attrname = state->getAttributeName(i);
+        if (attrname == "position" )
+            schema.position( state->getPosition() );
+        else if (attrname == "orientation"  )
+            schema.orientation( state->getOrientation() );
+        else if (attrname == "confidence" )
+            schema.confidence( state->getConfidence() );
+        else if (attrname == "button")
+            for( unsigned int i = 0, j = 1; i < 16; i++, j *= 2 )
+                schema.button( i, !!(state->getButton() & j) );	
+        else {
+            // some multimodal attribute, which has to be added somehow to stb event
+            schema.multimodal(attrname, state);
 			
-		}
-	}
+        }
+    }
     
     schema.time( state->time / 1000.0 );
     
@@ -325,8 +326,24 @@ public:
 
 
 /*void 
-SoOpenTrackerSource::doAction(SoAction*  action) 
-{
-	//printf("SoOpenTrackerSource::GLRender\n");
-	runTracker();
-}*/
+  SoOpenTrackerSource::doAction(SoAction*  action) 
+  {
+  //printf("SoOpenTrackerSource::GLRender\n");
+  runTracker();
+  }*/
+
+/* 
+ * ------------------------------------------------------------
+ *   End of SoOpenTrackSource.cxx
+ * ------------------------------------------------------------
+ *   Automatic Emacs configuration follows.
+ *   Local Variables:
+ *   mode:c++
+ *   c-basic-offset: 4
+ *   eval: (c-set-offset 'substatement-open 0)
+ *   eval: (c-set-offset 'case-label '+)
+ *   eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+ *   eval: (setq indent-tabs-mode nil)
+ *   End:
+ * ------------------------------------------------------------ 
+ */
