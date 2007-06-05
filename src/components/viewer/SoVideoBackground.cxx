@@ -239,6 +239,7 @@ SoVideoBackground::createTexture(const openvideo::Buffer& buffer)
 #else
 	glTexImage2D(GL_TEXTURE_2D, 0, texInfo->internalFormat, texInfo->texWidth, texInfo->texHeight, 0, texInfo->format, GL_UNSIGNED_BYTE, NULL);
 #endif
+    glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
 	return true;
 #endif // defined(HAVE_OPENVIDEO)
@@ -276,6 +277,7 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 #else
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, texInfo->imgWidth, texInfo->imgHeight, texInfo->format, GL_UNSIGNED_BYTE, (void*)buffer.getPixels());
 #endif
+        glBindTexture(GL_TEXTURE_2D, 0);
 		glDisable(GL_TEXTURE_2D);
 
 		GLenum e;
@@ -341,6 +343,7 @@ SoVideoBackground::drawTexture()
 		glTexCoord2f(texInfo->u1,texInfo->v1); glVertex3f( 1.0f,  1.0f,  0.0f);
 		glTexCoord2f(texInfo->u0,texInfo->v1); glVertex3f(-1.0f,  1.0f,  0.0f);
 	glEnd();
+    glBindTexture(GL_TEXTURE_2D, 0);
 
 	glDisable(GL_TEXTURE_2D);
 
