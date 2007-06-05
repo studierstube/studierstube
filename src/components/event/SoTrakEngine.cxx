@@ -91,6 +91,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonChange5=TRUE;
 	buttonChange6=TRUE;
 
+    SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(0));
 }
 
 SoTrakEngine::~SoTrakEngine()
