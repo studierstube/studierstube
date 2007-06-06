@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="viewer_win"
 	ProjectGUID="{18E53DD1-4A91-4D5B-B85E-2090809D9C13}"
 	RootNamespace="viewer_win"
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(COINDIR)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;;&quot;$(SIMAGEROOT)\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;;&quot;$(SIMAGEROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;SIMAGE_DLL;HAVE_OPENVIDEO"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,10 +62,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib"
+				LinkLibraryDependencies="true"
+				AdditionalDependencies="stbkerneld.lib coin2d.lib sowin1d.lib opengl32.lib glu32.lib openvideod.lib aced.lib"
 				OutputFile="$(OutDir)/stbviewer_wind.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib&quot;;&quot;$(COINDIR)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;;&quot;$(ACEROOT)\lib&quot;"
 				GenerateManifest="false"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
@@ -123,7 +124,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;$(COINDIR)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;;&quot;$(SIMAGEROOT)\include&quot;"
+				AdditionalIncludeDirectories="&quot;$(ACEROOT)&quot;;&quot;$(COINROOT)\include&quot;;&quot;$(STB4ROOT)\include&quot;;&quot;$(OPENVIDEOROOT)\include&quot;;&quot;$(SOWINROOT)\build\msvc7\src&quot;;&quot;$(SIMAGEROOT)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;COIN_DLL;USE_SOWIN;_CRT_SECURE_NO_DEPRECATE;VIEWER_EXPORTS;HAVE_OPENVIDEO;SIMAGE_DLL"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -143,10 +144,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib sowin1.lib opengl32.lib glu32.lib openvideo.lib"
+				AdditionalDependencies="coin2.lib sowin1.lib opengl32.lib glu32.lib openvideo.lib ace.lib"
 				OutputFile="$(OutDir)/stbviewer_win.dll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib&quot;;&quot;$(COINDIR)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(COINROOT)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(SOWINROOT)/lib&quot;;&quot;$(SOWINROOT)/lib/Win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(SIMAGEROOT)/lib&quot;;&quot;$(ACEROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="../../lib/Win32/$(TargetName).pdb"
 				SubSystem="2"
