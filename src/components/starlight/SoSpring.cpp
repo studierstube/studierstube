@@ -33,23 +33,7 @@
 #include <stb/components/starlight/SoSpring.h>
 
 
-// *********************** SpringMassPoint **************************
-
-void SpringMassPoint::applyForce(SbVec3f force, float dt)
-{
-    // Integrate velocity
-    acceleration=force*(1.0f/mass);
-    velocity=velocity+(acceleration*dt);
-    velocity*=damp;
-}
-
-void SpringMassPoint::eulerIntegration(float dt)
-{
-    // Integrate position
-    position=position+(velocity*dt);
-}
-
-// *********************** SpringMassPoint **************************
+// *********************** SoSpring **************************
 
 
 SO_ENGINE_SOURCE(SoSpring);
@@ -64,20 +48,25 @@ SoSpring::SoSpring()
 {
     SO_ENGINE_CONSTRUCTOR(SoSpring);
 
-    SO_ENGINE_ADD_INPUT(v1,(0,0,0));
-    SO_ENGINE_ADD_INPUT(v2,(0,0,0));
-    SO_ENGINE_ADD_INPUT(force,(0,0,0));
-    SO_ENGINE_ADD_INPUT(stiffness,(1.0f));
-    SO_ENGINE_ADD_INPUT(damp,(1.0f));
-    SO_ENGINE_ADD_INPUT(timeStep,(1.0f));
+    SO_ENGINE_ADD_INPUT(startpos,(-5,0,0));
+    SO_ENGINE_ADD_INPUT(endpos,(0,0,0));
+	SO_ENGINE_ADD_INPUT(mass,(1.0f));
+	SO_ENGINE_ADD_INPUT(vel,(0,0,0));
+	SO_ENGINE_ADD_INPUT(acc,(0,0,0));
+
+	
+    SO_ENGINE_ADD_INPUT(stiffness,(250.0f));
+    SO_ENGINE_ADD_INPUT(damp,(0.5f));
+    SO_ENGINE_ADD_INPUT(timeStep,(0.002f));
     SO_ENGINE_ADD_INPUT(trigger,());
+	SO_ENGINE_ADD_INPUT(treshold,(0.01f));
 
-    SO_ENGINE_ADD_OUTPUT(v1out, SoSFVec3f);
-    SO_ENGINE_ADD_OUTPUT(v2out, SoSFVec3f);
+    SO_ENGINE_ADD_OUTPUT(posout, SoSFVec3f);
 
+	evaluate();
 
-    //links.set1Value(SbVec2s(0,1));
-
+	
+	
     // This timer will be used to update the system once it is been triggered
     timer=new SoTimerSensor(timerFunc,this);
 }
@@ -89,91 +78,76 @@ SoSpring::~SoSpring()
 void SoSpring::timerFunc(void *data, SoSensor *)
 {
     SoSpring *self=(SoSpring *) data;
-    self->updateSystem();
-    self->evaluate();
+
+	self->updateSystem();
+	self->evaluate();
 }
 
-void SoSpring::initializeSystem()
-{
-    // initialize the system
-    // Set the initial positions
-    internalPoints[0].velocity.setValue( 0.0f,0.0f,0.0f);					            // the initial velocity
-    internalPoints[0].position=v1.getValue();		    			                    // the initial position
-    internalPoints[0].damp=damp.getValue();                                             // initialize coefficient of restitution
-    internalPoints[0].mass=1.0;                                                         // the mass of the object
 
-    internalPoints[1].velocity.setValue( 0.0f,0.0f,0.0f);
-    internalPoints[1].position=v2.getValue()+force.getValue();                          // It does not start from resting position, but already with the force applied
-    internalPoints[1].damp=damp.getValue();
-    internalPoints[1].mass=1.0;
 
-    // Distances and other necessary terms
-    restingDistances=((SbVec3f) v2.getValue()-v1.getValue()).length();                  // Resting distance of the spring
-
-    // I think there is a serious bug in the unitVector calculation
-    SbVec3f tmpActual=internalPoints[1].position-internalPoints[0].position;
-    SbVec3f tmpRest=v2.getValue()-v1.getValue();
-    unitVectors=tmpRest-tmpActual;
-    unitVectors.normalize();
-
-    k=stiffness.getValue();                                                             // Stiffness
-    dt=timeStep.getValue();                                                             // the delta time to use
-}
-
-void SoSpring::calculateForces()
+void SoSpring::applyForce()
 {
     // Calculate the forces according to Hooke's Law
-    float tmpFloat;
-
-    actualDistances=((SbVec3f)internalPoints[1].position-internalPoints[0].position).length();                           // Distance just after first force was applied
-
     // k * (DISTij-LENij) * Vij
-    tmpFloat=-k*(actualDistances-restingDistances);
-    resultingForces=tmpFloat*unitVectors;
+	SbVec3f resultingForces;
+ 	SbVec3f deltaVector = endpos.getValue()-startpos.getValue();
+    float elongation; 
+	
+	SbVec3f acc1 = acc.getValue();
+	SbVec3f vel1 = vel.getValue();
+
+	elongation = deltaVector.length();
+	deltaVector.normalize();
+	resultingForces=stiffness.getValue()*elongation*deltaVector;
+
+	// debug 
+	// printf("a1%f,a2%f,a3%f, v1%f,v2%f,v3%f,p1%f,p2%f,p3%f \n", acc1[0],acc1[1],acc1[2],vel1[0],vel1[1],vel1[2],startpos.getValue()[0],startpos.getValue()[1],startpos.getValue()[2] );
+	acc1 = resultingForces*(1.0f/mass.getValue());
+ 	vel1 = vel1 + (acc1*timeStep.getValue());
+	vel1  *= damp.getValue();
+
+	vel.setValue(vel1);
+	acc.setValue(acc1);
+
+	if ( (vel1.length()<treshold.getValue())& (acc1.length()<treshold.getValue() ) )
+		{
+		// debug
+		//printf("INFO: treasold reached!! \n");
+		
+		timer->unschedule();
+		}
+	else // update
+		{
+	startpos.setValue(startpos.getValue()+ vel1*timeStep.getValue()) ;
+		}
 }
 
-void SoSpring::applyForces()
-{
-    // Apply Forces
-    internalPoints[1].applyForce(resultingForces,dt);
 
-    // If velocity is below a certain threshold just stop everything to avoid infinite oscillation
-    // Here I set the threshold to be based on a percentage of the resting distance
-    float threshold=restingDistances/10.0f;
-    if ((internalPoints[1].velocity.length()<threshold)&(internalPoints[1].acceleration.length()<threshold))
-    {
-        internalPoints[1].position=v2.getValue();
-        timer->unschedule();
-    }
-}
 
 void SoSpring::updateSystem()
 {
-    eulerIntegrations();
-    calculateForces();
-    applyForces();
+    
+    applyForce();
+    
 }
 
-void SoSpring::eulerIntegrations()
-{
-    // Apply the euler integration given the delta time
-    internalPoints[1].eulerIntegration(dt);
-}
 
 void SoSpring::inputChanged(SoField * whichField)
 {
     if (whichField == &trigger)
     {
         // Start the thing!
-        initializeSystem();
+        
         updateSystem();
-        timer->setInterval(dt);
+        timer->setInterval(timeStep.getValue());
         timer->schedule();
-        evaluate();
-    }
+      evaluate(); 
+    } 
+	
 }
 
 void SoSpring::evaluate()
 {
-    SO_ENGINE_OUTPUT(v2out, SoSFVec3f, setValue(internalPoints[1].position));
+
+SO_ENGINE_OUTPUT(posout, SoSFVec3f, setValue(startpos.getValue()));
 }
