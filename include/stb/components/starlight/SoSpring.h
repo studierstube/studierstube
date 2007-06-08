@@ -40,61 +40,48 @@
 
 */
 
-class SpringMassPoint 
-{
-public:
-    SbVec3f position, velocity, acceleration;
-    float mass;
-    float damp;
-
-    SpringMassPoint() { }
-    ~SpringMassPoint() {}
-    void applyForce(SbVec3f force, float dt);
-    void eulerIntegration(float dt);
-};
-
 class STARLIGHT_API SoSpring : public SoEngine 
 {
    SO_ENGINE_HEADER(SoSpring);
 
  public:
 
-     //SoMFVec2s links;
-     SoSFVec3f v1;
-     SoSFVec3f v2;
-     SoSFVec3f force;
-     SoSFFloat stiffness;
-     SoSFFloat damp;
-     SoSFFloat timeStep;
-     SoSFTrigger trigger;
+     // Particles proprieties
+     SoSFVec3f startpos;	/// Initial position
+     SoSFVec3f endpos;		/// Target position
+	 SoSFFloat mass;		/// Mass value
+	 SoSFVec3f vel;			/// Initial velocity
+	 SoSFVec3f acc;
 
-     SoEngineOutput v1out; 
-     SoEngineOutput v2out; 
+	 // Spring proprieties
+	 SoSFFloat stiffness;	/// Spring Rigidity
+     SoSFFloat treshold;	/// Acceleration and velocity treshold
+	 SoSFFloat damp;		/// Damp factor 
+     
+	 SoSFFloat timeStep;	/// update rate
+     SoSFTrigger trigger;	
+
+	 // engine outputs
+     SoEngineOutput posout; /// instant position
+   
 	
    static void initClass();
 
    SoSpring();
 
  private:
+	 	 
 
-    void initializeSystem();
     void updateSystem();
-    void calculateForces();
-    void applyForces();
-    void eulerIntegrations();
+    void applyForce();
+
     static void timerFunc(void *data, SoSensor *);
 
     SoTimerSensor *timer;                                            // This is a physics model, so its based in time
-    float dt;                                                       // Delta time
+                                                     
 
     // Backup of everything defined by the user, for internal usage
-    SpringMassPoint internalPoints[2];
-    float actualDistances;
-    float restingDistances;
-    float k;
-    SbVec3f unitVectors;
-    SbVec3f resultingForces;
-
+    
     virtual ~SoSpring();
 
     virtual void inputChanged(SoField * whichField);
