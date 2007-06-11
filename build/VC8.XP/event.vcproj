@@ -219,10 +219,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\components\event\SoCustomTrakEngine.cxx"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\components\event\SoEventAction.cxx"
 				>
 			</File>
@@ -314,10 +310,6 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\event\EventSource.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\event\SoCustomTrakEngine.h"
 				>
 			</File>
 			<File
