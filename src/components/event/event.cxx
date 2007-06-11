@@ -293,6 +293,10 @@ void
 Event::vu_update(const openvideo::Buffer& frame)
 {
 #ifdef HAVE_OPENVIDEO
+
+    if (!isInit)
+        return;
+
 	assert(otSource);
 
 	STB_PROFILER_AUTOMEASURE(OT_VIDEO_FEED)
