@@ -195,6 +195,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoCapsule.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoClassLoader.cpp"
 				>
 			</File>
@@ -394,6 +398,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoAbortGroup.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoCapsule.h"
 				>
 			</File>
 			<File
