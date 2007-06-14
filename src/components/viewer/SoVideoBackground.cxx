@@ -114,17 +114,7 @@ getNextPowerOfTwo(unsigned int nValue)
 }
 
 
-struct VideoBackgroundTexInfo
-{
-	GLuint texID;
-	GLenum format;
-	GLint internalFormat;
 
-	int imgWidth,imgHeight;
-	int texWidth,texHeight;
-	float u0,v0, u1,v1;
-    unsigned int updateCtr;
-};
 
 
 SoVideoBackground::SoVideoBackground()

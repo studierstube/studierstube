@@ -64,6 +64,18 @@ friend class VideoBackgroundSinkSubscriber;
 
    SO_NODE_HEADER(SoVideoBackground);
 
+   struct VideoBackgroundTexInfo
+{
+	GLuint texID;
+	GLenum format;
+	GLint internalFormat;
+
+	int imgWidth,imgHeight;
+	int texWidth,texHeight;
+	float u0,v0, u1,v1;
+    unsigned int updateCtr;
+};
+
   public:
    static void initClass();
 
@@ -81,7 +93,7 @@ protected:
    virtual void GLRender(SoGLRenderAction *action);
    bool createTexture(const openvideo::Buffer& buffer);
    void updateTexture(const openvideo::Buffer& buffer);
-   void drawTexture();
+   virtual void drawTexture();
    void blitIntoVideoMemory();
 
    VideoBackgroundTexInfo*	texInfo;

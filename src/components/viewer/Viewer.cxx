@@ -49,6 +49,7 @@
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoOffAxisZoomCamera.h>
 #include <stb/components/viewer/SoVideoBackground.h>
+#include <stb/components/viewer/SoUndistortedVideoBackground.h>
 #include <stb/components/viewer/SoViewport.h>
 
 
@@ -130,6 +131,7 @@ Viewer::init()
 
     SoViewport::initClass();
     SoVideoBackground::initClass();
+    SoUndistortedVideoBackground::initClass();
     SoWindowHandling::initClass();
 
     //get viewer's parameter
