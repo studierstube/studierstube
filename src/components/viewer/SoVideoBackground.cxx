@@ -120,6 +120,7 @@ getNextPowerOfTwo(unsigned int nValue)
 SoVideoBackground::SoVideoBackground()
 {
 	SO_NODE_CONSTRUCTOR(SoVideoBackground);
+    SO_NODE_ADD_FIELD(sinkName, (""));
 
 	texInfo = NULL;
 	initialized = false;
@@ -164,21 +165,23 @@ SoVideoBackground::init()
 
 
 void
-SoVideoBackground::vu_init(const openvideo::Buffer& /*frame*/)
+SoVideoBackground::vu_init(const openvideo::Buffer& /*frame*/, stb::string *givenSinkName)
 {
 }
 
 
 void
-SoVideoBackground::vu_update(const openvideo::Buffer& frame)
+SoVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 #ifdef HAVE_OPENVIDEO
 #ifdef _IS_KLIMTES_
-	if (bufferSynchronizer == NULL)
-		updateTexture(frame);
-	else
-		bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
+     if (bufferSynchronizer == NULL)
+	    updateTexture(frame);
+    else
+	    bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
 #else
+    // If this is not our sink then return
+   if ((!sinkName.getValue().getLength()==0)&sinkName.getValue().compareSubString(givenSinkName->c_str())) return;
 	updateTexture(frame);
 #endif
 #endif 

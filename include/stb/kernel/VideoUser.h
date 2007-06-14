@@ -62,13 +62,13 @@ public:
 
     /// Called before the first frame arrives.
     /**
-     *  The video frame setup is garantied to never change.
+     *  The video frame setup is guarantied to never change.
      */
-	virtual void vu_init(const openvideo::Buffer& frame) = 0;
+    virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName) = 0;
 
 
     /// Called when a new video frame is available.
-    virtual void vu_update(const openvideo::Buffer& frame) = 0;
+    virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName) = 0;
 
 
 	virtual UPDATE_MODE vu_getUpdateMode() const = 0;

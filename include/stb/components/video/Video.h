@@ -64,6 +64,8 @@ BEGIN_NAMESPACE_STB
 
 class Stb4VideoSinkSubscriber;
 
+typedef std::vector<stb::string *> StringVector;
+typedef std::vector<Stb4VideoSinkSubscriber *> Stb4VideoSinkSubscriberVector;
 
 /**
 *	
@@ -110,14 +112,14 @@ public:
 	virtual const openvideo::Buffer* getCurrentFrameLocked();
 
 protected:
-	void setVideoFormat(const openvideo::Buffer& format);
-	void setNewVideoFrame(const openvideo::Buffer& format);
-	void notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame);
+	void setVideoFormat(const openvideo::Buffer& format, stb::string *givenSinkName);
+	void setNewVideoFrame(const openvideo::Buffer& format, stb::string *givenSinkName);
+	void notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame, stb::string *givenSinkName);
 
 	bool initOpenVideo();
 
-    stb::string configFile,
-				ovSinkName;
+    stb::string configFile;
+    StringVector sinkNames;
 
     openvideo::Manager* ovManager;
 
@@ -129,7 +131,8 @@ protected:
     virtual void run();
 
 private:
-	Stb4VideoSinkSubscriber*	videoSinkSubscriber;
+    Stb4VideoSinkSubscriberVector videoSinkSubscribers;
+    //Stb4VideoSinkSubscriber *videoSinkSubscriber;
 
 	VideoUserVector	videoUsersImmediate, videoUsersBeforeRender;
 

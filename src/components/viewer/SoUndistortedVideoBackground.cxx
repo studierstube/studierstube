@@ -76,7 +76,8 @@ struct CameraDistortion{
 SoUndistortedVideoBackground::SoUndistortedVideoBackground(){
 	SO_NODE_CONSTRUCTOR(SoUndistortedVideoBackground);
 
-	SO_NODE_ADD_FIELD(calibFile, (""));
+    SO_NODE_ADD_FIELD(sinkName, (""));
+    SO_NODE_ADD_FIELD(calibFile, (""));
 	SO_NODE_ADD_FIELD(xResolution, (10)); 
 	SO_NODE_ADD_FIELD(yResolution, (10)); 
 	SO_NODE_ADD_FIELD(cameraName, (""));
@@ -437,14 +438,17 @@ SoUndistortedVideoBackground::drawTexture()
 }
 
 void
-SoUndistortedVideoBackground::vu_init(const openvideo::Buffer& /*frame*/)
+SoUndistortedVideoBackground::vu_init(const openvideo::Buffer& /*frame*/, stb::string *givenSinkName)
 {
 }
 
 void
-SoUndistortedVideoBackground::vu_update(const openvideo::Buffer& frame)
+SoUndistortedVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 #ifdef HAVE_OPENVIDEO
+    // If this is not our sink then return
+    if ((!sinkName.getValue().getLength()==0)&sinkName.getValue().compareSubString(givenSinkName->c_str())) return;
+
 	//init camera distortion
 	if(!camDist){
 		if(!calcDistortionParameters())

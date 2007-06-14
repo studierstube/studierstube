@@ -83,10 +83,12 @@ friend class VideoBackgroundSinkSubscriber;
 
    virtual ~SoVideoBackground(){}
 
+   SoSFString sinkName;
+
    bool init();
 
-   virtual void vu_init(const openvideo::Buffer& frame);
-   virtual void vu_update(const openvideo::Buffer& frame);
+   virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
+   virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName);
    virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
 
 protected:

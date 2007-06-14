@@ -76,7 +76,7 @@ ComponentThread::start()
         0
         )==-1)
     { 
-        logPrintI("Spawning thread.\n"); 
+        logPrintW("Spawning thread failed.\n"); 
     }
 
 }    

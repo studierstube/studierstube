@@ -72,8 +72,11 @@ BEGIN_NAMESPACE_STB
 class Stb4VideoSinkSubscriber : public openvideo::VideoSinkSubscriber
 {
 public:
-	Stb4VideoSinkSubscriber(Video* videoComp) : video(videoComp)
+    stb::string *sinkName;
+
+    Stb4VideoSinkSubscriber(Video* videoComp, stb::string *givenSinkName) : video(videoComp)
 	{
+        sinkName=givenSinkName;
 		firstFrame = true;
 	}
 
@@ -85,7 +88,7 @@ public:
 		{
 			if(openvideo::Buffer* buffer = bufferSynchronizer.getLocked())
 			{
-				video->setVideoFormat(*buffer);
+				video->setVideoFormat(*buffer, sinkName);
 				buffer->unlock();
 				firstFrame = false;
 			}
@@ -94,7 +97,7 @@ public:
 		{
 			if(openvideo::Buffer* buffer = bufferSynchronizer.getLocked())
 			{
-				video->setNewVideoFrame(*buffer);
+				video->setNewVideoFrame(*buffer, sinkName);
 				buffer->unlock();
 			}
 		}
@@ -130,7 +133,7 @@ Video::Video()
    runSingleThreaded = false;
    ovInitialized = false;
 
-   videoSinkSubscriber = NULL;
+   //videoSinkSubscriber = NULL;
    video_format = NULL;
 
    ovManager=openvideo::Manager::getInstance(); 
@@ -157,7 +160,13 @@ Video::init()
 	stb::Kernel::getInstance()->registerForKernelEvents(this);
 
 	if(runSingleThreaded)
-		initOpenVideo();
+    {
+		if (!initOpenVideo())
+        {
+            stb::logPrintE("Couldn't start Openvideo, Aborting.\n");
+            stb::Kernel::getInstance()->stop();
+        }
+    }
 	else
 		start();
 
@@ -172,9 +181,10 @@ Video::setParameter(stb::string key, std::string value)
     {
         configFile = value;        
     }
-    else if(key=="ovSinkName")
-    {
-		ovSinkName = value;
+    else if((key.find("sinkName",0)!=string::npos)|(key.find("ovSinkName",0)!=string::npos))
+    {// Deprecating the usage of ovSinkName in favor of sinkName. Mendez 20070614
+        //ovSinkName = value;
+        sinkNames.push_back(new stb::string(value));
     }
 	else if(key=="single-threaded")
 	{
@@ -194,18 +204,38 @@ Video::shutDown()
 bool
 Video::initOpenVideo()
 {
+    // Load the configuration file of Openvideo
 	if(!ovManager->parseConfiguration(stb::Kernel::getInstance()->getConfig(configFile).c_str()))
 		return false;
 
+    // Initialize the traversal of openvideo's graph
 	ovManager->initTraversal();
 
-	// register with openvideo as the one and only video input in Studierstube
-	//
-	videoSinkSubscriber = new Stb4VideoSinkSubscriber(this);
-	if(openvideo::VideoSink* sink = reinterpret_cast<openvideo::VideoSink*>(ovManager->getNode(ovSinkName.c_str())))
-		sink->subscribe(videoSinkSubscriber);
-	else
-		return false;
+    // Check if we have at least one sink name
+    if (sinkNames.size()<0)
+    {
+        stb::logPrintE("No sinkName provided\n");
+        return false;
+    }
+
+	// Register all opevideo sinks. Note: All have to be valid names, otherwise, abort.
+	// We assume they are all of VideoSink type
+	Stb4VideoSinkSubscriber *tmpSubscriber;
+    
+    for (unsigned int i=0;i<sinkNames.size();i++)
+    {
+        tmpSubscriber = new Stb4VideoSinkSubscriber(this, sinkNames[i]);
+	    if(openvideo::VideoSink* sink = reinterpret_cast<openvideo::VideoSink*>(ovManager->getNode(sinkNames[i]->c_str())))
+        {
+		    sink->subscribe(tmpSubscriber);
+            videoSinkSubscribers.push_back(tmpSubscriber);
+        }
+	    else
+        {
+            stb::logPrintE("sinkNames '%s' does not exist\n",sinkNames[i]->c_str());
+		    return false;
+        }
+    }
 
 	ovInitialized = true;
 	return true;
@@ -216,7 +246,10 @@ void
 Video::run()
 {
     if(!initOpenVideo())
-		return;
+    {
+        stb::logPrintE("Couldn't start Openvideo, Aborting.\n");
+        stb::Kernel::getInstance()->stop();
+    }
 
     ovManager->run();
 }
@@ -244,10 +277,9 @@ Video::vp_registerVideoUser(VideoUser* videouser)
 	}
 
 
-	// if the format is already known tell it right now
-	// otherwise setOVFormat() will do this later on
-	if(video_format)
-		videouser->vu_init(*video_format);
+    // Commented out, we let setVideoFormat to do this for us. Mendez 20070614
+	//if(video_format)
+	//	videouser->vu_init(*video_format);
 }
 
 
@@ -271,7 +303,7 @@ Video::vp_unregisterVideoUser(VideoUser* videouser)
 
 
 void
-Video::setVideoFormat(const openvideo::Buffer& format)
+Video::setVideoFormat(const openvideo::Buffer& format, stb::string *givenSinkName)
 {
 	video_format = new openvideo::Buffer;
 	*video_format = format;
@@ -279,10 +311,10 @@ Video::setVideoFormat(const openvideo::Buffer& format)
 	// tell all already registered video users about this format
 	//
 	for(size_t i=0; i<videoUsersImmediate.size(); i++)
-		videoUsersImmediate[i]->vu_init(*video_format);
+		videoUsersImmediate[i]->vu_init(*video_format, givenSinkName);
 
 	for(size_t i=0; i<videoUsersBeforeRender.size(); i++)
-		videoUsersBeforeRender[i]->vu_init(*video_format);
+		videoUsersBeforeRender[i]->vu_init(*video_format, givenSinkName);
 }
 
 
@@ -299,36 +331,39 @@ Video::kes_beforeRender()
 		ovManager->updateSingleThreaded();
 	}
 
-	if(!videoSinkSubscriber || !videoSinkSubscriber->gotFirstFrame())
-		return;
+    for (unsigned int i=0;i<videoSinkSubscribers.size();i++)
+    {
+	    if(!videoSinkSubscribers[i] || !videoSinkSubscribers[i]->gotFirstFrame())
+		    continue;
 
-	if(openvideo::Buffer* buffer = videoSinkSubscriber->getCurrentFrameLocked())
-	{
-		notifyVideoUsers(videoUsersBeforeRender, *buffer);
-		buffer->unlock();
-	}
+	    if(openvideo::Buffer* buffer = videoSinkSubscribers[i]->getCurrentFrameLocked())
+	    {
+		    notifyVideoUsers(videoUsersBeforeRender, *buffer, sinkNames[i]);
+		    buffer->unlock();
+	    }
+    }
 }
 
 
 void
-Video::setNewVideoFrame(const openvideo::Buffer& frame)
+Video::setNewVideoFrame(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
-	notifyVideoUsers(videoUsersImmediate, frame);
+	notifyVideoUsers(videoUsersImmediate, frame, givenSinkName);
 }
 
 
 void
-Video::notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame)
+Video::notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 	for(size_t i=0; i<videoUsers.size(); i++)
-		videoUsers[i]->vu_update(frame);
+		videoUsers[i]->vu_update(frame, givenSinkName);
 }
 
 
 const openvideo::Buffer*
 Video::getCurrentFrameLocked()
 {
-	return videoSinkSubscriber->getCurrentFrameLocked();
+	return videoSinkSubscribers[0]->getCurrentFrameLocked();
 }
 
 

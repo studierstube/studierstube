@@ -124,6 +124,7 @@ BEGIN_NAMESPACE_STB
 Event::Event()
 {
     configFile="";
+    sinkName="";
 	otSource = NULL;
 	vu_updateCtr = 0;
 }
@@ -190,6 +191,10 @@ Event::setParameter(stb::string key, std::string value)
     if(key=="configFile")
     {
         configFile=value;
+    }
+    else if((key.find("sinkName",0)!=string::npos)|(key.find("ovSinkName",0)!=string::npos))
+    {// Deprecating the usage of ovSinkName in favor of sinkName. Mendez 20070614
+        sinkName=value;
     }
     //else if()
     //{
@@ -284,18 +289,20 @@ Event::getEventBus()
 
 
 void
-Event::vu_init(const openvideo::Buffer& frame)
+Event::vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 }
 
 
 void
-Event::vu_update(const openvideo::Buffer& frame)
+Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 #ifdef HAVE_OPENVIDEO
 
-    if (!isInit)
-        return;
+    if (!isInit) return;
+
+    // If this is not our sink then return
+    if ((!sinkName.empty())&(sinkName.find(givenSinkName->c_str(),0)==string::npos)) return;
 
 	assert(otSource);
 
