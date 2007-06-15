@@ -46,6 +46,7 @@
 #include <stb/components/starlight/SoMultiExtrusionKit.h>
 #include <stb/components/starlight/SoVBOMesh.h>
 #include <stb/components/starlight/SoSpring.h>
+#include <stb/components/starlight/SoCapsule.h>
 #include <stb/components/starlight/SoMFVec2s.h>
 
 #include <stb/components/starlight/SoCommand.h>
@@ -129,7 +130,7 @@ Starlight::init(void)
     SoVBOMesh::initClass();
     SoSpring::initClass();
     SoMFVec2s::initClass();
-	    
+    SoCapsule::initClass();
 	SoCommand::initClass();
     SoSetName::initClass();
 
