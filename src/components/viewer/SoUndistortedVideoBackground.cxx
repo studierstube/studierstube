@@ -127,7 +127,7 @@ SoUndistortedVideoBackground::setOffAxisCamera(){
 			sizeY -= centerY; 
 
 			//set eyepoint to origin
-			eyepointPosition.setValue(SbVec3f(0.0, 0.0, 0.0)); 
+			eyepointPosition.setValue(0.0, 0.0, 0.0); 
 			//set camera plane center to z=-1 and calculated image plane center
 			position.setValue(centerX, centerY, -1.0f); 
 			//set camera plane size
