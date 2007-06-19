@@ -95,7 +95,7 @@ SoUndistortedVideoBackground::setOffAxisCamera(){
 	if(node != NULL){
 		if(SoOffAxisCamera::getClassTypeId() == node->getTypeId()){
 			stb::logPrintD("SoUndistortedVideoBackground: SoOffAxisCamera '%s' found\n", 
-				cameraName.getValue());
+				       cameraName.getValue().getString());
 			SoOffAxisCamera* camera = dynamic_cast<SoOffAxisCamera*>(node); 
 			SbVec3f position; 
 			SbVec2f scale; 
@@ -141,8 +141,8 @@ SoUndistortedVideoBackground::setOffAxisCamera(){
 		}
 	}
 	else{
-		stb::logPrintD("SoUndistortedVideoBackground: SoOffAxisCamera '%s' not found\n", 
-			cameraName.getValue());
+	    stb::logPrintD("SoUndistortedVideoBackground: SoOffAxisCamera '%s' not found\n", 
+			   cameraName.getValue().getString());
 	}
 }
 
@@ -180,7 +180,7 @@ SoUndistortedVideoBackground::observ2Ideal(float ox, float oy, float *ix, float 
 			//calculate squared radius
 			const float r_2 = x0_sq + x1_sq;
 			//radius^4
-			const float r_2_sq = (r_2 * r_2);
+			//const float r_2_sq = (r_2 * r_2);
 			//radial distortion factor:  k_radial =  1 + k1 * r_2 + k2 * r_2.^2 + k3 * r_2.^3;
 			//const float k_radial =  1 + k1 * r_2 + k2 * (r_2_sq) + k3 * (r_2*r_2_sq);
 			const float k_radial =  1 + k1 * r_2 + k2 * (pow(r_2, 2)) + k3 * (pow(r_2, 3));
@@ -226,7 +226,7 @@ SoUndistortedVideoBackground::calcDistortionParameters(){
 	int n;
 	char _s[32];
 	sprintf(_s,"%c%i%c%c%c",'%',(int)strlen(CAMERA_ADV_HEADER),'s','\\','n');
-	char hdr[MAX_PATH];
+	char hdr[2048];
 	n=fscanf(fp, _s, hdr);
 	if(strstr(hdr,CAMERA_ADV_HEADER) == NULL){ 
 		return false;

@@ -119,18 +119,12 @@ getNextPowerOfTwo(unsigned int nValue)
 
 SoVideoBackground::SoVideoBackground()
 {
-	SO_NODE_CONSTRUCTOR(SoVideoBackground);
+    SO_NODE_CONSTRUCTOR(SoVideoBackground);
     SO_NODE_ADD_FIELD(sinkName, (""));
 
-	texInfo = NULL;
-	initialized = false;
+    texInfo = NULL;
+    initialized = false;
 
-#ifdef _IS_KLIMTES_
-	if (klesGetBufferPixels() != NULL)
-		bufferSynchronizer = new openvideo::BufferSynchronizer();
-	else 
-		bufferSynchronizer = NULL;
-#endif
 }
 
 
@@ -140,14 +134,7 @@ SoVideoBackground::GLRender(SoGLRenderAction*)
 	if(!initialized)
 		initialized = init();
 
-#ifdef _IS_KLIMTES_
-	if (bufferSynchronizer == NULL)
-		drawTexture();
-	else
-		blitIntoVideoMemory();
-#else
 	drawTexture();
-#endif
 }
 
 
