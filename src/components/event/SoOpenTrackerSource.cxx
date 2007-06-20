@@ -52,7 +52,7 @@
 
 
 void SoOpenTrackerSource::createOTModule(ot::Context * context, void * data){
-    printf("SoOpenTrackerSource::CreateOTModule\n");
+    stb::logPrintD("SoOpenTrackerSource::CreateOTModule\n");
     SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
     self->eventHandler = new EventModule(self);
     context->addModule( "EventConfig", *(self->eventHandler) );
