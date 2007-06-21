@@ -1,7 +1,7 @@
 Summary:	Studierstube - The Augmented Reality Environment
 Name:		studierstube
 Version:	4.0
-Release:	1
+Release:	%(date '+%Y%m%d')
 License:	GPL
 Group:		Development/Libraries
 Source:		%{name}-%{version}.tar.bz2
@@ -16,7 +16,11 @@ BuildRequires:	scons >= 0.96.92 ICGBuilder tinyxmlmod-devel ACE ACE-devel openvi
 %define _prefix %{prefix}
 
 %description
-STUDIERSTUBE is a leading framework for the development of mobile, collaborative and ubiquitous AR applications. The development of the STUDIERSTUBE software platform started at Vienna University of Technology in 1996. Since 2004, the main research and development activities are carried out at Graz University of Technology.
+STUDIERSTUBE is a leading framework for the development of mobile,
+collaborative and ubiquitous AR applications. The development of the
+STUDIERSTUBE software platform started at Vienna University of Technology in
+1996. Since 2004, the main research and development activities are carried out
+at Graz University of Technology.
 
 %prep
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
