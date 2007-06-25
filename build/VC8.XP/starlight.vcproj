@@ -299,7 +299,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoMultiPipeDL.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoMultiPipeKit.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoMultiPipeKitVBO.cpp"
 				>
 			</File>
 			<File
@@ -505,7 +513,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoMultiPipeDL.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoMultiPipeKit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoMultiPipeKitVBO.h"
 				>
 			</File>
 			<File

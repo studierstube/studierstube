@@ -41,10 +41,12 @@
 #include <stb/components/starlight/SoPhantomShape.h>
 #include <stb/components/starlight/SoHiddenGroup.h>
 #include <stb/components/starlight/SoFileEnv.h>
+#include <stb/components/starlight/SoVBOMesh.h>
 #include <stb/components/starlight/SoPrismKit.h>
 #include <stb/components/starlight/SoMultiPipeKit.h>
+#include <stb/components/starlight/SoMultiPipeKitVBO.h>
+#include <stb/components/starlight/SoMultiPipeDL.h>
 #include <stb/components/starlight/SoMultiExtrusionKit.h>
-#include <stb/components/starlight/SoVBOMesh.h>
 #include <stb/components/starlight/SoSpring.h>
 #include <stb/components/starlight/SoCapsule.h>
 #include <stb/components/starlight/SoMFVec2s.h>
@@ -126,6 +128,8 @@ Starlight::init(void)
     SoFileEnv::initClass();
     SoPrismKit::initClass();
     SoMultiPipeKit::initClass();
+    SoMultiPipeKitVBO::initClass();
+    SoMultiPipeDL::initClass();
     SoMultiExtrusionKit::initClass();
     SoVBOMesh::initClass();
     SoSpring::initClass();
