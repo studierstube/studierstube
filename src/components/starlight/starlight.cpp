@@ -128,10 +128,12 @@ Starlight::init(void)
     SoFileEnv::initClass();
     SoPrismKit::initClass();
     SoMultiPipeKit::initClass();
+#ifndef NO_VBOMESH
     SoMultiPipeKitVBO::initClass();
+    SoVBOMesh::initClass();
+#endif
     SoMultiPipeDL::initClass();
     SoMultiExtrusionKit::initClass();
-    SoVBOMesh::initClass();
     SoSpring::initClass();
     SoMFVec2s::initClass();
     SoCapsule::initClass();
