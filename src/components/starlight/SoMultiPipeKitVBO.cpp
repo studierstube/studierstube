@@ -38,9 +38,10 @@
 * --------------------------------------------------------------------------------
 */
 
+#include <stb/components/starlight/SoMultiPipeKitVBO.h>
+
 #ifndef NO_VBOMESH
 
-#include <stb/components/starlight/SoMultiPipeKitVBO.h>
 #include <stb/components/starlight/SoVBOMesh.h>
 #include <stb/components/starlight/SoPipeKit.h>
 #include <Inventor/nodes/SoCoordinate3.h>
