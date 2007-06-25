@@ -60,7 +60,7 @@
 /** 
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoMultiPipeDL: public SoNode

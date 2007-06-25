@@ -375,6 +375,22 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoStyledSubgraph.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoStyleMap.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoStyleProperty.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoStyleTemplate.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoUse.cpp"
 				>
 			</File>
@@ -586,6 +602,22 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoStringMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoStyledSubgraph.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoStyleMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoStyleProperty.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoStyleTemplate.h"
 				>
 			</File>
 			<File

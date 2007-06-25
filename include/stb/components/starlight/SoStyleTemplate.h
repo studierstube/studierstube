@@ -22,18 +22,17 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoLineStringKit.
+/** The header file for the SoStyleTemplate
 *
 * @author Erick Mendez
 * @ingroup starlight
 *
-* $Id: SoLineStringKit.h 2006-03-10 mendez $
+* $Id: SoCSMLFamilies.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SOLINESTRINGKIT_H_
-#define _SOLINESTRINGKIT_H_
-
+#ifndef _SOSTYLETEMPLATE_H_
+#define _SOSTYLETEMPLATE_H_
 
 
 /*
@@ -41,60 +40,77 @@
  * Includes
  * --------------------------------------------------------------------------------
  */
-#include <Inventor/nodekits/SoBaseKit.h>
-#include <Inventor/fields/SoMFVec2f.h>
-#include <Inventor/fields/SoSFFloat.h>
-#include <Inventor/sensors/SoFieldSensor.h>
-#include "starlight.h"
+#ifdef WIN32
+#include <SoWinEnterScope.h>
+#include <windows.h>
+#endif
 
-class STARLIGHT_API SoLineStringKit: public SoBaseKit
+#include <Inventor/actions/SoGLRenderAction.h>
+
+#ifdef WIN32
+#include <SoWinLeaveScope.h>
+#endif
+
+#include <Inventor/nodekits/SoBaseKit.h>
+#include <Inventor/fields/SoSFBool.h>
+#include <Inventor/fields/SoSFString.h>
+#include <Inventor/fields/SoMFString.h>
+#include <Inventor/fields/SoMFNode.h>
+#include <Inventor/sensors/SoFieldSensor.h>
+#include <stb/components/starlight/starlight.h>
+
+class SoStyleTemplate: public SoBaseKit
 {
-    SO_KIT_HEADER(SoLineStringKit);
-	typedef SoBaseKit inherited;
+    SO_KIT_HEADER(SoStyleTemplate);
 
 public:
-	/// Initializes the node kit
+
+    /// The constructor of the class, initializes the catalog
+    SoStyleTemplate();
+
+    /// Destructor, deletes the sensors
+    ~SoStyleTemplate();
+
+	/// The name of this function
+	SoSFString name;
+
+	/// The Styles
+    SoMFString stylenames;
+
+    /// The Styles
+    SoMFNode styles;
+
+	///  Initializes the node kit
     static void initClass();
 
-	/// The constructor of the class, initializes the catalog
-    SoLineStringKit();
+	/// Sets the rendering styles
+	void setStyle(char *strFamily, SoNode *style);
 
-	/// Destructor, deletes the sensors
-    ~SoLineStringKit();
-
-	/// The input vertices of the line string
-	SoMFVec2f vertices;
-
-	/// Width of the line
-	SoSFFloat width;
+	/// Refreshes the styles
+	void refresh();
 
 protected:
 
 	/// Sensors
-	SoFieldSensor *verticesSensor;
-	SoFieldSensor *widthSensor;
+    SoFieldSensor *nameSensor;
+    SoFieldSensor *stylenamesSensor;
+    SoFieldSensor *stylesSensor;
 
-	/// Parts of the catalog
-	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
-	SO_KIT_CATALOG_ENTRY_HEADER(coords);
-	SO_KIT_CATALOG_ENTRY_HEADER(faces);
-	SO_KIT_CATALOG_ENTRY_HEADER(shapeHints);
+	/// The parts of the catalog
+	SO_KIT_CATALOG_ENTRY_HEADER(sepTop);
+    SO_KIT_CATALOG_ENTRY_HEADER(cxnRenderStyles);
+    SO_KIT_CATALOG_ENTRY_HEADER(cxStyles);
+
+    /// The number of styles
+    int nNumberOfStyles;
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
-	virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
+    virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
 
-	/// Calls the function that rebuilds the object
-    static void verticesCB(void* data, SoSensor* sensor);
-
-	/// Calls the function that rebuilds the object
-    static void widthCB(void* data, SoSensor* sensor);
-
-	/// Rebuilds the Extrusion Object
-	void refresh();
+	/// Calls the function that refreshes the styles
+	static void stylesCB(void* data, SoSensor* sensor);
 
 };
 
 
-
-#endif
-
+#endif //_SOSTYLETEMPLATE_H_

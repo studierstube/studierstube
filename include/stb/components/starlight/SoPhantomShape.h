@@ -25,7 +25,7 @@
 /** The header file for the SoPhantomShape.
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 *
 * $Id: SoPhantomShape.h 2006-03-10 mendez $
 * @file                                                                   */
@@ -47,7 +47,7 @@
 * Header for an Open Inventor Class that implements a Phantom Shape 
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoPhantomShape: public SoSeparator

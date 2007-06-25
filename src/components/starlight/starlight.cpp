@@ -50,6 +50,10 @@
 #include <stb/components/starlight/SoSpring.h>
 #include <stb/components/starlight/SoCapsule.h>
 #include <stb/components/starlight/SoMFVec2s.h>
+#include <stb/components/starlight/SoStyleMap.h>
+#include <stb/components/starlight/SoStyleTemplate.h>
+#include <stb/components/starlight/SoStyledSubgraph.h>
+#include <stb/components/starlight/SoStyleProperty.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -134,6 +138,10 @@ Starlight::init(void)
 #endif
     SoMultiPipeDL::initClass();
     SoMultiExtrusionKit::initClass();
+    SoStyleMap::initClass();
+    SoStyleTemplate::initClass();
+    SoStyledSubgraph::initClass();
+    SoStyleProperty::initClass();
     SoSpring::initClass();
     SoMFVec2s::initClass();
     SoCapsule::initClass();

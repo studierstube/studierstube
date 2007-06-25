@@ -22,18 +22,18 @@
 * ========================================================================
 * PROJECT: Studierstube
 * ======================================================================== */
-/** The header file for the SoLineStringKit.
+/** The header file for the SoStyledSubgraph
 *
 * @author Erick Mendez
 * @ingroup starlight
 *
-* $Id: SoLineStringKit.h 2006-03-10 mendez $
+* $Id: SoStyledSubgraph.h 2006-03-10 mendez $
 * @file                                                                   */
 /* ======================================================================= */
 
-#ifndef _SOLINESTRINGKIT_H_
-#define _SOLINESTRINGKIT_H_
 
+#ifndef _SOSTYLEDSUBGRAPH_H_
+#define _SOSTYLEDSUBGRAPH_H_
 
 
 /*
@@ -41,60 +41,61 @@
  * Includes
  * --------------------------------------------------------------------------------
  */
-#include <Inventor/nodekits/SoBaseKit.h>
-#include <Inventor/fields/SoMFVec2f.h>
-#include <Inventor/fields/SoSFFloat.h>
-#include <Inventor/sensors/SoFieldSensor.h>
-#include "starlight.h"
+#ifdef WIN32
+#include <SoWinEnterScope.h>
+#include <windows.h>
+#endif
 
-class STARLIGHT_API SoLineStringKit: public SoBaseKit
+#include <Inventor/actions/SoGLRenderAction.h>
+
+#ifdef WIN32
+#include <SoWinLeaveScope.h>
+#endif
+
+#include <Inventor/nodekits/SoBaseKit.h>
+#include <Inventor/fields/SoSFString.h>
+#include <stb/components/starlight/SoNodeContextReport.h>
+#include <stb/components/starlight/starlight.h>
+
+#include <Inventor/nodes/SoSeparator.h>
+#include <Inventor/sensors/SoFieldSensor.h>
+
+/**
+ * This class is the kit the user will be using for defining a the scene of a magic lens
+ *
+ * @author Erick Mendez
+ * @ingroup starlight
+ */
+
+class SoStyledSubgraph: public SoBaseKit
 {
-    SO_KIT_HEADER(SoLineStringKit);
-	typedef SoBaseKit inherited;
+	/// Parts of the catalog
+	SO_KIT_HEADER(SoStyledSubgraph);
+    SO_KIT_CATALOG_ENTRY_HEADER(sepTop);
+    SO_KIT_CATALOG_ENTRY_HEADER(switchReport);
+	SO_KIT_CATALOG_ENTRY_HEADER(renderStyle);
+	SO_KIT_CATALOG_ENTRY_HEADER(content); 
 
 public:
-	/// Initializes the node kit
-    static void initClass();
 
 	/// The constructor of the class, initializes the catalog
-    SoLineStringKit();
+	SoStyledSubgraph();
 
 	/// Destructor, deletes the sensors
-    ~SoLineStringKit();
+	~SoStyledSubgraph();
 
-	/// The input vertices of the line string
-	SoMFVec2f vertices;
+	/// Initializes the node kit
+	static void initClass();
 
-	/// Width of the line
-	SoSFFloat width;
+	/// Sets what style should we use for rendering
+	void refreshStyle(bool fromConnections, SoAction *action);
+    bool isMappedTo(char *stylename, SoAction *action);
 
 protected:
-
-	/// Sensors
-	SoFieldSensor *verticesSensor;
-	SoFieldSensor *widthSensor;
-
-	/// Parts of the catalog
-	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
-	SO_KIT_CATALOG_ENTRY_HEADER(coords);
-	SO_KIT_CATALOG_ENTRY_HEADER(faces);
-	SO_KIT_CATALOG_ENTRY_HEADER(shapeHints);
-
-	/// Attaches and detaches the sensors and does a couple of one time operations
-	virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);
-
-	/// Calls the function that rebuilds the object
-    static void verticesCB(void* data, SoSensor* sensor);
-
-	/// Calls the function that rebuilds the object
-    static void widthCB(void* data, SoSensor* sensor);
-
-	/// Rebuilds the Extrusion Object
-	void refresh();
+	/// Sets the Cg parameters and renders down its tree
+	virtual void GLRender(SoGLRenderAction * action);
 
 };
 
 
-
-#endif
-
+#endif //_SOSTYLEDSUBGRAPH_H_

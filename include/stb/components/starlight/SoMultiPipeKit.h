@@ -56,7 +56,7 @@
 /** 
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoMultiPipeKit: public SoBaseKit

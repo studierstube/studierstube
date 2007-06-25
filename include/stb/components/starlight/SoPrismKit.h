@@ -53,7 +53,7 @@
 * Allows the creation of a cylinder given an specific number of faces
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoPrismKit: public SoBaseKit

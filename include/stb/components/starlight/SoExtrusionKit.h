@@ -25,7 +25,7 @@
 /** The header file for the SoExtrusionKit.
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 *
 * $Id: SoExtrusionKit.h 2006-03-10 mendez $
 * @file                                                                   */
@@ -57,7 +57,7 @@
 *	     element must be the same as the first
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoExtrusionKit: public SoBaseKit

@@ -54,7 +54,7 @@
 /** 
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 float getAngle(SbVec3f alpha, SbVec3f beta);
