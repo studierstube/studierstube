@@ -35,11 +35,34 @@
 
 #include "starlight.h"
 
-/** 
-@ingroup starlight
 
-*/
-
+/*!
+ *@ingroup starlight
+ * \brief
+ * SoSpring is an engine to simulate a simplified one point spring.
+ * 
+ * This spring needs initial and target position and physical proprieties, then 
+ * you can trigger it.
+ *
+ * \author Erik Mendez
+ * \author Michele Fiorentino
+ * Example
+ * 
+ *  DEF SPRING SoSpring
+ *  {
+ *  startpos = 0 0 10
+ *  endpos = 0 0 0
+ *  vel  -100 0 0
+ *  acc 10 0 0
+ *  mass1 10
+ *  stiffness 5055.50
+ *  damp 0.9
+ *  timeStep 0.002
+ *  treshold 1.5
+ *  trigger = USE -+- use your trigger here -+-
+ *  }
+ * 
+ */
 class STARLIGHT_API SoSpring : public SoEngine 
 {
    SO_ENGINE_HEADER(SoSpring);
@@ -51,7 +74,7 @@ class STARLIGHT_API SoSpring : public SoEngine
      SoSFVec3f endpos;		/// Target position
 	 SoSFFloat mass;		/// Mass value
 	 SoSFVec3f vel;			/// Initial velocity
-	 SoSFVec3f acc;
+	 SoSFVec3f acc;			/// Initial acceleration
 
 	 // Spring proprieties
 	 SoSFFloat stiffness;	/// Spring Rigidity
@@ -59,7 +82,7 @@ class STARLIGHT_API SoSpring : public SoEngine
 	 SoSFFloat damp;		/// Damp factor 
      
 	 SoSFFloat timeStep;	/// update rate
-     SoSFTrigger trigger;	
+     SoSFTrigger trigger;	/// Trigger
 
 	 // engine outputs
      SoEngineOutput posout; /// instant position
