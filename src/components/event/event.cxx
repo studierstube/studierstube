@@ -173,11 +173,7 @@ Event::init()
     otSource->ref();
     otSource->configuration.setValue(stb::Kernel::getInstance()->getConfig(configFile).c_str());
 
-	// FIXME: This looks hardcoded instead of retrieved from the config file. 
-	// unless it is changed on runtime and this is only initialization. Mendez 20060315
     otSource->processing=SoOpenTrackerSource::TIME;
-    //otSource->processing=SoOpenTrackerSource::POLL;
-	//otSource->processing=SoOpenTrackerSource::IDLE;
     otSource->interval=SbTime(0.01f);
 
     stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);
@@ -196,6 +192,23 @@ Event::setParameter(stb::string key, std::string value)
     {// Deprecating the usage of ovSinkName in favor of sinkName. Mendez 20070614
         sinkName=value;
     }
+    else if(key=="processing")
+    {
+        if ((value=="TIME")||(value=="time"))
+        {
+            otSource->processing=SoOpenTrackerSource::TIME;
+        }
+        else if ((value=="POLL")||(value=="poll"))
+        {
+            otSource->processing=SoOpenTrackerSource::POLL;
+        }
+        else if ((value=="IDLE")||(value=="idle"))
+        {
+            otSource->processing=SoOpenTrackerSource::IDLE;
+        }
+    }
+
+
     //else if()
     //{
     //}
@@ -295,7 +308,7 @@ Event::vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName)
 
 
 void
-Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
+Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate)
 {
 #ifdef HAVE_OPENVIDEO
 

@@ -248,7 +248,12 @@ Kernel::preRenderCallback()
 	// make sure we get the latest opentracker data into Coin before rendering...
 	//
 	if(SoNode* trackerSource = sceneManager->getTrackerSource())
-		reinterpret_cast<SoOpenTrackerSource*>(trackerSource)->runTracker();
+    {
+        if (reinterpret_cast<SoOpenTrackerSource*>(trackerSource)->processing.getValue()==SoOpenTrackerSource::POLL)
+        {
+    		reinterpret_cast<SoOpenTrackerSource*>(trackerSource)->runTracker();
+        }
+    }
 }
 
 

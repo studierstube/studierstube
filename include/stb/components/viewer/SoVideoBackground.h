@@ -88,7 +88,7 @@ friend class VideoBackgroundSinkSubscriber;
    bool init();
 
    virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
-   virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName);
+   virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate=false);
    virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
 
 protected:

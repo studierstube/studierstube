@@ -132,6 +132,7 @@ Video::Video()
    isGLContext=false;
    runSingleThreaded = false;
    ovInitialized = false;
+   forceUpdate= false;
 
    //videoSinkSubscriber = NULL;
    video_format = NULL;
@@ -186,11 +187,16 @@ Video::setParameter(stb::string key, std::string value)
         //ovSinkName = value;
         sinkNames.push_back(new stb::string(value));
     }
-	else if(key=="single-threaded")
-	{
-		if(value=="true" || value=="TRUE")
-			runSingleThreaded = true;
-	}
+    else if(key=="single-threaded")
+    {
+        if(value=="true" || value=="TRUE")
+            runSingleThreaded = true;
+    }
+    else if(key=="force-ot-traversal")
+    {
+        if(value=="true" || value=="TRUE")
+            forceUpdate= true;
+    }
 }
 
 /// Called before the application is destructed.
@@ -356,7 +362,7 @@ void
 Video::notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 	for(size_t i=0; i<videoUsers.size(); i++)
-		videoUsers[i]->vu_update(frame, givenSinkName);
+		videoUsers[i]->vu_update(frame, givenSinkName, forceUpdate);
 }
 
 

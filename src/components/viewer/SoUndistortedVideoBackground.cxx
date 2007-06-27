@@ -443,7 +443,7 @@ SoUndistortedVideoBackground::vu_init(const openvideo::Buffer& /*frame*/, stb::s
 }
 
 void
-SoUndistortedVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
+SoUndistortedVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate)
 {
 #ifdef HAVE_OPENVIDEO
     // If this is not our sink then return

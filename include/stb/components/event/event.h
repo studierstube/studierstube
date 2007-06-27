@@ -125,9 +125,9 @@ public:
 
 	/// Implement the stb::VideoUser interface
     virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
-    virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName);
+    virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate = false);
 	virtual VideoUser::UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
-
+    SoOpenTrackerSource *getOpentrackerSource() { return otSource; };
 
 protected:	
     stb::string configFile; 

@@ -158,7 +158,7 @@ SoVideoBackground::vu_init(const openvideo::Buffer& /*frame*/, stb::string *give
 
 
 void
-SoVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName)
+SoVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate)
 {
 #ifdef HAVE_OPENVIDEO
 #ifdef _IS_KLIMTES_

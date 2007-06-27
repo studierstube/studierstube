@@ -78,7 +78,7 @@ class VIEWER_API SoUndistortedVideoBackground : public SoVideoBackground
 		virtual ~SoUndistortedVideoBackground(){}
 
 		virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
-		virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName);
+		virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate=false);
 
 		/**
 		 * Adds a vertex / texture coordinates to the vertex / texture coordinate

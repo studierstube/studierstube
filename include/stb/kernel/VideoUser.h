@@ -68,7 +68,7 @@ public:
 
 
     /// Called when a new video frame is available.
-    virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName) = 0;
+    virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate = false) = 0;
 
 
 	virtual UPDATE_MODE vu_getUpdateMode() const = 0;

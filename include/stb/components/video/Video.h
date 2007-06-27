@@ -127,6 +127,7 @@ protected:
 
 	bool runSingleThreaded;
 	bool ovInitialized;
+    bool forceUpdate;
 
     virtual void run();
 
