@@ -131,7 +131,8 @@ public:
 
 protected:	
     stb::string configFile; 
-    stb::string sinkName; 
+    stb::string sinkName;
+    int processing;
 private:
 	SoOpenTrackerSource*	otSource;
 	unsigned int			vu_updateCtr;

@@ -196,6 +196,8 @@ Video::setParameter(stb::string key, std::string value)
     {
         if(value=="true" || value=="TRUE")
             forceUpdate= true;
+        else if (value=="false" || value=="FALSE")
+            forceUpdate= false;
     }
 }
 

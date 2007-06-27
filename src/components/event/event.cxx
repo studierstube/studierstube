@@ -127,6 +127,7 @@ Event::Event()
     sinkName="";
 	otSource = NULL;
 	vu_updateCtr = 0;
+    processing=1; // Initialized to TIME
 }
 
 Event::~Event()
@@ -173,8 +174,19 @@ Event::init()
     otSource->ref();
     otSource->configuration.setValue(stb::Kernel::getInstance()->getConfig(configFile).c_str());
 
-    otSource->processing=SoOpenTrackerSource::TIME;
-    otSource->interval=SbTime(0.01f);
+    if (processing==0)
+    {
+        otSource->processing=SoOpenTrackerSource::IDLE;
+    }
+    else if (processing==1)
+    {
+        otSource->processing=SoOpenTrackerSource::TIME;
+        otSource->interval=SbTime(0.01f);
+    }
+    else if (processing==2)
+    {
+        otSource->processing=SoOpenTrackerSource::POLL;
+    }
 
     stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);
 
@@ -194,17 +206,17 @@ Event::setParameter(stb::string key, std::string value)
     }
     else if(key=="processing")
     {
-        if ((value=="TIME")||(value=="time"))
+        if ((value=="IDLE")||(value=="idle"))
         {
-            otSource->processing=SoOpenTrackerSource::TIME;
+            processing=0;
+        }
+        else if ((value=="TIME")||(value=="time"))
+        {
+            processing=1;
         }
         else if ((value=="POLL")||(value=="poll"))
         {
-            otSource->processing=SoOpenTrackerSource::POLL;
-        }
-        else if ((value=="IDLE")||(value=="idle"))
-        {
-            otSource->processing=SoOpenTrackerSource::IDLE;
+            processing=2;
         }
     }
 
