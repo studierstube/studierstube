@@ -57,11 +57,14 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
   SO_ENGINE_ADD_INPUT(key,(""));
   SO_ENGINE_ADD_INPUT(value,(""));
   SO_ENGINE_ADD_INPUT(buttonHisteresis,(FALSE));
+  SO_ENGINE_ADD_INPUT(calculateAccumulatedPosition,(FALSE));
 
   // define input fields
   SO_ENGINE_ADD_INPUT( attrName, (""));
   SO_ENGINE_ADD_INPUT( attrType, (""));
+  SO_ENGINE_ADD_INPUT( attrResetSignal, (""));
   SO_ENGINE_ADD_INPUT( vec3fIn, (0,0,0));
+  SO_ENGINE_ADD_INPUT( accumulatedPositionIn, (0,0,0));
   SO_ENGINE_ADD_INPUT( rotationIn, (0, 0, 0, 1));
   //basic Types
   SO_ENGINE_ADD_INPUT( boolIn, (TRUE));
@@ -84,6 +87,7 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
 
   // define output fields specifying types
   SO_ENGINE_ADD_OUTPUT( vec3fValue,   SoSFVec3f);
+  SO_ENGINE_ADD_OUTPUT( accumulatedPosition,   SoSFVec3f);
   SO_ENGINE_ADD_OUTPUT( rotationValue,   SoSFRotation);
   // basic Types
   SO_ENGINE_ADD_OUTPUT( boolValue, SoSFBool );
@@ -117,6 +121,8 @@ void SoMultimodalEngine::evaluate() {
 
     SO_ENGINE_OUTPUT(vec3fValue, SoSFVec3f, setValue(
         vec3fIn.getValue()));
+    SO_ENGINE_OUTPUT(accumulatedPosition, SoSFVec3f, setValue(
+        accumulatedPositionIn.getValue()));
     SO_ENGINE_OUTPUT(stringValue, SoSFString, setValue(
         stringIn.getValue()));
     SO_ENGINE_OUTPUT(rotationValue, SoSFRotation, setValue(
@@ -156,6 +162,7 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 	key = "event.";
 	key += attrName.getValue();
       }
+
       //      printf("SOMULTIMODALENGINE::PROCESSEVENT: multimodal %s\n", key.getString());	
       
       if (event->containsKey(key.getString())){
@@ -209,12 +216,20 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 	} else if (attrType.getValue() == "vec3f"){
 	  if (event->isOfType(key, typeid(SbVec3f))){
 	    vec3fIn.setValue(event->getSFVec3f(key));
+        if (calculateAccumulatedPosition.getValue())
+        {
+            accumulatedPositionIn.setValue(accumulatedPositionIn.getValue()+vec3fIn.getValue());
+        }
 	    evaluate();
 	  }
 	  else if (event->isOfType(key, typeid(std::vector<float>))){
 		 std::vector<float> vec = event->getVector(key);
 	    if (vec.size() == 3) {
 			 vec3fIn.setValue(vec[0], vec[1], vec[2]);
+             if (calculateAccumulatedPosition.getValue())
+             {
+                 accumulatedPositionIn.setValue(accumulatedPositionIn.getValue()+vec3fIn.getValue());
+             }
 		    evaluate();
 		 }
 	  }
@@ -246,7 +261,34 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 	  
 	} else if (attrType.getValue() == "image"){
 	  
-	}
+    }
+    if (attrResetSignal.getValue().getLength()>0){      // Verify if a reset signal is provided
+        SbString keyReset = attrResetSignal.getValue();
+        SbString eventstrReset = keyReset.getSubString(0, 5);
+        if (eventstrReset != "event."){
+            keyReset = "event.";
+            keyReset += attrResetSignal.getValue();
+        }
+
+        if (event->isOfType(keyReset, typeid(int32_t))) // it is assumed to be an int
+        {
+            if (event->getSFInt32(keyReset))    // If the signal arrives
+            {
+                // Reset everything
+                vec3fIn.setValue(0,0,0);
+                accumulatedPositionIn.setValue(0,0,0);
+                rotationIn.setValue(0,0,0,1);
+                boolIn.setValue(TRUE);
+                floatIn.setValue(0.0);
+                intIn.setValue(0);
+                shortIn.setValue(0);
+                uintIn.setValue(0);
+                ushortIn.setValue(0);
+                stringIn.setValue("");
+                mffloatIn.setValue(0);
+            }
+        }
+    }
       }
       //      evaluate(); 
     }

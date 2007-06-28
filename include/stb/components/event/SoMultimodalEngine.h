@@ -66,26 +66,30 @@ class EVENT_API SoMultimodalEngine : public SoEngine
     SO_ENGINE_HEADER(SoMultimodalEngine);
 
 public:
-    SoMFName key;
-    SoMFString value;
+    SoMFName        key;
+    SoMFString      value;
     
-    SoSFString attrName;
-    SoSFString attrType;
+    SoSFString      attrName;           // Name of the attribute to be processed
+    SoSFString      attrType;           // Type of the attribute to be proceesed
+    SoSFString      attrResetSignal;    // Name of the attribute that will send a signal that resets all other attributes. 
+                                        // NOTE: Assumed to be INT
 
-    SoSFBool		buttonHisteresis;  // Flag to allow buttons to depend on their immediate history
+    SoSFBool        buttonHisteresis;   // Flag to allow buttons to depend on their immediate history
+    SoSFBool        calculateAccumulatedPosition;
 	
 	// Engine Input
-    SoSFVec3f       vec3fIn;     // input vec3f
-    SoSFRotation    rotationIn;        // input rotation
-    SoSFBool        boolIn;            // input button 0
-    SoSFFloat       floatIn;           // float input
-    SoSFInt32       intIn;             // int input
-    SoSFShort       shortIn;           // short input
-    SoSFUInt32      uintIn;            // guess...yes unsigned int input
-    SoSFUShort      ushortIn;          // unsigned short input
-    SoSFString      stringIn;          // string input
+    SoSFVec3f       vec3fIn;            // input vec3f
+    SoSFVec3f       accumulatedPositionIn;  // accumulated position
+    SoSFRotation    rotationIn;         // input rotation
+    SoSFBool        boolIn;             // input button 0
+    SoSFFloat       floatIn;            // float input
+    SoSFInt32       intIn;              // int input
+    SoSFShort       shortIn;            // short input
+    SoSFUInt32      uintIn;             // guess...yes unsigned int input
+    SoSFUShort      ushortIn;           // unsigned short input
+    SoSFString      stringIn;           // string input
     SoMFFloat       mffloatIn;
-    SoSFTime        timeIn;            // timestamp input
+    SoSFTime        timeIn;             // timestamp input
 
     // just in case, these are unused and will probably be removed in
     // the near future. 
@@ -94,16 +98,17 @@ public:
     SoSFMatrix      matrixIn;
 
 	// Engine Output
-    SoEngineOutput  vec3fValue;       // (SoSFVec3f) tracker vec3f
-    SoEngineOutput  rotationValue;          // (SoSFRotation) tracker rotation
-    SoEngineOutput  boolValue;              // (SoSFBool) bool output
+    SoEngineOutput vec3fValue;              // (SoSFVec3f) tracker vec3f
+    SoEngineOutput accumulatedPosition;     // (SoSFVec3F) position accumulated by Vec3f
+    SoEngineOutput rotationValue;           // (SoSFRotation) tracker rotation
+    SoEngineOutput boolValue;               // (SoSFBool) bool output
     SoEngineOutput floatValue;              // (SoSFFloat) float output
     SoEngineOutput intValue;                // (SoSFInt32) int output
     SoEngineOutput shortValue;              // (SoSFShort) short output
     SoEngineOutput uintValue;               // (SoSFUInt) unsigned int output
     SoEngineOutput ushortValue;             // (SoSFUShort) unsigned short output
     SoEngineOutput stringValue;             // (SoSFString) string output
-    SoEngineOutput mffloatValue;			  // (SoMFFloat) mffloat output
+    SoEngineOutput mffloatValue;			// (SoMFFloat) mffloat output
 
     // just in case
     SoEngineOutput imageValue;
