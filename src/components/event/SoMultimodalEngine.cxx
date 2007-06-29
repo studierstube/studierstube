@@ -56,7 +56,7 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
 
   SO_ENGINE_ADD_INPUT(key,(""));
   SO_ENGINE_ADD_INPUT(value,(""));
-  SO_ENGINE_ADD_INPUT(buttonHisteresis,(FALSE));
+  SO_ENGINE_ADD_INPUT(histeresis,(FALSE));
   SO_ENGINE_ADD_INPUT(calculateAccumulatedPosition,(FALSE));
 
   // define input fields
@@ -107,6 +107,8 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
 
   buttonHistory = FALSE;
   buttonChange  = TRUE;
+  boolHistory=FALSE;
+  boolChange=TRUE;
   
 };
 
@@ -119,29 +121,67 @@ SoMultimodalEngine::~SoMultimodalEngine(){
 void SoMultimodalEngine::evaluate() {
 	//printf("SOMULTIMODALENGINE::EVALUATE evaluating station%d, attr %s\n", station.getValue(), ((attrName.getValue()).getString()));
 
-    SO_ENGINE_OUTPUT(vec3fValue, SoSFVec3f, setValue(
-        vec3fIn.getValue()));
-    SO_ENGINE_OUTPUT(accumulatedPosition, SoSFVec3f, setValue(
-        accumulatedPositionIn.getValue()));
-    SO_ENGINE_OUTPUT(stringValue, SoSFString, setValue(
-        stringIn.getValue()));
-    SO_ENGINE_OUTPUT(rotationValue, SoSFRotation, setValue(
-        rotationIn.getValue()));
-    SO_ENGINE_OUTPUT(boolValue, SoSFBool, setValue(
-        boolIn.getValue()));
-    SO_ENGINE_OUTPUT(floatValue, SoSFFloat, setValue(
-        floatIn.getValue()));
-    SO_ENGINE_OUTPUT(intValue, SoSFInt32, setValue(
-        intIn.getValue()));
-    SO_ENGINE_OUTPUT(shortValue, SoSFShort, setValue(
-        shortIn.getValue()));
-    SO_ENGINE_OUTPUT(uintValue, SoSFUInt32, setValue(
-        uintIn.getValue()));
+    if (!histeresis.getValue())
+    {
+        SO_ENGINE_OUTPUT(vec3fValue, SoSFVec3f, setValue(
+            vec3fIn.getValue()));
+        SO_ENGINE_OUTPUT(accumulatedPosition, SoSFVec3f, setValue(
+            accumulatedPositionIn.getValue()));
+        SO_ENGINE_OUTPUT(stringValue, SoSFString, setValue(
+            stringIn.getValue()));
+        SO_ENGINE_OUTPUT(rotationValue, SoSFRotation, setValue(
+            rotationIn.getValue()));
+        SO_ENGINE_OUTPUT(boolValue, SoSFBool, setValue(
+            boolIn.getValue()));
+        SO_ENGINE_OUTPUT(floatValue, SoSFFloat, setValue(
+            floatIn.getValue()));
+        SO_ENGINE_OUTPUT(intValue, SoSFInt32, setValue(
+            intIn.getValue()));
+        SO_ENGINE_OUTPUT(shortValue, SoSFShort, setValue(
+            shortIn.getValue()));
+        SO_ENGINE_OUTPUT(uintValue, SoSFUInt32, setValue(
+            uintIn.getValue()));
 
-    SO_ENGINE_OUTPUT(ushortValue, SoSFUShort, setValue(
-        ushortIn.getValue()));
-	 SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
-        mffloatIn));
+        SO_ENGINE_OUTPUT(ushortValue, SoSFUShort, setValue(
+            ushortIn.getValue()));
+	     SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
+            mffloatIn));
+    }
+    else
+    {
+        // FIXME: At the moment only implemented for bool values. Mendez 20070628
+        // Button 0
+        if ((boolChange==FALSE)&&(boolIn.getValue()==TRUE))
+        {
+            boolHistory=!boolHistory;
+            SO_ENGINE_OUTPUT(boolValue, SoSFBool, setValue(boolHistory));
+        }
+        boolChange=boolIn.getValue();
+
+
+
+        SO_ENGINE_OUTPUT(vec3fValue, SoSFVec3f, setValue(
+            vec3fIn.getValue()));
+        SO_ENGINE_OUTPUT(accumulatedPosition, SoSFVec3f, setValue(
+            accumulatedPositionIn.getValue()));
+        SO_ENGINE_OUTPUT(stringValue, SoSFString, setValue(
+            stringIn.getValue()));
+        SO_ENGINE_OUTPUT(rotationValue, SoSFRotation, setValue(
+            rotationIn.getValue()));
+        SO_ENGINE_OUTPUT(floatValue, SoSFFloat, setValue(
+            floatIn.getValue()));
+        SO_ENGINE_OUTPUT(intValue, SoSFInt32, setValue(
+            intIn.getValue()));
+        SO_ENGINE_OUTPUT(shortValue, SoSFShort, setValue(
+            shortIn.getValue()));
+        SO_ENGINE_OUTPUT(uintValue, SoSFUInt32, setValue(
+            uintIn.getValue()));
+
+        SO_ENGINE_OUTPUT(ushortValue, SoSFUShort, setValue(
+            ushortIn.getValue()));
+        SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
+            mffloatIn));
+    }
 
 };
 void SoMultimodalEngine::inputChanged(SoField * whichField){

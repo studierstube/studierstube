@@ -74,7 +74,7 @@ public:
     SoSFString      attrResetSignal;    // Name of the attribute that will send a signal that resets all other attributes. 
                                         // NOTE: Assumed to be INT
 
-    SoSFBool        buttonHisteresis;   // Flag to allow buttons to depend on their immediate history
+    SoSFBool        histeresis;   // Flag to allow buttons to depend on their immediate history
     SoSFBool        calculateAccumulatedPosition;
 	
 	// Engine Input
@@ -136,9 +136,11 @@ private:
 
 	// Used for histeresis
 	SbBool        buttonHistory;      // history of button 
+    SbBool        boolHistory;      // history of button 0
 
 	// Used for detecting button changes 
 	SbBool        buttonChange;       // Change of button
+    SbBool        boolChange;       // Change of button 0
 
 };
 
