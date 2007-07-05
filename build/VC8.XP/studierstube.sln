@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_win", "viewer_win.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "viewer_qt", "viewer_qt.vcproj", "{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "documentation compiler", "documentation compiler.vcproj", "{4FE68F22-9175-41DB-8A89-18B127F3E121}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -61,6 +63,10 @@ Global
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Debug|Win32.Build.0 = Debug|Win32
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.ActiveCfg = Release|Win32
 		{B5A5AFED-1A48-4AC5-B763-0AD3D0CE0A54}.Release|Win32.Build.0 = Release|Win32
+		{4FE68F22-9175-41DB-8A89-18B127F3E121}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4FE68F22-9175-41DB-8A89-18B127F3E121}.Debug|Win32.Build.0 = Debug|Win32
+		{4FE68F22-9175-41DB-8A89-18B127F3E121}.Release|Win32.ActiveCfg = Release|Win32
+		{4FE68F22-9175-41DB-8A89-18B127F3E121}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
