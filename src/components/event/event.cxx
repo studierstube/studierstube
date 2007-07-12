@@ -127,6 +127,7 @@ Event::Event()
     sinkName="";
 	otSource = NULL;
 	vu_updateCtr = 0;
+    paused=false;
     processing=1; // Initialized to TIME
 }
 
@@ -189,6 +190,10 @@ Event::init()
     }
 
     stb::Kernel::getInstance()->getSceneManager()->setTrackerSource(otSource);
+
+
+    key=new SoMFName;
+    value=new SoMFString;
 
     return isInit;
 }
@@ -317,7 +322,6 @@ void
 Event::vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
 }
-
 
 void
 Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate)

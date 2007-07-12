@@ -225,7 +225,7 @@ void SoOpenTrackerSource::runTracker( void )
 {
     //printf("SoOpenTrackerSource::runTracker\n");
 
-    if(active.getValue())
+    if (active.getValue())
     {
         //assert(context);
         if (context) {

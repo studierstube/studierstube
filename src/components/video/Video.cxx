@@ -133,6 +133,7 @@ Video::Video()
    runSingleThreaded = false;
    ovInitialized = false;
    forceUpdate= false;
+   paused=false;
 
    //videoSinkSubscriber = NULL;
    video_format = NULL;
@@ -363,6 +364,7 @@ Video::setNewVideoFrame(const openvideo::Buffer& frame, stb::string *givenSinkNa
 void
 Video::notifyVideoUsers(VideoUserVector& videoUsers, const openvideo::Buffer& frame, stb::string *givenSinkName)
 {
+    if (paused) return;
 	for(size_t i=0; i<videoUsers.size(); i++)
 		videoUsers[i]->vu_update(frame, givenSinkName, forceUpdate);
 }

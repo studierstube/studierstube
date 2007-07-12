@@ -32,6 +32,11 @@
 
 #include <stb/components/viewer/SoWindowHandling.h>
 #include <stb/kernel/Kernel.h>
+#include <stb/kernel/SceneManager.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/video/Video.h>
+#include <stb/components/event/event.h>
+#include <stb/components/event/SoOpenTrackerSource.h>
 
 using namespace std;
 
@@ -43,12 +48,20 @@ SoWindowHandling::SoWindowHandling()
     SO_KIT_ADD_FIELD(exit,     ());
     SO_KIT_ADD_FIELD(minimize, ());
     SO_KIT_ADD_FIELD(maximize, ());
+    SO_KIT_ADD_FIELD(freezevideo, ());
+    SO_KIT_ADD_FIELD(freezetracking, ());
+    SO_KIT_ADD_FIELD(wildcardKey, (""));
+    SO_KIT_ADD_FIELD(wildcardValue, (""));
 
     SO_KIT_INIT_INSTANCE();
 
     exitSensor=new SoFieldSensor(SoWindowHandling::exitCB, this);
     minimizeSensor=new SoFieldSensor(SoWindowHandling::minimizeCB, this);
     maximizeSensor=new SoFieldSensor(SoWindowHandling::maximizeCB, this);
+    freezevideoSensor=new SoFieldSensor(SoWindowHandling::freezevideoCB, this);
+    freezetrackingSensor=new SoFieldSensor(SoWindowHandling::freezetrackingCB, this);
+    wildcardKeySensor=new SoFieldSensor(SoWindowHandling::wildcardKeyCB, this);
+    wildcardValueSensor=new SoFieldSensor(SoWindowHandling::wildcardValueCB, this);
 
 	this->setUpConnections(TRUE, TRUE);
 }
@@ -69,6 +82,10 @@ SbBool SoWindowHandling::setUpConnections(SbBool onoff, SbBool doitalways)
         exitSensor->attach(&this->exit);
         minimizeSensor->attach(&this->minimize);
         maximizeSensor->attach(&this->maximize);
+        freezevideoSensor->attach(&this->freezevideo);
+        freezetrackingSensor->attach(&this->freezetracking);
+        wildcardKeySensor->attach(&this->wildcardKey);
+        wildcardValueSensor->attach(&this->wildcardValue);
     }
     else 
     {
@@ -76,6 +93,10 @@ SbBool SoWindowHandling::setUpConnections(SbBool onoff, SbBool doitalways)
         exitSensor->detach();
         minimizeSensor->detach();
         maximizeSensor->detach();
+        freezevideoSensor->detach();
+        freezetrackingSensor->detach();
+        wildcardKeySensor->detach();
+        wildcardValueSensor->detach();
 
         SoBaseKit::setUpConnections(onoff, doitalways);
     }
@@ -96,12 +117,49 @@ void SoWindowHandling::exitCB(void *data, SoSensor *)
 
 void SoWindowHandling::minimizeCB(void *data, SoSensor *)
 {
-    SoWindowHandling *self= (SoWindowHandling *)data;
     // minimize
+    SoWindowHandling *self= (SoWindowHandling *)data;
 }
 
 void SoWindowHandling::maximizeCB(void *data, SoSensor *)
 {
-    SoWindowHandling *self= (SoWindowHandling *)data;
     // maximize
+    SoWindowHandling *self= (SoWindowHandling *)data;
+}
+
+void SoWindowHandling::wildcardKeyCB(void *data, SoSensor *)
+{
+    // Set the wildcard event's key
+    SoWindowHandling *self= (SoWindowHandling *)data;
+    self->refreshPredicates();
+}
+
+void SoWindowHandling::wildcardValueCB(void *data, SoSensor *)
+{
+    // Set the wildcard event's key
+    SoWindowHandling *self= (SoWindowHandling *)data;
+    self->refreshPredicates();
+}
+
+void SoWindowHandling::freezevideoCB(void *data, SoSensor *)
+{
+    // freeze the video
+    stb::Video* video=(stb::Video*)(stb::Kernel::getInstance()->getComponentManager()->load("Video"));
+    video->togglePause();
+}
+
+void SoWindowHandling::freezetrackingCB(void *data, SoSensor *)
+{
+    // freeze the tracking
+    SoWindowHandling *self= (SoWindowHandling *)data;
+    stb::Event* eventInstance=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    self->refreshPredicates();
+    eventInstance->togglePause();
+}
+
+void SoWindowHandling::refreshPredicates()
+{
+    stb::Event* eventInstance=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    eventInstance->setKey(&wildcardKey);
+    eventInstance->setValue(&wildcardValue);
 }

@@ -42,6 +42,8 @@
 */
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/fields/SoSFTrigger.h>
+#include <Inventor/fields/SoMFName.h>
+#include <Inventor/fields/SoMFString.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 #include "Viewer.h"
 
@@ -69,6 +71,10 @@ public:
     SoSFTrigger exit;
     SoSFTrigger minimize;
     SoSFTrigger maximize;
+    SoSFTrigger freezevideo;
+    SoSFTrigger freezetracking;
+    SoMFName wildcardKey;
+    SoMFString wildcardValue;
 
 protected:
 
@@ -76,11 +82,22 @@ protected:
     SoFieldSensor *exitSensor;
     SoFieldSensor *minimizeSensor;
     SoFieldSensor *maximizeSensor;
+    SoFieldSensor *freezevideoSensor;
+    SoFieldSensor *freezetrackingSensor;
+    SoFieldSensor *wildcardKeySensor;
+    SoFieldSensor *wildcardValueSensor;
+
 
     /// Calls the function that rebuilds the object
     static void exitCB(void* data, SoSensor* sensor);
     static void minimizeCB(void* data, SoSensor* sensor);
     static void maximizeCB(void* data, SoSensor* sensor);
+    static void freezevideoCB(void* data, SoSensor* sensor);
+    static void freezetrackingCB(void* data, SoSensor* sensor);
+    static void wildcardKeyCB(void* data, SoSensor* sensor);
+    static void wildcardValueCB(void* data, SoSensor* sensor);
+
+    void refreshPredicates();
 
     /// Attaches and detaches the sensors and does a couple of one time operations
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);

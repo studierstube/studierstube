@@ -60,7 +60,8 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Component.h>
 #include <stb/kernel/VideoUser.h>
-
+#include <Inventor/fields/SoMFName.h>
+#include <Inventor/fields/SoMFString.h>
 
 /**
 *	
@@ -129,6 +130,16 @@ public:
 	virtual VideoUser::UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
     SoOpenTrackerSource *getOpentrackerSource() { return otSource; };
 
+    /// The following four functions enable tracking freezing
+    void pause() { paused=true; };
+    void resume() { paused=false; };
+    void togglePause(){ paused=!paused; };
+    bool isPaused() { return paused; };
+    void setKey(SoMFName *newKey) { key=newKey; };
+    void setValue(SoMFString *newValue) { value=newValue; };
+    SoMFName * getKey() { return key; };
+    SoMFString * getValue() { return value; };
+
 protected:	
     stb::string configFile; 
     stb::string sinkName;
@@ -136,6 +147,10 @@ protected:
 private:
 	SoOpenTrackerSource*	otSource;
 	unsigned int			vu_updateCtr;
+    bool paused;
+    SoMFName *key;
+    SoMFString *value;
+
 };// class 
 
 

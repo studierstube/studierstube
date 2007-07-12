@@ -37,7 +37,13 @@
 #include <algorithm>
 
 #include <stb/components/event/EventBus.h>
-
+#include <stb/kernel/Kernel.h>
+#include <stb/kernel/SceneManager.h>
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/event/SoOpenTrackerSource.h>
+#include <stb/components/event/EventContextFilter.h>
+#include <stb/components/event/Event.h>
+#include <Inventor/fields/SoMFName.h>
 
 EventBus *EventBus::singleton = 0;
 
@@ -67,21 +73,46 @@ void EventBus::removeSubscriber( EventSubscriber * subscriber )
     subscriptions.erase( subscriber );
 }
 
+
 class Sender
 {
 public:
     SoInputEvent * event;
-    Sender(SoInputEvent * myEvent) : event(myEvent)
-    {};
+    stb::Event * eventComponent;
+    BasicEventFilter wildcardFilter;
+    Sender(SoInputEvent * myEvent, stb::Event * myEventComponent) : event(myEvent), eventComponent(myEventComponent)
+    {
+        for( int i = 0; i < eventComponent->getKey()->getNum(); i++ )
+            wildcardFilter.setPredicate( (*eventComponent->getKey())[i], (*eventComponent->getValue())[i]);
+    };
 
     void operator()(const std::map<EventSubscriber *, EventFilter *>::value_type & pair)
     {
+
 		/// Verifies that there is at least one filter
-        if( pair.second ){
-			/// Queries if the event matches the filter
-            if( pair.second->accept( event )){
-				/// Notifies the subscriber about this new event
-                pair.first->newEvent( event );
+        if( pair.second )
+        {    
+            // Check if it is paused
+            if (!eventComponent->isPaused())
+            {
+                // If is not continue normally
+                /// Queries if the event matches the filter
+                if( pair.second->accept( event )){
+                    /// Notifies the subscriber about this new event
+                    pair.first->newEvent( event );
+                }
+            }
+            else
+            {
+                // If it is paused the check if the wildcard is the one being passed around
+                if (wildcardFilter.accept(event))
+                {
+                    /// Queries if the event matches the filter
+                    if( pair.second->accept( event )){
+                        /// Notifies the subscriber about this new event
+                        pair.first->newEvent( event );
+                    }
+                }
             }
         }
     }
@@ -89,8 +120,10 @@ public:
 
 void EventBus::publish( SoInputEvent * event )
 {
-    Sender sender( event );
-	/// Try to notify all the subscribers
+    stb::Event* eventInstance=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
+    Sender sender( event, eventInstance );
+    /// Try to notify all the subscribers
+    
     std::for_each( subscriptions.begin(), subscriptions.end(), sender );
 }
 

@@ -111,6 +111,13 @@ public:
 	 */
 	virtual const openvideo::Buffer* getCurrentFrameLocked();
 
+
+    /// The following four functions enable video freezing
+    void pause() { paused=true; };
+    void resume() { paused=false; };
+    void togglePause() { paused=!paused; };
+    bool isPaused() { return paused; }
+
 protected:
 	void setVideoFormat(const openvideo::Buffer& format, stb::string *givenSinkName);
 	void setNewVideoFrame(const openvideo::Buffer& format, stb::string *givenSinkName);
@@ -132,6 +139,8 @@ protected:
     virtual void run();
 
 private:
+    bool paused;
+
     Stb4VideoSinkSubscriberVector videoSinkSubscribers;
     //Stb4VideoSinkSubscriber *videoSinkSubscriber;
 
