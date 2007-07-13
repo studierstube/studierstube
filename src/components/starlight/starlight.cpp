@@ -13,6 +13,7 @@
 #include <stb/components/starlight/SoContextSeparator.h>
 #include <stb/components/starlight/SoContextSwitch.h>
 #include <stb/components/starlight/SoEaseIn.h>
+#include <stb/components/starlight/SoPulse.h>
 #include <stb/components/starlight/SoEngineWrapper.h>
 #include <stb/components/starlight/SoFactorRotation.h>
 #include <stb/components/starlight/SoFanIn.h>
@@ -102,6 +103,7 @@ Starlight::init(void)
     SoContextSeparator::initClass();
     SoContextSwitch::initClass();
     SoEaseIn::initClass();
+    SoPulse::initClass();
     SoEngineWrapper::initClass();
     SoFactorRotation::initClass();
     SoFanIn::initClass();

@@ -347,6 +347,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoPulse.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoRoute.cpp"
 				>
 			</File>
@@ -574,6 +578,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoPrismKit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoPulse.h"
 				>
 			</File>
 			<File
