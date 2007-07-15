@@ -42,7 +42,7 @@
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/event/SoOpenTrackerSource.h>
 #include <stb/components/event/EventContextFilter.h>
-#include <stb/components/event/Event.h>
+#include <stb/components/event/event.h>
 #include <Inventor/fields/SoMFName.h>
 
 EventBus *EventBus::singleton = 0;
