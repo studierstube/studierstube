@@ -15,6 +15,8 @@
 #include <stb/components/starlight/SoEaseIn.h>
 #include <stb/components/starlight/SoEngineWrapper.h>
 #include <stb/components/starlight/SoFactorRotation.h>
+#include <stb/components/starlight/SoFaderFloatEngine.h>
+#include <stb/components/starlight/SoFaderVec3fEngine.h>
 #include <stb/components/starlight/SoFanIn.h>
 #include <stb/components/starlight/SoFileSubgraph.h>
 #include <stb/components/starlight/SoFrameBuffer.h>
@@ -57,9 +59,6 @@
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
-
-
-#include <stb/components/starlight/SoMEFader.h>
 
 CREATE_COMPONENT_FUNC(Starlight)
 
@@ -104,6 +103,8 @@ Starlight::init(void)
     SoEaseIn::initClass();
     SoEngineWrapper::initClass();
     SoFactorRotation::initClass();
+    SoFaderFloatEngine::initClass();
+    SoFaderVec3fEngine::initClass();
     SoFanIn::initClass();
     SoFileSubgraph::initClass();
     SoFrameBuffer::initClass();
@@ -147,9 +148,6 @@ Starlight::init(void)
     SoCapsule::initClass();
 	SoCommand::initClass();
     SoSetName::initClass();
-
-
-    SoMEFader::initClass();
 
     return isInit;
 }

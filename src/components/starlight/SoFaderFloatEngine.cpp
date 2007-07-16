@@ -30,20 +30,20 @@
 #  include <math.h>
 #endif
 
-#include <stb/components/starlight/SoMEFader.h>
+#include <stb/components/starlight/SoFaderFloatEngine.h>
 
 
-SO_ENGINE_SOURCE(SoMEFader);
+SO_ENGINE_SOURCE(SoFaderFloatEngine);
 
 void
-SoMEFader::initClass()
+SoFaderFloatEngine::initClass()
 {
-    SO_ENGINE_INIT_CLASS(SoMEFader, SoEngine, "Engine");
+    SO_ENGINE_INIT_CLASS(SoFaderFloatEngine, SoEngine, "Engine");
 }
 
-SoMEFader::SoMEFader()
+SoFaderFloatEngine::SoFaderFloatEngine()
 {
-    SO_ENGINE_CONSTRUCTOR(SoMEFader);
+    SO_ENGINE_CONSTRUCTOR(SoFaderFloatEngine);
 
     SO_ENGINE_DEFINE_ENUM_VALUE(Styles, EASE );
     SO_ENGINE_DEFINE_ENUM_VALUE(Styles, LOGARITHMIC );
@@ -51,6 +51,7 @@ SoMEFader::SoMEFader()
 
     // **********   Field Additions
     SO_ENGINE_ADD_INPUT(signal, (FALSE));
+    SO_ENGINE_ADD_INPUT(fireOn, (TRUE));
     SO_ENGINE_ADD_INPUT(ease, (1));
     SO_ENGINE_ADD_INPUT(duration, (1));
     SO_ENGINE_ADD_INPUT(interpolate0, (0));
@@ -68,32 +69,39 @@ SoMEFader::SoMEFader()
     interpolatefloat=new SoInterpolateFloat;
 
     conditional->boolIn.setValue(false);
-    conditional->triggerBool=true;
+    conditional->triggerBool=fireOn.getValue();
     conditional->comparison=SoConditionalTrigger::EQUAL;
     oneshot->trigger.connectFrom(&conditional->trigger);
     oneshot->flags=(SoOneShot::RETRIGGERABLE | SoOneShot::HOLD_FINAL);
     easein->in.connectFrom(&oneshot->ramp);
     interpolatefloat->alpha.connectFrom(&easein->out);
-    signalSensor=new SoFieldSensor(SoMEFader::refreshCB, this);
-    signalSensor->attach(&this->signal);
     in.connectFrom(&interpolatefloat->output);
 
+    signalSensor=new SoFieldSensor(SoFaderFloatEngine::refreshCB, this);
+    signalSensor->attach(&this->signal);
+
+    fireOnSensor=new SoFieldSensor(SoFaderFloatEngine::fireOnCB, this);
+    fireOnSensor->attach(&this->fireOn);
 }
 
-SoMEFader::~SoMEFader()
+SoFaderFloatEngine::~SoFaderFloatEngine()
 {
     delete [] signalSensor;
 }
 
-
-void SoMEFader::refreshCB(void *data, SoSensor * /*sensor*/)
+void SoFaderFloatEngine::refreshCB(void *data, SoSensor * /*sensor*/)
 {
-    SoMEFader *self= (SoMEFader *)data;
+    SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
     self->updateEngines();
 }
 
+void SoFaderFloatEngine::fireOnCB(void *data, SoSensor * /*sensor*/)
+{
+    SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+    self->conditional->triggerBool=self->fireOn.getValue();
+}
 
-void SoMEFader::updateEngines()
+void SoFaderFloatEngine::updateEngines()
 {
     conditional->boolIn.setValue(signal.getValue());
     oneshot->duration.setValue(duration.getValue());
@@ -103,10 +111,9 @@ void SoMEFader::updateEngines()
     easein->style.setValue(style.getValue());
 }
 
-void SoMEFader::evaluate()
+void SoFaderFloatEngine::evaluate()
 {
-    float val = in.getValue();
-	SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(val) );
+    SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(in.getValue()) );
 }
 
 

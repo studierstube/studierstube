@@ -21,12 +21,12 @@
   * Austria.
   * ======================================================================== */
 /*
- * Header file for the Multiple Engine Fader SoMEFader
+ * Header file for the Multiple Engine Fader SoFaderFloatEngine
  * @author Erick Mendez
  */
 
-#ifndef _SOMEFADER_H_
-#define _SOMEFADER_H_
+#ifndef _SOFADERFLOATENGINE_H_
+#define _SOFADERFLOATENGINE_H_
 
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoSFFloat.h>
@@ -45,9 +45,9 @@
 @author Erick Mendez
 
 */
-class STARLIGHT_API SoMEFader : public SoEngine {
+class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
 
-   SO_ENGINE_HEADER(SoMEFader);
+   SO_ENGINE_HEADER(SoFaderFloatEngine);
 
  public:
      enum MyStyles {
@@ -56,14 +56,15 @@ class STARLIGHT_API SoMEFader : public SoEngine {
          PULSE = 2
      } Styles;
 
-     SoSFBitMask style;
-     SoSFFloat ease;
-     SoSFBool signal;
-     SoSFFloat duration;
-     SoSFFloat interpolate0;
-     SoSFFloat interpolate1;
-     SoSFFloat in;
-     SoEngineOutput out;
+     SoSFBitMask style;             // The style of the fading, EASE, LOGARITHMIC or PULSE
+     SoSFFloat ease;                // A weight factor
+     SoSFBool signal;               // The trigger signal that starts the engin
+     SoSFBool fireOn;               // Whether the engine should start on true or false
+     SoSFFloat duration;            // How long should the animation last
+     SoSFFloat interpolate0;        // The start value to interpolate
+     SoSFFloat interpolate1;        // The end value to interpolate
+     SoSFFloat in;                  // For internal usage
+     SoEngineOutput out;            // The output of the engine
 
    // Initializes this class for use in scene graphs. This
    // should be called after database initialization and before
@@ -71,18 +72,20 @@ class STARLIGHT_API SoMEFader : public SoEngine {
    static void initClass();
 
    // Constructor
-   SoMEFader();
+   SoFaderFloatEngine();
 
  private:
 
-     // Package 1
      SoFieldSensor *signalSensor;
+     SoFieldSensor *fireOnSensor;
+
      SoConditionalTrigger *conditional;
      SoOneShot *oneshot;
      SoEaseIn *easein;
      SoInterpolateFloat *interpolatefloat;
 
      static void refreshCB(void* data, SoSensor* sensor);
+     static void fireOnCB(void* data, SoSensor* sensor);
 
      void updateEngines();
 
@@ -90,10 +93,10 @@ class STARLIGHT_API SoMEFader : public SoEngine {
    // nodes, rather than using the reference count mechanism.
    // Makes newer GCC complaining about destructor not being
    // avaliable as public function.
-   virtual ~SoMEFader();
+   virtual ~SoFaderFloatEngine();
 
    virtual void evaluate();
 
 };
 
-#endif // _SOMEFADER_H_
+#endif // _SOFADERFLOATENGINE_H_

@@ -251,6 +251,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoFaderFloatEngine.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\components\starlight\SoFaderVec3fEngine.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoFanIn.cpp"
 				>
 			</File>
@@ -288,10 +296,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoLinestringKit.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoMEFader.cpp"
 				>
 			</File>
 			<File
@@ -485,6 +489,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoFaderFloatEngine.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoFaderVec3fEngine.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoFanIn.h"
 				>
 			</File>
@@ -522,10 +534,6 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoLineStringKit.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoMEFader.h"
 				>
 			</File>
 			<File
