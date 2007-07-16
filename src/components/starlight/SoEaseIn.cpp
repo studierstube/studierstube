@@ -45,9 +45,16 @@ SoEaseIn::SoEaseIn()
 {
     SO_ENGINE_CONSTRUCTOR(SoEaseIn);
 
+    SO_ENGINE_DEFINE_ENUM_VALUE(Styles, EASE );
+    SO_ENGINE_DEFINE_ENUM_VALUE(Styles, LOGARITHMIC );
+    SO_ENGINE_DEFINE_ENUM_VALUE(Styles, PULSE );
+    SO_ENGINE_SET_SF_ENUM_TYPE(style, Styles);
+
+    // declare fields and their default-values
+    SO_ENGINE_ADD_INPUT(style, (EASE));
+
     SO_ENGINE_ADD_INPUT(in,             (0.0));
     SO_ENGINE_ADD_INPUT(ease,           (1.0));
-    SO_ENGINE_ADD_INPUT(logarithmic,    (FALSE));
 
     SO_ENGINE_ADD_OUTPUT(out, SoSFFloat);
 }
@@ -60,21 +67,24 @@ void SoEaseIn::evaluate()
 {
     float val = in.getValue();
 
-    if (!logarithmic.getValue())
-    {
-        if (ease.getValue() > 0.0) {
-	        val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 3.0f);
-        }
-    }
-    else
+    if( style.getValue() & EASE )
     {
         if (ease.getValue() > 0.0) {
             val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 0.3f);
         }
     }
+    else if( style.getValue() & LOGARITHMIC )
+    {
+        if (ease.getValue() > 0.0) {
+            val = val * (1.0f - ease.getValue()) + ease.getValue() * (float)pow((float)(sin(val/2.0f * M_PI)), 3.0f);
+        }
+    }
+    else if( style.getValue() & PULSE )
+    {
+        val = sin((1-val)* M_PI);
+    }
 
 	SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(val) );
-
 }
 
 

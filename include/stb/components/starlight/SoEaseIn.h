@@ -27,6 +27,7 @@
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoSFFloat.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <Inventor/fields/SoSFBitMask.h>
 
 #include "starlight.h"
 
@@ -43,7 +44,13 @@ class STARLIGHT_API SoEaseIn : public SoEngine {
 
  public:
 
-    SoSFBool logarithmic;
+     SoSFBitMask style;
+
+     enum MyStyles {
+         EASE = 0,
+         LOGARITHMIC = 1,
+         PULSE = 2
+     } Styles;
 
     /// ease value for configuring. determines how big the effect will be.
     SoSFFloat ease;     

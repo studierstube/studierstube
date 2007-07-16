@@ -20,13 +20,23 @@
   * Vienna University of Technology, Favoritenstr. 9-11/188, A1040 Vienna,
   * Austria.
   * ======================================================================== */
+/*
+ * Header file for the Multiple Engine Fader SoMEFader
+ * @author Erick Mendez
+ */
 
-#ifndef _SOPULSE_H_
-#define _SOPULSE_H_
+#ifndef _SOMEFADER_H_
+#define _SOMEFADER_H_
 
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoSFFloat.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <Inventor/sensors/SoFieldSensor.h>
+#include <Inventor/engines/SoOneShot.h>
+#include <Inventor/engines/SoInterpolateFloat.h>
+#include <stb/components/starlight/SoEaseIn.h>
+#include <stb/components/starlight/SoConditionalTrigger.h>
+#include <Inventor/fields/SoSFBitMask.h>
 
 #include "starlight.h"
 
@@ -35,35 +45,55 @@
 @author Erick Mendez
 
 */
-class STARLIGHT_API SoPulse : public SoEngine {
+class STARLIGHT_API SoMEFader : public SoEngine {
 
-   SO_ENGINE_HEADER(SoPulse);
+   SO_ENGINE_HEADER(SoMEFader);
 
  public:
+     enum MyStyles {
+         EASE = 0,
+         LOGARITHMIC = 1,
+         PULSE = 2
+     } Styles;
 
-    /// value input
-    SoSFFloat in;       
-	/// value output
-	SoEngineOutput out; 
-	
+     SoSFBitMask style;
+     SoSFFloat ease;
+     SoSFBool signal;
+     SoSFFloat duration;
+     SoSFFloat interpolate0;
+     SoSFFloat interpolate1;
+     SoSFFloat in;
+     SoEngineOutput out;
+
    // Initializes this class for use in scene graphs. This
    // should be called after database initialization and before
    // any instance of this node is constructed.
    static void initClass();
 
    // Constructor
-   SoPulse();
+   SoMEFader();
 
  private:
+
+     // Package 1
+     SoFieldSensor *signalSensor;
+     SoConditionalTrigger *conditional;
+     SoOneShot *oneshot;
+     SoEaseIn *easein;
+     SoInterpolateFloat *interpolatefloat;
+
+     static void refreshCB(void* data, SoSensor* sensor);
+
+     void updateEngines();
 
    // Destructor. Private to keep people from trying to delete
    // nodes, rather than using the reference count mechanism.
    // Makes newer GCC complaining about destructor not being
    // avaliable as public function.
-   virtual ~SoPulse();
+   virtual ~SoMEFader();
 
    virtual void evaluate();
 
 };
 
-#endif // _SOPULSE_H_
+#endif // _SOMEFADER_H_

@@ -291,6 +291,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoMEFader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoMFVec2s.cpp"
 				>
 			</File>
@@ -344,10 +348,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoPrismKit.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoPulse.cpp"
 				>
 			</File>
 			<File
@@ -525,6 +525,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\include\stb\components\starlight\SoMEFader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\include\stb\components\starlight\SoMFVec2s.h"
 				>
 			</File>
@@ -578,10 +582,6 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoPrismKit.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\starlight\SoPulse.h"
 				>
 			</File>
 			<File
