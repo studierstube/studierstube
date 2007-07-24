@@ -168,7 +168,7 @@ SoVideoBackground::vu_update(const openvideo::Buffer& frame, stb::string *givenS
 	    bufferSynchronizer->assign(const_cast<openvideo::Buffer*>(&frame));
 #else
     // If this is not our sink then return
-   if ((!sinkName.getValue().getLength()==0)&sinkName.getValue().compareSubString(givenSinkName->c_str())) return;
+   if ((!sinkName.getValue().getLength()==0)&& sinkName.getValue().compareSubString(givenSinkName->c_str())) return;
 	updateTexture(frame);
 #endif
 #endif 
