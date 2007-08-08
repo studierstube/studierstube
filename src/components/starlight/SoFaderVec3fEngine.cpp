@@ -72,9 +72,14 @@ SoFaderVec3fEngine::SoFaderVec3fEngine()
     conditional->triggerBool=fireOn.getValue();
     conditional->comparison=SoConditionalTrigger::EQUAL;
     oneshot->trigger.connectFrom(&conditional->trigger);
+    oneshot->duration=1;
     oneshot->flags=(SoOneShot::RETRIGGERABLE | SoOneShot::HOLD_FINAL);
+    oneshot->disable=false;
+    easein->ease=1;
     easein->in.connectFrom(&oneshot->ramp);
     interpolatefloat->alpha.connectFrom(&easein->out);
+    interpolatefloat->input0.setValue(0,0,0);
+    interpolatefloat->input1.setValue(0,0,0);
     in.connectFrom(&interpolatefloat->output);
 
     signalSensor=new SoFieldSensor(SoFaderVec3fEngine::refreshCB, this);
@@ -101,19 +106,19 @@ void SoFaderVec3fEngine::refreshCB(void *data, SoSensor * /*sensor*/)
 void SoFaderVec3fEngine::fieldsCB(void *data, SoSensor * /*sensor*/)
 {
     SoFaderVec3fEngine *self= (SoFaderVec3fEngine *)data;
-    self->conditional->triggerBool=self->fireOn.getValue();
     self->interpolatefloat->input0.setValue(self->interpolate0.getValue());
     self->interpolatefloat->input1.setValue(self->interpolate1.getValue());
+    self->conditional->triggerBool=self->fireOn.getValue();
 }
 
 void SoFaderVec3fEngine::updateEngines()
 {
-    conditional->boolIn.setValue(signal.getValue());
-    oneshot->duration.setValue(duration.getValue());
     interpolatefloat->input0.setValue(interpolate0.getValue());
     interpolatefloat->input1.setValue(interpolate1.getValue());
+    oneshot->duration.setValue(duration.getValue());
     easein->ease.setValue(ease.getValue());
     easein->style.setValue(style.getValue());
+    conditional->boolIn.setValue(signal.getValue());
 }
 
 void SoFaderVec3fEngine::evaluate()
