@@ -35,8 +35,9 @@
 @ingroup util
 
 A helper class for smooth animations. Converts float inputs in the range from 0..1 (e.g. from a
-SoOneShot engine) to float values in the range form 0..1, applying a filter that smoothens the start
-and end velocity.
+SoOneShot engine) to float values in the range form 0..1, applying a non-linear ease law  that smoothens the start
+and end velocity. 
+
 */
 class STARLIGHT_API SoEaseIn : public SoEngine {
 
@@ -47,9 +48,9 @@ class STARLIGHT_API SoEaseIn : public SoEngine {
      SoSFBitMask style;
 
      enum MyStyles {
-         EASE = 0,
-         LOGARITHMIC = 1,
-         PULSE = 2
+         EASE = 0,         ///< Normal ease function (0 -> 1)
+         LOGARITHMIC = 1,  ///< Logaricmic function (0 -> 1)
+         PULSE = 2         ///< Sinusoidal function (0 -> 1 ->0)
      } Styles;
 
     /// ease value for configuring. determines how big the effect will be.
