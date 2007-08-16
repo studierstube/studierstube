@@ -35,7 +35,7 @@
 @ingroup util
 
 A helper class for smooth animations. Converts float inputs in the range from 0..1 (e.g. from a
-SoOneShot engine) to float values in the range form 0..1, applying a non-linear ease law  that smoothens the start
+SoOneShot engine) to float values in the range form 0..1 (or 1 to 0 if reversed), applying a non-linear laws that smoothens the start
 and end velocity. 
 
 */
@@ -53,13 +53,10 @@ class STARLIGHT_API SoEaseIn : public SoEngine {
          PULSE = 2         ///< Sinusoidal function (0 -> 1 ->0)
      } Styles;
 
-    /// ease value for configuring. determines how big the effect will be.
-    SoSFFloat ease;     
-
-    /// value input
-    SoSFFloat in;       
-	/// value output
-	SoEngineOutput out; 
+    SoSFFloat ease;        ///<  parameter for configuring ease functions. determines how big the effect will be.
+    SoSFFloat in;          ///< input 0->1 float  
+    SoSFBool reverse;      ///< results in a 1->0 law FALSE as Default
+    SoEngineOutput out; 	///< output 0->1 float or inverse if reverse field is TRUE
 	
    // Initializes this class for use in scene graphs. This
    // should be called after database initialization and before

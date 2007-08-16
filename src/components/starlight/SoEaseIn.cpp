@@ -55,6 +55,7 @@ SoEaseIn::SoEaseIn()
 
     SO_ENGINE_ADD_INPUT(in,             (0.0));
     SO_ENGINE_ADD_INPUT(ease,           (1.0));
+    SO_ENGINE_ADD_INPUT(reverse,        (FALSE));
 
     SO_ENGINE_ADD_OUTPUT(out, SoSFFloat);
 }
@@ -83,6 +84,7 @@ void SoEaseIn::evaluate()
     {
         val = sin((1-val)* M_PI);
     }
+   if (reverse.getValue()) val = 1-val;
 
 	SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(val) );
 }

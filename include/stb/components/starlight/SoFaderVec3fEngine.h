@@ -57,15 +57,15 @@ class STARLIGHT_API SoFaderVec3fEngine : public SoEngine {
          PULSE = 2
      } Styles;
 
-     SoSFBitMask style;             // The style of the fading, EASE, LOGARITHMIC or PULSE
-     SoSFFloat ease;                // A weight factor
-     SoSFBool signal;               // The trigger signal that starts the engin
-     SoSFBool fireOn;               // Whether the engine should start on true or false
-     SoSFFloat duration;            // How long should the animation last
-     SoSFVec3f interpolate0;        // The start value to interpolate
-     SoSFVec3f interpolate1;        // The end value to interpolate
-     SoSFVec3f in;                  // For internal usage
-     SoEngineOutput out;            // The output of the engine
+     SoSFBitMask style;             ///< Fading Style: EASE, LOGARITHMIC or PULSE
+     SoSFFloat ease;                ///< Interpolation parameter
+     SoSFBool signal;               ///< The trigger signal that starts the engine
+     SoSFBool fireOn;               ///< Whether the engine should start on true or false
+     SoSFFloat duration;            ///< Animation time
+     SoSFVec3f interpolate0;        ///< The start value to interpolate
+     SoSFVec3f interpolate1;        ///< The end value to interpolate
+     SoSFVec3f in;                  ///< For internal usage
+     SoEngineOutput out;            ///< The output of the engine
 
    // Initializes this class for use in scene graphs. This
    // should be called after database initialization and before
