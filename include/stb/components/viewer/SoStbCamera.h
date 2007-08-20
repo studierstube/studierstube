@@ -36,6 +36,7 @@
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h>
 #include <Inventor/nodes/SoTransform.h>
+#include <Inventor/fields/SoSFString.h>
 #include <stb/base/macros.h>
 #include <stb/components/viewer/ViewerDefines.h>
 
@@ -78,6 +79,9 @@ public:
 	SoTransform* getTransform();
 	
     bool activate();
+
+	/** Specifies the name of the node so it can be found e.g. by an application. */
+	SoSFString name;
 
 protected:
     /** Overrides the inherited method to implement a new

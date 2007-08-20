@@ -35,7 +35,8 @@
 
 #include <stb/components/viewer/ViewerDefines.h>
 #include <Inventor/nodes/SoSubNode.h>
-#include <Inventor/fields/SoSFString.h> 
+#include <Inventor/fields/SoSFString.h>
+#include <Inventor/sensors/SoFieldSensor.h>
 #include <stb/base/macros.h>
 #include <stb/kernel/VideoUser.h>
 #ifndef __APPLE__
@@ -62,10 +63,11 @@ class VIEWER_API SoVideoBackground : public SoNode, public stb::VideoUser
 {
 friend class VideoBackgroundSinkSubscriber;
 
-   SO_NODE_HEADER(SoVideoBackground);
+	SO_NODE_HEADER(SoVideoBackground);
 
    struct VideoBackgroundTexInfo
 {
+	string nameID;
 	GLuint texID;
 	GLenum format;
 	GLint internalFormat;
@@ -77,33 +79,41 @@ friend class VideoBackgroundSinkSubscriber;
 };
 
   public:
-   static void initClass();
+	static void initClass();
 
-   SoVideoBackground();
+	SoVideoBackground();
 
-   virtual ~SoVideoBackground(){}
+	virtual ~SoVideoBackground();
 
-   SoSFString sinkName;
+	SoSFString sinkName;
 
-   bool init();
+	bool init();
 
-   virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
-   virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate=false);
-   virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
+	virtual void vu_init(const openvideo::Buffer& frame, stb::string *givenSinkName);
+	virtual void vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, bool forceUpdate=false);
+	virtual UPDATE_MODE vu_getUpdateMode() const  {  return VideoUser::UPDATE_BEFORE_RENDER;  }
 
 protected:
-   virtual void GLRender(SoGLRenderAction *action);
-   bool createTexture(const openvideo::Buffer& buffer);
-   void updateTexture(const openvideo::Buffer& buffer);
-   virtual void drawTexture();
-   void blitIntoVideoMemory();
+	SoFieldSensor *sinkNameSensor;
+	static void  refreshSinkNameCB(void* data, SoSensor* sensor);
+	void handleChangedSink();
 
-   VideoBackgroundTexInfo*	texInfo;
-   bool						initialized;
+	virtual void GLRender(SoGLRenderAction *action);
+	bool createTexture(const openvideo::Buffer& buffer);
+	void updateTexture(const openvideo::Buffer& buffer);
+	virtual void drawTexture();
+	void blitIntoVideoMemory();
+
+	VideoBackgroundTexInfo*	texInfo;
+	std::vector<VideoBackgroundTexInfo*>texInfos;
+
+	bool						initialized;
 
 #ifdef _IS_KLIMTES_
-   openvideo::BufferSynchronizer* bufferSynchronizer;
+	openvideo::BufferSynchronizer* bufferSynchronizer;
 #endif
+private:
+	GLuint lastTexID;
 };
 
 END_NAMESPACE_STB

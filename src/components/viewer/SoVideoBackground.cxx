@@ -122,9 +122,40 @@ SoVideoBackground::SoVideoBackground()
     SO_NODE_CONSTRUCTOR(SoVideoBackground);
     SO_NODE_ADD_FIELD(sinkName, (""));
 
+	sinkNameSensor = new SoFieldSensor(&SoVideoBackground::refreshSinkNameCB, this);
+
     texInfo = NULL;
     initialized = false;
 
+}
+
+SoVideoBackground::~SoVideoBackground()
+{
+	delete texInfo;
+	for(int i=0;i<texInfos.size();i++) delete texInfos[i];
+	
+}
+
+void  
+SoVideoBackground::refreshSinkNameCB(void* data, SoSensor* sensor)
+{
+	SoVideoBackground *self= (SoVideoBackground *)data;
+	self->handleChangedSink();
+}
+
+void SoVideoBackground::handleChangedSink()
+{
+	for(int i=0;i<texInfos.size();i++)
+	{
+		if( !strcmp(texInfos[i]->nameID.c_str(), sinkName.getValue().getString()) )
+		{
+			texInfo = texInfos[i];
+			logPrintD("SoVideoBackground: changed to sink %s \n", texInfos[i]->nameID.c_str());
+			return;
+		}
+	}
+	logPrintD("SoVideoBackground: create new texture \n");	
+	texInfo=NULL;
 }
 
 
@@ -144,9 +175,9 @@ SoVideoBackground::init()
 	if(Video* video = (Video*)Kernel::getInstance()->getComponentManager()->load("Video"))
 	{
 		video->vp_registerVideoUser(this);
+		sinkNameSensor->attach(&this->sinkName);
 		return true;
 	}
-
     return false;
 }
 
@@ -221,6 +252,9 @@ SoVideoBackground::createTexture(const openvideo::Buffer& buffer)
 #endif
     glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_TEXTURE_2D);
+
+	texInfo->nameID = std::string(sinkName.getValue().getString());
+	texInfos.push_back(texInfo);
 	return true;
 #endif // defined(HAVE_OPENVIDEO)
 
@@ -239,9 +273,12 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 
 
 #if defined(HAVE_OPENVIDEO)
+	// init 1st texture
 	if(!texInfo)
+	{
 		if(!createTexture(buffer))
 			return;
+	}
 
 	if(buffer.getUpdateCounter() != texInfo->updateCtr)
 	{
