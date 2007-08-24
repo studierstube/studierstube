@@ -50,7 +50,9 @@ SoFaderFloatEngine::SoFaderFloatEngine()
     SO_ENGINE_DEFINE_ENUM_VALUE(Styles, PULSE );
 
     // **********   Field Additions
-    SO_ENGINE_ADD_INPUT(signal, (FALSE));
+    SO_ENGINE_ADD_INPUT(signalForward, (FALSE));
+    SO_ENGINE_ADD_INPUT(signalBackward, (FALSE));
+    SO_ENGINE_ADD_INPUT(signalReset, (FALSE));
     SO_ENGINE_ADD_INPUT(fireOn, (TRUE));
     SO_ENGINE_ADD_INPUT(ease, (1));
     SO_ENGINE_ADD_INPUT(duration, (1));
@@ -77,8 +79,14 @@ SoFaderFloatEngine::SoFaderFloatEngine()
     interpolatefloat->alpha.connectFrom(&easein->out);
     in.connectFrom(&interpolatefloat->output);
 
-    signalSensor=new SoFieldSensor(SoFaderFloatEngine::refreshCB, this);
-    signalSensor->attach(&this->signal);
+    signalForwardSensor=new SoFieldSensor(SoFaderFloatEngine::refreshForwardCB, this);
+    signalForwardSensor->attach(&this->signalForward);
+
+    signalBackwardSensor=new SoFieldSensor(SoFaderFloatEngine::refreshBackwardCB, this);
+    signalBackwardSensor->attach(&this->signalBackward);
+
+    signalResetSensor=new SoFieldSensor(SoFaderFloatEngine::refreshResetCB, this);
+    signalResetSensor->attach(&this->signalReset);
 
     fireOnSensor=new SoFieldSensor(SoFaderFloatEngine::fireOnCB, this);
     fireOnSensor->attach(&this->fireOn);
@@ -86,13 +94,43 @@ SoFaderFloatEngine::SoFaderFloatEngine()
 
 SoFaderFloatEngine::~SoFaderFloatEngine()
 {
-    delete [] signalSensor;
+    delete signalForwardSensor;
+    delete signalBackwardSensor;
+    delete signalResetSensor;
 }
 
-void SoFaderFloatEngine::refreshCB(void *data, SoSensor * /*sensor*/)
+void SoFaderFloatEngine::refreshForwardCB(void *data, SoSensor * /*sensor*/)
 {
     SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+    if (self->signalForward.getValue()!=self->fireOn.getValue())
+        return;
+
+    self->interpolatefloat->input0.setValue(self->interpolate0.getValue());
+    self->interpolatefloat->input1.setValue(self->interpolate1.getValue());
+    self->conditional->boolIn.setValue(self->signalForward.getValue());
+    self->in.setValue(self->interpolate0.getValue());
     self->updateEngines();
+}
+
+void SoFaderFloatEngine::refreshBackwardCB(void *data, SoSensor * /*sensor*/)
+{
+    SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+    if (self->signalBackward.getValue()!=self->fireOn.getValue())
+        return;
+
+    self->interpolatefloat->input0.setValue(self->interpolate1.getValue());
+    self->interpolatefloat->input1.setValue(self->interpolate0.getValue());
+    self->in.setValue(self->interpolate1.getValue());
+    self->conditional->boolIn.setValue(self->signalBackward.getValue());
+    self->updateEngines();
+}
+
+void SoFaderFloatEngine::refreshResetCB(void *data, SoSensor * /*sensor*/)
+{
+    SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+    if (self->signalReset.getValue()!=self->fireOn.getValue())
+        return;
+    self->reset();
 }
 
 void SoFaderFloatEngine::fireOnCB(void *data, SoSensor * /*sensor*/)
@@ -101,19 +139,31 @@ void SoFaderFloatEngine::fireOnCB(void *data, SoSensor * /*sensor*/)
     self->conditional->triggerBool=self->fireOn.getValue();
 }
 
+void SoFaderFloatEngine::reset()
+{
+    signalForward.setValue(FALSE);
+    signalBackward.setValue(FALSE);
+    signalReset.setValue(FALSE);
+    conditional->boolIn.setValue(false);
+    conditional->triggerBool=fireOn.getValue();
+    conditional->comparison=SoConditionalTrigger::EQUAL;
+    oneshot->trigger.connectFrom(&conditional->trigger);
+    oneshot->flags=(SoOneShot::RETRIGGERABLE | SoOneShot::HOLD_FINAL);
+    easein->in.connectFrom(&oneshot->ramp);
+    interpolatefloat->alpha.connectFrom(&easein->out);
+    in.setValue(interpolate0.getValue());
+    touch();
+    in.connectFrom(&interpolatefloat->output);
+}
+
 void SoFaderFloatEngine::updateEngines()
 {
-    conditional->boolIn.setValue(signal.getValue());
     oneshot->duration.setValue(duration.getValue());
-    interpolatefloat->input0.setValue(interpolate0.getValue());
-    interpolatefloat->input1.setValue(interpolate1.getValue());
     easein->ease.setValue(ease.getValue());
     easein->style.setValue(style.getValue());
 }
 
 void SoFaderFloatEngine::evaluate()
 {
-    SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(in.getValue()) );
+    SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(in.getValue()));
 }
-
-

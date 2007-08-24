@@ -41,7 +41,7 @@
 #include "starlight.h"
 
 /** 
-@ingroup util
+@ingroup starlight
 @author Erick Mendez
 
 */
@@ -58,7 +58,9 @@ class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
 
      SoSFBitMask style;             // The style of the fading, EASE, LOGARITHMIC or PULSE
      SoSFFloat ease;                // A weight factor
-     SoSFBool signal;               // The trigger signal that starts the engin
+     SoSFBool signalForward;     // The trigger signal that starts the engine from 0 to 1
+     SoSFBool signalBackward;    // The trigger signal that starts the engine from 1 to 0
+     SoSFBool signalReset;       // The trigger signal that tells the output to be set to the interpolate0
      SoSFBool fireOn;               // Whether the engine should start on true or false
      SoSFFloat duration;            // How long should the animation last
      SoSFFloat interpolate0;        // The start value to interpolate
@@ -76,7 +78,9 @@ class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
 
  private:
 
-     SoFieldSensor *signalSensor;
+     SoFieldSensor *signalForwardSensor;
+     SoFieldSensor *signalBackwardSensor;
+     SoFieldSensor *signalResetSensor;
      SoFieldSensor *fireOnSensor;
 
      SoConditionalTrigger *conditional;
@@ -84,10 +88,13 @@ class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
      SoEaseIn *easein;
      SoInterpolateFloat *interpolatefloat;
 
-     static void refreshCB(void* data, SoSensor* sensor);
+     static void refreshForwardCB(void* data, SoSensor* sensor);
+     static void refreshBackwardCB(void* data, SoSensor* sensor);
+     static void refreshResetCB(void* data, SoSensor* sensor);
      static void fireOnCB(void* data, SoSensor* sensor);
 
      void updateEngines();
+     void reset();
 
    // Destructor. Private to keep people from trying to delete
    // nodes, rather than using the reference count mechanism.
