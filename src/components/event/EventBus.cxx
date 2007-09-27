@@ -45,13 +45,19 @@
 #include <stb/components/event/event.h>
 #include <Inventor/fields/SoMFName.h>
 
-EventBus *EventBus::singleton = 0;
+#include <iostream>
+
+EventBus *EventBus::singleton = NULL;
 
 EventBus & EventBus::getSingleton(void)
 {
-	if(!singleton)
-		singleton = new EventBus();
-    return *singleton;
+  using namespace std;
+  if(singleton==NULL)
+    {
+      cerr << "creating new Singleton"<< endl;
+      singleton = new EventBus();
+    }    
+  return *singleton;
 }
 
 EventBus::EventBus(void)
