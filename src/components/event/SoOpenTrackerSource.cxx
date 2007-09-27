@@ -149,7 +149,11 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
     {
 #ifdef USE_OT_2_0
 	std::string configFileString = configFile.getString();
+#ifndef USE_LIVE
 	ot::Configurator * conf = ot::Configurator::instance();
+#else
+	ot::Configurator * conf = ot::Configurator::instance(ot::LIVE);
+#endif
 #  ifdef OT_ENABLE_RECONFIGURATION
 	conf ->runConfigurationThread( configFileString.c_str() );
 #  endif //OT_ENABLE_RECONFIGURATION
@@ -318,8 +322,10 @@ void SoOpenTrackerSource::processEvent( const ot::State * state, const NameStrin
 #endif
     // copy attributes, if present
     if( attributes )
+    {
+   
         std::for_each(attributes->begin(), attributes->end(), Setter(event));
-
+    }
     // publish
     publish( &event );
 }

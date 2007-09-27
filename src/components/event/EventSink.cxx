@@ -37,7 +37,6 @@
 #include <stb/components/event/EventModule.h>
 #include <stb/base/OS.h>
 
-
 #ifdef STB_IS_WINDOWS
 #  pragma warning(disable:4786)
 #endif
@@ -46,7 +45,7 @@
 EventSink::EventSink( EventModule * parent_ ) :
     parent( parent_ )
 {
-    // TODO: walk through the attributes and set them on the event as meta data
+  type="EventSink";
 }
 
 
@@ -62,6 +61,6 @@ int EventSink::isEventGenerator()
     void EventSink::onEventGenerated( ot::Event& event, ot::Node& )
 #endif
 {
-    parent->processEvent( &event, this );
-    updateObservers( event );
+  parent->processEvent( &event, this );
+  updateObservers( event );
 }
