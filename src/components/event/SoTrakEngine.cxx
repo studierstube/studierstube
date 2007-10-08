@@ -53,6 +53,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	
     SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
     SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
+    SO_ENGINE_ADD_INPUT(confidenceIn, (0.0)); //mf
     SO_ENGINE_ADD_INPUT(buttonIn0, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn1, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn2, (FALSE));
@@ -64,6 +65,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 
     SO_ENGINE_ADD_OUTPUT(translation, SoSFVec3f);
     SO_ENGINE_ADD_OUTPUT(rotation, SoSFRotation);
+    SO_ENGINE_ADD_OUTPUT(confidence, SoSFFloat); //mf
     SO_ENGINE_ADD_OUTPUT(button0, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button1, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button2, SoSFBool);
@@ -74,6 +76,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_OUTPUT(button7, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(buttonWrapper, SoSFShort);
 
+
 	buttonHistory0=FALSE;
 	buttonHistory1=FALSE;
 	buttonHistory2=FALSE;
@@ -81,7 +84,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonHistory4=FALSE;
 	buttonHistory5=FALSE;
 	buttonHistory6=FALSE;
-    buttonHistory7=FALSE;
+   buttonHistory7=FALSE;
 
 	buttonChange0=TRUE;
 	buttonChange1=TRUE;
@@ -121,6 +124,11 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
 			SbRotation rot=event->getSFRotation("event.orientation");
 			rotationIn.setValue(rot);
 		}
+      // map confidence
+      if (event->containsKey("event.confidence")){
+         float conf = event->getSFFloat("event.confidence");
+         confidenceIn.setValue(conf);
+      }
 
         short wrapper=0;
         for (int i=0;i<8;i++){
@@ -146,6 +154,7 @@ void SoTrakEngine::evaluate()
 {
 	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
+   SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
 
 	if (!buttonHisteresis.getValue())
 	{
@@ -156,8 +165,8 @@ void SoTrakEngine::evaluate()
 		SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
 		SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
 		SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
-        SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
-        SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(buttonInWrapper.getValue()));
+      SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+      SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(buttonInWrapper.getValue()));
     
     }
 	else  // if Histeresis is on

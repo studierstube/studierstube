@@ -44,6 +44,7 @@
 #include <Inventor/fields/SoMFName.h>
 #include <Inventor/fields/SoMFString.h>
 #include <Inventor/fields/SoSFString.h>
+#include <Inventor/fields/SoSFFloat.h>
 
 #include "SoInputEvent.h"
 
@@ -62,6 +63,7 @@ public:
 	// Engine Input
     SoSFVec3f       translationIn;     // input translation
     SoSFRotation    rotationIn;        // input rotation
+    SoSFFloat       confidenceIn;      // input confidence
     SoSFBool        buttonIn0;         // input button 0
     SoSFBool        buttonIn1;         // input button 1
     SoSFBool        buttonIn2;         // input button 2
@@ -75,6 +77,7 @@ public:
 	// Engine Output
     SoEngineOutput  translation;       // (SoSFVec3f) tracker translation
     SoEngineOutput  rotation;          // (SoSFRotation) tracker rotation
+    SoEngineOutput  confidence;         // (SoSFFloat) confidence value //mf
     SoEngineOutput  button0;           // (SoSFBool) tracker button 0 value
     SoEngineOutput  button1;           // (SoSFBool) tracker button 1 value
     SoEngineOutput  button2;           // (SoSFBool) tracker button 2 value
@@ -110,7 +113,7 @@ private:
 	SbBool        buttonHistory4;      // history of button 4
 	SbBool        buttonHistory5;      // history of button 5
 	SbBool        buttonHistory6;      // history of button 6
-    SbBool        buttonHistory7;      // history of button 7
+   SbBool        buttonHistory7;      // history of button 7
 
 	// Used for detecting button changes 
 	SbBool        buttonChange0;       // Change of button 0
@@ -120,7 +123,7 @@ private:
 	SbBool        buttonChange4;       // Change of button 4
 	SbBool        buttonChange5;       // Change of button 5
 	SbBool        buttonChange6;       // Change of button 6
-    SbBool        buttonChange7;       // Change of button 7
+   SbBool        buttonChange7;       // Change of button 7
 
 };
 
