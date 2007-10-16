@@ -50,9 +50,13 @@ SoFaderFloatEngine::SoFaderFloatEngine()
     SO_ENGINE_DEFINE_ENUM_VALUE(Styles, PULSE );
 
     // **********   Field Additions
+    SO_ENGINE_ADD_INPUT(enable, (FALSE));
     SO_ENGINE_ADD_INPUT(signalForward, (FALSE));
     SO_ENGINE_ADD_INPUT(signalBackward, (FALSE));
     SO_ENGINE_ADD_INPUT(signalReset, (FALSE));
+    SO_ENGINE_ADD_INPUT(triggerForward, (FALSE));
+    SO_ENGINE_ADD_INPUT(triggerBackward, (FALSE));
+    SO_ENGINE_ADD_INPUT(triggerReset, (FALSE));
     SO_ENGINE_ADD_INPUT(fireOn, (TRUE));
     SO_ENGINE_ADD_INPUT(ease, (1));
     SO_ENGINE_ADD_INPUT(duration, (1));
@@ -88,6 +92,15 @@ SoFaderFloatEngine::SoFaderFloatEngine()
     signalResetSensor=new SoFieldSensor(SoFaderFloatEngine::refreshResetCB, this);
     signalResetSensor->attach(&this->signalReset);
 
+    triggerForwardSensor=new SoFieldSensor(SoFaderFloatEngine::refreshForwardCB, this);
+    triggerForwardSensor->attach(&this->triggerForward);
+
+    triggerBackwardSensor=new SoFieldSensor(SoFaderFloatEngine::refreshBackwardCB, this);
+    triggerBackwardSensor->attach(&this->triggerBackward);
+
+    triggerResetSensor=new SoFieldSensor(SoFaderFloatEngine::refreshResetCB, this);
+    triggerResetSensor->attach(&this->triggerReset);
+
     fireOnSensor=new SoFieldSensor(SoFaderFloatEngine::fireOnCB, this);
     fireOnSensor->attach(&this->fireOn);
 }
@@ -97,24 +110,36 @@ SoFaderFloatEngine::~SoFaderFloatEngine()
     delete signalForwardSensor;
     delete signalBackwardSensor;
     delete signalResetSensor;
+    delete triggerForwardSensor;
+    delete triggerBackwardSensor;
+    delete triggerResetSensor;
 }
 
-void SoFaderFloatEngine::refreshForwardCB(void *data, SoSensor * /*sensor*/)
+void SoFaderFloatEngine::refreshForwardCB(void *data, SoSensor * sensor)
 {
     SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+
+    if (!self->enable.getValue()) return;
+
     if (self->signalForward.getValue()!=self->fireOn.getValue())
         return;
 
     self->interpolatefloat->input0.setValue(self->interpolate0.getValue());
     self->interpolatefloat->input1.setValue(self->interpolate1.getValue());
+
     self->conditional->boolIn.setValue(self->signalForward.getValue());
+    self->conditional->boolIn.setValue(true);
+
     self->in.setValue(self->interpolate0.getValue());
     self->updateEngines();
 }
 
-void SoFaderFloatEngine::refreshBackwardCB(void *data, SoSensor * /*sensor*/)
+void SoFaderFloatEngine::refreshBackwardCB(void *data, SoSensor * sensor)
 {
     SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+
+    if (!self->enable.getValue()) return;
+
     if (self->signalBackward.getValue()!=self->fireOn.getValue())
         return;
 
@@ -125,9 +150,12 @@ void SoFaderFloatEngine::refreshBackwardCB(void *data, SoSensor * /*sensor*/)
     self->updateEngines();
 }
 
-void SoFaderFloatEngine::refreshResetCB(void *data, SoSensor * /*sensor*/)
+void SoFaderFloatEngine::refreshResetCB(void *data, SoSensor * sensor)
 {
     SoFaderFloatEngine *self= (SoFaderFloatEngine *)data;
+
+    if (!self->enable.getValue()) return;
+
     if (self->signalReset.getValue()!=self->fireOn.getValue())
         return;
     self->reset();
@@ -165,5 +193,7 @@ void SoFaderFloatEngine::updateEngines()
 
 void SoFaderFloatEngine::evaluate()
 {
+    if (!enable.getValue()) return;
+
     SO_ENGINE_OUTPUT(out, SoSFFloat, setValue(in.getValue()));
 }

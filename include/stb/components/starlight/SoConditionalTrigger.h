@@ -111,6 +111,10 @@ class STARLIGHT_API SoConditionalTrigger : public SoEngine {
     /// A string token that will be copied to tokenOut each time the trigger fires.
     SoSFString token;           
 
+    // Whether to forward the input values
+    SoSFBool forwardInput;
+    // Whether to output regardless of previous state
+    SoSFBool retrigger;
 
     /// fires if the condition changes from false to true
     SoEngineOutput trigger;         
@@ -118,6 +122,8 @@ class STARLIGHT_API SoConditionalTrigger : public SoEngine {
     SoEngineOutput tokenOut;        
     /// current state of condition
     SoEngineOutput boolOut;     
+    /// The incoming value is output if it meets the condition
+    SoEngineOutput intValueOut;     
 
    // Initializes this class for use in scene graphs. This
    // should be called after database initialization and before

@@ -95,7 +95,6 @@ protected:
 	SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
 	SO_KIT_CATALOG_ENTRY_HEADER(coords);
 	SO_KIT_CATALOG_ENTRY_HEADER(faces);
-	SO_KIT_CATALOG_ENTRY_HEADER(shapeHints);
 
 	/// Attaches and detaches the sensors and does a couple of one time operations
     virtual SbBool setUpConnections(SbBool onoff, SbBool doitalways);

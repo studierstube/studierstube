@@ -45,10 +45,9 @@
 
 using namespace std;
 
-#pragma warning(disable:4996)
+//#pragma warning(disable:4996)
 
 SO_KIT_SOURCE(SoStyleTemplate);
-
 
 /*
  * --------------------------------------------------------------------------------

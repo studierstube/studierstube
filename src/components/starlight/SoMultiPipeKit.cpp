@@ -123,9 +123,9 @@ SbBool SoMultiPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 		// We connect AFTER base class.
 		inherited::setUpConnections(onoff, doitalways);
 
-		coordsSensor->attach(&this->coords);
-        radiusSensor->attach(&this->radius);
-        capsSensor->attach(&this->caps);
+		//coordsSensor->attach(&this->coords);
+  //      radiusSensor->attach(&this->radius);
+  //      capsSensor->attach(&this->caps);
 
 		refresh();
 	}
@@ -144,7 +144,7 @@ SbBool SoMultiPipeKit::setUpConnections(SbBool onoff, SbBool doitalways)
 void SoMultiPipeKit::refreshCB(void *data, SoSensor * /*sensor*/)
 {
 	SoMultiPipeKit *tmp= (SoMultiPipeKit *)data;
-	tmp->refresh();
+	//tmp->refresh();
 }
 
 void SoMultiPipeKit::refresh()

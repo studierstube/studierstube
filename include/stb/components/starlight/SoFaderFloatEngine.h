@@ -31,6 +31,7 @@
 #include <Inventor/engines/SoSubEngine.h>
 #include <Inventor/fields/SoSFFloat.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <Inventor/fields/SoSFTrigger.h>
 #include <Inventor/sensors/SoFieldSensor.h>
 #include <Inventor/engines/SoOneShot.h>
 #include <Inventor/engines/SoInterpolateFloat.h>
@@ -56,11 +57,15 @@ class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
          PULSE = 2
      } Styles;
 
+     SoSFBool enable;           
      SoSFBitMask style;             // The style of the fading, EASE, LOGARITHMIC or PULSE
      SoSFFloat ease;                // A weight factor
      SoSFBool signalForward;     // The trigger signal that starts the engine from 0 to 1
      SoSFBool signalBackward;    // The trigger signal that starts the engine from 1 to 0
      SoSFBool signalReset;       // The trigger signal that tells the output to be set to the interpolate0
+     SoSFBool triggerForward;     // The trigger that starts the engine from 0 to 1
+     SoSFBool triggerBackward;    // The trigger that starts the engine from 1 to 0
+     SoSFBool triggerReset;       // The trigger that tells the output to be set to the interpolate0
      SoSFBool fireOn;               // Whether the engine should start on true or false
      SoSFFloat duration;            // How long should the animation last
      SoSFFloat interpolate0;        // The start value to interpolate
@@ -81,6 +86,9 @@ class STARLIGHT_API SoFaderFloatEngine : public SoEngine {
      SoFieldSensor *signalForwardSensor;
      SoFieldSensor *signalBackwardSensor;
      SoFieldSensor *signalResetSensor;
+     SoFieldSensor *triggerForwardSensor;
+     SoFieldSensor *triggerBackwardSensor;
+     SoFieldSensor *triggerResetSensor;
      SoFieldSensor *fireOnSensor;
 
      SoConditionalTrigger *conditional;

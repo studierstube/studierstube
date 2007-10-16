@@ -69,6 +69,9 @@ SoConditionalTrigger::SoConditionalTrigger()
    nodeIn.setNum(0);						// we cant initialize an empty MFField, so we have to use this hack
    SO_ENGINE_ADD_INPUT(triggerIn, ());
 
+   SO_ENGINE_ADD_INPUT(forwardInput, (FALSE));
+   SO_ENGINE_ADD_INPUT(retrigger, (FALSE));
+
 
    SO_ENGINE_ADD_INPUT(triggerAtInit, (false));
    SO_ENGINE_ADD_INPUT(token, (""));
@@ -88,6 +91,7 @@ SoConditionalTrigger::SoConditionalTrigger()
    SO_ENGINE_ADD_OUTPUT(trigger, SoSFTrigger);
    SO_ENGINE_ADD_OUTPUT(tokenOut, SoSFString);
    SO_ENGINE_ADD_OUTPUT(boolOut, SoSFBool);
+   SO_ENGINE_ADD_OUTPUT(intValueOut, SoSFInt32);
 
    triggerNotified = false;
    tempBool = false;
@@ -194,18 +198,29 @@ void SoConditionalTrigger::inputChanged(SoField * whichField)
         if (!any) localC = false;
                 
 	    if (localC) {
-            if (!triggerNotified) {
-				//SoDebugError::postInfo("SoConditionalTrigger::inputChanged()",
-				//		"%s: condition == TRUE -> notify trigger!\n",this->getName().getString());
+            if (!retrigger.getValue())
+            {
+                if (!triggerNotified) {
+				    //SoDebugError::postInfo("SoConditionalTrigger::inputChanged()",
+				    //		"%s: condition == TRUE -> notify trigger!\n",this->getName().getString());
+                    boolOut.enable(TRUE);
+                    trigger.enable(TRUE);
+                    tokenOut.enable(TRUE);
+                    triggerNotified = true;
+                    tempBool = true;
+                }
+                else {
+                    trigger.enable(FALSE);
+                    tokenOut.enable(FALSE);
+                }
+            }
+            else
+            {
                 boolOut.enable(TRUE);
                 trigger.enable(TRUE);
                 tokenOut.enable(TRUE);
                 triggerNotified = true;
                 tempBool = true;
-            }
-            else {
-                trigger.enable(FALSE);
-                tokenOut.enable(FALSE);
             }
 	    }
         else {
@@ -298,13 +313,20 @@ void SoConditionalTrigger::evaluate()
     stringIn.getValues(0);*/
 
 	SO_ENGINE_OUTPUT(boolOut, SoSFBool, setValue(tempBool));
+
 	//SoDebugError::postInfo("SoConditionalTrigger::evaluate()",
 	//		"%s: boolOut: %i",
 	//		this->getName().getString(),tempBool);
 
     if (trigger.isEnabled()) {
+        //printf("About to output ... %d\n", tmp);
         SO_ENGINE_OUTPUT(tokenOut, SoSFString, setValue(token.getValue()));
 	    SO_ENGINE_OUTPUT(trigger, SoSFTrigger, setValue());
+
+        if (forwardInput.getValue())
+        {
+            SO_ENGINE_OUTPUT(intValueOut, SoSFInt32, setValue(intIn[0]));
+        }
 		//SoDebugError::postInfo("SoConditionalTrigger::evaluate()",
 		//		"%s: Token: %s, trigger fired!",
 		//		this->getName().getString(),token.getValue().getString());

@@ -39,7 +39,6 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoCoordinate3.h>
 #include <Inventor/nodes/SoIndexedFaceSet.h>
-#include <Inventor/nodes/SoShapeHints.h>
 #include <stb/components/starlight/SoExtrusionKit.h>
 #include <iostream>
 
@@ -68,7 +67,6 @@ SoExtrusionKit::SoExtrusionKit()
 
 	// This is for the parts of the catalog
 	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,	SoSeparator,		FALSE,	this,			\x0, TRUE);
-	SO_KIT_ADD_CATALOG_ENTRY(shapeHints,	SoShapeHints,		FALSE,	topSeparator,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(coords,		SoCoordinate3,		FALSE,	topSeparator,	\x0, TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(faces,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
 
@@ -83,13 +81,6 @@ SoExtrusionKit::SoExtrusionKit()
     capsSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
     verticesSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
 	extrusionVectorSensor=new SoFieldSensor(SoExtrusionKit::refreshCB, this);
-
-	// Set the appropriate values for faster rendering
-	SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
-	shapeHints->vertexOrdering=SoShapeHints::COUNTERCLOCKWISE;
-	//shapeHints->vertexOrdering=SoShapeHints::UNKNOWN_ORDERING;
-	shapeHints->faceType=SoShapeHints::CONVEX;
-	shapeHints->shapeType=SoShapeHints::SOLID;
 
 	this->setUpConnections(TRUE, TRUE);
 }
@@ -120,11 +111,6 @@ SbBool SoExtrusionKit::setUpConnections(SbBool onoff, SbBool doitalways)
         verticesSensor->attach(&this->vertices);
 		extrusionVectorSensor->attach(&this->extrusionVector);
 
-        if (caps.getValue())
-        {
-            SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
-            shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
-        }
 		refresh();
     }
     else 
@@ -201,10 +187,6 @@ void SoExtrusionKit::refresh()
 
     if (caps.getValue())
     {
-        // We activate this only if we have to render the caps
-        SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
-        shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
-
 	    // Create footprint face
 	    nNextIndex=0;
 	    nNextLimit=nNumberOfVertices;
@@ -224,9 +206,6 @@ void SoExtrusionKit::refresh()
     }
     else
     {
-        SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHints", TRUE));
-        shapeHints->faceType=SoShapeHints::CONVEX;
-
         nNextIndex=0;
         nNextLimit=nNumberOfVertices;
     }

@@ -50,6 +50,7 @@ SoWindowHandling::SoWindowHandling()
     SO_KIT_ADD_FIELD(maximize, ());
     SO_KIT_ADD_FIELD(freezevideo, ());
     SO_KIT_ADD_FIELD(freezetracking, ());
+    SO_KIT_ADD_FIELD(enableFreeze, (FALSE));
     SO_KIT_ADD_FIELD(wildcardKey, (""));
     SO_KIT_ADD_FIELD(wildcardValue, (""));
 
@@ -143,6 +144,8 @@ void SoWindowHandling::wildcardValueCB(void *data, SoSensor *)
 
 void SoWindowHandling::freezevideoCB(void *data, SoSensor *)
 {
+    SoWindowHandling *self= (SoWindowHandling *)data;
+    if (!self->enableFreeze.getValue()) return;
     // freeze the video
     stb::Video* video=(stb::Video*)(stb::Kernel::getInstance()->getComponentManager()->load("Video"));
     video->togglePause();
@@ -152,6 +155,8 @@ void SoWindowHandling::freezetrackingCB(void *data, SoSensor *)
 {
     // freeze the tracking
     SoWindowHandling *self= (SoWindowHandling *)data;
+    if (!self->enableFreeze.getValue()) return;
+
     stb::Event* eventInstance=(stb::Event*)(stb::Kernel::getInstance()->getComponentManager()->load("Event"));
     self->refreshPredicates();
     eventInstance->togglePause();

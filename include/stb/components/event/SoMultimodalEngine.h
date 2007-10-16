@@ -70,7 +70,7 @@ public:
     SoMFString      value;
     
     SoSFString      attrName;           // Name of the attribute to be processed
-    SoSFString      attrType;           // Type of the attribute to be proceesed
+    SoSFString      attrType;           // Type of the attribute to be processed
     SoSFString      attrResetSignal;    // Name of the attribute that will send a signal that resets all other attributes. 
                                         // NOTE: Assumed to be INT
 

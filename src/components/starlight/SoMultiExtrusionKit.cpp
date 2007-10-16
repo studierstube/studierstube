@@ -41,7 +41,6 @@
 #include <stb/components/starlight/SoPipeKit.h>
 #include <Inventor/nodes/SoCoordinate3.h>
 #include <Inventor/nodes/SoIndexedFaceSet.h>
-#include <Inventor/nodes/SoShapeHints.h>
 #include <iostream>
 
 using namespace std;
@@ -70,7 +69,6 @@ SoMultiExtrusionKit::SoMultiExtrusionKit()
 
 	// This is for the parts of the catalog
 	SO_KIT_ADD_CATALOG_ENTRY(topSeparator,		    SoSeparator,		FALSE,	this,	        \x0, TRUE);
-    SO_KIT_ADD_CATALOG_ENTRY(shapeHintsInternal,	SoShapeHints,		FALSE,	topSeparator,	\x0, TRUE);
     SO_KIT_ADD_CATALOG_ENTRY(coordsInternal,		SoCoordinate3,		FALSE,	topSeparator,	\x0, TRUE);
     SO_KIT_ADD_CATALOG_ENTRY(facesInternal,			SoIndexedFaceSet,	FALSE,	topSeparator,	\x0, TRUE);
 
@@ -160,21 +158,6 @@ void SoMultiExtrusionKit::refresh()
 {
     SoCoordinate3 *coords=(SoCoordinate3 *)(this->getPart("coordsInternal", TRUE));
     SoIndexedFaceSet *faces=(SoIndexedFaceSet *)(this->getPart("facesInternal", TRUE));
-
-    SoShapeHints *shapeHints=(SoShapeHints *)(this->getPart("shapeHintsInternal", TRUE));
-    shapeHints->vertexOrdering=SoShapeHints::CLOCKWISE;
-
-    if (doubleSided.getValue())
-        shapeHints->shapeType=SoShapeHints::UNKNOWN_SHAPE_TYPE;
-    else
-        shapeHints->shapeType=SoShapeHints::SOLID;
-
-    // We do this only if we have to render the caps
-    if (caps.getValue())
-        shapeHints->faceType=SoShapeHints::UNKNOWN_FACE_TYPE;
-    else
-        shapeHints->faceType=SoShapeHints::CONVEX;
-
 
     unsigned int k, startIndex, endIndex;
     k=0; startIndex=0;

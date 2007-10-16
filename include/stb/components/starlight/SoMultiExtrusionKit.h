@@ -100,7 +100,6 @@ protected:
 
     /// Parts of the catalog
     SO_KIT_CATALOG_ENTRY_HEADER(topSeparator);
-    SO_KIT_CATALOG_ENTRY_HEADER(shapeHintsInternal);
     SO_KIT_CATALOG_ENTRY_HEADER(coordsInternal);
     SO_KIT_CATALOG_ENTRY_HEADER(facesInternal);
 

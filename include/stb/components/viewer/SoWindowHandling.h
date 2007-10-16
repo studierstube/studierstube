@@ -42,6 +42,7 @@
 */
 #include <Inventor/nodekits/SoBaseKit.h>
 #include <Inventor/fields/SoSFTrigger.h>
+#include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoMFName.h>
 #include <Inventor/fields/SoMFString.h>
 #include <Inventor/sensors/SoFieldSensor.h>
@@ -73,6 +74,7 @@ public:
     SoSFTrigger maximize;
     SoSFTrigger freezevideo;
     SoSFTrigger freezetracking;
+    SoSFBool enableFreeze;
     SoMFName wildcardKey;
     SoMFString wildcardValue;
 
