@@ -50,7 +50,6 @@
 #include <stb/components/event/EventSchema.h>
 
 
-
 void SoOpenTrackerSource::createOTModule(ot::Context * context, void * data){
     stb::logPrintD("SoOpenTrackerSource::CreateOTModule\n");
     SoOpenTrackerSource * self = (SoOpenTrackerSource *) data;
@@ -316,8 +315,8 @@ void SoOpenTrackerSource::processEvent( const ot::State * state, const NameStrin
 			
         }
     }
-    
-    schema.time( state->time / 1000.0 );
+
+    schema.time( state->time );
     
 #endif
     // copy attributes, if present

@@ -45,6 +45,7 @@
 #include <Inventor/fields/SoMFString.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/fields/SoSFFloat.h>
+#include <Inventor/fields/SoSFTime.h>
 
 #include "SoInputEvent.h"
 
@@ -64,6 +65,9 @@ public:
     SoSFVec3f       translationIn;     // input translation
     SoSFRotation    rotationIn;        // input rotation
     SoSFFloat       confidenceIn;      // input confidence
+    SoSFTime       timestampIn;       // input timestamp?
+    //    SoSFBool       buttonIn[8];
+    
     SoSFBool        buttonIn0;         // input button 0
     SoSFBool        buttonIn1;         // input button 1
     SoSFBool        buttonIn2;         // input button 2
@@ -72,6 +76,7 @@ public:
     SoSFBool        buttonIn5;         // input button 5
     SoSFBool        buttonIn6;         // input button 6
     SoSFBool        buttonIn7;         // input button 7
+    
     SoSFBool        buttonInWrapper;   // input button wrapper
 	
 	// Engine Output
@@ -87,7 +92,7 @@ public:
     SoEngineOutput  button6;           // (SoSFBool) tracker button 6 value
     SoEngineOutput  button7;           // (SoSFBool) tracker button 7 value
     SoEngineOutput  buttonWrapper;     // (SoSFShort) wrapper with all the trackers in a mask
-	
+    SoEngineOutput timestamp;          // event timestamp from opentracker
 
     SoTrakEngine(void);
     static void initClass(void);

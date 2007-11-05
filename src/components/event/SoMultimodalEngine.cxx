@@ -109,6 +109,8 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
   buttonChange  = TRUE;
   boolHistory=FALSE;
   boolChange=TRUE;
+
+  this->enableNotify(false);
   
 };
 

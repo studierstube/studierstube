@@ -54,6 +54,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
     SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
     SO_ENGINE_ADD_INPUT(confidenceIn, (0.0)); //mf
+    SO_ENGINE_ADD_INPUT(timestampIn, (0.0)); //eev
     SO_ENGINE_ADD_INPUT(buttonIn0, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn1, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn2, (FALSE));
@@ -66,6 +67,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_OUTPUT(translation, SoSFVec3f);
     SO_ENGINE_ADD_OUTPUT(rotation, SoSFRotation);
     SO_ENGINE_ADD_OUTPUT(confidence, SoSFFloat); //mf
+    SO_ENGINE_ADD_OUTPUT(timestamp, SoSFTime); //eev
     SO_ENGINE_ADD_OUTPUT(button0, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button1, SoSFBool);
     SO_ENGINE_ADD_OUTPUT(button2, SoSFBool);
@@ -84,7 +86,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonHistory4=FALSE;
 	buttonHistory5=FALSE;
 	buttonHistory6=FALSE;
-   buttonHistory7=FALSE;
+	buttonHistory7=FALSE;
 
 	buttonChange0=TRUE;
 	buttonChange1=TRUE;
@@ -95,6 +97,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonChange6=TRUE;
 
     SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(0));
+    this->enableNotify(FALSE);
 }
 
 SoTrakEngine::~SoTrakEngine()
@@ -113,6 +116,7 @@ void SoTrakEngine::inputChanged(SoField* whichField)
 
 void SoTrakEngine::processEvent(SoInputEvent *event)
 {
+
     if (event){
 
 		/// FIXME: Why is the schema not used here? Mendez 20060315
@@ -128,6 +132,11 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
       if (event->containsKey("event.confidence")){
          float conf = event->getSFFloat("event.confidence");
          confidenceIn.setValue(conf);
+      }
+      
+      if (event->containsKey("event.time")){
+	
+	timestampIn.setValue(	((event->getSFTime("event.time")).getValue()));
       }
 
         short wrapper=0;
@@ -148,10 +157,12 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
 
         evaluate();
     }
+
 }
 
 void SoTrakEngine::evaluate() 
 {
+
 	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
    SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
@@ -236,6 +247,7 @@ void SoTrakEngine::evaluate()
         buttonChange7=buttonIn7.getValue();
 
 	}
+
 }
 
 
