@@ -151,7 +151,9 @@ void SoOpenTrackerSource::configChanged( void * data, SoSensor * )
 #ifndef USE_LIVE
 	ot::Configurator * conf = ot::Configurator::instance();
 #else
-	ot::Configurator * conf = ot::Configurator::instance(ot::LIVE);
+	ot::Configurator * conf = ot::Configurator::instance();
+	conf->getContext()->setActivateLive(false);
+	//ot::Configurator * conf = ot::Configurator::instance(ot::LIVE);
 #endif
 #  ifdef OT_ENABLE_RECONFIGURATION
 	conf ->runConfigurationThread( configFileString.c_str() );
