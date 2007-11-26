@@ -50,6 +50,7 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_INPUT(key,(""));
 	SO_ENGINE_ADD_INPUT(value,(""));
 	SO_ENGINE_ADD_INPUT(buttonHisteresis,(FALSE));
+	SO_ENGINE_ADD_INPUT(locked, (FALSE));
 	
     SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
     SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
@@ -154,18 +155,19 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
             }
         }
         buttonInWrapper.setValue(wrapper);
-
-        evaluate();
+		
+		evaluate();
     }
 
 }
 
 void SoTrakEngine::evaluate() 
 {
-
+	if(locked.getValue())return;
+	
 	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
-   SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
+	SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
 
 	if (!buttonHisteresis.getValue())
 	{
@@ -176,10 +178,10 @@ void SoTrakEngine::evaluate()
 		SO_ENGINE_OUTPUT(button4,SoSFBool,setValue(buttonIn4.getValue()));
 		SO_ENGINE_OUTPUT(button5,SoSFBool,setValue(buttonIn5.getValue()));
 		SO_ENGINE_OUTPUT(button6,SoSFBool,setValue(buttonIn6.getValue()));
-      SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
-      SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(buttonInWrapper.getValue()));
+		SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonIn7.getValue()));
+		SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(buttonInWrapper.getValue()));
     
-    }
+	}
 	else  // if Histeresis is on
 	{
 		// Button 0
@@ -238,13 +240,13 @@ void SoTrakEngine::evaluate()
 		}
 		buttonChange6=buttonIn6.getValue();
 
-        // Button 7
-        if ((buttonChange7==FALSE)&&(buttonIn7.getValue()==TRUE))
-        {
-            buttonHistory7=!buttonHistory7;
-            SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonHistory7));
-        }
-        buttonChange7=buttonIn7.getValue();
+		// Button 7
+		if ((buttonChange7==FALSE)&&(buttonIn7.getValue()==TRUE))
+		{
+			buttonHistory7=!buttonHistory7;
+			SO_ENGINE_OUTPUT(button7,SoSFBool,setValue(buttonHistory7));
+		}
+		buttonChange7=buttonIn7.getValue();
 
 	}
 

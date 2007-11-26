@@ -60,6 +60,7 @@ public:
     SoMFString value;
 
 	SoSFBool		buttonHisteresis;  // Flag to allow buttons to depend on their immediate history
+	SoSFBool		locked;
 	
 	// Engine Input
     SoSFVec3f       translationIn;     // input translation
@@ -118,7 +119,7 @@ private:
 	SbBool        buttonHistory4;      // history of button 4
 	SbBool        buttonHistory5;      // history of button 5
 	SbBool        buttonHistory6;      // history of button 6
-   SbBool        buttonHistory7;      // history of button 7
+    SbBool        buttonHistory7;      // history of button 7
 
 	// Used for detecting button changes 
 	SbBool        buttonChange0;       // Change of button 0
@@ -128,7 +129,7 @@ private:
 	SbBool        buttonChange4;       // Change of button 4
 	SbBool        buttonChange5;       // Change of button 5
 	SbBool        buttonChange6;       // Change of button 6
-   SbBool        buttonChange7;       // Change of button 7
+    SbBool        buttonChange7;       // Change of button 7
 
 };
 
