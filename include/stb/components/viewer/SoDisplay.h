@@ -36,6 +36,7 @@
 #include <Inventor/nodes/SoGroup.h>
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/nodes/SoPerspectiveCamera.h>
+
 #include <Inventor/actions/SoGLRenderAction.h> 
 #include <Inventor/sensors/SoTimerSensor.h> 
 #include <Inventor/fields/SoSFInt32.h> 
@@ -45,7 +46,9 @@
 #include <Inventor/fields/SoSFColor.h>
 #include <Inventor/fields/SoMFNode.h>
 #include <Inventor/fields/SoSFNode.h>
+#include <Inventor/fields/SoSFString.h>
 #include <stb/components/viewer/guiDefines.h>
+#include <stb/components/viewer/SoStbCamera.h>
 #include SOGUICOMPONENT_H
 #include <vector>
 #include <stb/base/macros.h>
@@ -60,6 +63,7 @@
 BEGIN_NAMESPACE_STB
 
 class SoStudierstubeViewer;
+
 
 class VIEWER_API SoDisplay : public SoGroup
 {
@@ -113,7 +117,8 @@ public:
         SORTED_LAYERS_BLEND = SoGLRenderAction::SORTED_LAYERS_BLEND
     };
 
-    /** Specifies the position of the upper-left corner of the viewer window.
+	
+	/** Specifies the position of the upper-left corner of the viewer window.
         (in pixels) 
         note: (0,0) is the upper-left corner of the screen.
     */
@@ -207,6 +212,7 @@ public:
 
     /************************************************************************/
     bool find(SoNode *node);
+
 
     /************************************************************************/
     /*                                                                      */

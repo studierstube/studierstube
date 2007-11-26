@@ -41,6 +41,7 @@
 
 BEGIN_NAMESPACE_STB
 
+
 class SoStbCameraControlMode : public SoNode
 {
 SO_NODE_HEADER(SoStbCameraControlMode);

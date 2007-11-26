@@ -43,8 +43,8 @@
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
 #include <stb/components/viewer/SoVideoBackground.h>
-#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 #include <stb/components/viewer/SoViewport.h>
+#include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 
 #include <stb/kernel/SoStbScene.h>
 
@@ -123,6 +123,12 @@ SoTransform*
 SoStbCamera::getTransform()
 {
 	return (SoTransform*)getAnyPart("transform",false,false,false);
+}
+
+SoNode* 
+SoStbCamera::getControlMode()
+{
+	return getAnyPart("controlMode",false,false,false);
 }
 
 bool

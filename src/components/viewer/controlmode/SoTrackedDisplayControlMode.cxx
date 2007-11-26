@@ -59,6 +59,7 @@ SoTrackedDisplayControlMode::SoTrackedDisplayControlMode()
 
 	SO_NODE_ADD_FIELD(displayTrackerKey, (""));
     SO_NODE_ADD_FIELD(displayTrackerValue, (""));
+	SO_NODE_ADD_FIELD(locked, (false));
 }
 
 //----------------------------------------------------------------------------
@@ -91,12 +92,19 @@ SoTrackedDisplayControlMode::activate()
     tre->key.set1Value(0,displayTrackerKey.getValue());
     tre->value.set1Value(0,displayTrackerValue.getValue());
 
-
     stbCamera->getTransform()->translation.connectFrom(&tre->translation);
     stbCamera->getTransform()->rotation.connectFrom(&tre->rotation);
-   //
 
     return true;
+}
+void SoTrackedDisplayControlMode::GLRender(SoGLRenderAction *action)
+{
+	if(locked.getValue())
+	{
+		tre->locked=true;
+	}else{
+		tre->locked=false;
+	}
 }
 
 END_NAMESPACE_STB

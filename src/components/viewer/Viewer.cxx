@@ -145,9 +145,10 @@ Viewer::init()
 
     SoInput myinput;
     if (!myinput.openFile(configFile.c_str())) {
-		logPrintE("can not open file:" + configFile + "\n");
-        SoInput::removeDirectory("./");
-        return false;
+		logPrintW("No display defined yet! \n");
+		SoInput::removeDirectory("./");
+		isInit=true;
+		return isInit;
     }
     SoSeparator *fileRoot=SoDB::readAll(&myinput);
     myinput.closeFile();
@@ -172,14 +173,16 @@ Viewer::init()
             SoDisplay *display =(SoDisplay *)paths[i]->getTail();
             // add content to display
             addSoDisplay(display);
+
             Kernel::getInstance()->getSceneManager()->setDisplay(display);
             // add display to kernel's scenemanager
         }
     }
-   fileRoot->unref();
+    fileRoot->unref();
 
-   isInit=true;
-   return isInit;
+   
+    isInit=true;
+    return isInit;
 }
 
 void
@@ -197,7 +200,7 @@ Viewer::setParameter(string key, std::string value)
 void
 Viewer::addSoDisplay(SoDisplay* dsp)
 {
-    displayList.push_back(dsp);
+	displayList.push_back(dsp);
 }
 
 void
@@ -218,6 +221,7 @@ Viewer::findSoDisplay(SoNode* node)
     }
     return NULL;
 }
+
 
 /// Called before the application is destructed.
 void

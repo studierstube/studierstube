@@ -105,6 +105,7 @@ public:
 
     SoSFMatrix matrix;
 
+
 public:
     /** Inventor class initialization */
 	static void	initClass();

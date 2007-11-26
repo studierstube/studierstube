@@ -95,6 +95,7 @@ SoOffAxisZoomCamera::SoOffAxisZoomCamera()
 	SO_NODE_ADD_FIELD(eyepointPosition, (0.0f,0.0f,1.0f));
     // pre-warping matrix for oblique tiled projection
     SO_NODE_ADD_FIELD(matrix, (1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1));
+
 	orientation.setValue(SbVec3f(0,0,1), 0);
 	nearDistance = 0.16f;
 	// position of projection plane in world space

@@ -77,6 +77,11 @@ public:
 	*	Return the SoStbCamera's transform node.
 	*/
 	SoTransform* getTransform();
+
+	/** 
+	*	Return the SoStbCamera's control mode node.
+	*/
+	SoNode* getControlMode();
 	
     bool activate();
 

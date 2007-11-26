@@ -67,6 +67,7 @@ SoDisplay::SoDisplay()
     
     SO_NODE_ADD_FIELD(sceneGraph, (NULL));    
     //////// StudierstubeViewer Configurations
+	//SO_NODE_ADD_FIELD(name, ("")); 
     SO_NODE_ADD_FIELD(xoffset, (0)); 
     SO_NODE_ADD_FIELD(yoffset, (0)); 
     SO_NODE_ADD_FIELD(width, (640)); 
@@ -141,6 +142,9 @@ SoDisplay::createViewer()
     displayRoot=new SoSeparator();
     this->addChild(displayRoot);
 
+	// set this displays name
+	//this->setName( SbName(name.getValue()) );
+
 	// on wince, the viewport is (for whatever reason) not correctly set up -- 20060914 flo
 #ifdef STB_IS_WINCE
 	SoViewport * viewport = new SoViewport();
@@ -153,13 +157,14 @@ SoDisplay::createViewer()
         displayRoot->addChild(examCam);
     }
     if(sceneGraph.getValue()){
-        displayRoot->addChild(sceneGraph.getValue());
+		displayRoot->addChild(sceneGraph.getValue());
     }
 
     ////////////////////////////////////////
     // create StudierstubeViewer
     ////////////////////////////////////////
     viewer=new SoStudierstubeViewer(NULL);
+
     if (quadBuffering.getValue())
     {
         viewer->setQuadBufferStereo(true);
@@ -211,6 +216,15 @@ SoDisplay::createViewer()
     //////////////////////////////////////////
     ////  Configure  StudierstubeViewer 
     //////////////////////////////////////////
+
+	//windowBorder
+	//viewer->setWindowDecoration(windowBorder.getValue());
+	//if (!windowBorder.getValue())
+	//	flags|=Qt::FramelessWindowHint;
+
+	//set chosen flags for qt window
+	//mainWin->setWindowFlags(flags);
+
     ////windowDecoreation
     viewer->setWindowDecoration(windowBorder.getValue());
     if( viewer->isDecoration() != decoration.getValue())
@@ -289,6 +303,7 @@ SoDisplay::getViewer()
     return this->viewer;
 }
 
+
 SoPerspectiveCamera* 
 SoDisplay::getReferenceCamera()
 {
@@ -303,7 +318,7 @@ SoDisplay::find(SoNode *node)
     sAction.reset();
     sAction.SoSearchAction::setNode(node);
     sAction.setSearchingAll(TRUE);
-    sAction.apply((SoSeparator*)displayRoot);
+    sAction.apply(displayRoot);
     SoPath *path = sAction.getPath();
     if(path==NULL){
         return false;
@@ -316,15 +331,30 @@ SoDisplay::findType(const SoType type)
 {
 	SoSearchAction sAction;
 	sAction.reset();
-	sAction.SoSearchAction::setType(type);
+	sAction.setType(type);
 	sAction.setSearchingAll(TRUE);
-	sAction.apply((SoSeparator*)displayRoot);
+	sAction.apply( ((SoStudierstubeViewer*)viewer)->getSceneGraph() );
 	SoPath *path = sAction.getPath();
 	if(path!=NULL){
 		return sAction.getNode();
 	}  
 	return false;
 }
+
+//void
+//SoDisplay::findStbCameras(SoPathList & list)
+//{
+//	SoType testType = SoStbCamera::getClassTypeId();
+//	SoType testType2 = SoDisplay::getClassTypeId();
+//	
+//	SoSearchAction sAction;
+//	sAction.reset();
+//	sAction.setType(SoStbCamera::getClassTypeId());
+//	sAction.setSearchingAll(TRUE);
+//	sAction.apply( ((SoStudierstubeViewer*)viewer)->getSceneGraph() );
+//	list = sAction.getPaths();
+//}
+
 
 END_NAMESPACE_STB
 
