@@ -1,5 +1,5 @@
 FILE(GLOB stbvideo_SOURCES *.cpp *.cxx)
-INCLUDE_DIRECTORIES(../../include)
+INCLUDE_DIRECTORIES(../../../include)
 
 # Coin:
 INCLUDE_DIRECTORIES(${COIN_INCLUDE_DIR})
