@@ -103,3 +103,4 @@ protected:
 
 
 #endif //_SOSTYLEPROPERTY_H_
+

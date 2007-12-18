@@ -113,3 +113,4 @@ protected:
 
 
 #endif //_SOSTYLEMAP_H_
+

@@ -52,7 +52,7 @@
 #    define STB_IS_DEBUG
 #  endif
 
-#elif defined(LINUX)
+#elif defined(LINUX) || defined(__linux__)
 
 #  define STB_IS_LINUX
 
@@ -62,7 +62,7 @@
 
 #else
 
-#  pragma error("unknown OS!!!")
+#  error("unknown OS!!!")
 
 #endif
 

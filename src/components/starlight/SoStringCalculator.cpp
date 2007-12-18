@@ -78,7 +78,7 @@ void SoStringCalculator::inputChanged(SoField *whichField)
         std::string exp;
         int index;
         int i;
-        unsigned int marker1=0,marker2=0;
+	std::string::size_type marker1=0,marker2=0;
         bool isOutputVar=false;
         bool isTempVar=false;
         SbStringList *inputVar;
@@ -225,7 +225,7 @@ void SoStringCalculator::evaluate()
 
 bool SoStringCalculator::parseExpression(std::string exp,SbStringList *inputVar,SbIntList *index0,SbIntList *index1)
 {
-    unsigned int marker0=0,marker1=0;
+    std::string::size_type marker0=0,marker1=0;
     int id0=-1,id1=-1;
     SbString *str=NULL;
     

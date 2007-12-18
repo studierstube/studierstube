@@ -200,7 +200,7 @@ void EventSource::checkForNodes()
 
 SoField * EventSource::getFieldByName( const string & longName )
 {
-    unsigned int pos = (unsigned int) longName.find_first_of('.');
+    string::size_type pos = (unsigned int) longName.find_first_of('.');
     if( pos != string::npos )
     {
         string nodeName = longName.substr(0,pos);

@@ -1,6 +1,6 @@
-Summary:	Studierstube - The Augmented Reality Environment
-Name:		studierstube
-Version:	4.0
+Summary:	${STB4_PROJECT_DESCRIPTION}
+Name:		${CPACK_PACKAGE_NAME}
+Version:	${CPACK_PACKAGE_VERSION}
 Release:	%(date '+%Y%m%d')
 License:	GPL
 Group:		Development/Libraries
@@ -14,6 +14,7 @@ Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt >= 1.4.0
 BuildRequires:	scons >= 0.96.92 ICGBuilder tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel >= 1.4.0 graphviz doxygen
 
 %define _prefix %{prefix}
+%define build_type RelMinSize
 
 %description
 STUDIERSTUBE is a leading framework for the development of mobile,
@@ -25,19 +26,28 @@ at Graz University of Technology.
 %prep
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 %setup
+sed -i 's/\@\@/\@/g' stb4.pc.in
 
 %build
-scons PREFIX=%{_prefix} LIBDIR=%{_libdir} ENABLE_OPENVIDEO=1
+cmake \
+-DCMAKE_BUILD_TYPE:STRING=%{build_type} \
+-DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+-DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
+.
+make
+#make doc
+#scons PREFIX=%{_prefix} LIBDIR=%{_libdir} ENABLE_OPENVIDEO=1
 cd doc
 doxygen studierstube_v4.dox
 
 %install
-scons --cache-disable DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
+DESTDIR=$RPM_BUILD_ROOT make install
+#scons --cache-disable DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} LIBDIR=%{_libdir} install
 mkdir -p $RPM_BUILD_ROOT/%{_docdir}/studierstube
 cp -a doc/doc/html $RPM_BUILD_ROOT/%{_docdir}/studierstube
 
 %clean
-scons -c
+make clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %files

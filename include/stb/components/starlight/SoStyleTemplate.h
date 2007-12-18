@@ -114,3 +114,5 @@ protected:
 
 
 #endif //_SOSTYLETEMPLATE_H_
+
+
