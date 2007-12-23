@@ -255,7 +255,7 @@ void EventModule::init(StringTable& attributes, ConfigNode * localTree)
 
 // creates a new StbKeyboardSource node
 
-Node * EventModule::createNode( const string& name,  StringTable& attributes)
+Node * EventModule::createNode( const string& name,  const StringTable& attributes)
 {
     if( name.compare("EventKeyboardSource") == 0 )
     {

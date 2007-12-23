@@ -282,7 +282,7 @@ public:
      * @param attributes StringMap containing the attribute values
      * @return a new StbSink node or NULL
      */
-    virtual ot::Node * createNode( const std::string& name,  ot::StringTable& attributes);
+    virtual ot::Node * createNode( const std::string& name,  const ot::StringTable& attributes);
 
     /**
      * checks the console for keyboard input and updates any
