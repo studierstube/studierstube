@@ -40,6 +40,9 @@ INSTALL(FILES stb4.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 CONFIGURE_FILE(studierstube.spec.in studierstube.spec)
 
+# testing using CTest/Dart:
+INCLUDE(CTest)
+
 # make FindOpentracker.cmake!!
 SET(OPENTRACKER_INCLUDE_DIR /usr/include/OpenTracker)
 SET(OPENTRACKER_LIBRARY -lopentracker)
@@ -133,4 +136,4 @@ SET(CPACK_SOURCE_IGNORE_FILES ${CPACK_IGNORE_FILES})
 SET(CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION})
 INCLUDE(CPack)
 ADD_CUSTOM_TARGET(dist COMMAND make clean && make package_source)
-ADD_CUSTOM_TARGET(clean-all COMMAND find \\\( -name CMakeFiles -or -name CMakeCache.txt -or -name Makefile -or -name '*.cmake' -or -name _CPack_Packages -or -name '*~' \\\) -prune -exec rm -rf {} '\;')
+ADD_CUSTOM_TARGET(clean-all COMMAND find \\\( -name CMakeFiles -or -name CMakeCache.txt -or -name Makefile -or -name DartTestfile.txt -or -name 'CPack*.cmake' -or -name _CPack_Packages -or -name '*~' \\\) -prune -exec rm -rf {} '\;')
