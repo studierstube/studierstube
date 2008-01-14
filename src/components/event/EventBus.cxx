@@ -54,8 +54,8 @@ EventBus & EventBus::getSingleton(void)
   using namespace std;
   if(singleton==NULL)
     {
-      cerr << "creating new Singleton"<< endl;
-      singleton = new EventBus();
+		stb::logPrintD("creating new Singleton\n");
+		singleton = new EventBus();
     }    
   return *singleton;
 }
