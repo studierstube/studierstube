@@ -217,7 +217,13 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
             
 #ifdef USE_SOQT
 #if (QT_VERSION > 0x040000)
-	std::cerr << "QT4 version to be implemented ..." << std::endl;
+	QWidget * w = this->getShellWidget();
+	 if (w == NULL) w = this->getParentWidget();
+	 if (w == NULL) w = this->getWidget();
+	 if (w) {
+	   w->setWindowState(w->windowState() & ~Qt::WindowFullScreen); 
+	 }
+
 #else
         this->getParentWidget()->reparent(this->getParentWidget()->parentWidget(), 
                                 Qt::WStyle_Customize|Qt::WStyle_NormalBorder,
@@ -235,7 +241,13 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
 
 #ifdef USE_SOQT
 #if (QT_VERSION > 0x040000)
-	std::cerr << "QT4 version to be implemented ..." << std::endl;
+	QWidget * w = this->getShellWidget();
+	 if (w == NULL) w = this->getParentWidget();
+	 if (w == NULL) w = this->getWidget();
+	 if (w) {
+	   w->setWindowState(w->windowState() | Qt::WindowFullScreen); 
+	 }
+
 #else
             this->getParentWidget()->reparent(this->getParentWidget()->parentWidget(), 
                                               Qt::WStyle_Customize|Qt::WStyle_NoBorder,
