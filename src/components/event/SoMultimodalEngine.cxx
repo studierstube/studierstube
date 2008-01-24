@@ -79,10 +79,10 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
 
   /* just in case 
   SO_ENGINE_ADD_INPUT( imageIn, (0));
-  SO_ENGINE_ADD_INPUT(  image3In, (0));
+  SO_ENGINE_ADD_INPUT(  image3In, (0));*/
   SbMatrix identity;
   identity.makeIdentity();
-  SO_ENGINE_ADD_INPUT( matrixIn, (identity)); */
+  SO_ENGINE_ADD_INPUT( matrixIn, (identity)); 
 
 
   // define output fields specifying types
@@ -102,8 +102,8 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
 
   /* just in case 
   SO_ENGINE_ADD_OUTPUT( imageValue,   SoSFImage);
-  SO_ENGINE_ADD_OUTPUT( image3Value,   SoSFImage3);
-  SO_ENGINE_ADD_OUTPUT( matrixValue,   SoSFMatrix); */
+  SO_ENGINE_ADD_OUTPUT( image3Value,   SoSFImage3); */
+  SO_ENGINE_ADD_OUTPUT( matrixValue,   SoSFMatrix);
 
   buttonHistory = FALSE;
   buttonChange  = TRUE;
@@ -148,6 +148,8 @@ void SoMultimodalEngine::evaluate() {
             ushortIn.getValue()));
 	     SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
             mffloatIn));
+		 SO_ENGINE_OUTPUT(matrixValue, SoSFMatrix, setValue(
+			 matrixIn.getValue()));
     }
     else
     {
@@ -183,7 +185,9 @@ void SoMultimodalEngine::evaluate() {
             ushortIn.getValue()));
         SO_ENGINE_OUTPUT(mffloatValue, SoMFFloat, copyFrom(
             mffloatIn));
-    }
+		SO_ENGINE_OUTPUT(matrixValue, SoSFMatrix, setValue(
+			matrixIn.getValue()));
+	}
 
 };
 void SoMultimodalEngine::inputChanged(SoField * whichField){
@@ -300,6 +304,14 @@ void SoMultimodalEngine::processEvent(SoInputEvent *event)
 	    evaluate();
 	  }
 	} else if (attrType.getValue() == "matrix"){
+		if (event->isOfType(key, typeid(std::vector<float>))){
+			const std::vector<float> &vec = event->getVector(key);
+			matrixIn.setValue(vec[0],vec[1],vec[2],vec[3],
+							  vec[4], vec[5],vec[6],vec[7],
+							  vec[8],vec[9],vec[10],vec[11],
+							  vec[12],vec[13],vec[14],vec[15]);
+			evaluate();
+		}
 	  
 	} else if (attrType.getValue() == "image"){
 	  

@@ -30,6 +30,7 @@
 #include <stb/components/starlight/SoNodeContextReport.h>
 #include <stb/components/starlight/SoNodeToName.h>
 #include <stb/components/starlight/SoRoute.h>
+#include <stb/components/starlight/SoRouteDB.h>
 #include <stb/components/starlight/SoSFFieldContainer.h>
 #include <stb/components/starlight/SoStencilBuffer.h>
 #include <stb/components/starlight/SoStringCalculator.h>
@@ -56,6 +57,7 @@
 #include <stb/components/starlight/SoStyleTemplate.h>
 #include <stb/components/starlight/SoStyledSubgraph.h>
 #include <stb/components/starlight/SoStyleProperty.h>
+#include <stb/components/starlight/SoTimeOut.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -118,6 +120,7 @@ Starlight::init(void)
     SoNodeContextReport::initClass();
     SoNodeToName::initClass();
     SoRoute::initClass();
+	SoRouteDB::initClass();
     SoSFFieldContainer::initClass();
     SoStencilBuffer::initClass();
     SoStringCalculator::initClass();
@@ -148,6 +151,7 @@ Starlight::init(void)
     SoCapsule::initClass();
 	SoCommand::initClass();
     SoSetName::initClass();
+	SoTimeOut::initClass();
 
     return isInit;
 }
