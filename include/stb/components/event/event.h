@@ -68,6 +68,7 @@
 */
 class SoTrakEngine;
 class SoMultimodalEngine;
+class SoColorBlobTrakEngine;
 class SoTrackedArtifactKit;
 class SoTrakEngine;
 class SoOpenTrackerSource;
@@ -106,6 +107,7 @@ public:
 
     virtual SoTrakEngine*           createSoTrakEngine();
 	virtual SoMultimodalEngine*		createSoMultimodalEngine();
+    virtual SoColorBlobTrakEngine*  createSoColorBlobTrakEngine();
     virtual SoTrackedArtifactKit*   createSoTrackedArtifactKit();
     virtual SoOpenTrackerSource*    createSoOpenTrackerSource();
     virtual SoEventGroup*           createSoEventGroup();

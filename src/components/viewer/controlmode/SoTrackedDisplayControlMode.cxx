@@ -99,12 +99,12 @@ SoTrackedDisplayControlMode::activate()
 }
 void SoTrackedDisplayControlMode::GLRender(SoGLRenderAction *action)
 {
-	if(locked.getValue())
-	{
-		tre->locked=true;
-	}else{
-		tre->locked=false;
-	}
+    if(locked.getValue()&&tre!=NULL)
+    {
+        tre->locked.setValue(true);
+    }else{
+        tre->locked.setValue(false);
+    }
 }
 
 END_NAMESPACE_STB

@@ -47,6 +47,7 @@
 #include <stb/components/event/SoTrackedArtifactKit.h>
 #include <stb/components/event/SoTrakEngine.h>
 #include <stb/components/event/SoMultimodalEngine.h>
+#include <stb/components/event/SoColorBlobTrakEngine.h>
 #include <stb/components/event/EventBus.h>
 #include <stb/kernel/ComponentManager.h>
 #include <stb/components/starlight/starlight.h>
@@ -157,6 +158,7 @@ Event::init()
         return false;
     }
 #endif
+    SoColorBlobTrakEngine::initClass();
 	SoMultimodalEngine::initClass();
     SoTrakEngine::initClass();
     SoTrackedArtifactKit::initClass();
@@ -248,6 +250,12 @@ SoMultimodalEngine*
 Event::createSoMultimodalEngine()
 {
 	return new SoMultimodalEngine();
+}
+
+SoColorBlobTrakEngine*
+Event::createSoColorBlobTrakEngine()
+{
+    return new SoColorBlobTrakEngine();
 }
 
 SoTrackedArtifactKit* 
