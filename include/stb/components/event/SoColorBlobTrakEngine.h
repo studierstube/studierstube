@@ -67,7 +67,7 @@ public:
 	// Engine Input
     SoSFVec3f       translationIn;     // input translation
     SoSFRotation    rotationIn;        // input rotation
-    SoSFVec3f       scaleFactorIn;           // input scale
+    SoSFVec3f       scaleFactorIn;     // input scale
     SoSFShort       objectIdIn;        // input objectID
     SoSFFloat       confidenceIn;      // input confidence
     SoSFTime        timestampIn;       // input timestamp?
@@ -135,6 +135,8 @@ private:
 	SbBool        buttonChange5;       // Change of button 5
 	SbBool        buttonChange6;       // Change of button 6
     SbBool        buttonChange7;       // Change of button 7
+
+    int lastObjectId;
 
 };
 

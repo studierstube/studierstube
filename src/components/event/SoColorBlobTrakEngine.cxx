@@ -101,6 +101,8 @@ SoColorBlobTrakEngine::SoColorBlobTrakEngine(void) : adapter(NULL)
 	buttonChange5=TRUE;
 	buttonChange6=TRUE;
 
+    lastObjectId = -1;
+
     SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(0));
     this->enableNotify(FALSE);
 }
@@ -172,11 +174,18 @@ void SoColorBlobTrakEngine::processEvent(SoInputEvent *event)
 void SoColorBlobTrakEngine::evaluate() 
 {
 	if(locked.getValue())return;
-	
-	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
+    
+    SoSFVec3f switchYZaxis;
+    switchYZaxis.setValue(translationIn.getValue()[0],translationIn.getValue()[2],translationIn.getValue()[1]);
+    
+	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(switchYZaxis.getValue()));
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
     SO_ENGINE_OUTPUT(scaleFactor,SoSFVec3f,setValue(scaleFactorIn.getValue()));
-    SO_ENGINE_OUTPUT(objectId,SoSFShort,setValue(objectIdIn.getValue()));
+    if(objectIdIn.getValue()!=lastObjectId){
+        SO_ENGINE_OUTPUT(objectId,SoSFShort,setValue(objectIdIn.getValue()));
+        lastObjectId = objectIdIn.getValue();
+    }
+    
 	SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
 
 	if (!buttonHisteresis.getValue())
