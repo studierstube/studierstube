@@ -76,6 +76,7 @@ public:
 
     SoSFBool        histeresis;   // Flag to allow buttons to depend on their immediate history
     SoSFBool        calculateAccumulatedPosition;
+    SoSFInt32		disable;
 	
 	// Engine Input
     SoSFVec3f       vec3fIn;            // input vec3f

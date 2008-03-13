@@ -58,6 +58,7 @@ SoMultimodalEngine::SoMultimodalEngine(): adapter(NULL)
   SO_ENGINE_ADD_INPUT(value,(""));
   SO_ENGINE_ADD_INPUT(histeresis,(FALSE));
   SO_ENGINE_ADD_INPUT(calculateAccumulatedPosition,(FALSE));
+  SO_ENGINE_ADD_INPUT(disable,(0));
 
   // define input fields
   SO_ENGINE_ADD_INPUT( attrName, (""));
@@ -122,6 +123,8 @@ SoMultimodalEngine::~SoMultimodalEngine(){
 
 void SoMultimodalEngine::evaluate() {
 	//printf("SOMULTIMODALENGINE::EVALUATE evaluating station%d, attr %s\n", station.getValue(), ((attrName.getValue()).getString()));
+	//printf("DISABLE = %d\n",disable.getValue());
+	//if (disable.getValue()) return;
 
     if (!histeresis.getValue())
     {
@@ -192,6 +195,9 @@ void SoMultimodalEngine::evaluate() {
 };
 void SoMultimodalEngine::inputChanged(SoField * whichField){
   //printf("SOMULTIMODALENGINE::INPUTCHANGED \n");
+	//printf("DISABLE = %d\n",disable.getValue());
+	//if (disable.getValue()) return;
+
     if (whichField==&key || whichField==&value){
         delete adapter;
         adapter=new EventAdapter<SoMultimodalEngine>(this);
@@ -200,6 +206,9 @@ void SoMultimodalEngine::inputChanged(SoField * whichField){
 
 void SoMultimodalEngine::processEvent(SoInputEvent *event)
 {
+	//printf("DISABLE = %d\n",disable.getValue());
+	//if (disable.getValue()) return;
+
     if (event){
       SbString key = attrName.getValue();
      

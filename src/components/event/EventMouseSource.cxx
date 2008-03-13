@@ -149,6 +149,28 @@ state.button &= 0xfffb;
             changed = true;
         }
 
+
+        else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON4))
+        {
+			if (!(state.getButton()&8))
+				state.getButton() |= 8;
+			else
+		        state.getButton() &= 0xfff7;
+            state.timeStamp();
+            changed = true;
+        }
+        else if( SoMouseButtonEvent::isButtonPressEvent(&event,SoMouseButtonEvent::BUTTON5))
+        {
+			if (!(state.getButton()&16))
+	            state.getButton() |= 16;
+			else
+		        state.getButton() &= 0xffef;
+            state.timeStamp();
+            changed = true;
+        }
+
+
+/*
 #ifdef __COIN__
         // if Button 4 or 5 are pressed (usually mousewheel interaction)
         // modify the Z-Axis accordingly.
@@ -175,5 +197,6 @@ state.position[2] += 0.1f;
             changed = true;
         }
 #endif
+*/
     }
 }
