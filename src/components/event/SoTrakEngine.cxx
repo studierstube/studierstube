@@ -54,6 +54,8 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	
     SO_ENGINE_ADD_INPUT(translationIn, (0,0,0));
     SO_ENGINE_ADD_INPUT(rotationIn, (0,0,0,1));
+    SO_ENGINE_ADD_INPUT(scaleFactorIn, (1,1,1));
+    SO_ENGINE_ADD_INPUT(objectIdIn, (-1));
     SO_ENGINE_ADD_INPUT(confidenceIn, (0.0)); //mf
     SO_ENGINE_ADD_INPUT(timestampIn, (0.0)); //eev
     SO_ENGINE_ADD_INPUT(buttonIn0, (FALSE));
@@ -64,9 +66,13 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
     SO_ENGINE_ADD_INPUT(buttonIn5, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn6, (FALSE));
     SO_ENGINE_ADD_INPUT(buttonIn7, (FALSE));
+    SO_ENGINE_ADD_INPUT(exchangeYZ, (FALSE));
+    
 
     SO_ENGINE_ADD_OUTPUT(translation, SoSFVec3f);
     SO_ENGINE_ADD_OUTPUT(rotation, SoSFRotation);
+    SO_ENGINE_ADD_OUTPUT(scaleFactor, SoSFVec3f);
+    SO_ENGINE_ADD_OUTPUT(objectId, SoSFShort);
     SO_ENGINE_ADD_OUTPUT(confidence, SoSFFloat); //mf
     SO_ENGINE_ADD_OUTPUT(timestamp, SoSFTime); //eev
     SO_ENGINE_ADD_OUTPUT(button0, SoSFBool);
@@ -96,6 +102,8 @@ SoTrakEngine::SoTrakEngine(void) : adapter(NULL)
 	buttonChange4=TRUE;
 	buttonChange5=TRUE;
 	buttonChange6=TRUE;
+
+    lastObjectId = -1;
 
     SO_ENGINE_OUTPUT(buttonWrapper,SoSFShort,setValue(0));
     this->enableNotify(FALSE);
@@ -129,6 +137,14 @@ void SoTrakEngine::processEvent(SoInputEvent *event)
 			SbRotation rot=event->getSFRotation("event.orientation");
 			rotationIn.setValue(rot);
 		}
+        if (event->containsKey("event.scaleFactor")){
+            SbVec3f scl=event->getSFVec3f("event.scaleFactor");
+            scaleFactorIn.setValue(scl);
+        }
+        if (event->containsKey("event.objectid")){
+            int oid=event->getSFShort("event.objectid");
+            objectIdIn.setValue(oid);
+        }
       // map confidence
       if (event->containsKey("event.confidence")){
          float conf = event->getSFFloat("event.confidence");
@@ -165,8 +181,20 @@ void SoTrakEngine::evaluate()
 {
 	if(locked.getValue())return;
 	
-	SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
+    if(exchangeYZ.getValue())
+    {
+        SoSFVec3f switchYZaxis;
+        switchYZaxis.setValue(translationIn.getValue()[0],translationIn.getValue()[2],translationIn.getValue()[1]);
+        SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(switchYZaxis.getValue()));
+    }else{
+        SO_ENGINE_OUTPUT(translation,SoSFVec3f,setValue(translationIn.getValue()));
+    }
 	SO_ENGINE_OUTPUT(rotation,SoSFRotation,setValue(rotationIn.getValue()));
+    SO_ENGINE_OUTPUT(scaleFactor,SoSFVec3f,setValue(scaleFactorIn.getValue()));
+    if(objectIdIn.getValue()!=lastObjectId){
+        SO_ENGINE_OUTPUT(objectId,SoSFShort,setValue(objectIdIn.getValue()));
+        lastObjectId = objectIdIn.getValue();
+    }
 	SO_ENGINE_OUTPUT(confidence,SoSFFloat,setValue(confidenceIn.getValue()));
 
 	if (!buttonHisteresis.getValue())

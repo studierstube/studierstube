@@ -65,8 +65,10 @@ public:
 	// Engine Input
     SoSFVec3f       translationIn;     // input translation
     SoSFRotation    rotationIn;        // input rotation
+    SoSFVec3f       scaleFactorIn;     // input scale
+    SoSFShort       objectIdIn;        // input objectID
     SoSFFloat       confidenceIn;      // input confidence
-    SoSFTime       timestampIn;       // input timestamp?
+    SoSFTime        timestampIn;       // input timestamp?
     //    SoSFBool       buttonIn[8];
     
     SoSFBool        buttonIn0;         // input button 0
@@ -79,11 +81,15 @@ public:
     SoSFBool        buttonIn7;         // input button 7
     
     SoSFBool        buttonInWrapper;   // input button wrapper
+
+    SoSFBool        exchangeYZ;        // exchange of Y and Z axis
 	
 	// Engine Output
     SoEngineOutput  translation;       // (SoSFVec3f) tracker translation
     SoEngineOutput  rotation;          // (SoSFRotation) tracker rotation
-    SoEngineOutput  confidence;         // (SoSFFloat) confidence value //mf
+    SoEngineOutput  scaleFactor;       // (SoSFVec3f) tracker scale
+    SoEngineOutput  objectId;          // (SoSFShort) objectID
+    SoEngineOutput  confidence;        // (SoSFFloat) confidence value //mf
     SoEngineOutput  button0;           // (SoSFBool) tracker button 0 value
     SoEngineOutput  button1;           // (SoSFBool) tracker button 1 value
     SoEngineOutput  button2;           // (SoSFBool) tracker button 2 value
@@ -93,7 +99,7 @@ public:
     SoEngineOutput  button6;           // (SoSFBool) tracker button 6 value
     SoEngineOutput  button7;           // (SoSFBool) tracker button 7 value
     SoEngineOutput  buttonWrapper;     // (SoSFShort) wrapper with all the trackers in a mask
-    SoEngineOutput timestamp;          // event timestamp from opentracker
+    SoEngineOutput  timestamp;         // event timestamp from opentracker
 
     SoTrakEngine(void);
     static void initClass(void);
@@ -130,7 +136,8 @@ private:
 	SbBool        buttonChange5;       // Change of button 5
 	SbBool        buttonChange6;       // Change of button 6
     SbBool        buttonChange7;       // Change of button 7
-
+    
+    int lastObjectId;
 };
 
 
