@@ -60,6 +60,8 @@ SoTrackedDisplayControlMode::SoTrackedDisplayControlMode()
 	SO_NODE_ADD_FIELD(displayTrackerKey, (""));
     SO_NODE_ADD_FIELD(displayTrackerValue, (""));
 	SO_NODE_ADD_FIELD(locked, (false));
+
+    lockSensor = new SoFieldSensor(SoTrackedDisplayControlMode::lockCB, this);
 }
 
 //----------------------------------------------------------------------------
@@ -68,6 +70,18 @@ SoTrackedDisplayControlMode::SoTrackedDisplayControlMode()
 SoTrackedDisplayControlMode::~SoTrackedDisplayControlMode()
 {
 	//nil
+}
+
+void 
+SoTrackedDisplayControlMode::lockCB(void * userdata, SoSensor * sensor)
+{
+    SoTrackedDisplayControlMode *self = (SoTrackedDisplayControlMode *)userdata;
+    if(self->locked.getValue()&&self->tre!=NULL)
+    {
+        self->tre->locked.setValue(true);
+    }else{
+        self->tre->locked.setValue(false);
+    }
 }
 
 bool 
@@ -99,12 +113,6 @@ SoTrackedDisplayControlMode::activate()
 }
 void SoTrackedDisplayControlMode::GLRender(SoGLRenderAction *action)
 {
-    if(locked.getValue()&&tre!=NULL)
-    {
-        tre->locked.setValue(true);
-    }else{
-        tre->locked.setValue(false);
-    }
 }
 
 END_NAMESPACE_STB

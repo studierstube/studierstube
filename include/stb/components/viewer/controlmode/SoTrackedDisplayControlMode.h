@@ -35,6 +35,7 @@
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/fields/SoSFBool.h>
+#include <Inventor/sensors/SoFieldSensor.h>
 #include <stb/base/macros.h>
 
 class SoTrakEngine;
@@ -62,6 +63,9 @@ public:
 
 protected:
 	virtual void GLRender(SoGLRenderAction *action);
+    SoFieldSensor *lockSensor;
+    /// Sensor callbacks (field modified)
+    static void lockCB(void * userdata, SoSensor * sensor);
 
 private:
     /** The destructor unrefs the internal SoTrakEngine. */
