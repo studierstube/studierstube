@@ -58,6 +58,7 @@
 #include <stb/components/starlight/SoStyledSubgraph.h>
 #include <stb/components/starlight/SoStyleProperty.h>
 #include <stb/components/starlight/SoTimeOut.h>
+#include <stb/components/starlight/SoTimeOutSwitch.h>
 
 #include <stb/components/starlight/SoCommand.h>
 #include <stb/components/starlight/SoSetName.h>
@@ -152,6 +153,7 @@ Starlight::init(void)
 	SoCommand::initClass();
     SoSetName::initClass();
 	SoTimeOut::initClass();
+    SoTimeOutSwitch::initClass();
 
     return isInit;
 }

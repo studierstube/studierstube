@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="starlight"
 	ProjectGUID="{074E91D6-DBE7-46AA-A936-1C0FDF801B38}"
 	RootNamespace="starlight"
@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\components\starlight\SoTimeOutSwitch.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\components\starlight\SoUse.cpp"
 				>
 			</File>
@@ -650,6 +654,10 @@
 			</File>
 			<File
 				RelativePath="..\..\include\stb\components\starlight\SoTimeOut.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\include\stb\components\starlight\SoTimeOutSwitch.h"
 				>
 			</File>
 			<File
