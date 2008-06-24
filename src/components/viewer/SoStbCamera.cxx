@@ -42,7 +42,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/components/viewer/displaymode/SoDisplayMode.h>
-#include <stb/components/viewer/SoVideoBackground.h>
+//#include <stb/components/viewer/SoVideoBackground.h>
 #include <stb/components/viewer/SoViewport.h>
 #include <stb/components/viewer/controlmode/SoStbCameraControlMode.h>
 

@@ -36,6 +36,8 @@
 #include <stb/kernel/Profiler.h>
 #include <stb/base/OS.h>
 #include <openvideo/Manager.h>
+#include <stb/components/video/SoVideoBackground.h>
+#include <stb/components/video/SoUndistortedVideoBackground.h>
 
 
 // this assumes that OpenVideo was compiled
@@ -150,7 +152,6 @@ Video::~Video()
 bool 
 Video::init()
 {
-    stb::logPrintD("Stb:: init Video\n");
     if(isInit)
         return true;
     isInit=true;
@@ -172,6 +173,9 @@ Video::init()
 	else
 		start();
 
+
+	SoVideoBackground::initClass();
+	SoUndistortedVideoBackground::initClass();
 
     return isInit;
 }

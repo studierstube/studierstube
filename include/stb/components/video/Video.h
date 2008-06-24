@@ -51,6 +51,16 @@
 #endif
 #endif
 
+#if defined(WIN32)
+#  pragma warning(disable:4251)
+#  pragma warning(disable:4290)
+#  ifdef VIDEO_EXPORTS
+#    define VIDEO_API __declspec(dllexport)
+#  else
+#    define VIDEO_API __declspec(dllimport)
+#  endif
+#endif
+
 
 namespace openvideo{
     class Manager;

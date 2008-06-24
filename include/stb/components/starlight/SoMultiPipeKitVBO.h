@@ -34,7 +34,7 @@
 #ifndef _SOMULTIPIPEKITVBO_H_
 #define _SOMULTIPIPEKITVBO_H_
 
-#define NO_VBOMESH
+//#define NO_VBOMESH
 #ifndef NO_VBOMESH // This node is optional since it depends on GLEW
 
 /*
@@ -58,7 +58,7 @@
 /** 
 *
 * @author Erick Mendez
-* @ingroup vidente
+* @ingroup starlight
 */
 
 class STARLIGHT_API SoMultiPipeKitVBO: public SoBaseKit

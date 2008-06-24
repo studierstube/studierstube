@@ -83,7 +83,7 @@ SoMultiExtrusionKit::SoMultiExtrusionKit()
 
 
 	// This is for the Fields
-	SO_KIT_ADD_FIELD(vertices,	        (0,0));
+	SO_KIT_ADD_FIELD(vertices,	        (0,0,0));
     SO_KIT_ADD_FIELD(extrusionVectors,	(0,0,0));
     SO_KIT_ADD_FIELD(indices,	        (0));
     SO_KIT_ADD_FIELD(doubleSided,	    (FALSE));
@@ -196,7 +196,7 @@ void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec
     SbVec3f tmpVec;
 
 
-    SoMFVec2f cleanVertices;
+    SoMFVec3f cleanVertices;
 
     // Clean repeated vertices
     // Copy the first vertex
@@ -224,14 +224,14 @@ void SoMultiExtrusionKit::createOneExtrusion(int startIndex, int endIndex, SbVec
     // Attach footprint coordinates
     for (i=0;i<nNumberOfVertices;i++)
     {
-        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
+        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],cleanVertices[i][2]);
         coords->point.set1Value(numOfInternalCoords+i,tmpVec);
     }
 
     // Attach extruded footprint coordinates
     for (i=0;i<nNumberOfVertices;i++)
     {
-        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],0);
+        tmpVec.setValue(cleanVertices[i][0],cleanVertices[i][1],cleanVertices[i][2]);
         coords->point.set1Value(numOfInternalCoords+i+nNumberOfVertices,tmpVec+extrusion.getValue());
     }
 

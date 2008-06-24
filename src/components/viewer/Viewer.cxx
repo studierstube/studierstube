@@ -29,12 +29,21 @@
 * $Id: Viewer.cxx 25 2005-11-28 16:11:59Z denis $
 * @file                                                                   */
 /* ======================================================================= */
+
+#ifndef _WIN32_WINNT
+#   define _WIN32_WINNT 0x400
+#endif
+
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
 
 #include <stb/kernel/Kernel.h>
 #include <stb/kernel/SceneManager.h>
+
+#include <stb/kernel/ComponentManager.h>
+#include <stb/components/video/Video.h>
+#include <ace/ACE.h>
 
 #include <iostream>
 #include <sstream>
@@ -48,8 +57,8 @@
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoOffAxisZoomCamera.h>
-#include <stb/components/viewer/SoVideoBackground.h>
-#include <stb/components/viewer/SoUndistortedVideoBackground.h>
+//#include <stb/components/viewer/SoVideoBackground.h>
+//#include <stb/components/viewer/SoUndistortedVideoBackground.h>
 #include <stb/components/viewer/SoViewport.h>
 
 
@@ -82,7 +91,6 @@
 #  pragma error("unkown GUI binding")
 #endif
 
-
 BEGIN_NAMESPACE_STB
 
 std::vector<SoDisplay*> Viewer::displayList;
@@ -93,6 +101,26 @@ CREATE_COMPONENT_FUNC(Viewer)
 Viewer::Viewer()
 {
    configFile="";
+
+//   // Begins little hack
+//   Video* video=(Video*)(Kernel::getInstance()->getComponentManager()->load("Video"));
+//   if(!video)
+//   {
+//       logPrintE("failed to load video system\n");
+//   }
+//
+//   // FIXME: give video thread time to start. Mendez. 20070315
+//
+//   int time=0000;
+//   stb::logPrintI("Waiting %d milliseconds for video to start\n",time);
+//
+//#ifdef NDEBUG
+//   ACE_Time_Value timeVal(0, (int)(1000*time) );
+//   ACE_OS::sleep( timeVal );
+//#else
+//   Sleep(time);
+//#endif
+
 }
 
 Viewer::~Viewer()
@@ -130,8 +158,8 @@ Viewer::init()
     SoAnaglyphDisplayMode::initClass();
 
     SoViewport::initClass();
-    SoVideoBackground::initClass();
-    SoUndistortedVideoBackground::initClass();
+    //SoVideoBackground::initClass();
+    //SoUndistortedVideoBackground::initClass();
     SoWindowHandling::initClass();
 
     //get viewer's parameter

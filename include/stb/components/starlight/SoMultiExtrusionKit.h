@@ -41,7 +41,6 @@
 * --------------------------------------------------------------------------------
 */
 #include <Inventor/nodekits/SoBaseKit.h>
-#include <Inventor/fields/SoMFVec2f.h>
 #include <Inventor/fields/SoMFVec3f.h>
 #include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoMFInt32.h>
@@ -72,7 +71,7 @@ public:
 	~SoMultiExtrusionKit();
 
     /// The input vertices that will be extruded
-    SoMFVec2f vertices;
+    SoMFVec3f vertices;
 
     /// The extrusion vector, giving the direction and magnitude of extrusion
     SoMFVec3f extrusionVectors;
