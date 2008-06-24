@@ -164,15 +164,11 @@ void SoVideoBackground::handleChangedSink()
 void 
 SoVideoBackground::GLRender(SoGLRenderAction*)
 {
-	printf("glrender\n");
 	if(!initialized)
 	{
-		printf("initing\n");
 		initialized = init();
-		printf("initing2\n");
 	}
 
-	printf("then drawing\n");
 	drawTexture();
 }
 
@@ -180,18 +176,12 @@ SoVideoBackground::GLRender(SoGLRenderAction*)
 bool
 SoVideoBackground::init()
 {
-	printf("stb init\n");
 	if(Video* video = (Video*)Kernel::getInstance()->getComponentManager()->load("Video"))
 	{
-		printf("stb init2\n");
 		video->vp_registerVideoUser(this);
-		printf("stb init3\n");
 		sinkNameSensor->attach(&this->sinkName);
-		printf("stb init4\n");
 		return true;
-		printf("stb init5\n");
 	}
-	printf("stb init6\n");
     return false;
 }
 
@@ -332,7 +322,6 @@ SoVideoBackground::updateTexture(const openvideo::Buffer& buffer)
 void
 SoVideoBackground::drawTexture()
 {
-	printf("drawing texture");
 	STB_PROFILER_AUTOMEASURE(VIDEO_BACKGROUND)
 
 #if defined(HAVE_OPENVIDEO)
