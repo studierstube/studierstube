@@ -54,7 +54,7 @@ class SoOpenTrackerSource;
  * from the SoStudierstubeViewer with OpenTracker. Key events from the application 
  * window can be used to drive source nodes. Idea of connection to the different
  * viewer implementations from the KeyboardHandler by Gerd Hesina. It supports 
- * the StbKeyboadSource, StbMouseSource and StbSource nodes. Its configuration
+ * the EventKeyboadSource, EventMouseSource and EventSource nodes. Its configuration
  * element has the following attributes :
  * @li @c keyevents off on|off this flag configures whether the module lets
  *        keyboard event pass to the general OpenInventor event handler or not. 
@@ -165,9 +165,9 @@ Quit            q               signals to quit OpenTracker
  *
  * An example configuration element looks like this :
  * @verbatim
-<StbInputConfig passevents="on">
+<EventConfig keyevents="on">
     <KeyDefinition function="Move_X_plus" key="o"/>
-</StbInputConfig>@endverbatim
+</EventConfig>@endverbatim
  *
  * @author Gerhard Reitmayr
  * @ingroup tracking
@@ -277,12 +277,16 @@ public:
 
 
     /** creates various Studierstube input and output nodes such as
-     * StbKeyboardSource, StbMouseSource and StbSource.
+     * EventKeyboardSource, EventMouseSource and EventSource.
      * @param name the name of the element
      * @param attributes StringMap containing the attribute values
-     * @return a new StbSink node or NULL
+     * @return a new EventSink node or NULL
      */
+#ifndef USE_OT_2_0
+    virtual ot::Node * createNode( const std::string& name,  ot::StringTable& attributes);
+#else
     virtual ot::Node * createNode( const std::string& name,  const ot::StringTable& attributes);
+#endif
 
     /**
      * checks the console for keyboard input and updates any

@@ -253,9 +253,13 @@ void EventModule::init(StringTable& attributes, ConfigNode * localTree)
     Module::init( attributes, localTree );
 }
 
-// creates a new StbKeyboardSource node
+// creates a new EventKeyboardSource node
 
+#ifndef USE_OT_2_0
+Node * EventModule::createNode( const string& name,  StringTable& attributes)
+#else
 Node * EventModule::createNode( const string& name,  const StringTable& attributes)
+#endif
 {
     if( name.compare("EventKeyboardSource") == 0 )
     {
@@ -266,7 +270,7 @@ Node * EventModule::createNode( const string& name,  const StringTable& attribut
             {
                 if( keySources.find( number ) != keySources.end()) 
                 {
-					stb::logPrintW("Already an StbKeyboardSource for station %d defined.\n", number);
+					stb::logPrintW("Already an EventKeyboardSource for station %d defined.\n", number);
                     return NULL;
                 }
                 EventKeyboardSource * source = new EventKeyboardSource( number );
@@ -274,7 +278,7 @@ Node * EventModule::createNode( const string& name,  const StringTable& attribut
                 return source;
             } else
             {
-				stb::logPrintW("StbKeyboardSource station number not in [0,9] : %d\n", number);
+				stb::logPrintW("EventKeyboardSource station number not in [0,9] : %d\n", number);
             }
         }
     } 
@@ -284,7 +288,7 @@ Node * EventModule::createNode( const string& name,  const StringTable& attribut
         attributes.get("window", &window );
         if( mouseSources.find( window ) != mouseSources.end())
         {
-			stb::logPrintW("Already an StbMouseSource for window %d defined.\n", window);
+			stb::logPrintW("Already an EventMouseSource for window %d defined.\n", window);
             return NULL;
         }
         EventMouseSource * source;
@@ -297,7 +301,7 @@ Node * EventModule::createNode( const string& name,  const StringTable& attribut
     }
     else if( name.compare("EventSink") == 0 )
     {
-        logPrintI("Creating EventSink\n");
+		stb::logPrintI("Creating EventSink\n");
         EventSink * sink = new EventSink( this );
         sinks.push_back( sink );
         KeyIterator keyIt(attributes);
