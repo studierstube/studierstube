@@ -37,6 +37,11 @@
 #include <stb/components/video/SoVideoBackground.h>
 #include <Inventor/fields/SoSFString.h>
 #include <Inventor/fields/SoSFInt32.h>
+#ifndef __APPLE__
+#include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
 
 BEGIN_NAMESPACE_STB
 
@@ -71,7 +76,7 @@ class VIDEO_API SoUndistortedVideoBackground : public SoVideoBackground
 		/** Number of polygons in y direction. */
 		SoSFInt32 yResolution; 
 		/** Name of OffAxisCamera in the scene to be used. */
-		SoSFString cameraName; 
+		//SoSFString cameraName; 
 
 		static void initClass();
 		SoUndistortedVideoBackground();
