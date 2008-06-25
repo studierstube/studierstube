@@ -59,6 +59,8 @@
 #  else
 #    define VIDEO_API __declspec(dllimport)
 #  endif
+#else
+#  define VIDEO_API
 #endif
 
 

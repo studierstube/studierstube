@@ -34,6 +34,12 @@
 #   define _WIN32_WINNT 0x400
 #endif
 
+#if USE_SOQT
+#include <qcoreevent.h>
+#include <qcursor.h>
+#include <qdatastream.h>
+#endif
+
 #include <stb/components/viewer/Viewer.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
