@@ -28,6 +28,7 @@
 * @file                                                                   */
 /* ======================================================================= */
 
+#include <cstring>
 #include <stb/kernel/ComponentRetriever.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/Kernel.h>

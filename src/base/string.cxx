@@ -12,6 +12,7 @@
    \brief This file encapsulates basic data structures like string,
    list, and so on. For the PDA-based setup, STL cannot be used.
 */
+#include <cstring>
 #include <stb/base/string.h>
 
 BEGIN_NAMESPACE_STB
