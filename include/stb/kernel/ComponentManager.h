@@ -37,6 +37,7 @@
 #include <stb/base/macros.h>
 #include <stb/kernel/Studierstube.h>
 
+#include <string>
 #include <vector>
 
 BEGIN_NAMESPACE_STB

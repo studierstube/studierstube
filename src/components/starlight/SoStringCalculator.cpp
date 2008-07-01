@@ -31,6 +31,7 @@
  */
 /* ======================================================================== */
 
+#include <cstring>
 #include <string>
 
 #include <Inventor/errors/SoDebugError.h>

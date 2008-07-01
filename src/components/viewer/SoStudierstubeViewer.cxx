@@ -44,6 +44,7 @@
 #  include GuiWidget_H
 #endif
 
+#include <climits>
 #include <iostream>
 #ifndef __APPLE__
 #include <GL/gl.h>
