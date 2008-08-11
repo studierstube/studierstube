@@ -97,6 +97,8 @@ public:
      ************************************************************************/
     SoSeparator* getSceneRoot();
 
+    SoSeparator* getTrackingRoot();
+
     /************************************************************************
      * Replaces the first child of the applications scene root node. 
      ************************************************************************/

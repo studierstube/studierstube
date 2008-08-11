@@ -97,6 +97,12 @@ SceneManager::getSceneRoot()
 	return sceneRoot;
 }
 
+SoSeparator* 
+SceneManager::getTrackingRoot()
+{
+    return trackersourceParent;
+}
+
 void 
 SceneManager::setTrackerSource(SoNode *otSource)
 {
@@ -126,7 +132,7 @@ void
 SceneManager::setDisplay(SoGroup *display)
 {
     displayRoot->addChild(display);
-   
+
     if(display->getNumChildren()>0)
     {
          touchRoot=(SoNode*)display->getChild(0);

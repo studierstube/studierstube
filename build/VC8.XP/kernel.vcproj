@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="kernel"
 	ProjectGUID="{42748253-9DEC-4BB4-9483-FDDA842B610B}"
 	RootNamespace="kernel"
@@ -363,6 +363,14 @@
 				</File>
 				<File
 					RelativePath="..\..\include\stb\kernel\SoStbScene.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\src\kernel\SoStbTracking.cxx"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\stb\kernel\SoStbTracking.h"
 					>
 				</File>
 			</Filter>
