@@ -349,6 +349,10 @@ Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, boo
 			//
 			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()));
 			vu_updateCtr = frame.getUpdateCounter();
+
+			//float *f = (float*)(frame.getUserData());
+			//if (f) stb::logPrintI("%f %f %f %f %f %f %f\n", f[0], f[1], f[2], f[3], f[4], f[5], f[6]);
+
 		}
 	}
 
