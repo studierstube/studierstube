@@ -347,7 +347,7 @@ Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, boo
 			// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
 			// simple cast here...
 			//
-			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()));
+			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()), frame.getUserData());
 			vu_updateCtr = frame.getUpdateCounter();
 
 			//float *f = (float*)(frame.getUserData());
