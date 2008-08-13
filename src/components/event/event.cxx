@@ -124,7 +124,6 @@ BEGIN_NAMESPACE_STB
 Event::Event()
 {
     configFile="";
-    sinkName="";
 	otSource = NULL;
 	vu_updateCtr = 0;
     paused=false;
@@ -207,7 +206,7 @@ Event::setParameter(stb::string key, std::string value)
     }
     else if((key.find("sinkName",0)!=string::npos)|(key.find("ovSinkName",0)!=string::npos))
     {// Deprecating the usage of ovSinkName in favor of sinkName. Mendez 20070614
-        sinkName=value;
+        sinkNames.push_back(value);
     }
     else if(key=="processing")
     {
@@ -224,11 +223,6 @@ Event::setParameter(stb::string key, std::string value)
             processing=2;
         }
     }
-
-
-    //else if()
-    //{
-    //}
 }
 
 /// Called before the application is destructed.
@@ -330,8 +324,10 @@ Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, boo
 
     if (!isInit) return;
 
-    // If this is not our sink then return
-    if ((!sinkName.empty())&(sinkName.find(givenSinkName->c_str(),0)==string::npos)) return;
+    // this test just takes extra time and is done in ot now
+    //for(int i(0);i<sinkNames.size();i++)
+    //    if( sinkNames[i].find(givenSinkName->c_str(),0)==string::npos ) return;
+    //if ((!sinkName.empty())&(sinkName.find(givenSinkName->c_str(),0)==string::npos)) return;
 
 	assert(otSource);
 
@@ -347,7 +343,7 @@ Event::vu_update(const openvideo::Buffer& frame, stb::string *givenSinkName, boo
 			// Since the Stb4 pixel-format is compatible to OpenVideo's pixel-format too, we can
 			// simple cast here...
 			//
-			context->newVideoFrame(frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()), frame.getUserData());
+			context->newVideoFrame(givenSinkName, frame.getPixels(), frame.getWidth(), frame.getHeight(), static_cast<ot::PIXEL_FORMAT>(frame.getFormat()), frame.getUserData());
 			vu_updateCtr = frame.getUpdateCounter();
 
 			//float *f = (float*)(frame.getUserData());

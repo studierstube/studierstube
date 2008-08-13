@@ -142,7 +142,8 @@ public:
 
 protected:	
     stb::string configFile; 
-    stb::string sinkName;
+    typedef std::vector<stb::string> SinkNameVector;
+    SinkNameVector sinkNames;
     int processing;
 private:
 	SoOpenTrackerSource*	otSource;
