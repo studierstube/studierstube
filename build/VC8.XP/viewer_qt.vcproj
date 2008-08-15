@@ -238,22 +238,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\components\viewer\SoUndistortedVideoBackground.cxx"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\viewer\SoUndistortedVideoBackground.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\components\viewer\SoVideoBackground.cxx"
-				>
-			</File>
-			<File
-				RelativePath="..\..\include\stb\components\viewer\SoVideoBackground.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\components\viewer\SoViewport.cxx"
 				>
 			</File>
