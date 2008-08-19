@@ -56,6 +56,7 @@
 #include <stb/kernel/ComponentManager.h>
 #include <stb/kernel/ComponentInfo.h>
 #include <stb/kernel/SoStbScene.h>
+#include <stb/kernel/SoStbTracking.h>
 #include <stb/components/event/SoOpenTrackerSource.h>
 
 #include <fstream>
@@ -74,6 +75,7 @@ Kernel::Kernel()
     SoDB::init();
     //additional coin nodes
     SoStbScene::initClass();
+    SoStbTracking::initClass();
     //
     scheduler= new stb::Scheduler();
     sceneManager= new stb::SceneManager();
