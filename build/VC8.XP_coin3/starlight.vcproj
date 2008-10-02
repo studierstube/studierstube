@@ -239,10 +239,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\components\starlight\SoEngineWrapper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\components\starlight\SoExtrusionKit.cpp"
 				>
 			</File>
@@ -256,10 +252,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\components\starlight\SoFaderVec3fEngine.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\components\starlight\SoFanIn.cpp"
 				>
 			</File>
 			<File
