@@ -36,8 +36,7 @@ major=4
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	# Add here commands to configure the package.
-
+	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 	touch configure-stamp
 
 
@@ -46,18 +45,16 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	scons PREFIX=/usr LIBDIR=/usr/lib ENABLE_OPENVIDEO=1	
+	$(MAKE)
 	cd doc; doxygen ./studierstube_v4.dox
 	touch $@
 
-clean:
+clean: configure-stamp
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
 	# Add here commands to clean up after the build process.
-	scons -c
-
+	$(MAKE) clean
 	dh_clean 
 
 install: build
@@ -67,9 +64,10 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp
-	scons --cache-disable DESTDIR=$(CURDIR)/debian/tmp install PREFIX=/usr LIBDIR=/usr/lib install
+	#scons --cache-disable DESTDIR=$(CURDIR)/debian/tmp install PREFIX=/usr LIBDIR=/usr/lib install
 	mkdir  -p debian/tmp/usr/share/doc/studierstube-doc/
-	cp -r doc/* debian/tmp/usr/share/doc/studierstube-doc/
+	mv doc/* debian/tmp/usr/share/doc/studierstube-doc/
+	DESTDIR=$(CURDIR)/debian/tmp $(MAKE) install
 	dh_install --sourcedir=debian/tmp
 
 # Build architecture-independent files here.
