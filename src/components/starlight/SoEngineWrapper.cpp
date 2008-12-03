@@ -45,6 +45,25 @@ const SoFieldData ** SoEngineWrapper::parentFieldData = NULL;
 SoEngineOutputData * SoEngineWrapper::outputdata = NULL;
 const SoEngineOutputData ** SoEngineWrapper::parentoutputdata = NULL;
 
+// if SO_ENGINE_SOURCE can't be used for some reason, we have
+// to make sure that the following is declared in order to
+// avoid unresolved symbols using Coin >=3
+#if (COIN_MAJOR_VERSION>=3)
+void SoEngineWrapper::atexit_cleanup(void) 
+{ 
+  //delete SoEngineWrapper::inputdata; 
+  delete SoEngineWrapper::outputdata; 
+  //SoEngineWrapper::inputdata = NULL; 
+  SoEngineWrapper::outputdata = NULL; 
+  //SoEngineWrapper::parentinputdata = NULL; 
+  SoEngineWrapper::parentoutputdata = NULL; 
+  assert(SoEngineWrapper::classTypeId != SoType::badType()); 
+  SoType::removeType(SoEngineWrapper::classTypeId.getName()); 
+  SoEngineWrapper::classTypeId STATIC_SOTYPE_INIT; 
+  SoEngineWrapper::classinstances = 0; 
+}
+#endif 
+
 SoType SoEngineWrapper::classTypeId;
 
 void SoEngineWrapper::initClass()

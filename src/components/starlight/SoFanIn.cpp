@@ -49,6 +49,25 @@ SoEngineOutputData * SoFanIn::outputdata = NULL;
 const SoEngineOutputData ** SoFanIn::parentoutputdata = NULL;
 
 SoType SoFanIn::classTypeId;
+// if SO_ENGINE_SOURCE can't be used for some reason, we have
+// to make sure that the following is declared in order to
+// avoid unresolved symbols using Coin >=3
+#if (COIN_MAJOR_VERSION>=3)
+void SoFanIn::atexit_cleanup(void) 
+{ 
+  delete SoFanIn::inputdata; 
+  delete SoFanIn::outputdata; 
+  SoFanIn::inputdata = NULL; 
+  SoFanIn::outputdata = NULL; 
+  SoFanIn::parentinputdata = NULL; 
+  SoFanIn::parentoutputdata = NULL; 
+  assert(SoFanIn::classTypeId != SoType::badType()); 
+  SoType::removeType(SoFanIn::classTypeId.getName()); 
+  SoFanIn::classTypeId STATIC_SOTYPE_INIT; 
+  SoFanIn::classinstances = 0; 
+}
+#endif
+
 
 #else 
 SO__ENGINE_VARS(SoFanIn);
