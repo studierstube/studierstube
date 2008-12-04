@@ -52,7 +52,6 @@
 #include <stb/components/starlight/SoMultiExtrusionKit.h>
 #include <stb/components/starlight/SoSpring.h>
 #include <stb/components/starlight/SoCapsule.h>
-#include <stb/components/starlight/SoMFVec2s.h>
 #include <stb/components/starlight/SoStyleMap.h>
 #include <stb/components/starlight/SoStyleTemplate.h>
 #include <stb/components/starlight/SoStyledSubgraph.h>
@@ -148,7 +147,6 @@ Starlight::init(void)
     SoStyledSubgraph::initClass();
     SoStyleProperty::initClass();
     SoSpring::initClass();
-    SoMFVec2s::initClass();
     SoCapsule::initClass();
 	SoCommand::initClass();
     SoSetName::initClass();
