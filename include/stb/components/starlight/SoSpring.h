@@ -30,7 +30,7 @@
 #include <Inventor/fields/SoSFBool.h>
 #include <Inventor/fields/SoSFTrigger.h>
 #include <Inventor/fields/SoSFVec3f.h>
-#include <stb/components/starlight/SoMFVec2s.h>
+#include <Inventor/fields/SoMFVec2s.h>
 #include <Inventor/sensors/SoTimerSensor.h>
 
 #include "starlight.h"
