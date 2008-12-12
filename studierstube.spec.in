@@ -10,8 +10,8 @@ URL:		http://www.studierstube.org
 Packager:	Institute for Computer Graphics and Vision, Graz University of Technology, Austria
 Prefix:		/usr
 BuildRoot: 	%{_tmppath}/buildroot-%{name}-%{version}
-Requires:	tinyxmlmod ACE openvideo opentracker Coin SoQt >= 1.4.0
-BuildRequires:	cmake ICGBuilder tinyxmlmod-devel ACE ACE-devel openvideo openvideo-devel opentracker opentracker-devel Coin-devel SoQt-devel >= 1.4.0 graphviz doxygen
+Requires:	tinyxmlmod ace openvideo opentracker Coin SoQt >= 1.4.0
+BuildRequires:	cmake tinyxmlmod-devel ace-devel openvideo-devel opentracker-devel Coin-devel SoQt-devel >= 1.4.0 graphviz doxygen
 
 %define _prefix %{prefix}
 %define build_type RelMinSize
@@ -56,7 +56,7 @@ make clean
 %package devel
 Summary:	Studierstube header files
 Group:		Development/Libraries
-Requires:	%{name} = %{version} ICGBuilder tinyxmlmod-devel ACE-devel openvideo-devel opentracker-devel Coin-devel SoQt-devel
+Requires:	%{name} = %{version} tinyxmlmod-devel ace-devel openvideo-devel opentracker-devel Coin-devel SoQt-devel
 
 %description devel
 This package contains header files and include files that are needed for development using Studierstube.
