@@ -49,7 +49,7 @@ class GUIBinder
 public:
     virtual ~GUIBinder() {}
     /// The GUIBinder implementation internally calls the init function of the GUI binding
-    virtual void gb_init(const char*appname) = 0;
+    virtual void gb_init(const char*appname, int argv=0, char **argv=NULL) = 0;
 
 
     /// The GUIBinder implementation internally calls the mainloop function of the GUI binding

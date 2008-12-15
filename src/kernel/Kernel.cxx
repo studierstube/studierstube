@@ -150,14 +150,17 @@ Kernel::start(int argc, char* argv[])
     logPrintI("Using configuration base directory name %s\n", base_dir.c_str());
     ////////////////////////////////////////////////////////
     stb::string kernelConfigFile=getConfig(kernel_config_file);
+    
 
     // read the kernel's configuration file
     config->readKernelConfig(kernelConfigFile);
 
 	if(GUIBinder* guiBinder = componentManager->getGUIBinder())
-		scheduler->run(guiBinder);
+        {
+            scheduler->run(guiBinder, argc, argv);
+        }
 	else
-		logPrintE("No GUI-binding component loaded, cannot continue...\n\n");
+            logPrintE("No GUI-binding component loaded, cannot continue...\n\n");
 }
 
 //

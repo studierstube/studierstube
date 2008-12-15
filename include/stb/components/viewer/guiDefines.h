@@ -109,9 +109,25 @@
 #define SoGuiRenderArea SoSimpleRenderArea
 #define SoGuiExaminerViewer SoSimpleExaminerViewer
 
+#elif defined(USE_QUARTER)
+
+#define SOGUICOMPONENT_H <Quarter/QuarterWidget.h>
+#define SOGUI_H <Quarter/Quarter.h>
+#define SOGUI_CURSOR_H <QCursor>
+#define SOGUI_EXAMINERVIEWER_H <Quarter/QuarterWidget.h>
+
+#define SoGui Quarter
+#define SoGuiComponent QWidget*
+#define GuiWidget QWidget*
+#define SoGuiCursor QCursor
+#define SoGuiViewer  SIM::Coin3D::Quarter::QuarterWidget
+#define SoGuiFullViewer SIM::Coin3D::Quarter::QuarterWidget
+#define SoGuiRenderArea SIM::Coin3D::Quarter::QuarterWidget
+#define SoGuiExaminerViewer SIM::Coin3D::Quarter::QuarterWidget
+
 #else // no window binding defined
 
-#  error "ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOGL"
+#  error "ERROR: please define one of the following USE_SOQT, USE_SOWIN, USE_SOSIMPLE, USE_QUARTER"
 
 #endif // end of windows bindings
 

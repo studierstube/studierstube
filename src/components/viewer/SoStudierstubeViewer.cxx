@@ -63,7 +63,11 @@ BEGIN_NAMESPACE_STB
 //----------------------------------------------------------------------------
 // The constructor of the viewer.
 SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
+#if not defined(USE_QUARTER)
 SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
+#else
+SoGuiExaminerViewer(widget)
+#endif
 {
     isWindowDecorationActive=TRUE;
     headlight=NULL;
@@ -72,7 +76,10 @@ SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
  //   renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
+#if not defined (USE_QUARTER)
     this->setAlphaChannel(TRUE);
+#endif
+
 /*
 #ifdef STB_IS_WINDOWS
     curDC=NULL;
@@ -317,10 +324,14 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
     
     // the viewer instantiated with SoGui::init needs to be treated differently.
     // getShellWidget returns NULL in this case.
+#if not defined (USE_QUARTER)
     if (!this->getShellWidget())
         SoGui::setWidgetSize(SoGui::getShellWidget(this->getWidget()), SbVec2s(width, height));
     else
         this->setSize(SbVec2s(width, height));
+#else
+    this->resize(width,height);
+#endif
 #endif // STB_IS_WINCE
 }
 
@@ -359,7 +370,9 @@ SoStudierstubeViewer::redraw ()
     if(showTriangleCount)
         printf("[triangleCount = %i] \n",this->countTriangles());
     if(showCursor==FALSE){
+#if not defined (USE_QUARTER)
         setComponentCursor(SoGuiCursor::getBlankCursor());
+#endif
     }
     SoGuiExaminerViewer::redraw();
 }

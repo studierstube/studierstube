@@ -64,8 +64,8 @@ public:
     virtual ~Scheduler();
 
 
-	/// Initializes and runs the GUI binding
-	virtual void run(GUIBinder* guiBinder);
+    /// Initializes and runs the GUI binding
+    virtual void run(GUIBinder* guiBinder, int argc=0, char ** argv = NULL);
 
     /// Stops the GUI binding
     virtual void stop(GUIBinder* guiBinder);

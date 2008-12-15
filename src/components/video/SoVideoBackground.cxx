@@ -33,6 +33,9 @@
 #if USE_SOQT
 #include <qcursor.h>
 #include <qdatastream.h>
+#elif USE_QUARTER
+#include <qcursor.h>
+#include <qdatastream.h>
 #endif
 
 #include <stb/components/video/SoVideoBackground.h>

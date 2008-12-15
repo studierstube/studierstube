@@ -90,6 +90,7 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
     printf("SoFieldSequentialDisplayMode::setViewer\n");
 	SoDisplayMode::setViewer(aViewer);
 	if(!SoFieldSequentialDisplayMode::isInit){
+#if not defined (USE_QUARTER)
 		SoFieldSequentialDisplayMode::isInit=true;		
 		if(viewer->isQuadBufferStereo()){
 			isQuadBufferAvailable=true;
@@ -98,6 +99,9 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 			viewer->setQuadBufferStereo(false);
             stb::logPrintW("SoFieldSequentialDisplayMode :: no quadbuffer found");
 		}
+#else
+		isQuadBufferAvailable=true;
+#endif
 	}
 }
 

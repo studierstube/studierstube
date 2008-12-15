@@ -167,7 +167,11 @@ SoDisplay::createViewer()
 
     if (quadBuffering.getValue())
     {
+#if not defined (USE_QUARTER)
         viewer->setQuadBufferStereo(true);
+#else
+        printf("viewer->setQuadBufferStereo(true) is not implemented with QUARTER\n");
+#endif
     }        
     ///////////////////////////////////////////////////
     // add all the stbCameras to the viewer's root node
@@ -226,53 +230,69 @@ SoDisplay::createViewer()
 	//mainWin->setWindowFlags(flags);
 
     ////windowDecoreation
+#if not defined (USE_QUARTER)
     viewer->setWindowDecoration(windowBorder.getValue());
     if( viewer->isDecoration() != decoration.getValue())
         viewer->setDecoration( decoration.getValue());
-	
+#endif
+
     //widownOnTop
     viewer->setWindowOnTop(windowOnTop.getValue());
-	
+
+#if not defined (USE_QUARTER)	
     //stencilBuffer
     if (stencilBuffer.getValue() == TRUE)
     {
         viewer->setStencilBuffer(TRUE);
     }
+#endif
 
     //window pos & size
     viewer->setWindowPosSize(xoffset.getValue(), yoffset.getValue(),
                              width.getValue()  , height.getValue());
    
     //transparency
+#if not defined (USE_QUARTER)
     viewer->setTransparencyType(
                                 (SoGLRenderAction::TransparencyType)transparencyType.getValue());
-	
+#else
+    viewer->setTransparencyType(
+                                (SIM::Coin3D::Quarter::QuarterWidget::TransparencyType)transparencyType.getValue());
+#endif
     //title
+#if not defined (USE_QUARTER)	
     viewer->setTitle(STUDIERSTUBE_VERSION_STRING);
-    
+#endif
+
     // scene lighting
     //viewer->setHeadlight(headlight.getValue());
     //if (viewer->getHeadlight())
     // viewer->getHeadlight()->intensity.setValue(headlightIntensity.getValue());
        
-
+#if not defined (USE_QUARTER)
     //background color 
     viewer->setBackgroundColor(backgroundColor.getValue());
 
     //clearing background on/off
     viewer->setClearBeforeRender(clearBackGround.getValue());
-
+#endif
 
     // set mouse cursor
     if( showMouse.getValue() == FALSE )
     {
+#if not defined (USE_QUARTER)
         viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
+#else
+        printf("viewer->setComponentCursor(SoGuiCursor::getBlankCursor()); not implemented in Quarter\n");
+#endif
         viewer->showMouse(false);
     }
 
     // Set the Viewing
+#if not defined (USE_QUARTER)
     if(!isViewing.getValue())
         viewer->setViewing(isViewing.getValue());
+#endif
     
     //////////////////////////////////////////
     //// start StudierstubeViewer
@@ -282,7 +302,9 @@ SoDisplay::createViewer()
 
     viewer->printTriangles(showTriangleCount.getValue() == TRUE);
     viewer->printFrameRate(showFrameRate.getValue() == TRUE);
+#if not defined (USE_QUARTER)
     viewer->setWindowCloseCallback(exitViewer);
+#endif
     viewer->show();
 }
 

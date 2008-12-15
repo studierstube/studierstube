@@ -50,6 +50,7 @@
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/components/viewer/SoStbCamera.h>
 #include SOGUICOMPONENT_H
+#include SOGUI_H
 #include <vector>
 #include <stb/base/macros.h>
 #include <stb/components/viewer/ViewerDefines.h>

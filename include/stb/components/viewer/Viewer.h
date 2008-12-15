@@ -38,11 +38,10 @@
 #include <stb/kernel/GUIBinder.h>
 #include <stb/kernel/Component.h>
 #include <stb/components/viewer/ViewerDefines.h>
-
 #include <vector>
 
 class SoNode;
-
+class QApplication;
 
 BEGIN_NAMESPACE_STB
 
@@ -50,48 +49,53 @@ class SoDisplay;
 
 
 /**
-*	
-*/
+ *	
+ */
 class VIEWER_API Viewer : public Component, public GUIBinder
 {
-public:
+ public:
     /**
-    *     The Constructor	
-    */
+     *     The Constructor	
+     */
     Viewer();
     /**
-    *     The destructor.
-    */
+     *     The destructor.
+     */
     virtual ~Viewer();
 
-	/// Called before the application is destructed.
-	virtual bool init();
-	/// Called before the application is destructed.
-	virtual void shutDown();
+    /// Called before the application is destructed.
+    virtual bool init();
+    /// Called before the application is destructed.
+    virtual void shutDown();
     //
     virtual void setParameter(string key, std::string value);
 
-	/// Specify that this component implements the GUIBinder API
-	virtual GUIBinder* getGUIBinderInterface()  {  return this;  }
-
-
-	/// Implement the GUIBinder interface
-	virtual void gb_init(const char*appname);
+    /// Specify that this component implements the GUIBinder API
+    virtual GUIBinder* getGUIBinderInterface()  {  return this;  }
+    
+    
+    /// Implement the GUIBinder interface
+    virtual void gb_init(const char*appname, int argc, char ** argv);
     virtual void gb_mainloop();
     virtual void gb_exitMainLoop();
-	virtual void gb_registerManualCallback(SoSensorCB* cb);
+    virtual void gb_registerManualCallback(SoSensorCB* cb);
 
 
     static SoDisplay* findSoDisplay(SoNode* node);
 
     void addSoDisplay(SoDisplay* disp);
     static void removeSoDisplay(SoDisplay* disp);
-protected:	
+ protected:	
     string configFile; 
     static std::vector<SoDisplay*> displayList;
+
+#ifdef USE_SOQT
+    QApplication *app;
+#elif USE_QUARTER 
+    QApplication *app;
+#endif
     
-private:
-	
+ private:
 	
 };// class 
 

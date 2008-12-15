@@ -65,11 +65,11 @@ Scheduler::~Scheduler()
 
 
 void
-Scheduler::run(GUIBinder* gui_binder)
+Scheduler::run(GUIBinder* gui_binder, int argc, char ** argv)
 {
 	guiBinder = gui_binder;
 
-	guiBinder->gb_init("Studierstube");
+	guiBinder->gb_init("Studierstube", argc, argv);
 	schedule();
 	guiBinder->gb_mainloop();
 }

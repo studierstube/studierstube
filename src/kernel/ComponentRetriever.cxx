@@ -82,12 +82,12 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
     if (libName.size()<16) strcpy(padding,"\t\t\t");
     else strcpy(padding,"\t\t");
 
-    logPrintS("Loading component %s %s ", libName.c_str(), padding);
+    logPrintS("Loading component %s %s \n", libName.c_str(), padding);
 
 	libHandle = os_LoadLibrary(libName);
 	if(!libHandle){
         logPrint("[ X ]\n");
-		logPrintE("Couldn't load " + libName + "\n");
+		logPrintE("  Couldn't load " + libName + "\n");
         return NULL;
 	}
 	compInfo->setHModule(libHandle);
@@ -95,13 +95,13 @@ ComponentRetriever::getComponent(ComponentInfo *compInfo)
     if(!createComponent)
     {
         logPrint("[ X ]\n");
-        logPrintE("Can't find createComponent() in " + libName + "\n");
+        logPrintE("  Can't find createComponent() in " + libName + "\n");
         return NULL;
     }
 	newComponent=(*createComponent)();
     newComponent->setComponentInfo(compInfo);
     logPrint("[ OK ]\n");
-    //logPrintI("Component %s loaded\n", libName.c_str());
+    //logPrintI("  Component %s loaded\n", libName.c_str());
 	return newComponent;
 }
 

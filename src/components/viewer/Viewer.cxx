@@ -34,7 +34,14 @@
 #   define _WIN32_WINNT 0x400
 #endif
 
+
 #if USE_SOQT
+#include <qcoreevent.h>
+#include <qcursor.h>
+#include <qdatastream.h>
+#endif
+
+#if USE_QUARTER
 #include <qcoreevent.h>
 #include <qcursor.h>
 #include <qdatastream.h>
@@ -58,6 +65,7 @@
 #include <Inventor/nodes/SoSeparator.h>
 #include <Inventor/actions/SoSearchAction.h>
 #include <Inventor/nodes/SoNode.h>
+
 
 #include <stb/components/viewer/SoDisplay.h>
 #include <stb/components/viewer/SoStbCamera.h>
@@ -93,6 +101,10 @@
 #include <qapplication.h>
 #include <qwidget.h>
 #include <Inventor/Qt/SoQt.h>
+#elif USE_QUARTER
+#include <qapplication.h>
+#include <qwidget.h>
+#include <Quarter/Quarter.h>
 #else
 #  pragma error("unkown GUI binding")
 #endif
@@ -146,7 +158,7 @@ Viewer::init()
     // init coin stuff
     SoDisplay::initClass();
     SoOffAxisCamera::initClass();
-	SoOffAxisZoomCamera::initClass();
+    SoOffAxisZoomCamera::initClass();
     SoStbCamera::initClass();
     SoStbCameraControlMode::initClass();
     MultRotRot::initClass();
@@ -266,12 +278,12 @@ Viewer::shutDown()
 
 
 void
-Viewer::gb_init(const char*appname)
+Viewer::gb_init(const char*appname, int argc, char **argv)
 {
 #ifdef USE_SOWIN
-	SoWin::init(appname, "SoWin");
+    SoWin::init(appname, "SoWin");
 #elif USE_SOSIMPLE
-	SoSimple_init(appname, "SoSimple");
+    SoSimple_init(appname, "SoSimple");
 #elif USE_SOQT
     #ifdef WIN32
         // Bugfix only necessary for Linux. Mendez
@@ -281,9 +293,9 @@ Viewer::gb_init(const char*appname)
         // different here ! breiting !
         #if QT_VERSION >= 0x040000
             #if QT_VERSION >= 0x040200
-                new QApplication((int)0, 0);
+                app = new QApplication((int)0, 0);
             #else
-                new QApplication((int*)0, 0);
+                app = new QApplication((int*)0, 0);
             #endif
             QWidget *window = new QWidget;
             SoQt::init(window);
@@ -291,6 +303,10 @@ Viewer::gb_init(const char*appname)
             SoQt::init(appname, "SoQt");
         #endif
     #endif
+#elif USE_QUARTER
+     SIM::Coin3D::Quarter::Quarter::init();
+     app=new QApplication(argc, argv);
+     
 #endif
 }
 
@@ -304,6 +320,8 @@ Viewer::gb_mainloop()
 	SoSimple_mainLoop();
 #elif USE_SOQT
 	SoQt::mainLoop();
+#elif USE_QUARTER
+        app->exec();
 #endif
 }
 
@@ -318,6 +336,8 @@ Viewer::gb_exitMainLoop()
 #elif USE_SOQT
     SoQt::done();
     SoQt::exitMainLoop();
+#elif USE_QUARTER
+    app->quit();
 #endif
 }
 

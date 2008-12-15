@@ -94,15 +94,15 @@ os_LoadLibrary(stb::string fileName)
 #else
     libName = pathName + "lib" + fileName + ".dylib";
 #endif 
-    cerr << "Dynamically loading >" << libName << "< ...";
+    cerr << "  Dynamically loading >" << libName << "< ...";
     
     // load the library
     hModule p = dlopen(libName.c_str(), RTLD_LAZY);
     if (!p) {
-        cerr << " failed: cannot load library: " << dlerror() << '\n';
+        cerr << "  failed: cannot load library: " << dlerror() << '\n';
         return 0;
     }
-    cerr << " done." << endl;
+    cerr << "  done." << endl;
     return p;
 #endif
 }
