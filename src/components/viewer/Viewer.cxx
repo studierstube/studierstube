@@ -303,9 +303,14 @@ Viewer::gb_init(const char*appname, int argc, char **argv)
             SoQt::init(appname, "SoQt");
         #endif
     #endif
-#elif USE_QUARTER
-     SIM::Coin3D::Quarter::Quarter::init();
-     app=new QApplication(argc, argv);
+#elif USE_QUARTER    
+    if (QApplication::startingUp())
+    {
+        printf("Initializing Quarter and QApplication ...\n");
+        SIM::Coin3D::Quarter::Quarter::init();
+        app=new QApplication(argc, argv);
+
+    }
      
 #endif
 }
@@ -321,6 +326,7 @@ Viewer::gb_mainloop()
 #elif USE_SOQT
 	SoQt::mainLoop();
 #elif USE_QUARTER
+        //init();
         app->exec();
 #endif
 }

@@ -43,6 +43,10 @@
 #include SOGUI_H
 #include SOGUI_CURSOR_H
 
+#ifdef USE_QUARTER
+#  include <QDesktopWidget>
+#endif
+
 #include <Inventor/actions/SoSearchAction.h>
 
 
@@ -72,6 +76,8 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(yoffset, (0)); 
     SO_NODE_ADD_FIELD(width, (640)); 
     SO_NODE_ADD_FIELD(height, (480)); 
+    SO_NODE_ADD_FIELD(fullscreen, (FALSE));
+    SO_NODE_ADD_FIELD(screen, (0));
     SO_NODE_ADD_FIELD(transparencyType, (SoDisplay::BLEND)); 
     SO_NODE_ADD_FIELD(headlight, (TRUE)); 
     SO_NODE_ADD_FIELD(headlightIntensity, (1.0f)); 
@@ -163,7 +169,13 @@ SoDisplay::createViewer()
     ////////////////////////////////////////
     // create StudierstubeViewer
     ////////////////////////////////////////
+#ifdef USE_QUARTER
+    QDesktopWidget dwidget;
+    viewer = new SoStudierstubeViewer(dwidget.screen(screen.getValue()));
+#else
+    
     viewer=new SoStudierstubeViewer(NULL);
+#endif
 
     if (quadBuffering.getValue())
     {
@@ -234,6 +246,15 @@ SoDisplay::createViewer()
     viewer->setWindowDecoration(windowBorder.getValue());
     if( viewer->isDecoration() != decoration.getValue())
         viewer->setDecoration( decoration.getValue());
+#else
+    if (decoration.getValue())
+    {
+        viewer->setWindowFlags(Qt::Window);
+    }
+    else
+    {
+        viewer->setWindowFlags(Qt::SplashScreen);   
+    }
 #endif
 
     //widownOnTop
@@ -248,8 +269,20 @@ SoDisplay::createViewer()
 #endif
 
     //window pos & size
+#if not defined (USE_QUARTER)
     viewer->setWindowPosSize(xoffset.getValue(), yoffset.getValue(),
                              width.getValue()  , height.getValue());
+#else
+    if (fullscreen.getValue())
+    {
+        viewer->showFullScreen();
+    }
+    else
+    {
+        viewer->setWindowPosSize(xoffset.getValue(), yoffset.getValue(),
+                                 width.getValue()  , height.getValue());
+    }
+#endif
    
     //transparency
 #if not defined (USE_QUARTER)

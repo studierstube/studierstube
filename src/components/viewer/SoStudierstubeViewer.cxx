@@ -43,6 +43,9 @@
 #ifdef USE_SOQT
 #  include GuiWidget_H
 #endif
+#ifdef USE_QUARTER
+#  include <QDesktopWidget>
+#endif
 
 #include <climits>
 #include <iostream>
@@ -241,6 +244,8 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
             SetActiveWindow(this->getParentWidget());
             SetWindowLong(this->getParentWidget(), GWL_STYLE,
                           WS_POPUP|WS_MAXIMIZE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|WS_VISIBLE);
+#elif USE_QUARTER
+	    this->setWindowFlags(Qt::Window);
 #endif
             
             this->isWindowDecorationActive = TRUE;
@@ -265,6 +270,8 @@ SoStudierstubeViewer::setWindowDecoration(SbBool on)
             SetActiveWindow(this->getParentWidget());
             SetWindowLong(this->getParentWidget(), GWL_STYLE,
                           WS_POPUP|WS_MAXIMIZE|WS_CLIPSIBLINGS|WS_CLIPCHILDREN|WS_VISIBLE);
+#elif USE_QUARTER
+	    this->setWindowFlags(Qt::Desktop);  
 #endif
             
             this->isWindowDecorationActive = FALSE;
@@ -419,3 +426,14 @@ SoStudierstubeViewer::actualRedraw(void)
 
 
 END_NAMESPACE_STB
+
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

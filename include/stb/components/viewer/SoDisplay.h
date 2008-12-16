@@ -127,6 +127,15 @@ public:
     
     /** Specifies the width and height of the viewer window (in pixels). */
     SoSFInt32 width, height;
+
+    /** Specifies whether fullscreen mode should be used. In that case
+        xoffset, yoffset, width, and height will be ignored.*/
+    SoSFBool fullscreen;
+
+    /** Specifies the screen number for viewer creation. This is only
+	effective on X11 systems with multiple X-displays and using
+	Quarter as the GUI binding. */
+    SoSFInt32 screen;
     
     /** Specifies whether the viewer's headlight is turned on or off. */ 
     SoSFBool  headlight;
