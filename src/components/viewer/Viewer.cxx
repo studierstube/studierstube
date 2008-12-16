@@ -250,9 +250,9 @@ Viewer::addSoDisplay(SoDisplay* dsp)
 }
 
 void
-Viewer::removeSoDisplay(SoDisplay*)
+Viewer::removeSoDisplay(SoDisplay* dsp)
 {
-    //displayList. (dsp);
+    //displayList.erase(dsp);
 }
 
 SoDisplay*
@@ -327,7 +327,7 @@ Viewer::gb_mainloop()
 	SoQt::mainLoop();
 #elif USE_QUARTER
         //init();
-        app->exec();
+        QApplication::exec();
 #endif
 }
 
@@ -343,7 +343,12 @@ Viewer::gb_exitMainLoop()
     SoQt::done();
     SoQt::exitMainLoop();
 #elif USE_QUARTER
-    app->quit();
+    std::vector<SoDisplay*>::iterator it;
+    for (it = displayList.begin(); it!= displayList.end(); it++)
+    {
+        delete (*it);
+    }
+    QApplication::quit();
 #endif
 }
 

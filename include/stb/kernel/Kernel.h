@@ -98,7 +98,7 @@ public:
     *	Stop the kernel. --> Notice: stopKernel will not delete the Kernel!
     *   FIXME: stop() does nothing currently.
     */
-    void stop();
+    void stop(bool doexit = true);
 
     /*
     * Returns the current config file as a combination of base_dir\config_file

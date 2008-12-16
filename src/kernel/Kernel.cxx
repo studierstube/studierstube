@@ -165,7 +165,7 @@ Kernel::start(int argc, char* argv[])
 
 //
 void
-Kernel::stop()
+Kernel::stop(bool doexit)
 {
     componentManager->shutDown();
 
@@ -177,8 +177,13 @@ Kernel::stop()
 
     if(GUIBinder* guiBinder = componentManager->getGUIBinder())
         scheduler->stop(guiBinder);
-    stb::logPrintI("Closing Studierstube\n");
-    exit(0);
+
+    if (doexit)
+    {
+        stb::logPrintI("Closing Studierstube\n");
+        exit(0);
+    }
+
 }
 
 ////////////////////////////////////////////////////////////////
