@@ -368,8 +368,11 @@ Viewer::gb_registerManualCallback(SoSensorCB* cb)
 
 const void* Viewer::getGLContext()
 {
+#ifdef USE_QUARTER
     return displayList.front()->getViewer()->context();
-    //return NULL;
+#else
+    return NULL;
+#endif
 }
 
 const void* Viewer::getWidgetPtr()

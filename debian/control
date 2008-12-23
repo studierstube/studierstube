@@ -1,7 +1,7 @@
 Source: studierstube
 Priority: extra
 Maintainer: Alexander Bornik <bornik@icg.tugraz.at>
-Build-Depends: debhelper (>= 5), d-shlibs (>= 0.18), scons (>= 0.96), dh-buildinfo, pkg-config, libtinyxmlmod-dev, libartoolkitplus-dev, libopenvideo1-dev, libopentracker2-dev
+Build-Depends: debhelper (>= 5), d-shlibs (>= 0.18), scons (>= 0.96), dh-buildinfo, pkg-config, libtinyxmlmod1-dev, libartoolkitplus-dev, libopenvideo1-dev, libopentracker2-dev
 Standards-Version: 3.7.2
 Section: libs
 

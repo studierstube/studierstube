@@ -20,8 +20,8 @@ ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 	CXXFLAGS += -O0
 else
-	CFLAGS += -O2 -march=pentium-m -msse -msse2 -mfpmath=sse -finline-functions
-	CXXFLAGS += -O2 -march=pentium-m -msse -msse2 -mfpmath=sse -finline-functions
+	CFLAGS += -O2 -msse -msse2 -mfpmath=sse -finline-functions
+	CXXFLAGS += -O2 -msse -msse2 -mfpmath=sse -finline-functions
 endif
 
 # shared library versions, option 1
