@@ -58,7 +58,10 @@ public:
     /// The GUIBinder implementation internally calls the exitMainLoop function of the GUI binding
     virtual void gb_exitMainLoop() = 0;
 
-	virtual void gb_registerManualCallback(SoSensorCB* cb) = 0;
+    virtual void gb_registerManualCallback(SoSensorCB* cb) = 0;
+
+    virtual const void* getGLContext() = 0;
+    virtual const void* getWidgetPtr() = 0;
 };
 
 

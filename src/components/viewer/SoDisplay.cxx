@@ -172,6 +172,7 @@ SoDisplay::createViewer()
 #ifdef USE_QUARTER
     QDesktopWidget dwidget;
     viewer = new SoStudierstubeViewer(dwidget.screen(screen.getValue()));
+    printf("GL Context: %x\n",viewer->context());
 #else
     
     viewer=new SoStudierstubeViewer(NULL);
@@ -182,7 +183,7 @@ SoDisplay::createViewer()
 #if not defined (USE_QUARTER)
         viewer->setQuadBufferStereo(true);
 #else
-        printf("viewer->setQuadBufferStereo(true) is not implemented with QUARTER\n");
+        viewer->setStereoMode(SIM::Coin3D::Quarter::QuarterWidget::QUAD_BUFFER);
 #endif
     }        
     ///////////////////////////////////////////////////

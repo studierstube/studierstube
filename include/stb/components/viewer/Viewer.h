@@ -79,7 +79,8 @@ class VIEWER_API Viewer : public Component, public GUIBinder
     virtual void gb_mainloop();
     virtual void gb_exitMainLoop();
     virtual void gb_registerManualCallback(SoSensorCB* cb);
-
+    virtual const void* getGLContext();
+    virtual const void* getWidgetPtr();
 
     static SoDisplay* findSoDisplay(SoNode* node);
 

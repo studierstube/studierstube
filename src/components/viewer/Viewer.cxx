@@ -47,7 +47,9 @@
 #include <qdatastream.h>
 #endif
 
+
 #include <stb/components/viewer/Viewer.h>
+#include <stb/components/viewer/SoStudierstubeViewer.h>
 #include <stb/base/macros.h>
 #include <stb/base/OS.h>
 
@@ -364,6 +366,17 @@ Viewer::gb_registerManualCallback(SoSensorCB* cb)
 
 }
 
+const void* Viewer::getGLContext()
+{
+    return displayList.front()->getViewer()->context();
+    //return NULL;
+}
+
+const void* Viewer::getWidgetPtr()
+{
+    return displayList.front()->getViewer();
+    //return NULL;
+}
 
 
 
