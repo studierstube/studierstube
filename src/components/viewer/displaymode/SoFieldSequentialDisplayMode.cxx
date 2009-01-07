@@ -74,7 +74,7 @@ SoFieldSequentialDisplayMode::SoFieldSequentialDisplayMode()
     
     SO_NODE_SET_SF_ENUM_TYPE(buffer, BufferType);
     
-	isInit=false;
+    isInit=false;
 }
 
 //----------------------------------------------------------------------------
@@ -87,50 +87,84 @@ SoFieldSequentialDisplayMode::~SoFieldSequentialDisplayMode()
 void 
 SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
 {
-    printf("SoFieldSequentialDisplayMode::setViewer\n");
-	SoDisplayMode::setViewer(aViewer);
-	if(!SoFieldSequentialDisplayMode::isInit){
+
+    SoDisplayMode::setViewer(aViewer);
+    if(!SoFieldSequentialDisplayMode::isInit)
+    {
+        printf("SoFieldSequentialDisplayMode::setViewer: first initialization call ...\n");
+        SoFieldSequentialDisplayMode::isInit=true;		
 #if not defined (USE_QUARTER)
-		SoFieldSequentialDisplayMode::isInit=true;		
-		if(viewer->isQuadBufferStereo()){
-			isQuadBufferAvailable=true;
-		}
-		else{            
-			viewer->setQuadBufferStereo(false);
-            stb::logPrintW("SoFieldSequentialDisplayMode :: no quadbuffer found");
-		}
+        if(viewer->isQuadBufferStereo()){
+            isQuadBufferAvailable=true;
+        }
+        else{            
+            viewer->setQuadBufferStereo(false);
+            stb::logPrintW("SoFieldSequentialDisplayMode :: no quadbuffer found\n");
+        }
 #else
-		isQuadBufferAvailable=true;
+        SoDisplay *dsp=Viewer::findSoDisplay(this);
+        if(dsp)
+        {
+            if (dsp->quadBuffering.getValue())
+            {
+                isQuadBufferAvailable=true;                
+
+            }
+        }
+        else
+        {
+            viewer->setStereoMode(SIM::Coin3D::Quarter::QuarterWidget::MONO);
+            stb::logPrintW("SoFieldSequentialDisplayMode :: no quadbuffer found\n");
+        }
+    
+        /*
+        if (viewer->getSoRenderManager()->getStereoMode() == 
+            SoRenderManager::QUAD_BUFFER)
+        {
+            printf("%d %d\n", viewer->stereoMode(),  
+                   viewer->getSoRenderManager()->getStereoMode());
+
+            viewer->getSoRenderManager()->setStereoMode(SoRenderManager::MONO);
+
+            printf("%d %d\n", viewer->stereoMode(),  
+                 viewer->getSoRenderManager()->getStereoMode());
+        
+
+        }
+        */
+
 #endif
-	}
+    }
 }
 
 void 
 SoFieldSequentialDisplayMode::GLRender(SoGLRenderAction * /*action*/)
 {
 #ifdef _IS_KLIMTES_
-	assert(false && "Not supported with OpenGL ES !!!");
+    assert(false && "Not supported with OpenGL ES !!!");
 #else
     if(!activated)
     {
         activated=activate();
     }
 
-	if(isQuadBufferAvailable)
-	{
-		glFlush();
-		switch(buffer.getValue())//select new buffer
-		{
-			case LEFT:
-				glDrawBuffer(GL_BACK_LEFT);
-				break;
-			case RIGHT:
-				glDrawBuffer(GL_BACK_RIGHT);
-				break;
-		}
-		//glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);//clear buffers
-		glFlush();//force execution of gl commands
-	}
+    if(isQuadBufferAvailable)
+    {
+        glFlush();
+        
+        switch(buffer.getValue())//select new buffer
+        {
+            case LEFT:
+                glDrawBuffer(GL_BACK_LEFT);
+                break;
+            case RIGHT:
+                glDrawBuffer(GL_BACK_RIGHT);
+                break;
+        }
+
+        //glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);//clear buffers
+        glFlush();//force execution of gl commands
+    }
 #endif
 }
 
@@ -144,7 +178,27 @@ SoFieldSequentialDisplayMode::activate()
     
     setViewer(dsp->getViewer());
 
+    GLboolean glstereo = false;
+    glGetBooleanv(GL_STEREO, &glstereo);
+    if (not glstereo)
+    {
+        printf("Could not switch to stereo buffers! -> going back to monoscopic rendering.\n");
+        isQuadBufferAvailable = false;
+     
+    }
+
     return true;
 }
 
 END_NAMESPACE_STB
+
+//========================================================================
+// Local Variables:
+// mode: c++
+// c-basic-offset: 4
+// eval: (c-set-offset 'substatement-open 0)
+// eval: (c-set-offset 'case-label '+)
+// eval: (c-set-offset 'statement 'c-lineup-runin-statements)
+// eval: (setq indent-tabs-mode nil)
+// End:
+//========================================================================

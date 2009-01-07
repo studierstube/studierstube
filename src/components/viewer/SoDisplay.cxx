@@ -177,13 +177,15 @@ SoDisplay::createViewer()
     
     viewer=new SoStudierstubeViewer(NULL);
 #endif
-
+    
     if (quadBuffering.getValue())
     {
 #if not defined (USE_QUARTER)
         viewer->setQuadBufferStereo(true);
 #else
-        viewer->setStereoMode(SIM::Coin3D::Quarter::QuarterWidget::QUAD_BUFFER);
+        // nothing to do here -> do it in the display modes directly ...
+        //viewer->getSoRenderManager()->setStereoMode(SoRenderManager::QUAD_BUFFER);
+        //viewer->setStereoMode(SIM::Coin3D::Quarter::QuarterWidget::MONO);
 #endif
     }        
     ///////////////////////////////////////////////////
