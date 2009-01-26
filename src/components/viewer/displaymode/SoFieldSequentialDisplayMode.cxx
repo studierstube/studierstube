@@ -93,7 +93,7 @@ SoFieldSequentialDisplayMode::setViewer(SoStudierstubeViewer* aViewer)
     {
         printf("SoFieldSequentialDisplayMode::setViewer: first initialization call ...\n");
         SoFieldSequentialDisplayMode::isInit=true;		
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
         if(viewer->isQuadBufferStereo()){
             isQuadBufferAvailable=true;
         }
@@ -180,7 +180,7 @@ SoFieldSequentialDisplayMode::activate()
 
     GLboolean glstereo = false;
     glGetBooleanv(GL_STEREO, &glstereo);
-    if (not glstereo)
+    if (!glstereo)
     {
         printf("Could not switch to stereo buffers! -> going back to monoscopic rendering.\n");
         isQuadBufferAvailable = false;
