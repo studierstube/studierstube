@@ -331,7 +331,7 @@ void SoVariable::convertBooleanField(SoMField *field,unsigned short num)
     }
 }
 
-bool SoVariable::isType(char *str)
+bool SoVariable::isType(const char *str)
 {
     char *typeStr=_strdup(type.getValue().getString());
     for (unsigned int i=0;i<strlen(typeStr);i++){

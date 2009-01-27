@@ -44,7 +44,7 @@
 #endif
 #include <Inventor/errors/SoDebugError.h>
 
-char _checkGLErrors(char *file, int line)
+char _checkGLErrors(const char *file, int line)
 {
     int i = 0;
     GLenum e;
