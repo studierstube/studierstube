@@ -188,7 +188,7 @@ protected:
     void convertBooleanField(SoMField *field,unsigned short num);
 
     /// Compares the parameter string with the built-in variable type strings
-    bool isType(char *str);
+    bool isType(const char *str);
 
     /// Gets triggered if any of the input fields changes
     static void inputChanged(void *data,SoSensor *sensor);

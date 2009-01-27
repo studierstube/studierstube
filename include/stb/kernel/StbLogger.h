@@ -98,7 +98,7 @@ public:
 	virtual void writeToFileEx(const char * format, ...);
 
 	virtual char * getLogFileName();
-	virtual void setLogFileName(char * filename);
+	virtual void setLogFileName(const char * filename);
 
 protected:
 	LOG_MODE logMode;

@@ -27,6 +27,6 @@
 
 #define checkGLErrors() _checkGLErrors(__FILE__, __LINE__)
 
-extern char _checkGLErrors(char *, int);
+extern char _checkGLErrors(const char *, int);
 
 #endif

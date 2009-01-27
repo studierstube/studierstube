@@ -166,11 +166,13 @@ StbLogger*	StbLogger::instance=NULL;
 StbLogger::StbLogger()
 {
 	logMode = MODE_CONSOLE;
-	strcpy(logFileName, "stb_log.txt");
+	logFileName = new char[1024];
+	strcpy(logFileName, "stb_log.txt\0");
 }
 
 StbLogger::~StbLogger()
 {
+  delete [] logFileName;
 }
 
 StbLogger *StbLogger::getInstance()
@@ -185,9 +187,9 @@ void StbLogger::setLogMode(LOG_MODE newMode) {
 	logMode = newMode;
 }
 
-void StbLogger::setLogFileName(char * filename)
+void StbLogger::setLogFileName(const char * filename)
 {
-	logFileName = filename;
+  strcpy(logFileName, filename);
 }
 
 char * StbLogger::getLogFileName() 
