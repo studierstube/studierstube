@@ -166,7 +166,7 @@ StbLogger*	StbLogger::instance=NULL;
 StbLogger::StbLogger()
 {
 	logMode = MODE_CONSOLE;
-	logFileName = "stb_log.txt";
+	strcpy(logFileName, "stb_log.txt");
 }
 
 StbLogger::~StbLogger()

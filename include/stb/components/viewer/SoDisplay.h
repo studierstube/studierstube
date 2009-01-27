@@ -49,6 +49,11 @@
 #include <Inventor/fields/SoSFString.h>
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/components/viewer/SoStbCamera.h>
+
+#ifdef None // fix for some strange problem with Qt includes
+#undef None
+#endif
+
 #include SOGUICOMPONENT_H
 #include SOGUI_H
 #include <vector>
