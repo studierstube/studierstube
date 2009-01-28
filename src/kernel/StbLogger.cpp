@@ -34,6 +34,7 @@
 #include <stb/base/OS.h>
 #include <cstdarg>
 #include <cstdlib>
+#include <cstring>
 
 #ifdef WIN32
 #include <windows.h>
