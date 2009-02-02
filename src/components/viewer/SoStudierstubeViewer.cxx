@@ -72,6 +72,9 @@ SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
 SoGuiExaminerViewer(widget)
 #endif
 {
+#if USE_QUARTER
+    this->setNavigationModeFile();
+#endif
     isWindowDecorationActive=TRUE;
     headlight=NULL;
     //shareGLContextWithVideo=false;
