@@ -23,7 +23,7 @@ else(STUDIERSTUBE_INCLUDE_DIRS AND STUDIERSTUBE_LIBRARY_DIRS)
   endif(NOT EXISTS ${STUDIERSTUBE_ROOT}/CMakeLists.txt)
 
   set(STUDIERSTUBE_INCLUDE_DIRS "${STUDIERSTUBE_ROOT}/include" CACHE STRING "Studierstube include directories")
-  set(STUDIERSTUBE_LIBRARIES "stbevent stbkernel" CACHE STRING "Studierstube libraries names")
+  set(STUDIERSTUBE_LIBRARIES "stbevent" "stbkernel" CACHE STRING "Studierstube libraries names")
 
   # what about stbstarlight, stbvideo, stbviewer_qt?
 
