@@ -109,7 +109,6 @@ SoStbCamera::activate()
 {
 	// set this StbCameras name
 	this->setName( SbName(name.getValue()) );
-
 	return activateControlMode();
 }
 
@@ -134,17 +133,21 @@ SoStbCamera::getControlMode()
 bool
 SoStbCamera::activateControlMode()
 {	
-	if(controlMode.getValue())
+	if((SoStbCameraControlMode*)getAnyPart("controlMode",false,false,false))
 	{
 		if(!(SoCamera*)getAnyPart("camera",false,false,false)){
 			logPrintE("StbCameraControlMode: 'no camera found to control'\n ");
 			return false;
 		}
 
-		((SoStbCameraControlMode*)controlMode.getValue())->setStbCamera(this);
+		if(!(SoCamera*)getAnyPart("camera",false,false,false)){
+			logPrintE("StbCameraControlMode: 'no camera found to control'\n ");
+			return false;
+		}
 
-        if(!((SoStbCameraControlMode*)controlMode.getValue())->activate())
-		    return false;
+		((SoStbCameraControlMode*)getAnyPart("controlMode",false,false,false))->setStbCamera(this);
+		if(!((SoStbCameraControlMode*)getAnyPart("controlMode",false,false,false))->activate())
+			return false;
 
 		return true;
 	}
