@@ -245,7 +245,7 @@ SoDisplay::createViewer()
 	//mainWin->setWindowFlags(flags);
 
     ////windowDecoreation
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     viewer->setWindowDecoration(windowBorder.getValue());
     if( viewer->isDecoration() != decoration.getValue())
         viewer->setDecoration( decoration.getValue());
@@ -272,7 +272,7 @@ SoDisplay::createViewer()
 #endif
 
     //window pos & size
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     viewer->setWindowPosSize(xoffset.getValue(), yoffset.getValue(),
                              width.getValue()  , height.getValue());
 #else
@@ -288,7 +288,7 @@ SoDisplay::createViewer()
 #endif
    
     //transparency
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     viewer->setTransparencyType(
                                 (SoGLRenderAction::TransparencyType)transparencyType.getValue());
 #else

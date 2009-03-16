@@ -82,7 +82,7 @@ SoGuiExaminerViewer(widget)
  //   renderAction->setSmoothing(TRUE);
     // in order to support COINs SORTED_LAYER_BLEND transparency Mode, 
     // the Alpha bits must be set
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     this->setAlphaChannel(TRUE);
 #endif
 
@@ -334,7 +334,7 @@ SoStudierstubeViewer::setWindowPosSize(int x, int y, int width, int height)
     
     // the viewer instantiated with SoGui::init needs to be treated differently.
     // getShellWidget returns NULL in this case.
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     if (!this->getShellWidget())
         SoGui::setWidgetSize(SoGui::getShellWidget(this->getWidget()), SbVec2s(width, height));
     else
@@ -380,7 +380,7 @@ SoStudierstubeViewer::redraw ()
     if(showTriangleCount)
         printf("[triangleCount = %i] \n",this->countTriangles());
     if(showCursor==FALSE){
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
         setComponentCursor(SoGuiCursor::getBlankCursor());
 #endif
     }
