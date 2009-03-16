@@ -91,11 +91,12 @@ SoStbCamera::SoStbCamera()
     SO_KIT_ADD_CATALOG_ENTRY(controlMode,	SoStbCameraControlMode,	TRUE,	xfSep,	offset,			TRUE);
 	SO_KIT_ADD_CATALOG_ENTRY(transform,		SoTransform,			FALSE,  xfSep,	controlMode,	TRUE);
 
-	SO_KIT_ADD_FIELD( name,	(""));
+	SO_KIT_ADD_FIELD( name,	("StbCamera"));
     SO_KIT_INIT_INSTANCE();
 
     setSearchingChildren(TRUE);
     activated=false;
+    this->setName( SbName(name.getValue()) );
 }
 
 /** The destructor */
