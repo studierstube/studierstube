@@ -192,12 +192,19 @@ Viewer::init()
     SoInput::addDirectoryFirst("./");
 
     SoInput myinput;
-    if (!myinput.openFile(configFile.c_str())) {
+	if( configFile.compare("") != 0 )
+	{
+		if (!myinput.openFile(configFile.c_str())) {
+			logPrintE("Cant open config file: %s \n", configFile.c_str());
+			SoInput::removeDirectory("./");
+			isInit=false;
+			return isInit;
+		}
+	}else{
 		logPrintW("No display defined yet! \n");
-		SoInput::removeDirectory("./");
 		isInit=true;
 		return isInit;
-    }
+	}
     SoSeparator *fileRoot=SoDB::readAll(&myinput);
     myinput.closeFile();
     SoInput::removeDirectory("./");

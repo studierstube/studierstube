@@ -263,7 +263,7 @@ SoDisplay::createViewer()
     //widownOnTop
     viewer->setWindowOnTop(windowOnTop.getValue());
 
-#if not defined (USE_QUARTER)	
+#ifndef USE_QUARTER	
     //stencilBuffer
     if (stencilBuffer.getValue() == TRUE)
     {
@@ -296,7 +296,7 @@ SoDisplay::createViewer()
                                 (SIM::Coin3D::Quarter::QuarterWidget::TransparencyType)transparencyType.getValue());
 #endif
     //title
-#if not defined (USE_QUARTER)	
+#ifndef USE_QUARTER	
     viewer->setTitle(STUDIERSTUBE_VERSION_STRING);
 #endif
 
@@ -305,7 +305,7 @@ SoDisplay::createViewer()
     //if (viewer->getHeadlight())
     // viewer->getHeadlight()->intensity.setValue(headlightIntensity.getValue());
        
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
     //background color 
     viewer->setBackgroundColor(backgroundColor.getValue());
 
@@ -316,7 +316,7 @@ SoDisplay::createViewer()
     // set mouse cursor
     if( showMouse.getValue() == FALSE )
     {
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER	
         viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
 #else
         printf("viewer->setComponentCursor(SoGuiCursor::getBlankCursor()); not implemented in Quarter\n");
@@ -325,7 +325,7 @@ SoDisplay::createViewer()
     }
 
     // Set the Viewing
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER	
     if(!isViewing.getValue())
         viewer->setViewing(isViewing.getValue());
 #endif
@@ -338,7 +338,7 @@ SoDisplay::createViewer()
 
     viewer->printTriangles(showTriangleCount.getValue() == TRUE);
     viewer->printFrameRate(showFrameRate.getValue() == TRUE);
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER	
     viewer->setWindowCloseCallback(exitViewer);
 #endif
     viewer->show();
