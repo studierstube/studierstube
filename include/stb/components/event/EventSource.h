@@ -95,6 +95,9 @@ protected:
       */
     std::string confidence;
 
+	std::string attributeType;
+	std::string attributeName;
+
     /// field sensor for position field
     SoFieldSensor positionSensor;
     /// field sensor for orientation field
@@ -103,6 +106,8 @@ protected:
     SoFieldSensor buttonSensor;
     /// field sensor for confidence field
     SoFieldSensor confidenceSensor;
+
+	SoFieldSensor attributeFloatSensor;
 
     /// state used for OpenTracker event processing
 #ifdef USE_OT_1_1
@@ -116,7 +121,8 @@ protected:
      * and data object as this.
      */
     EventSource( const std::string & node_, const std::string & position_, const std::string & orientation_,
-               const std::string & button_, const std::string & confidence_ );
+               const std::string & button_, const std::string & confidence_ , const std::string & attributeType_ 
+			   , const std::string & attributeName_ );
     
     /// the delete callback to be notified if a field is about to be removed
     static void deleteCB( void * data, SoSensor * sensor);
@@ -132,6 +138,8 @@ protected:
 
     /// confidence callback, updates the state variable and sets changed to true
     static void confidenceCB( void * data, SoSensor * sensor);
+
+	static void attributeFloatCB( void * data, SoSensor * sensor);
 
     /** checks whether any fields not yet connected to have become available.
      * If all fields configured are bound to sensors, it sets setup to be true.

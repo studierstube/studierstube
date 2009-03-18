@@ -320,7 +320,9 @@ Node * EventModule::createNode( const string& name,  const StringTable& attribut
             attributes.get("position"),
             attributes.get("orientation"),
             attributes.get("button"),
-            attributes.get("confidence"));
+            attributes.get("confidence"),
+			attributes.get("attributeType"),
+			attributes.get("attributeName"));
         sources.push_back( source );
         source->checkForNodes();
         return source;

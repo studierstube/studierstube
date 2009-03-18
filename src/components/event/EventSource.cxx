@@ -44,9 +44,11 @@
 using namespace std;
 
 EventSource::EventSource( const std::string & node_, const std::string & position_, const std::string & orientation_,
-            const std::string & button_, const std::string & confidence_ ) 
+            const std::string & button_, const std::string & confidence_ ,const std::string & attributeType_ ,
+			const std::string & attributeName_ ) 
             : Node(), changed( false ), setup( false ), node( node_ ), position( position_),
-            orientation( orientation_ ),  button( button_), confidence( confidence_ )
+            orientation( orientation_ ),  button( button_), confidence( confidence_ ),
+			attributeType( attributeType_ ), attributeName( attributeName_ )
 {
     positionSensor.setFunction( positionCB );
     positionSensor.setDeleteCallback( deleteCB, this );
@@ -63,6 +65,10 @@ EventSource::EventSource( const std::string & node_, const std::string & positio
     confidenceSensor.setFunction( confidenceCB );
     confidenceSensor.setDeleteCallback( deleteCB, this );
     confidenceSensor.setData( this );
+
+	attributeFloatSensor.setFunction( attributeFloatCB );
+    attributeFloatSensor.setDeleteCallback( deleteCB, this );
+    attributeFloatSensor.setData( this );
 }
 
 void EventSource::deleteCB( void * data, SoSensor * sensor)
@@ -136,6 +142,17 @@ void EventSource::confidenceCB( void * data, SoSensor * sensor)
     self->changed = true;
 }
 
+void EventSource::attributeFloatCB( void * data, SoSensor * sensor)
+{   
+    EventSource * self = (EventSource *) data;
+    self->state.timeStamp();
+    SoSFFloat * floatValue = (SoSFFloat *)((SoFieldSensor *)sensor)->getAttachedField();
+#ifndef USE_OT_1_1
+    self->state.setAttribute<float>(self->attributeName.c_str(), floatValue->getValue() );
+#endif
+    self->changed = true;
+}
+
 int EventSource::isEventGenerator()
 {
     return 1;
@@ -192,6 +209,21 @@ void EventSource::checkForNodes()
             if( fieldInstance->getTypeId() == SoSFFloat::getClassTypeId())
             {
                 confidenceSensor.attach( fieldInstance );
+                setup = true;
+            }
+        }       
+    }
+	if( attributeFloatSensor.getAttachedField() == NULL 
+		&& attributeType.compare("float") == 0
+		&& attributeName.compare("") != 0)
+    {
+        setup = false;
+        SoField * fieldInstance = getFieldByName( node + "." + attributeName );
+        if( fieldInstance != NULL )
+        {
+            if( fieldInstance->getTypeId() == SoSFFloat::getClassTypeId())
+            {
+                attributeFloatSensor.attach( fieldInstance );
                 setup = true;
             }
         }       
