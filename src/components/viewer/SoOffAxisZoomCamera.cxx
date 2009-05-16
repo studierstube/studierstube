@@ -237,7 +237,7 @@ int SoOffAxisZoomCamera::projectToScreen(const SbVec3f &src, SbVec2f &dst) const
 
 void SoOffAxisZoomCamera::GLRender(SoGLRenderAction* action)
 {
-		glClear(GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		SoCamera::GLRender(action);
 }
 
