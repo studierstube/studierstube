@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkerneld.lib coin2d.lib soqt1d.lib qtmaind.lib QtCored4.lib QtGuid4.lib opengl32.lib glu32.lib openvideod.lib aced.lib"
+				AdditionalDependencies="stbkerneld.lib coin3d.lib soqt1d.lib qtmaind.lib QtCored4.lib QtGuid4.lib opengl32.lib glu32.lib openvideod.lib aced.lib"
 				OutputFile="$(OutDir)/stbviewer_qtd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(QTROOT)\lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(ACEROOT)\lib&quot;"
@@ -143,7 +143,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="stbkernel.lib coin2.lib soqt1.lib qtmain.lib QtCore4.lib QtGui4.lib opengl32.lib glu32.lib openvideo.lib ace.lib"
+				AdditionalDependencies="stbkernel.lib coin3.lib soqt1.lib qtmain.lib QtCore4.lib QtGui4.lib opengl32.lib glu32.lib openvideo.lib ace.lib"
 				OutputFile="$(OutDir)/stbviewer_qt.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib&quot;;&quot;$(COINROOT)/lib/win32&quot;;&quot;$(QTROOT)\lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(OPENVIDEOROOT)/lib/Win32&quot;;&quot;$(ACEROOT)\lib&quot;"

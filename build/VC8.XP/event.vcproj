@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib opentrackerd.lib"
+				AdditionalDependencies="coin3d.lib opentrackerd.lib"
 				OutputFile="$(OutDir)/stbeventd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINDIR)/lib/win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib opentracker.lib"
+				AdditionalDependencies="coin3.lib opentracker.lib"
 				OutputFile="$(OutDir)/stbevent.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OTROOT)/lib/win32&quot;;&quot;$(COINDIR)/lib/win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;"

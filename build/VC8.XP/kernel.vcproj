@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="kernel"
 	ProjectGUID="{42748253-9DEC-4BB4-9483-FDDA842B610B}"
 	RootNamespace="kernel"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Coin2d.lib aced.lib opengl32.lib"
+				AdditionalDependencies="Coin3d.lib aced.lib opengl32.lib"
 				OutputFile="$(OutDir)/stbkerneld.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINDIR)/lib/Win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(ACEROOT)/lib&quot;"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Coin2.lib ace.lib opengl32.lib"
+				AdditionalDependencies="Coin3.lib ace.lib opengl32.lib"
 				OutputFile="$(OutDir)/stbkernel.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(TINYXMLMODROOT)/lib/win32&quot;;&quot;$(COINDIR)/lib/Win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;"

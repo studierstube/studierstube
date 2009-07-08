@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="starlight"
 	ProjectGUID="{074E91D6-DBE7-46AA-A936-1C0FDF801B38}"
 	RootNamespace="starlight"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2d.lib opengl32.lib glu32.lib aced.lib"
+				AdditionalDependencies="coin3d.lib opengl32.lib glu32.lib aced.lib"
 				OutputFile="$(OutDir)/stbstarlightd.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib/win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;;&quot;$(GLEWROOT)/lib&quot;"
@@ -140,7 +140,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="coin2.lib opengl32.lib glu32.lib ace.lib"
+				AdditionalDependencies="coin3.lib opengl32.lib glu32.lib ace.lib"
 				OutputFile="$(OutDir)/stbstarlight.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(COINDIR)/lib/win32&quot;;&quot;$(COINDIR)/lib&quot;;&quot;$(STB4ROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib/win32&quot;;&quot;$(ACEROOT)/lib&quot;;&quot;$(GLEWROOT)/lib&quot;"
