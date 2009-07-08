@@ -66,7 +66,7 @@ BEGIN_NAMESPACE_STB
 //----------------------------------------------------------------------------
 // The constructor of the viewer.
 SoStudierstubeViewer::SoStudierstubeViewer(GuiWidget widget) :
-#if not defined(USE_QUARTER)
+#ifndef USE_QUARTER
 SoGuiExaminerViewer(widget, "Studierstube", TRUE, SoGuiFullViewer::BUILD_ALL)
 #else
 SoGuiExaminerViewer(widget)
@@ -120,9 +120,16 @@ SoStudierstubeViewer::~SoStudierstubeViewer()
 int 
 SoStudierstubeViewer::countTriangles()
 {
-    SoGetPrimitiveCountAction countAction;
-    countAction.apply(this->getSceneGraph());
-    return countAction.getTriangleCount();
+	SoGetPrimitiveCountAction countAction;
+	countAction.apply(this->getSceneGraph());
+	return countAction.getTriangleCount();
+}
+
+void
+SoStudierstubeViewer::setAntialiasing(int level)
+{
+	if (level>1)
+		this->getSceneManager()->setAntialiasing(TRUE,level);
 }
 
 //----------------------------------------------------------------------------

@@ -183,6 +183,16 @@ public:
      * This is independend of the display mode.*/	
     SoSFBool windowOnTop;
     
+	/** Specifies what level the viewer should use for line antialiasing
+	* Default value is 1. 
+	*/	
+	SoSFInt32 antialiasingLevel;
+
+	/** Specifies the number of samplebuffers the viewer should use
+	* Default value is 1. 
+	*/	
+	SoSFInt32 sampleBuffers;
+
     /** Specifies whether to enable the stencil buffer of the viewer.
      * Default value is FALSE. */
     SoSFBool stencilBuffer;

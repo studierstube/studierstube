@@ -92,7 +92,9 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(isViewing,(TRUE));
     SO_NODE_ADD_FIELD(showFrameRate,(FALSE));
     SO_NODE_ADD_FIELD(showTriangleCount,(FALSE));
-    SO_NODE_ADD_FIELD(quadBuffering,(FALSE));
+	SO_NODE_ADD_FIELD(quadBuffering,(FALSE));
+	SO_NODE_ADD_FIELD(antialiasingLevel,(1));
+	SO_NODE_ADD_FIELD(sampleBuffers,(1));
 
     
     SO_NODE_DEFINE_ENUM_VALUE(TransparencyType, SCREEN_DOOR);
@@ -180,7 +182,7 @@ SoDisplay::createViewer()
     
     if (quadBuffering.getValue())
     {
-#if not defined (USE_QUARTER)
+#ifndef USE_QUARTER
         viewer->setQuadBufferStereo(true);
 #else
         // nothing to do here -> do it in the display modes directly ...
@@ -260,8 +262,14 @@ SoDisplay::createViewer()
     }
 #endif
 
-    //widownOnTop
-    viewer->setWindowOnTop(windowOnTop.getValue());
+	//widownOnTop
+	viewer->setWindowOnTop(windowOnTop.getValue());
+
+	//antialiasing
+	viewer->setAntialiasing(antialiasingLevel.getValue());
+
+	//samplebuffers
+	viewer->setSampleBuffers(sampleBuffers.getValue());
 
 #ifndef USE_QUARTER	
     //stencilBuffer

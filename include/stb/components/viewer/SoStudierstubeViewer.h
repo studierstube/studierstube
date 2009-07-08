@@ -90,6 +90,8 @@ public:
      */
     SbBool isHeadlight() const;
 
+	void setAntialiasing(int level=1);
+
     void showMouse(bool mouseOn);
     /**
      *  Returns the SoDirectionalLight-instance used as headlight.
