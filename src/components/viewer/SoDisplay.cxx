@@ -32,6 +32,7 @@
 #include <stb/components/viewer/SoDisplay.h>
 
 #include <stb/kernel/Studierstube.h>
+#include <stb/kernel/Kernel.h>
 #include <stb/components/viewer/Viewer.h>
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/components/viewer/SoStudierstubeViewer.h>
@@ -129,8 +130,11 @@ SoDisplay::~SoDisplay()
 void 
 SoDisplay::exitViewer(void*, SoGuiComponent* viewer)
 {
-    SoDisplay* display=Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
-    Viewer::removeSoDisplay(display);
+	// This is a cleaner way to exit. Mendez
+	Kernel::getInstance()->stop();
+
+    //SoDisplay* display=Viewer::findSoDisplay(((SoStudierstubeViewer*)viewer)->getSceneGraph());
+    //Viewer::removeSoDisplay(display);
     //    delete viewer;
 }
 
@@ -346,8 +350,10 @@ SoDisplay::createViewer()
 
     viewer->printTriangles(showTriangleCount.getValue() == TRUE);
     viewer->printFrameRate(showFrameRate.getValue() == TRUE);
+
+
 #ifndef USE_QUARTER	
-    viewer->setWindowCloseCallback(exitViewer);
+    viewer->setWindowCloseCallback(exitViewer, NULL);
 #endif
     viewer->show();
 }

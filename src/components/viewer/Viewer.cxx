@@ -120,18 +120,19 @@ CREATE_COMPONENT_FUNC(Viewer)
 
 Viewer::Viewer()
 {
-   configFile="";
+	configFile="";
 
-//   // Begins little hack
-//   Video* video=(Video*)(Kernel::getInstance()->getComponentManager()->load("Video"));
-//   if(!video)
-//   {
-//       logPrintE("failed to load video system\n");
-//   }
-//
+	//printf("----------------------------------------------\n");
+	//// Begins little hack
+	//Video* video=(Video*)(Kernel::getInstance()->getComponentManager()->load("Video"));
+	//if(!video)
+	//{
+	//	logPrintE("failed to load video system\n");
+	//}
+
 //   // FIXME: give video thread time to start. Mendez. 20070315
 //
-//   int time=0000;
+//   int time=5000;
 //   stb::logPrintI("Waiting %d milliseconds for video to start\n",time);
 //
 //#ifdef NDEBUG
@@ -152,7 +153,7 @@ Viewer::~Viewer()
 bool
 Viewer::init()
 {
-    stb::logPrintD("init Viewer\n");
+	stb::logPrintD("init Viewer\n");
 
     if(isInit)
         return true;
@@ -235,7 +236,6 @@ Viewer::init()
     }
     fileRoot->unref();
 
-   
     isInit=true;
     return isInit;
 }
