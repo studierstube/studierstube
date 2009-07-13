@@ -125,12 +125,14 @@ SoStudierstubeViewer::countTriangles()
 	return countAction.getTriangleCount();
 }
 
+#ifndef USE_QUARTER
 void
 SoStudierstubeViewer::setAntialiasing(int level)
 {
 	if (level>1)
 		this->getSceneManager()->setAntialiasing(TRUE,level);
 }
+#endif
 
 //----------------------------------------------------------------------------
 // Overides the inherited setHeadlight method

@@ -137,11 +137,13 @@ public:
         xoffset, yoffset, width, and height will be ignored.*/
     SoSFBool fullscreen;
 
+#ifdef USE_QUARTER	
     /** Specifies the screen number for viewer creation. This is only
 	effective on X11 systems with multiple X-displays and using
 	Quarter as the GUI binding. */
     SoSFInt32 screen;
-    
+#endif
+ 
     /** Specifies whether the viewer's headlight is turned on or off. */ 
     SoSFBool  headlight;
     

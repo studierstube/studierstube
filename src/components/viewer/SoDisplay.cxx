@@ -78,7 +78,9 @@ SoDisplay::SoDisplay()
     SO_NODE_ADD_FIELD(width, (640)); 
     SO_NODE_ADD_FIELD(height, (480)); 
     SO_NODE_ADD_FIELD(fullscreen, (FALSE));
+#ifdef USE_QUARTER
     SO_NODE_ADD_FIELD(screen, (0));
+#endif
     SO_NODE_ADD_FIELD(transparencyType, (SoDisplay::BLEND)); 
     SO_NODE_ADD_FIELD(headlight, (TRUE)); 
     SO_NODE_ADD_FIELD(headlightIntensity, (1.0f)); 
@@ -269,13 +271,13 @@ SoDisplay::createViewer()
 	//widownOnTop
 	viewer->setWindowOnTop(windowOnTop.getValue());
 
+#ifndef USE_QUARTER	
 	//antialiasing
 	viewer->setAntialiasing(antialiasingLevel.getValue());
 
 	//samplebuffers
-	viewer->setSampleBuffers(sampleBuffers.getValue());
+	//viewer->setSampleBuffers(sampleBuffers.getValue());
 
-#ifndef USE_QUARTER	
     //stencilBuffer
     if (stencilBuffer.getValue() == TRUE)
     {

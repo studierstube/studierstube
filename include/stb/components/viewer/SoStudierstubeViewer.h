@@ -90,7 +90,9 @@ public:
      */
     SbBool isHeadlight() const;
 
-	void setAntialiasing(int level=1);
+#ifndef USE_QUARTER
+    void setAntialiasing(int level=1);
+#endif
 
     void showMouse(bool mouseOn);
     /**
