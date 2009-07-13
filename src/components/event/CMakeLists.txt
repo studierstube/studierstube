@@ -1,12 +1,12 @@
-FILE(GLOB stbevent_SOURCES *.cpp *.cxx)
-FILE(GLOB stbevent_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/event/*.h)
+file(GLOB stbevent_SOURCES *.cpp *.cxx)
+file(GLOB stbevent_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/event/*.h)
 
-IF(WIN32)
-   ADD_DEFINITIONS(-DEVENT_EXPORTS)
-ENDIF(WIN32)
+if(WIN32)
+   add_definitions(-DEVENT_EXPORTS)
+endif(WIN32)
 
-ADD_LIBRARY(stbevent ${stbevent_HEADERS} ${stbevent_SOURCES})
-TARGET_LINK_LIBRARIES(stbevent stbkernel ${OPENTRACKER_LIBRARIES})
+add_library(stbevent ${stbevent_HEADERS} ${stbevent_SOURCES})
+target_link_libraries(stbevent stbkernel ${OPENTRACKER_LIBRARIES})
 
-SET_TARGET_PROPERTIES(stbevent PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
-INSTALL(TARGETS stbevent DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(stbevent PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
+install(TARGETS stbevent DESTINATION ${CMAKE_INSTALL_LIBDIR})

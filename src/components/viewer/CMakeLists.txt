@@ -1,29 +1,29 @@
-FILE(GLOB_RECURSE stbviewer_qt_SOURCES *.cpp *.cxx)
-FILE(GLOB stbviewer_qt_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/viewer/*.h)
+file(GLOB_RECURSE stbviewer_qt_SOURCES *.cpp *.cxx)
+file(GLOB stbviewer_qt_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/viewer/*.h)
 
-IF(WIN32)
-   ADD_DEFINITIONS(-DVIEWER_EXPORTS)
-ENDIF(WIN32)
+if(WIN32)
+   add_definitions(-DVIEWER_EXPORTS)
+endif(WIN32)
 
 # Qt:
-INCLUDE(${QT_USE_FILE})
+include(${QT_USE_FILE})
 
-IF (QUARTER_FOUND)
+if (QUARTER_FOUND)
    # Quarter
-   ADD_DEFINITIONS(-DUSE_QUARTER)
-ELSE (QUARTER_FOUND)
+   add_definitions(-DUSE_QUARTER)
+else (QUARTER_FOUND)
    # SoQt:
-   ADD_DEFINITIONS(-DUSE_SOQT)
-ENDIF (QUARTER_FOUND)
+   add_definitions(-DUSE_SOQT)
+endif (QUARTER_FOUND)
 
-ADD_LIBRARY(stbviewer_qt ${stbviewer_qt_HEADERS} ${stbviewer_qt_SOURCES})
-TARGET_LINK_LIBRARIES(stbviewer_qt stbkernel ${QT_LIBRARIES})
+add_library(stbviewer_qt ${stbviewer_qt_HEADERS} ${stbviewer_qt_SOURCES})
+target_link_libraries(stbviewer_qt stbkernel ${QT_LIBRARIES})
 
-IF (QUARTER_FOUND)
-   TARGET_LINK_LIBRARIES(stbviewer_qt ${QUARTER_LIBRARIES})
-ELSE (QUARTER_FOUND)
-   TARGET_LINK_LIBRARIES(stbviewer_qt ${SOQT_LIBRARIES})
-ENDIF (QUARTER_FOUND)
+if (QUARTER_FOUND)
+   target_link_libraries(stbviewer_qt ${QUARTER_LIBRARIES})
+else (QUARTER_FOUND)
+   target_link_libraries(stbviewer_qt ${SOQT_LIBRARIES})
+endif (QUARTER_FOUND)
 
-SET_TARGET_PROPERTIES(stbviewer_qt PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
-INSTALL(TARGETS stbviewer_qt DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(stbviewer_qt PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
+install(TARGETS stbviewer_qt DESTINATION ${CMAKE_INSTALL_LIBDIR})

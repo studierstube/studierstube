@@ -1,4 +1,4 @@
-ADD_SUBDIRECTORY(event)
-ADD_SUBDIRECTORY(starlight)
-ADD_SUBDIRECTORY(video)
-ADD_SUBDIRECTORY(viewer)
+add_subdirectory(event)
+add_subdirectory(starlight)
+add_subdirectory(video)
+add_subdirectory(viewer)

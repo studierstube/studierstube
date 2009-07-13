@@ -1,28 +1,28 @@
-FILE(GLOB stbvideo_SOURCES *.cpp *.cxx)
-FILE(GLOB stbvideo_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/video/*.h)
+file(GLOB stbvideo_SOURCES *.cpp *.cxx)
+file(GLOB stbvideo_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/video/*.h)
 
-IF(WIN32)
-   ADD_DEFINITIONS(-DVIDEO_EXPORTS)
-ENDIF(WIN32)
+if(WIN32)
+   add_definitions(-DVIDEO_EXPORTS)
+endif(WIN32)
 
 
 # Qt:
-INCLUDE(${QT_USE_FILE})
+include(${QT_USE_FILE})
 
-IF (QUARTER_FOUND)
+if (QUARTER_FOUND)
    # Quarter
-   ADD_DEFINITIONS(-DUSE_QUARTER)
-ELSE (QUARTER_FOUND)
+   add_definitions(-DUSE_QUARTER)
+else (QUARTER_FOUND)
    # SoQt:
-   ADD_DEFINITIONS(-DUSE_SOQT)
-ENDIF (QUARTER_FOUND)
+   add_definitions(-DUSE_SOQT)
+endif (QUARTER_FOUND)
 
-IF(UNIX)
-   ADD_DEFINITIONS(-DOV_IS_LINUX)
-ENDIF(UNIX)
+if(UNIX)
+   add_definitions(-DOV_IS_LINUX)
+endif(UNIX)
 
-ADD_LIBRARY(stbvideo ${stbvideo_HEADERS} ${stbvideo_SOURCES})
-TARGET_LINK_LIBRARIES(stbvideo stbkernel ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${OPENVIDEO_LIBRARIES})
+add_library(stbvideo ${stbvideo_HEADERS} ${stbvideo_SOURCES})
+target_link_libraries(stbvideo stbkernel ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY} ${OPENVIDEO_LIBRARIES})
 
-SET_TARGET_PROPERTIES(stbvideo PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
-INSTALL(TARGETS stbvideo DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(stbvideo PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
+install(TARGETS stbvideo DESTINATION ${CMAKE_INSTALL_LIBDIR})

@@ -1,16 +1,16 @@
-FILE(GLOB stbstarlight_SOURCES *.cpp *.cxx)
-FILE(GLOB stbstarlight_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/starlight/*.h)
+file(GLOB stbstarlight_SOURCES *.cpp *.cxx)
+file(GLOB stbstarlight_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../../include/stb/components/starlight/*.h)
 
-IF(WIN32)
-   ADD_DEFINITIONS(-DSTARLIGHT_EXPORTS)
-ENDIF(WIN32)
+if(WIN32)
+   add_definitions(-DSTARLIGHT_EXPORTS)
+endif(WIN32)
 
-ADD_LIBRARY(stbstarlight ${stbstarlight_HEADERS} ${stbstarlight_SOURCES})
-TARGET_LINK_LIBRARIES(stbstarlight stbkernel ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
+add_library(stbstarlight ${stbstarlight_HEADERS} ${stbstarlight_SOURCES})
+target_link_libraries(stbstarlight stbkernel ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
 
 if (UNIX)
-TARGET_LINK_LIBRARIES(stbstarlight ltdl)
+target_link_libraries(stbstarlight ltdl)
 endif (UNIX)
 
-SET_TARGET_PROPERTIES(stbstarlight PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
-INSTALL(TARGETS stbstarlight DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(stbstarlight PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
+install(TARGETS stbstarlight DESTINATION ${CMAKE_INSTALL_LIBDIR})

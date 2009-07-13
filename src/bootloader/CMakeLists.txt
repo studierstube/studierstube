@@ -1,7 +1,7 @@
-FILE(GLOB workspace_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp *.cxx ../base/string.cxx ../base/OS.cxx)
-FILE(GLOB workspace_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../include/stb/base/*.h ../../include/stb/bootloader/*.h)
+file(GLOB workspace_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp *.cxx ../base/string.cxx ../base/OS.cxx)
+file(GLOB workspace_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../include/stb/base/*.h ../../include/stb/bootloader/*.h)
 
-ADD_EXECUTABLE(workspace ${workspace_HEADERS} ${workspace_SOURCES})
-TARGET_LINK_LIBRARIES(workspace ${ACE_LIBRARIES})
+add_executable(workspace ${workspace_HEADERS} ${workspace_SOURCES})
+target_link_libraries(workspace ${ACE_LIBRARIES})
 
-INSTALL(TARGETS workspace DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS workspace DESTINATION ${CMAKE_INSTALL_BINDIR})

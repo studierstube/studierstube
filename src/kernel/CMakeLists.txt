@@ -1,12 +1,12 @@
-FILE(GLOB_RECURSE stbkernel_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp *.cxx ../base/*.cxx ../base/*.cpp)
-FILE(GLOB_RECURSE stbkernel_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../include/stb/kernel/*.h ../../include/stb/base/*.h)
+file(GLOB_RECURSE stbkernel_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp *.cxx ../base/*.cxx ../base/*.cpp)
+file(GLOB_RECURSE stbkernel_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ../../include/stb/kernel/*.h ../../include/stb/base/*.h)
 
-IF(WIN32)
-   ADD_DEFINITIONS(-DKERNEL_EXPORTS)
-ENDIF(WIN32)
+if(WIN32)
+   add_definitions(-DKERNEL_EXPORTS)
+endif(WIN32)
 
-ADD_LIBRARY(stbkernel ${stbkernel_HEADERS} ${stbkernel_SOURCES})
-TARGET_LINK_LIBRARIES(stbkernel ${COIN_LIBRARIES} ${ACE_LIBRARIES} ${TINY_XML_LIBRARY})
+add_library(stbkernel ${stbkernel_HEADERS} ${stbkernel_SOURCES})
+target_link_libraries(stbkernel ${COIN_LIBRARIES} ${ACE_LIBRARIES} ${TINY_XML_LIBRARY})
 
-SET_TARGET_PROPERTIES(stbkernel PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
-INSTALL(TARGETS stbkernel DESTINATION ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(stbkernel PROPERTIES VERSION ${CPACK_PACKAGE_VERSION} SOVERSION ${CPACK_PACKAGE_VERSION_MAJOR})
+install(TARGETS stbkernel DESTINATION ${CMAKE_INSTALL_LIBDIR})
