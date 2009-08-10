@@ -92,6 +92,8 @@ public:
      ************************************************************************/
     void registerApp(SoSeparator *appRoot);
 
+	void setAppSource(SoNode* appNode); 
+
     /************************************************************************
      * Returns a pointer to the applications scene root node.
      ************************************************************************/

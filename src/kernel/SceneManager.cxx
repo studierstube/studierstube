@@ -139,5 +139,14 @@ SceneManager::setDisplay(SoGroup *display)
     }
 }
 
+void SceneManager::setAppSource( SoNode* appNode )
+{
+	while(sceneRoot->getNumChildren()>1){
+		sceneRoot->removeChild(1); 
+	}
+	if(appNode)
+		sceneRoot->addChild(appNode); 
+
+}
 
 END_NAMESPACE_STB
