@@ -94,6 +94,8 @@ public:
 
 	void setAppSource(SoNode* appNode); 
 
+	bool hasAppSource(); 
+
     /************************************************************************
      * Returns a pointer to the applications scene root node.
      ************************************************************************/

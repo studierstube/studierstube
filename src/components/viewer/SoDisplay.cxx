@@ -40,6 +40,9 @@
 #include <stb/components/viewer/SoStbCamera.h>
 #include <stb/components/viewer/SoOffAxisCamera.h>
 #include <stb/components/viewer/SoViewport.h>
+#include <Inventor/sensors/SoFieldSensor.h>
+
+#include <iostream>
 
 #include SOGUI_H
 #include SOGUI_CURSOR_H
@@ -114,6 +117,32 @@ SoDisplay::SoDisplay()
     SO_NODE_SET_SF_ENUM_TYPE(transparencyType, TransparencyType);
 
     examCam=NULL;
+
+
+	#ifndef USE_QUARTER
+	backgroundSensor = NULL; 
+	quadBufferingChangedSensor = NULL; 
+	transparencyTypeChangedSensor = NULL; 
+	xOffsetChangedSensor = NULL; 
+	yOffsetChangedSensor = NULL; 
+	widthChangedSensor =  NULL;
+	heightChangedSensor =  NULL;
+	fullscreenChangedSensor =  NULL; 
+	headLightOnChangedSensor =  NULL; 
+	headlightIntensityChangedSensor =  NULL; 
+	clearBackgroundChangedSensor =  NULL; 
+	showMouseChangedSensor = NULL; 
+	windowBorderChangedSensor =  NULL; 
+	decorationChangedSensor =  NULL; 
+	windowOnTopChangedSensor =  NULL; 
+	useRefCameraChangedSensor =  NULL; 
+	stencilBufferChangedSensor =  NULL; 
+	isViewingChangedSensor =  NULL; 
+	showFramerateChangedSensor =  NULL; 
+	showTriangleCountChangedSensor =  NULL; 
+	antiAliasingLevelChangedSensor =  NULL; 
+	sampleBuffersChangedSensor =  NULL; 
+#endif
 }
 
 //----------------------------------------------------------------------------
@@ -124,6 +153,54 @@ SoDisplay::~SoDisplay()
     {
         viewer->hide();
         delete viewer;
+
+	#ifndef USE_QUARTER
+		delete backgroundSensor;
+		delete quadBufferingChangedSensor;
+		delete transparencyTypeChangedSensor;
+		delete xOffsetChangedSensor;
+		delete yOffsetChangedSensor;
+		delete widthChangedSensor;
+		delete heightChangedSensor;
+		delete fullscreenChangedSensor;
+		delete headLightOnChangedSensor;
+		delete headlightIntensityChangedSensor;
+		delete clearBackgroundChangedSensor;
+		delete showMouseChangedSensor;
+		delete windowBorderChangedSensor;
+		delete decorationChangedSensor;
+		delete windowOnTopChangedSensor;
+		delete useRefCameraChangedSensor;
+		delete stencilBufferChangedSensor;
+		delete isViewingChangedSensor;
+		delete showFramerateChangedSensor;
+		delete showTriangleCountChangedSensor;
+		delete antiAliasingLevelChangedSensor;
+		delete sampleBuffersChangedSensor;
+
+		backgroundSensor = NULL; 
+		quadBufferingChangedSensor = NULL; 
+		transparencyTypeChangedSensor = NULL; 
+		xOffsetChangedSensor = NULL; 
+		yOffsetChangedSensor = NULL; 
+		widthChangedSensor =  NULL;
+		heightChangedSensor =  NULL;
+		fullscreenChangedSensor =  NULL; 
+		headLightOnChangedSensor =  NULL; 
+		headlightIntensityChangedSensor =  NULL; 
+		clearBackgroundChangedSensor =  NULL; 
+		showMouseChangedSensor = NULL; 
+		windowBorderChangedSensor =  NULL; 
+		decorationChangedSensor =  NULL; 
+		windowOnTopChangedSensor =  NULL; 
+		useRefCameraChangedSensor =  NULL; 
+		stencilBufferChangedSensor =  NULL; 
+		isViewingChangedSensor =  NULL; 
+		showFramerateChangedSensor =  NULL; 
+		showTriangleCountChangedSensor =  NULL; 
+		antiAliasingLevelChangedSensor =  NULL; 
+		sampleBuffersChangedSensor =  NULL; 
+	#endif
     }
 }
 
@@ -169,6 +246,7 @@ SoDisplay::createViewer()
     if(useRefCamera.getValue()){
         examCam= new SoPerspectiveCamera();
         displayRoot->addChild(examCam);
+		
     }
     if(sceneGraph.getValue()){
 		displayRoot->addChild(sceneGraph.getValue());
@@ -353,6 +431,86 @@ SoDisplay::createViewer()
     viewer->printTriangles(showTriangleCount.getValue() == TRUE);
     viewer->printFrameRate(showFrameRate.getValue() == TRUE);
 
+	//SoCamera *camera = myViewer->getCamera();
+
+	//Changes by Felix Nairz (nairz@sbox.tugraz.at)
+	//The following Sensors make a modification of the viewer fields during run-time possible. 
+	#ifndef USE_QUARTER
+	backgroundSensor = new SoFieldSensor(backgroundColorChangedCB, this);
+	backgroundSensor->attach(&this->backgroundColor);
+
+	quadBufferingChangedSensor = new SoFieldSensor(quadBufferingChangedCB, this); 
+	quadBufferingChangedSensor->attach(&this->quadBuffering); 
+
+	 transparencyTypeChangedSensor = new SoFieldSensor(TransparencyTypeChangedCB, this); 
+	transparencyTypeChangedSensor->attach(&this->transparencyType); 
+
+	 xOffsetChangedSensor = new SoFieldSensor(xoffsetChangedCB, this); 
+	xOffsetChangedSensor->attach(&this->xoffset); 
+
+
+	 yOffsetChangedSensor = new SoFieldSensor(yoffsetChangedCB, this); 
+	yOffsetChangedSensor->attach(&this->yoffset); 
+
+	 widthChangedSensor = new SoFieldSensor(widthChangedCB, this); 
+	widthChangedSensor->attach(&this->width); 
+
+	 heightChangedSensor = new SoFieldSensor(heightChangedCB, this); 
+	heightChangedSensor->attach(&this->height); 
+
+	 fullscreenChangedSensor = new SoFieldSensor(fullscreenChangedCB, this); 
+	fullscreenChangedSensor->attach(&this->fullscreen); 
+
+	 headLightOnChangedSensor = new SoFieldSensor(headLightOnChangedCB, this); 
+	headLightOnChangedSensor->attach(&this->headlight); 
+
+	 headlightIntensityChangedSensor = new SoFieldSensor(headLightIntensityChangedCB, this); 
+	headlightIntensityChangedSensor->attach(&this->headlightIntensity); 
+
+	 clearBackgroundChangedSensor = new SoFieldSensor(clearBackgroundChangedCB, this); 
+	clearBackgroundChangedSensor->attach(&this->clearBackGround); 
+
+	 showMouseChangedSensor = new SoFieldSensor(showMouseChangedCB, this); 
+	showMouseChangedSensor->attach(&this->showMouse); 
+
+	 windowBorderChangedSensor = new SoFieldSensor(windowBorderChangedCB, this); 
+	windowBorderChangedSensor->attach(&this->windowBorder); 
+
+	 decorationChangedSensor = new SoFieldSensor(decorationChangedCB, this); 
+	decorationChangedSensor->attach(&this->decoration); 
+
+	 windowOnTopChangedSensor = new SoFieldSensor(windowOnTopChangedCB, this); 
+	windowOnTopChangedSensor->attach(&this->windowOnTop); 
+
+
+	 useRefCameraChangedSensor = new SoFieldSensor(useRefCameraChangedCB, this); 
+	useRefCameraChangedSensor->attach(&this->useRefCamera); 
+
+	 stencilBufferChangedSensor = new SoFieldSensor(stencilBufferChangedCB, this); 
+	stencilBufferChangedSensor->attach(&this->stencilBuffer); 
+
+	 isViewingChangedSensor = new SoFieldSensor(isViewingChangedCB, this); 
+	isViewingChangedSensor->attach(&this->isViewing); 
+
+	 showFramerateChangedSensor = new SoFieldSensor(showFramerateChangedCB, this); 
+	showFramerateChangedSensor->attach(&this->showFrameRate); 
+
+	 showTriangleCountChangedSensor = new SoFieldSensor(showTriangleCountChangedCB, this); 
+	showTriangleCountChangedSensor->attach(&this->showTriangleCount); 
+
+	 antiAliasingLevelChangedSensor = new SoFieldSensor(antiAliasingLevelChangedCB, this); 
+	antiAliasingLevelChangedSensor->attach(&this->antialiasingLevel); 
+
+	 sampleBuffersChangedSensor = new SoFieldSensor(sampleBuffersChangedCB, this); 
+	sampleBuffersChangedSensor->attach(&this->sampleBuffers); 
+#endif
+	
+
+
+
+
+
+
 
 #ifndef USE_QUARTER	
     viewer->setWindowCloseCallback(exitViewer, NULL);
@@ -415,6 +573,196 @@ SoDisplay::findType(const SoType type)
 	return false;
 }
 
+#ifndef USE_QUARTER
+void SoDisplay::backgroundColorChangedCB( void* data, SoSensor* )
+{
+	SoDisplay *display = (SoDisplay*)data;
+	SbColor background = display->backgroundColor.getValue(); 
+	std::cout << "backgroundColorChangedCB called, new values are: " << background[0] << background[1] << background[2] << std::endl; 
+	display->viewer->setBackgroundColor(background);
+}
+
+void SoDisplay::quadBufferingChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"quadBufferChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	SbBool quadBuffer = display->quadBuffering.getValue(); 
+	display->viewer->setQuadBufferStereo(quadBuffer); 
+
+}
+
+void SoDisplay::TransparencyTypeChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"TransparencyTypeChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setTransparencyType(
+		(SoGLRenderAction::TransparencyType)display->transparencyType.getValue());
+
+}
+
+void SoDisplay::xoffsetChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"xoffsetChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowPosSize(display->xoffset.getValue(), display->yoffset.getValue(),
+		display->width.getValue()  , display->height.getValue());
+
+}
+
+void SoDisplay::yoffsetChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"yoffsetChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowPosSize(display->xoffset.getValue(), display->yoffset.getValue(),
+		display->width.getValue()  , display->height.getValue());
+}
+
+void SoDisplay::widthChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"widthChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowPosSize(display->xoffset.getValue(), display->yoffset.getValue(),
+		display->width.getValue()  , display->height.getValue());
+}
+
+void SoDisplay::heightChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"heightChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowPosSize(display->xoffset.getValue(), display->yoffset.getValue(),
+		display->width.getValue()  , display->height.getValue());
+}
+
+void SoDisplay::fullscreenChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"fullscreenChangedCB called" << std::endl; 
+	std::cout << "This mode is not supported by SoQT or not implemented by the SoDisplay class" << std::endl; 
+
+}
+
+void SoDisplay::headLightOnChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"headLightOnChangedCB called" << std::endl; 
+	std::cout << "This variable is not implemented in the SoDisplay class" << std::endl; 
+
+}
+
+void SoDisplay::headLightIntensityChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"headLightIntensityChangedCB called" << std::endl; 
+	std::cout << "This variable is not implemented in the SoDisplay class" << std::endl; 
+
+}
+
+void SoDisplay::clearBackgroundChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"clearBackgroundChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setClearBeforeRender(display->clearBackGround.getValue());
+}
+
+void SoDisplay::showMouseChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"showMouseChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	if(display->showMouse.getValue() == false){
+		display->viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
+	}
+	else{
+		display->viewer->setComponentCursor(SoQtCursor::DEFAULT); 
+	}
+}
+
+void SoDisplay::windowBorderChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"windowBorderChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+
+	display->viewer->setWindowDecoration(display->windowBorder.getValue());
+	if( display->viewer->isDecoration() != display->decoration.getValue())
+		display->viewer->setDecoration( display->decoration.getValue());
+
+}
+
+void SoDisplay::decorationChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"windowBorderChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowDecoration(display->windowBorder.getValue());
+	if( display->viewer->isDecoration() != display->decoration.getValue())
+		display->viewer->setDecoration( display->decoration.getValue());
+
+}
+
+void SoDisplay::windowOnTopChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"windowOnTopChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setWindowOnTop(display->windowOnTop.getValue());
+
+}
+
+void SoDisplay::stencilBufferChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"stencilBufferChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setStencilBuffer(display->stencilBuffer.getValue());
+
+}
+
+void SoDisplay::useRefCameraChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"useRefCameraChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+
+	if(display->useRefCamera.getValue()){
+		if(display->examCam == NULL )
+			display->examCam= new SoPerspectiveCamera();
+		display->displayRoot->insertChild(display->examCam, 0);
+	}
+	else{
+		display->displayRoot->removeChild(display->examCam);
+	}
+
+}
+
+void SoDisplay::isViewingChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"isViewingChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setViewing(display->isViewing.getValue());
+
+}
+
+void SoDisplay::showFramerateChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"showFramerateChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->printFrameRate(display->showFrameRate.getValue() == TRUE);
+	
+}
+
+void SoDisplay::showTriangleCountChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"showTriangleCountChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->printTriangles(display->showTriangleCount.getValue() == TRUE);
+}
+
+void SoDisplay::antiAliasingLevelChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"antiAliasingLevelChangedCB called" << std::endl; 
+	SoDisplay *display = (SoDisplay*)data;
+	display->viewer->setAntialiasing(display->antialiasingLevel.getValue());
+}
+
+void SoDisplay::sampleBuffersChangedCB( void* data, SoSensor* )
+{
+	std::cout <<"sampleBuffersChangedCB called" << std::endl; 
+	std::cout << "This variable is not implemented in the SoDisplay class" << std::endl; 
+
+}
+#endif
 //void
 //SoDisplay::findStbCameras(SoPathList & list)
 //{

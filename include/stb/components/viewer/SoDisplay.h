@@ -49,6 +49,7 @@
 #include <Inventor/fields/SoSFString.h>
 #include <stb/components/viewer/guiDefines.h>
 #include <stb/components/viewer/SoStbCamera.h>
+#include <Inventor/sensors/SoFieldSensor.h>
 
 #ifdef None // fix for some strange problem with Qt includes
 #undef None
@@ -246,6 +247,35 @@ public:
     /************************************************************************/
     SoPerspectiveCamera* getReferenceCamera();
 
+
+#ifndef USE_QUARTER
+	static void backgroundColorChangedCB(void* data, SoSensor*); 
+
+	static void quadBufferingChangedCB(void* data, SoSensor*); 
+	static void TransparencyTypeChangedCB(void* data, SoSensor*); 
+	static void xoffsetChangedCB(void* data, SoSensor*); 
+	static void yoffsetChangedCB(void* data, SoSensor*); 
+	static void widthChangedCB(void* data, SoSensor*); 
+	static void heightChangedCB(void* data, SoSensor*); 
+	static void fullscreenChangedCB(void* data, SoSensor*); 
+
+	static void headLightOnChangedCB(void* data, SoSensor*); 
+	static void headLightIntensityChangedCB(void* data, SoSensor*); 
+	static void clearBackgroundChangedCB(void* data, SoSensor*); 
+	static void showMouseChangedCB(void* data, SoSensor*); 
+	static void windowBorderChangedCB(void* data, SoSensor*); 
+	static void decorationChangedCB(void* data, SoSensor*); 
+	
+	static void windowOnTopChangedCB(void* data, SoSensor*); 
+	static void stencilBufferChangedCB(void* data, SoSensor*); 
+	static void useRefCameraChangedCB(void* data, SoSensor*); 
+	static void isViewingChangedCB(void* data, SoSensor*); 
+	static void showFramerateChangedCB(void* data, SoSensor*); 
+	static void showTriangleCountChangedCB(void* data, SoSensor*); 
+	static void antiAliasingLevelChangedCB(void* data, SoSensor*); 
+	static void sampleBuffersChangedCB(void* data, SoSensor*); 
+#endif
+
  protected:
     SoStudierstubeViewer* viewer;
     
@@ -263,7 +293,33 @@ public:
      *'readInstance' calls createViewer() to create a new studierstubeviewer while reading display from a file
      */
     virtual SbBool readInstance(SoInput *in, unsigned short flags);
+
+
+	#ifndef USE_QUARTER
+	SoFieldSensor* backgroundSensor; 
+	SoFieldSensor* quadBufferingChangedSensor; 
+	SoFieldSensor* transparencyTypeChangedSensor; 
+	SoFieldSensor* xOffsetChangedSensor; 
+	SoFieldSensor* yOffsetChangedSensor; 
+	SoFieldSensor* widthChangedSensor;
+	SoFieldSensor* heightChangedSensor;
+	SoFieldSensor* fullscreenChangedSensor; 
+	SoFieldSensor* headLightOnChangedSensor; 
+	SoFieldSensor* headlightIntensityChangedSensor; 
+	SoFieldSensor* clearBackgroundChangedSensor; 
+	SoFieldSensor* showMouseChangedSensor; 
+	SoFieldSensor* windowBorderChangedSensor; 
+	SoFieldSensor* decorationChangedSensor; 
+	SoFieldSensor* windowOnTopChangedSensor; 
+	SoFieldSensor* useRefCameraChangedSensor; 
+	SoFieldSensor* stencilBufferChangedSensor; 
+	SoFieldSensor* isViewingChangedSensor; 
+	SoFieldSensor* showFramerateChangedSensor; 
+	SoFieldSensor* showTriangleCountChangedSensor; 
+	SoFieldSensor* antiAliasingLevelChangedSensor; 
+	SoFieldSensor* sampleBuffersChangedSensor; 
     
+#endif
  };
 
  END_NAMESPACE_STB

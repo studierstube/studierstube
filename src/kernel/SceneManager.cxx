@@ -149,4 +149,12 @@ void SceneManager::setAppSource( SoNode* appNode )
 
 }
 
+bool SceneManager::hasAppSource()
+{
+	if(sceneRoot->getNumChildren()>1)
+		return true; 
+	else
+		return false; 
+
+}
 END_NAMESPACE_STB
