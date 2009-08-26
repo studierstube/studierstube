@@ -669,7 +669,7 @@ void SoDisplay::showMouseChangedCB( void* data, SoSensor* )
 		display->viewer->setComponentCursor(SoGuiCursor::getBlankCursor());
 	}
 	else{
-		display->viewer->setComponentCursor(SoQtCursor::DEFAULT); 
+		display->viewer->setComponentCursor(SoGuiCursor::DEFAULT); 
 	}
 }
 

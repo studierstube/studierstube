@@ -225,15 +225,17 @@ ComponentManager::connectComponents(Component* component)
 
 void ComponentManager::shutDown()
 {
-    for(int i=0;i<(int)compList.size();i++)
+    while(!appList.empty())
     {
-        stb::logPrintI("Shutting Down %s Component\n",compList[i]->getInfo()->getName().c_str());
-        compList[i]->shutDown();
+        stb::logPrintI("Shutting Down %s Application\n",appList.back()->getInfo()->getName().c_str());
+        appList.back()->shutDown();
+		appList.pop_back();
     }
-    for(int i=0;i<(int)appList.size();i++)
+    while(!compList.empty())
     {
-        stb::logPrintI("Shutting Down %s Application\n",appList[i]->getInfo()->getName().c_str());
-        appList[i]->shutDown();
+        stb::logPrintI("Shutting Down %s Component\n",compList.back()->getInfo()->getName().c_str());
+        compList.back()->shutDown();
+		compList.pop_back();
     }
 }
 
