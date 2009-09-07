@@ -157,4 +157,11 @@ bool SceneManager::hasAppSource()
 		return false; 
 
 }
+
+SoNode* SceneManager::getAppSource()
+{
+	if(sceneRoot->getNumChildren()>1)
+		return sceneRoot->getChild(1); 
+	return NULL; 
+}
 END_NAMESPACE_STB

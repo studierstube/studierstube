@@ -94,6 +94,8 @@ public:
 
 	void setAppSource(SoNode* appNode); 
 
+	SoNode* getAppSource(); 
+
 	bool hasAppSource(); 
 
     /************************************************************************
